@@ -14,6 +14,7 @@ import Master from '@/pages/Master'
 import Fortune from '@/pages/Fortune'
 import Predict from '@/pages/Predict'
 import Mine from '@/pages/Mine'
+import Bazi from '@/pages/Bazi'
 
 Vue.use(Router)
 
@@ -56,31 +57,36 @@ export default new Router({
       redirect: '/main/home',
       children: [
         {
-          path : "/main/home",
-          name : "home",
+          path : '/main/home',
+          name : 'home',
           component: Home
         },
         {
-          path : "/main/master",
-          name : "master",
+          path : '/main/master',
+          name : 'master',
           component: Master
         },
         {
-          path : "/main/fortune",
-          name : "fortune",
+          path : '/main/fortune',
+          name : 'fortune',
           component: Fortune
         },
         {
-          path : "/main/predict",
-          name : "predict",
+          path : '/main/predict',
+          name : 'predict',
           component: Predict
         },
         {
-          path : "/main/mine",
-          name : "mine",
+          path : '/main/mine',
+          name : 'mine',
           component: Mine
         }
       ]
+    },
+    {
+      path : '/bazi',
+      name : 'bazi',
+      component : Bazi,
     }
   ]
 })

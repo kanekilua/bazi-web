@@ -10,7 +10,7 @@
                     <span>/</span>
                     <span :style="{color:registerColor}" @touchstart="registerStyleChange"  @click="$jump('register')">立即注册</span>
                 </div>
-                <x-button :gradients="[gradientStart, gradientEnd]" @click.native="login">立刻登入</x-button>
+                <x-button @click.native="login">立刻登入</x-button>
             </group>
             <div class="externLink">
                 <img src="../assets/image/login/qq@3x.png" alt="qq">

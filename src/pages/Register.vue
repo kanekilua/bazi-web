@@ -5,13 +5,13 @@
             <group>
                 <x-input placeholder="请输入您的手机号" v-model="phone" keyboard="number" is-type="china-mobile" :max="11"></x-input>
                 <x-input placeholder="请输入您的验证码" v-model="captcha" :max="4" type="number">
-                    <x-button slot="right" :gradients="[gradientStart, gradientEnd]" @click.native="getCaptcha" mini>获取验证码</x-button>
+                    <x-button slot="right" @click.native="getCaptcha" mini>获取验证码</x-button>
                 </x-input>
                 <x-input placeholder="请设置您的密码" v-model="password" :min="8" :max="18" type="password"></x-input>
                 <div class="userAgreement">
                     <check-icon :value.sync="checkUserAgreement">我已阅读并同意<router-link to="userAgreement">《注册服务协议》</router-link></check-icon>
                 </div>
-                <x-button :gradients="[gradientStart, gradientEnd]" @click.native="register">立刻注册</x-button>
+                <x-button @click.native="register">立刻注册</x-button>
             </group>
         </div>
     </div>
@@ -27,8 +27,6 @@ export default {
             phone : "",
             captcha : "",
             password : "",
-            gradientStart : global.GRADIENT_START,
-            gradientEnd : global.GRADIENT_END,
             checkUserAgreement : false
         }
     },
@@ -89,10 +87,10 @@ export default {
         }
         /deep/ .weui-icon-success {
             font-size: 25/75rem;
-            color: @checkBackGroud;
+            color: @baseColor;
         }
         /deep/ .vux-check-icon > .weui-icon-success:before, .vux-check-icon > .weui-icon-success-circle:before {
-            color: @checkBackGroud;
+            color: @baseColor;
         }
         /deep/ .vux-check-icon > span {
             color: @inputColor;
@@ -101,7 +99,7 @@ export default {
             color: @inputColor;
         }
         a:hover,a:active {
-            color: @linkColor;
+            color: @baseColor;
         }
     }
 }

@@ -17,7 +17,7 @@
                 </div>
             </div>
             <input type="text" class="input-born" placeholder="请选择您的出生日期">
-            <x-button :gradients="[gradientStart, gradientEnd]" id="save-confirm">确认保存</x-button>
+            <x-button id="save-confirm">确认保存</x-button>
         </div>
     </div>
 </template>
@@ -29,8 +29,6 @@ export default {
     data () {
         return {
             navTitle: "生辰八字",
-            gradientStart : global.GRADIENT_START,
-            gradientEnd : global.GRADIENT_END
         }
     },
     components: {
@@ -91,14 +89,14 @@ export default {
             border: 1px solid #eee;
         }
         input[id="male"]:checked  + label{
-           background: url('../assets/image/birth/man.png') no-repeat center center / 100% 100%;
+           background: url('../assets/image/birth/man@2x.png') no-repeat center center / 100% 100%;
            & + div{
                 color:rgba(0,0,0,1);
                 opacity:0.8;
            }
         }
         input[id="female"]:checked  + label{
-           background: url('../assets/image/birth/woman.png') no-repeat center center / 100% 100%;
+           background: url('../assets/image/birth/woman@2x.png') no-repeat center center / 50% 100%;
            & + div{
                 color:rgba(0,0,0,1);
                 opacity:0.8;
