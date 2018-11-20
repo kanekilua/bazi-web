@@ -23,8 +23,9 @@ export default {
     .nav-list{
         width: 100%;
         overflow: hidden;
+        .flex-start();
         .item{
-            width: 20%;
+            padding: 0 10/75rem;
             display: inline-block;
             text-align: center;
             height: 70/75rem;
