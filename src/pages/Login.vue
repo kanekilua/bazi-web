@@ -15,7 +15,7 @@
             <div class="externLink">
                 <img src="../assets/image/login/qq@3x.png" alt="qq">
                 <img src="../assets/image/login/sina@3x.png" alt="sina">
-                <img src="../assets/image/login/wechat@3x.png" alt="wechat">
+                <img src="../assets/image/login/wechat@3x.png" alt="wechat" @click="wechatLogin">
             </div>
         </div>
     </div>
@@ -60,6 +60,26 @@ export default {
             this.updateLoginAccount(this.account);
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             this.$jump('main');
+        },
+        wechatLogin : function () {
+            console.log("--------------------验证是否下载微信----------------------");
+            Wechat.isInstalled(function (installed) {
+                console.log("--------------------" + "Wechat installed: " + (installed ? "Yes" : "No") + "--------------------");
+                console.log("--------------------进入验证----------------------");
+                var scope = "snsapi_userinfo",
+                state = "_" + (+new Date());
+                Wechat.auth(scope, state, function (response) {
+                    console.log("--------------------验证通过了----------------------");
+                    // you may use response.code to get the access token.
+                    console.log("--------------------"+ JSON.stringify(response)+"--------------------");
+                }, function (reason) {
+                    console.log("--------------------验证失败了----------------------");
+                    this.$vux.toast.text("Failed: " + reason,"top");
+                    console.log("--------------------Failed: " + reason + "--------------------");
+                });
+            }, function (reason) {
+                console.log("--------------------" + "Failed: " + reason + "--------------------");
+            });
         }
     }
 }
