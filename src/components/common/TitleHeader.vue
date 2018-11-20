@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <div @click="back"><img src="../../assets/image/title-header/icon.png" alt="logoBackground" class="icon"></div>
+        <div @click="back"><img src="../../assets/image/title-header/back.png" alt="logoBackground" class="icon"></div>
         <div class="title">{{title}}</div>
         <div class="icon"></div>
     </div>

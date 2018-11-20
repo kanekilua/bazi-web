@@ -91,14 +91,14 @@ export default {
             border: 1px solid #eee;
         }
         input[id="male"]:checked  + label{
-           background: url('../assets/image/birth/man.png') no-repeat center center / 100% 100%;
+           background: url('../assets/image/birth/man.png') no-repeat center center / 100% 80%;
            & + div{
                 color:rgba(0,0,0,1);
                 opacity:0.8;
            }
         }
         input[id="female"]:checked  + label{
-           background: url('../assets/image/birth/woman.png') no-repeat center center / 100% 100%;
+           background: url('../assets/image/birth/woman.png') no-repeat center center / 40% 100%;
            & + div{
                 color:rgba(0,0,0,1);
                 opacity:0.8;
