@@ -2,15 +2,19 @@
     <div class="login">
         <v-logo-header></v-logo-header>
         <div class="form">
+            <v-nav :navList="navList" :nowIndex="navIndex"  @updateNavIndex="updateNavIndex"></v-nav>
             <group>
-                <x-input placeholder="请输入您的账号" v-model="account" :max="12"></x-input>
-                <x-input placeholder="请输入您的密码" v-model="password" :min="8" :max="18" type="password"></x-input>
+                <x-input placeholder="请输入您的手机号" v-model="phone" keyboard="number" is-type="china-mobile" :max="11"></x-input>
+                <x-input placeholder="请输入您的密码" v-if="!navIndex" v-model="password" :min="8" :max="18" type="password"></x-input>
+                <x-input placeholder="请输入验证码" v-else v-model="captcha"  :max="4">
+                    <x-button slot="right"  :gradients="[gradientStart, gradientEnd]" @click.native="getCaptcha" mini>获取验证码</x-button>
+                </x-input>
                 <div class="resetPassword">
                     <span :style="{color:resetPwdColor}" @touchstart="resetStyleChange" @click="$jump('resetPwd')">忘记密码?</span>
                     <span>/</span>
                     <span :style="{color:registerColor}" @touchstart="registerStyleChange"  @click="$jump('register')">立即注册</span>
                 </div>
-                <x-button @click.native="login">立刻登入</x-button>
+                <x-button :gradients="[gradientStart, gradientEnd]" @click.native="login">立刻登入</x-button>
             </group>
             <div class="externLink">
                 <img src="../assets/image/login/qq@3x.png" alt="qq">
@@ -27,12 +31,15 @@ export default {
     name : 'Login',
     data() {
         return {
-            account : "",
+            phone : "",
             password : "",
+            captcha : "",
             gradientStart : global.GRADIENT_START,
             gradientEnd : global.GRADIENT_END,
             resetPwdColor : global.INPUTCOLOR,
-            registerColor :  global.INPUTCOLOR
+            registerColor :  global.INPUTCOLORl,
+            navList : global.NAV_LIST,
+            navIndex : 0
         }
     },
     methods : {
@@ -43,23 +50,43 @@ export default {
         registerStyleChange : function () {
             this.registerColor = global.LINKCOLOR;
         },
+        getCaptcha : function () {
+            if(!this.$utils.checkPhone(this.phone,this)) {
+                return;
+            }
+            let postData = {mobile : this.phone};
+            this.$http.post('/register',postData,'app',null,null,null);
+        },
         login :function () {
-            if(!this.$utils.checkAccount(this.account,this)) {
+            if(!this.$utils.checkPhone(this.phone,this)) {
                 return;
             }
-            if(!this.$utils.checkPassword(this.account,this)) {
-                return;
+            if(!this.navIndex) {
+                if(!this.$utils.checkPassword(this.password,this)) {
+                    return;
+                }
+                let loginData = {
+                    account : this.phone,
+                    password : this.password
+                };
+                this.$http.post('/login',loginData,'app',null,this.loginSuccess,null);
+            }else {
+                // if(!this.$utils.checkCaptcha(this.captcha,this)) {
+                //     return;
+                // }
+                // let loginData = {
+                //     account : this.phone,
+                //     captcha : this.captcha
+                // };
             }
-            let loginData = {
-                account : this.account,
-                password : this.password
-            };
-            this.$http.post('/login',loginData,'app',null,this.loginSuccess,null);
         },
         loginSuccess : function(result) {
             this.updateLoginAccount(this.account);
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             this.$jump('main');
+        },
+        updateNavIndex : function (value) {
+            this.navIndex = value;
         }
     }
 }
@@ -67,6 +94,24 @@ export default {
 <style lang="less" scoped>
 .form {
     .loginForm();
+    /deep/ .nav {
+        margin-bottom : 0;
+    }
+    /deep/ .nav .nav-list {
+        -webkit-justify-content: space-between;
+        -moz-justify-content: space-between;
+        -ms-justify-content: space-between;
+        -o-justify-content: space-between;
+        justify-content: space-between;
+    }
+    /deep/ .weui-cells,.vux-no-group-title {
+        margin-top: 0;
+    }
+    .weui-cell /deep/ .weui-btn {
+        margin-top: 0;
+        height: 60/75rem;
+        font-size: 28/75rem;
+    }
     .resetPassword {
         .flex-end();
         font-size: 24/75rem;
