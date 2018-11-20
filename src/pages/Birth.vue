@@ -113,7 +113,6 @@ export default {
         border-radius: 40/75rem;
         font-size: 28/75rem;
     }
-
 }
 </style>
 

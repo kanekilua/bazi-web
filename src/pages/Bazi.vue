@@ -36,16 +36,40 @@ export default {
         Bazikids,
         BaziDecade
     },
+    data () {
+        return {
+            navList: ["命盘","感情","事业","财运","健康","亲子","十年大运"],
+            list: [BaziMingpan,BaziEmotion,BaziCareer,BaziFortune,BaziHealth,Bazikids,BaziDecade],
+            swiperOption : { initialSlide: this.navIndex },
+            navTitle: "八字排盘",
+            appData: {}
+        }
+    },
     computed : {
         ...mapState ('fortune',['navIndex']),
         swiper () {
             return this.$refs.mySwiper.swiper;
-        }
+        },
     },
     watch : {
         'navIndex' (val) {
             this.swiper.slideTo(val, 0, false);
         }
+    },
+    created() {
+        let userData = {
+            'cid' : 48,
+            'name' : '林健强',
+            'area' : '广东',
+            'sex' : '1',
+            'year' : 1995,
+            'month' : 1,
+            'date' : 7,
+            'hour' : 8,
+            'minute' : 6,
+            'yezis' : 1
+        }
+        this.$http.post('/suan/apidata',userData,'cesuan',null,this.success,this.failure)                 
     },
     mounted() {
         if(this.navIndex != 0) {
@@ -54,15 +78,7 @@ export default {
         this.swiper.on('slideChange', () => {
             this.updateNavIndex(this.swiper.activeIndex);
         });
-    },
-    data () {
-        return {
-            navList: ["命盘","感情","事业","财运","健康","亲子","十年大运"],
-            list: [BaziMingpan,BaziEmotion,BaziCareer,BaziFortune,BaziHealth,Bazikids,BaziDecade],
-            swiperOption : { initialSlide: this.navIndex },
-            navTitle: "八字排盘"
-        }
-    },
+    },  
     methods : {
         ...mapMutations('fortune',['updateNavIndex']),
         logout :function () {
@@ -74,6 +90,12 @@ export default {
             this.updateLoginAccount("");
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             this.$jump('login');
+        },
+        success: (res) => {
+            this.appData = res
+        },
+        failure : (res) => {
+            console.log('123123');
         }
     }
 }
