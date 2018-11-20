@@ -28,9 +28,14 @@ function filterNull (o) {
   return o;
 }
  
-function apiAxios (method, url, params, headers, success, failure) {
+function apiAxios (method, url, params,type, headers, success, failure) {
   if (params) {
     params = filterNull(params);
+  }
+  if(type === 'app') {
+    url  = "/app" + url;
+  }else if(type === 'cesuan') {
+    url = "/cesuan" + url;
   }
   axios({
     method: method,
@@ -42,20 +47,32 @@ function apiAxios (method, url, params, headers, success, failure) {
     withCredentials: false
   })
   .then(function (res) {
-    if (res.data.code === 'success') {
+    if(type === 'app') {
+      if (res.data.code === 'success') {
+        if (success) {
+          success(res.data);
+        }
+      } else {
+        if (failure) {
+          failure(res.data);
+        }else {
+          Vue.$vux.toast.text(res.data.msg,'top');
+          return;
+        }
+      }
+    }else {
       if (success) {
         success(res.data);
-      }
-    } else {
-      if (failure) {
-        failure(res.data);
-      }else {
-        Vue.$vux.toast.text(res.data.msg,'top');
-        return;
       }
     }
   })
   .catch(err => {
+    if(err.response) {
+      if(failure) {
+        failure(err.response);
+        return;
+      }
+    } 
     Vue.$vux.toast.text('' + err,'top');
     return;
   })
@@ -63,11 +80,11 @@ function apiAxios (method, url, params, headers, success, failure) {
  
 // 返回在vue模板中的调用接口
 export default {
-  get: function (url, params,headers, success, failure) {
-    return apiAxios('GET', url, params,headers, success, failure);
+  get: function (url, params,type,headers, success, failure) {
+    return apiAxios('GET', url, params,type,headers, success, failure);
   },
-  post: function (url, params,headers, success, failure) {
-    return apiAxios('POST', url, params,headers, success, failure);
+  post: function (url, params,type,headers, success, failure) {
+    return apiAxios('POST', url, params,type,headers, success, failure);
   }
  
 }

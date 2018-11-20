@@ -4,7 +4,7 @@
         <div class="form">
             <group>
                 <x-input placeholder="请输入您的手机号" v-model='phone' keyboard="number" is-type="china-mobile" :max="11"></x-input>
-                <x-input placeholder="请输入您的验证码" v-model='captcha' :max="4" type="number" >
+                <x-input placeholder="请输入您的验证码" v-model='captcha' :max="4">
                     <x-button slot="right" :gradients="[gradientStart, gradientEnd]" @click.native="getCaptcha" mini>获取验证码</x-button>
                 </x-input>
                 <x-input placeholder="请设置您的密码" v-model='password' :min="8" :max="18" type="password"></x-input>
@@ -35,7 +35,7 @@ export default {
                 return;
             }
             let postData = {mobile : this.phone};
-            this.$http.post('/changepwd',postData,null,null,null);
+            this.$http.post('/changepwd',postData,'app',null,null,null);
         },
         resetPwd : function () {
             if(!this.$utils.checkPhone(this.phone,this)) {
@@ -56,10 +56,10 @@ export default {
                 captcha : this.captcha,
                 event : 'changepwd'
             };
-            this.$http.post('/submit',postData,null,this.resetPwdSuccess,null);
+            this.$http.post('/submit',postData,'app',null,this.resetPwdSuccess,null);
         },
-        resetPwdSuccess : function () {
-            this.$vux.toast.text(json.msg,'top');
+        resetPwdSuccess : function (result) {
+            this.$vux.toast.text(result.msg,'top');
             this.$jump('login');
         }
     }
