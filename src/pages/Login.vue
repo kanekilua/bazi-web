@@ -54,7 +54,7 @@ export default {
                 account : this.account,
                 password : this.password
             };
-            this.$http.post('/login',loginData,null,this.loginSuccess,null);
+            this.$http.post('/login',loginData,'app',null,this.loginSuccess,null);
         },
         loginSuccess : function(result) {
             this.updateLoginAccount(this.account);

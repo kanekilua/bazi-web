@@ -40,7 +40,7 @@ export default {
                 return;
             }
             let postData = {mobile : this.phone};
-            this.$http.post('/register',postData,null,null,null);
+            this.$http.post('/register',postData,'app',null,null,null);
         },
         register : function () {
             if(!this.checkUserAgreement) {
@@ -62,7 +62,7 @@ export default {
                 captcha : this.captcha,
                 event : 'register'
             };
-            this.$http.post('/submit',postData,null,registerSuccess,null);
+            this.$http.post('/submit',postData,'app',null,registerSuccess,null);
         },
         registerSuccess : function () {
             this.updateLoginAccount(this.phone);
