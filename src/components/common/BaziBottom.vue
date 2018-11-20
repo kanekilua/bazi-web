@@ -39,6 +39,7 @@ export default {
         height: 66/75rem;
         font-size: 26/75rem;
         color: #fff;
+        background: @baseColor;
     }
     .weui-btn + .weui-btn{
         margin-top: 0;

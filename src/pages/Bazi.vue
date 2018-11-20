@@ -10,12 +10,12 @@
             <swiper :options="swiperOption" ref="mySwiper">
                 <swiper-slide v-for="(item,index) in list" :key="index">
                     <keep-alive>
-                        <component :is="item"></component>
+                        <component :is="item" ></component>
                     </keep-alive>
                 </swiper-slide>
             </swiper>
         </div>
-    </div>
+    </div>    
 </template>
 <script>
 import {mapState,mapMutations} from 'vuex'
@@ -42,7 +42,6 @@ export default {
             list: [BaziMingpan,BaziEmotion,BaziCareer,BaziFortune,BaziHealth,Bazikids,BaziDecade],
             swiperOption : { initialSlide: this.navIndex },
             navTitle: "八字排盘",
-            appData: {}
         }
     },
     computed : {
@@ -56,21 +55,7 @@ export default {
             this.swiper.slideTo(val, 0, false);
         }
     },
-    created() {
-        let userData = {
-            'cid' : 48,
-            'name' : '林健强',
-            'area' : '广东',
-            'sex' : '1',
-            'year' : 1995,
-            'month' : 1,
-            'date' : 7,
-            'hour' : 8,
-            'minute' : 6,
-            'yezis' : 1
-        }
-        this.$http.post('/suan/apidata',userData,'cesuan',null,this.success,this.failure)                 
-    },
+   
     mounted() {
         if(this.navIndex != 0) {
             this.swiper.slideTo(this.navIndex, 0, false);
@@ -91,12 +76,6 @@ export default {
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             this.$jump('login');
         },
-        success: (res) => {
-            this.appData = res
-        },
-        failure : (res) => {
-            console.log('123123');
-        }
     }
 }
 </script>
