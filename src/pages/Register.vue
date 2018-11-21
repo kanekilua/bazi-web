@@ -4,8 +4,11 @@
         <div class="form">
             <group>
                 <x-input placeholder="请输入您的手机号" v-model="phone" keyboard="number" is-type="china-mobile" :max="11"></x-input>
-                <x-input placeholder="请输入您的验证码" v-model="captcha" :max="4" type="number">
-                    <x-button slot="right" :gradients="[gradientStart, gradientEnd]" @click.native="getCaptcha" mini>获取验证码</x-button>
+                <x-input placeholder="请输入您的验证码" v-model="captcha" :max="4">
+                    <x-button slot="right" :gradients="[gradientStart, gradientEnd]" @click.native="getCaptcha" mini>
+                        <span v-show="show">获取验证码</span>
+                        <span v-show="!show">{{count}} s</span>
+                    </x-button>
                 </x-input>
                 <x-input placeholder="请设置您的密码" v-model="password" :min="8" :max="18" type="password"></x-input>
                 <div class="userAgreement">
@@ -29,7 +32,10 @@ export default {
             password : "",
             gradientStart : global.GRADIENT_START,
             gradientEnd : global.GRADIENT_END,
-            checkUserAgreement : false
+            checkUserAgreement : false,
+            count : '',
+            timer : null,
+            show : true
         }
     },
     components: {
@@ -41,8 +47,21 @@ export default {
             if(!this.$utils.checkPhone(this.phone,this)) {
                 return;
             }
-            let postData = {mobile : this.phone};
-            this.$http.post('/register',postData,'app',null,null,null);
+            if(this.show) {
+                this.show = false;
+                this.count = global.TIME_COUNT;
+                this.timer = setInterval(()=>{
+                    if(this.count > 0 && this.count <= global.TIME_COUNT) {
+                        this.count -- ;
+                    }else {
+                        this.show = true;
+                        clearInterval(this.timer);
+                        this.time = null;
+                    }
+                },1000);
+                let postData = {mobile : this.phone};
+                this.$http.post('/register',postData,'app',null,null,null);
+            }
         },
         register : function () {
             if(!this.checkUserAgreement) {
@@ -64,7 +83,8 @@ export default {
                 captcha : this.captcha,
                 event : 'register'
             };
-            this.$http.post('/submit',postData,'app',null,registerSuccess,null);
+            console.log("---------------------准备发送请求的参数：" +JSON.stringify(postData) + "---------------------" )
+            this.$http.post('/submit',postData,'app',null,this.registerSuccess,null);
         },
         registerSuccess : function () {
             this.updateLoginAccount(this.phone);
@@ -74,37 +94,41 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.form {
-    .loginForm();
-    .weui-cell /deep/ .weui-btn {
-        margin-top: 0;
-        height: 60/75rem;
-        font-size: 28/75rem;
-    }
-    .userAgreement {
-        font-size: 24/75rem;
-        margin-top : 24/75rem;
-        /deep/ .weui-icon-circle {
-            font-size: 25/75rem;
+.register {
+    overflow: hidden;
+    .form {
+        .loginForm();
+        .weui-cell /deep/ .weui-btn {
+            margin-top: 0;
+            height: 60/75rem;
+            font-size: 28/75rem;
         }
-        /deep/ .weui-icon-success {
-            font-size: 25/75rem;
-            color: @checkBackGroud;
-        }
-        /deep/ .vux-check-icon > .weui-icon-success:before, .vux-check-icon > .weui-icon-success-circle:before {
-            color: @checkBackGroud;
-        }
-        /deep/ .vux-check-icon > span {
-            color: @inputColor;
-        }
-        a:link,a:visited  {
-            color: @inputColor;
-        }
-        a:hover,a:active {
-            color: @linkColor;
+        .userAgreement {
+            font-size: 24/75rem;
+            margin-top : 24/75rem;
+            /deep/ .weui-icon-circle {
+                font-size: 25/75rem;
+            }
+            /deep/ .weui-icon-success {
+                font-size: 25/75rem;
+                color: @checkBackGroud;
+            }
+            /deep/ .vux-check-icon > .weui-icon-success:before, .vux-check-icon > .weui-icon-success-circle:before {
+                color: @checkBackGroud;
+            }
+            /deep/ .vux-check-icon > span {
+                color: @inputColor;
+            }
+            a:link,a:visited  {
+                color: @inputColor;
+            }
+            a:hover,a:active {
+                color: @linkColor;
+            }
         }
     }
 }
+
 </style>
 
 

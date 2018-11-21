@@ -37,6 +37,9 @@ function apiAxios (method, url, params,type, headers, success, failure) {
   }else if(type === 'cesuan') {
     url = "/cesuan" + url;
   }
+  console.log('------------进入请求的方法了------------');
+  console.log('------------完整的url是：' + root + url + '------------');
+  console.log('------------参数是：' + JSON.stringify(params) + '------------');
   axios({
     method: method,
     url: url,
@@ -47,6 +50,8 @@ function apiAxios (method, url, params,type, headers, success, failure) {
     withCredentials: false
   })
   .then(function (res) {
+    console.log('------------请求正常------------');
+    console.log('------------返回的数据: '+JSON.stringify(res.data)+'------------');
     if(type === 'app') {
       if (res.data.code === 'success') {
         if (success) {
@@ -67,7 +72,9 @@ function apiAxios (method, url, params,type, headers, success, failure) {
     }
   })
   .catch(err => {
+    console.log('------------捕捉异常------------');
     if(err.response) {
+      console.log('------------异常的返回:'+JSON.stringify(err.response)+'------------');
       if(failure) {
         failure(err.response);
         return;
