@@ -1,8 +1,6 @@
 <template>
     <div class="main">
         
-        我的页面
-        
     </div>
 </template>
 

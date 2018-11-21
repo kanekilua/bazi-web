@@ -83,7 +83,6 @@ export default {
                 captcha : this.captcha,
                 event : 'register'
             };
-            console.log("---------------------准备发送请求的参数：" +JSON.stringify(postData) + "---------------------" )
             this.$http.post('/submit',postData,'app',null,this.registerSuccess,null);
         },
         registerSuccess : function () {

@@ -18,6 +18,7 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+
 .nav{
     margin-bottom: 20/75rem;
     .nav-list{
