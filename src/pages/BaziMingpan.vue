@@ -57,13 +57,15 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-.mingpan{
-    height: 500px;
+<style lang="less">
+.mingpan-wrap{
+    padding: 25/75rem;
+    .save-btn{
+        width: 100%;
+        .round(0);
+        background-color: @baseColor;
+    }
+
 }
-.save-btn{
-    width: 100%;
-    .round(0);
-    background-color: @baseColor;
-}
+
 </style>

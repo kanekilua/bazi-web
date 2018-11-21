@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="wrap">
         <div class="result-message">
             <img class="master-img" :src="masterImg" alt="大师头像">
         </div>
@@ -16,15 +16,17 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.master-img{
-    display: block;
-        width: 220/75rem;
-        height: 220/75rem;
-        margin: 70/75rem auto 80/75rem auto;
-}
-result-message{
-    font-size: 28/75rem;
-   
+.wrap{
+    padding: 25/75rem 38/75rem;
+    .result-message{
+        font-size: 28/75rem;
+    }
+    .master-img{
+        display: block;
+            width: 220/75rem;
+            height: 220/75rem;
+            margin: 70/75rem auto 80/75rem auto;
+    }
 }
 
 </style>

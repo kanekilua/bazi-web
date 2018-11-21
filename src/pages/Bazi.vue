@@ -97,6 +97,14 @@ export default {
         .swiper{
             margin-top: 32/75rem;
         }
+        .swiper-container, .swiper-container-horizontal, .swiper-container-ios{
+            width: 100%;
+            position: absolute;
+            top:370/75rem;
+            bottom: 0px;
+            left: 0px;
+            overflow-y: scroll;
+        }
     }
 }
 /deep/ .nav .nav-list .item{
