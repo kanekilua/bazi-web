@@ -1,13 +1,17 @@
 <template>
     <div class="header">
-        <div class="return"></div>
+        <div class="return" @click="back"></div>
         <div class="title">八字排盘</div>
         <div class="switchUser"></div>
     </div>
 </template>
 <script>
 export default {
-    
+    methods: {
+        back : function () {
+            this.$router.go(-1);
+        }
+    }
 }
 </script>
 <style lang="less" scoped>

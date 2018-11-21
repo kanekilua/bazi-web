@@ -69,7 +69,7 @@ export default {
         logout :function () {
             let token = localStorage.getItem(global.APP_TOKEN);
             let header = {'Authorization':token};
-            this.$http.get('/logout',null,header,this.logoutSuccess,null);
+            this.$http.get('/logout',null,'app',header,this.logoutSuccess,null);
         },
         logoutSuccess : function (result) {
             this.updateLoginAccount("");
