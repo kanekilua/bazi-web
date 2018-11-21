@@ -5,7 +5,10 @@
             <group>
                 <x-input placeholder="请输入您的手机号" v-model='phone' keyboard="number" is-type="china-mobile" :max="11"></x-input>
                 <x-input placeholder="请输入您的验证码" v-model='captcha' :max="4">
-                    <x-button slot="right" :gradients="[gradientStart, gradientEnd]" @click.native="getCaptcha" mini>获取验证码</x-button>
+                    <x-button slot="right" :gradients="[gradientStart, gradientEnd]" @click.native="getCaptcha" mini>
+                        <span v-show="show">获取验证码</span>
+                        <span v-show="!show">{{count}} s</span>
+                    </x-button>
                 </x-input>
                 <x-input placeholder="请设置您的密码" v-model='password' :min="8" :max="18" type="password"></x-input>
                 <x-input placeholder="请再次确认您的密码" v-model='passwordComfirm' :min="8" :max="18" type="password" :equal-with="password"></x-input>
@@ -26,7 +29,10 @@ export default {
             passwordComfirm : "",
             gradientStart : global.GRADIENT_START,
             gradientEnd : global.GRADIENT_END,
-            title : '忘记密码'
+            title : '忘记密码',
+            count : '',
+            timer : null,
+            show : true
         }
     },
     methods : {
@@ -34,8 +40,21 @@ export default {
             if(!this.$utils.checkPhone(this.phone,this)) {
                 return;
             }
-            let postData = {mobile : this.phone};
-            this.$http.post('/changepwd',postData,'app',null,null,null);
+            if(this.show) {
+                this.show = false;
+                this.count = global.TIME_COUNT;
+                this.timer = setInterval(()=>{
+                    if(this.count > 0 && this.count <= global.TIME_COUNT) {
+                        this.count -- ;
+                    }else {
+                        this.show = true;
+                        clearInterval(this.timer);
+                        this.time = null;
+                    }
+                },1000);
+                let postData = {mobile : this.phone};
+                this.$http.post('/changepwd',postData,'app',null,null,null);
+            }
         },
         resetPwd : function () {
             if(!this.$utils.checkPhone(this.phone,this)) {
