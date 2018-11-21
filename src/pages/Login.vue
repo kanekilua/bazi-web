@@ -8,7 +8,8 @@
                 <x-input placeholder="请输入您的密码" v-if="!navIndex" v-model="password" :min="8" :max="18" type="password"></x-input>
                 <x-input placeholder="请输入验证码" v-else v-model="captcha"  :max="4">
                     <x-button slot="right"  :gradients="[gradientStart, gradientEnd]" @click.native="getCaptcha" mini>
-                        
+                        <span v-show="show">获取验证码</span>
+                        <span v-show="!show">{{count}} s</span>
                     </x-button>
                 </x-input>
                 <div class="resetPassword">
