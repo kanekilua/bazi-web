@@ -105,7 +105,7 @@ export default {
         loginSuccess : function(result) {
             this.updateLoginAccount(this.account);
             localStorage.setItem(global.APP_TOKEN,result.data.token);
-            this.$jump('main');
+            this.$jump('fortune');
         },
         wechatLogin : function () {
             console.log("--------------------验证是否下载微信----------------------");
