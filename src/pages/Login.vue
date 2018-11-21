@@ -105,7 +105,7 @@ export default {
         loginSuccess : function(result) {
             this.updateLoginAccount(this.account);
             localStorage.setItem(global.APP_TOKEN,result.data.token);
-            this.$jump('main');
+            this.$jump('fortune');
         },
         updateNavIndex : function (value) {
             this.navIndex = value;

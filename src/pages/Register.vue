@@ -14,7 +14,7 @@
                 <div class="userAgreement">
                     <check-icon :value.sync="checkUserAgreement">我已阅读并同意<router-link to="userAgreement">《注册服务协议》</router-link></check-icon>
                 </div>
-                <x-button :gradients="[gradientStart, gradientEnd]" @click.native="register">立刻注册</x-button>
+                <x-button :gradients="[gradientStart, gradientEnd]" @click.native="register">注册并登入</x-button>
             </group>
         </div>
     </div>
@@ -87,7 +87,7 @@ export default {
         },
         registerSuccess : function () {
             this.updateLoginAccount(this.phone);
-            this.$jump('main');
+            this.$jump('fortune');
         }
     }
 }
