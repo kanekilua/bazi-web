@@ -14,7 +14,7 @@
                 <div class="userAgreement">
                     <check-icon :value.sync="checkUserAgreement">我已阅读并同意<router-link to="userAgreement">《注册服务协议》</router-link></check-icon>
                 </div>
-                <x-button @click.native="register">立刻注册</x-button>
+                <x-button :gradients="[gradientStart, gradientEnd]" @click.native="register">立刻注册</x-button>
             </group>
         </div>
     </div>
