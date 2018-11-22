@@ -57,7 +57,7 @@ Vue.prototype.$jump = function(index) {
   this.$router.push(index);
 }
 
-/* eslint-disable no-new */
+
 new Vue({
   el: '#app',
   router,
