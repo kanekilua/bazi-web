@@ -105,7 +105,7 @@ export default {
         loginSuccess : function(result) {
             this.updateLoginAccount(this.account);
             localStorage.setItem(global.APP_TOKEN,result.data.token);
-            this.$jump('fortune');
+            this.$jump('/main/fortune');
         },
         wechatLogin : function () {
             console.log("--------------------验证是否下载微信----------------------");
@@ -130,8 +130,8 @@ export default {
         qqLogin : function () {
             var args = {};
             args.client = QQSDK.ClientType.QQ;
-            QQSDK.checkClientInstalled(function () {
-                QQSDK.ssoLogin(function (result) {
+            QQSDK.checkClientInstalled(() => {
+                QQSDK.ssoLogin(result => {
                     localStorage.setItem('BZ_QQ_TOKEN',{
                         'access_token' : result.access_token,
                         'userId' : result.userid,
@@ -139,10 +139,10 @@ export default {
                     });
                     this.$jump('main');
                 }, function (failReason) {
-                    this.$vux.toast.text(failReason);
+                    this.$vux.toast.text(failReason,"top");
                 }, args);
-            }, function () {
-                this.$vux.toast.text('系统尚未安装QQ');
+            }, () => {
+                this.$vux.toast.text('系统尚未安装QQ',"top");
             }, args);
 	    }
     }

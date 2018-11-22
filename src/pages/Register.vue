@@ -87,7 +87,7 @@ export default {
         },
         registerSuccess : function () {
             this.updateLoginAccount(this.phone);
-            this.$jump('fortune');
+            this.$jump('/main/fortune');
         }
     }
 }
