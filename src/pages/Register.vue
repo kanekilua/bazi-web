@@ -4,15 +4,16 @@
         <div class="form">
             <group>
                 <x-input placeholder="请输入您的手机号" v-model="phone" keyboard="number" is-type="china-mobile" :max="11"></x-input>
-                <x-input placeholder="请输入您的验证码" v-model="captcha" :max="4" type="number">
+                <x-input placeholder="请输入您的验证码" v-model="captcha" :max="4" id="captcha">
                     <x-button slot="right" :gradients="[gradientStart, gradientEnd]" @click.native="getCaptcha" mini>
                         <span v-show="show">获取验证码</span>
                         <span v-show="!show">{{count}} s</span>
                     </x-button>
                 </x-input>
                 <x-input placeholder="请设置您的密码" v-model="password" :min="8" :max="18" type="password"></x-input>
-                <div class="userAgreement">
-                    <check-icon :value.sync="checkUserAgreement">我已阅读并同意<router-link to="userAgreement">《注册服务协议》</router-link></check-icon>
+                <div class="userAgreement" :class="{'check-class' : checkUserAgreement}">
+                    <check-icon :value.sync="checkUserAgreement"></check-icon>
+                    <span>我已阅读并同意</span><router-link to="userAgreement">《注册服务协议》</router-link>
                 </div>
                 <x-button :gradients="[gradientStart, gradientEnd]" @click.native="register">注册并登入</x-button>
             </group>
@@ -87,7 +88,7 @@ export default {
         },
         registerSuccess : function () {
             this.updateLoginAccount(this.phone);
-            this.$jump('fortune');
+            this.$jump('main/fortune');
         }
     }
 }
@@ -102,9 +103,13 @@ export default {
             height: 60/75rem;
             font-size: 28/75rem;
         }
+        #captcha /deep/ .weui-input {
+            width: 75%;
+        }
         .userAgreement {
             font-size: 24/75rem;
-            margin-top : 24/75rem;
+            margin-top : 32/75rem;
+            color : @inputColor;
             /deep/ .weui-icon-circle {
                 font-size: 25/75rem;
             }
@@ -115,14 +120,14 @@ export default {
             /deep/ .vux-check-icon > .weui-icon-success:before, .vux-check-icon > .weui-icon-success-circle:before {
                 color: @checkBackGroud;
             }
-            /deep/ .vux-check-icon > span {
-                color: @inputColor;
-            }
-            a:link,a:visited  {
-                color: @inputColor;
-            }
             a:hover,a:active {
                 color: @linkColor;
+            }
+        }
+        .check-class {
+            color : #111;
+            a:link,a:visited{
+                color:#111;
             }
         }
     }
