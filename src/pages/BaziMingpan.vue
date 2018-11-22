@@ -5,18 +5,16 @@
         <div>公历: {{info.data.bzdate}} 农历：{{info.data.nongdate}}</div>
         <div>节气：{{info.data.jqstr}}</div>
         <div>起运： 命主出生{{info.data.qysj}}开始起运</div>
-        <div>交运： 命主于{{info.data.zysj}}</div>
+        <div>交运： 命主于{{info.data.zysj}}交运</div>
         <div>旬空： {{info.data.xkrgz}} 不全</div>
-        <div>地势： 无</div>
         <div>坤造： 无</div>
         <div>纳音： {{info.data.nayin1}} {{info.data.nayin2}} {{info.data.nayin3}} {{info.data.nayin4}}</div>
-        <div>遁藏： 无</div>
-        <div>神煞： 无</div>
-        <div>十神： {{info.data.shishen1}}} {{info.data.shishen2}}}</div>
+        <div>藏干： {{info.data.zanggan1}} {{info.data.zanggan2}} {{info.data.zanggan3}} {{info.data.zanggan4}}</div>
+        <div>十神： {{info.data.shishen}}}</div>
         <div>大运： {{info.data.dayunhtml}}</div>
-        <div>交运： 无</div>
-        <div>实岁： 无</div>
-        <div>流年： {{info.data.liunian2html}}</div>
+        <div>交运： {{info.data.liunianhtml}}</div>
+        <div>实岁： {{info.data.suicihtml}}</div>
+        <div>流年： {{info.data.liunian2htmljs}}</div>
         <x-button class="save-btn">保存命盘</x-button>
     </div>
 </template>
@@ -48,7 +46,7 @@ export default {
         },        
         success: function (res) {
             this.info = res
-            console.log(this.info)
+            console.log(res)
         },
         failure : function (res) {
             console.log('123123');
