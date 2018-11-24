@@ -3,13 +3,15 @@ import vuex from 'vuex'
 Vue.use(vuex);
 
 import fortune from "./module/fortune"
+import bazi from "./module/bazi"
 
 export default new vuex.Store ({
     state : {
-        loginAccount : ''
+        loginAccount : '',
     },
     modules : {
-        fortune: fortune
+        fortune: fortune,
+        bazi : bazi
     },
     mutations: {
         updateLoginAccount: function (state,value) {

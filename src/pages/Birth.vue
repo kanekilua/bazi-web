@@ -23,7 +23,6 @@
 </template>
 
 <script>
-import { Datetime } from 'vux'
 
 export default {
     data () {
@@ -32,9 +31,6 @@ export default {
             gradientStart : global.GRADIENT_START,
             gradientEnd : global.GRADIENT_END
         }
-    },
-    components: {
-        Datetime
     }
 }
 </script>
