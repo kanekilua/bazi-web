@@ -1,7 +1,9 @@
 <template>
     <div class="header">
         <div class="return" @click="back"></div>
-        <div class="title">八字排盘</div>
+        <div class="title">
+            <slot></slot>
+        </div>
         <div class="switchUser"></div>
     </div>
 </template>

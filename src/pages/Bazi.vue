@@ -1,7 +1,7 @@
 <template>
     <div class="fortune-wrap">
         <v-active-header :navTitle="navTitle"></v-active-header>
-        <v-bazi-header></v-bazi-header>
+        <v-bazi-header>八字排盘</v-bazi-header>
         <div class="container">
             <div class="swiper-top">
                 <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>

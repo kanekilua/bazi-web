@@ -15,6 +15,7 @@ import Fortune from '@/pages/Fortune'
 import Predict from '@/pages/Predict'
 import Mine from '@/pages/Mine'
 import Bazi from '@/pages/Bazi'
+import Ziwei from '@/pages/Ziwei'
 
 Vue.use(Router)
 
@@ -87,6 +88,11 @@ export default new Router({
       path : '/bazi',
       name : 'bazi',
       component : Bazi,
-    }
+    },
+    {
+      path : '/ziwei',
+      name : 'ziwei',
+      component : Ziwei
+    },
   ]
 })
