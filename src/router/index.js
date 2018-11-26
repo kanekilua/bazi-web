@@ -16,6 +16,7 @@ import Predict from '@/pages/Predict'
 import Mine from '@/pages/Mine'
 import Bazi from '@/pages/Bazi'
 import Ziwei from '@/pages/Ziwei'
+import ZiweiAnalyze from '@/pages/ZiweiAnalyze'
 
 Vue.use(Router)
 
@@ -92,7 +93,12 @@ export default new Router({
     {
       path : '/ziwei',
       name : 'ziwei',
-      component : Ziwei
+      component : Ziwei,
     },
+    {
+      path: '/analyze',
+      name:'analyze',
+      component: ZiweiAnalyze
+    }
   ]
 })
