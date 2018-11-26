@@ -1,6 +1,6 @@
 <template>
     <div class="birth">
-        <v-active-header :navTitle="navTitle"></v-active-header>
+        <v-active-header>生辰八字</v-active-header>
         <div class="birth-form">
             <h2 class="form-title">生辰八字</h2>
             <input type="text" class="input-name" placeholder="请输入您的名字">
@@ -27,7 +27,6 @@
 export default {
     data () {
         return {
-            navTitle: "生辰八字",
             gradientStart : global.GRADIENT_START,
             gradientEnd : global.GRADIENT_END
         }

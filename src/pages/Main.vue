@@ -1,6 +1,6 @@
 <template>
     <div class="main">
-        <v-active-header :navTitle="navTitle"></v-active-header>
+        <v-active-header>首页</v-active-header>
         <router-view></router-view>
         <v-tab-bar></v-tab-bar>
     </div>
@@ -8,11 +8,6 @@
 
 <script>
 export default {
-    data () {
-        return {
-            navTitle: "首页"
-        }
-    }
 }
 </script>
 

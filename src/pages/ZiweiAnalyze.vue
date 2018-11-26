@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <v-bazi-header>一生运程分析</v-bazi-header>
+    <v-title-header>一生运程分析</v-title-header>
     <div>
         <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
         <swiper class="swiper-box" :options="swiperOption" ref="mySwiper">

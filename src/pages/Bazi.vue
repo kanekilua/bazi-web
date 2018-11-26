@@ -1,8 +1,9 @@
 <template>
     <div class="fortune-wrap">
-        <v-active-header :navTitle="navTitle"></v-active-header>
-        <v-title-header :title='navTitle' :backLink="backLink">
-            <slot><div class="switchUser" @click="$jump('/baziBirth')"></div></slot>
+        <v-active-header>八字排盘</v-active-header>
+        <v-title-header :backLink="backLink">
+            八字排盘
+            <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
         </v-title-header>
         <div class="container">
             <div class="swiper-top">
@@ -33,8 +34,7 @@ export default {
             backLink : '/main/home',
             navList: ["命盘","十年大运"],
             list: [BaziMingpan,BaziDecade],
-            swiperOption : { initialSlide: this.navIndex },
-            navTitle: "八字排盘",
+            swiperOption : { initialSlide: this.navIndex }
         }
     },
     computed : {

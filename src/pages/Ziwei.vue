@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <v-bazi-header>紫微斗数</v-bazi-header>
+        <v-title-header>紫微斗数</v-title-header>
         <div class="ziwei-box">
             <flexbox :gutter="0">
                 <flexbox-item><div class="table-cell" v-html="info[0]"></div></flexbox-item>

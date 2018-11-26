@@ -1,6 +1,6 @@
 <template>
     <nav class="nav" :class="navClass"  v-touch:down="downNav" v-touch:up="upNav">
-        <h2 class="nav-title" >{{navTitle}}</h2>
+        <h2 class="nav-title" ><slot></slot></h2>
     </nav>
 </template>
 
@@ -16,7 +16,6 @@ export default {
             isDown: true
         }
     },
-    props: ['navTitle'],
     methods: {
         downNav: function() {
            this.isDown = true;
