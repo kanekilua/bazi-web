@@ -8,10 +8,14 @@
 <script>
 export default {
     name : 'TitleHeader',
-    props : ['title'],
+    props : ['title','backLink'],
     methods : {
         back : function () {
-            this.$router.go(-1);
+            if(this.backLink != null) {
+                this.$jump(this.backLink);
+            }else {
+                this.$router.go(-1);
+            }
         }
     }
 }

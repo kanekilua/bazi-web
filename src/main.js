@@ -38,7 +38,7 @@ Vue.component('tab-item', TabItem);
 Vue.component('swiper', Swiper);
 Vue.component('swiper-item', SwiperItem);
 Vue.component('popup', Popup);
-Vue.component('transfer-dom', Popup);
+Vue.component('transfer-dom', TransferDom);
 Vue.component('cell', Cell);
 Vue.use(DatetimePlugin)
 Vue.use(ToastPlugin);

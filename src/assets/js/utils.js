@@ -40,6 +40,16 @@ export default {
         }
         return result; 
     },
+    checkName : function (name,vue) {
+        let result = true;
+        if(!/^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/.test(name)) {
+            result = false;
+        }
+        if(!result) {
+            vue.$vux.toast.text(global.CHECK_NAME,'top');
+        }
+        return result;
+    },
 
     // 去除html标签
     delHtmlTag : function (str){

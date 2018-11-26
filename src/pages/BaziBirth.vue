@@ -6,12 +6,12 @@
             <input type="text" class="input-name" placeholder="请输入您的姓名" v-model="name">
             <div class="gender">
                 <div class="male">
-                    <input type="radio" id="male" name='gender' checked>
+                    <input type="radio" id="male" name='gender' v-model="gender" value="1">
                     <label for="male"></label>
                     <div class="gender-txt">男</div>
                 </div>
                 <div class="female">
-                    <input type="radio" id="female" name='gender'>
+                    <input type="radio" id="female" name='gender' v-model="gender" value="0">
                     <label for="female"></label>
                     <div  class="gender-txt">女</div>
                 </div>
@@ -24,18 +24,18 @@
             <div class="dateType">
                 日期类型：
                 <div class="gregorian">
-                    <input type="radio" id="gregorian" name='dateType' checked>
+                    <input type="radio" id="gregorian" name='dateType' v-model="dateType" value="1">
                     <label for="gregorian"></label>
                     <div class="date-txt">公历</div>
                 </div>
                 <div class="lunar">
-                    <input type="radio" id="lunar" name='dateType'>
+                    <input type="radio" id="lunar" name='dateType' v-model="dateType" value="0">
                     <label for="lunar"></label>
                     <div  class="date-txt">农历</div>
                 </div>
             </div>
             <input id="dateInput" type="text" class="input-born" placeholder="请选择您的出生日期" @click="showDatePlugin" readonly="readonly" v-model="birthDate">
-            <x-button :gradients="[gradientStart, gradientEnd]" id="save-confirm">确认保存</x-button>
+            <x-button :gradients="[gradientStart, gradientEnd]" id="save-confirm" @click.native="saveData">确认保存</x-button>
 
             <!-- 选择省份的弹出框 -->
             <div transfer-dom>
@@ -54,47 +54,142 @@
                 </popup>
             </div>
         </div>
+        <div class="user-manage" v-if="paipanDataList.length > 1" >
+            <v-title-nav>
+                <span slot="title" class="navTitle">用户管理</span>
+                <span slot='more'></span>
+            </v-title-nav>
+            <div>
+                <div v-for="(item,index) in paipanDataList" :key="index" class="user-item">
+                    <div class="avanda"></div>
+                    <div class="content">
+                        <div><span class="title">姓名：</span><span>{{item.name}}</span></div>
+                        <div><span class="title">生辰：</span><span>{{item.year}}年{{item.month}}月{{item.date}}日 {{item.hour}}点</span></div>
+                    </div>
+                    <div class="switch-btn">
+                        <button @touchstart="btnStyleChange(index)" :class="{'active': touchIndex === index}" @click="selectUser(item,index)">切换用户</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
+import solarLunar from 'solarLunar'
+
 export default  {
+    created() {
+        let app_paipan_data = localStorage.getItem(global.APP_PAIPAN_DATA);
+        if(app_paipan_data != undefined) {
+            this.paipanDataList = JSON.parse(app_paipan_data);
+        }
+    },
     data () {
         return  {
-            name : "",
-            headerTitle : '生辰八字',
             gradientStart : global.GRADIENT_START,
             gradientEnd : global.GRADIENT_END,
-            birthDate : "",
+            headerTitle : '生辰八字',
+            name : "",
+            gender: "1",
             province : "忽略",
-            provinceId : 0,
             city : "忽略",
+            showProvince : false,
+            showCity : false,
             provinceList : global.PROVINCE_LIST,
             cityList : global.CITY_LIST['0'],
-            showProvince : false,
-            showCity : false
+            birthDate : "",
+            dateType : "1",
+            dateArray : [],
+            paipanDataList : [],
+            touchIndex : -1
         }
     },
     methods : {
+        btnStyleChange : function (index) {
+            this.touchIndex = index;
+        },
         showDatePlugin : function () {
             this.$vux.datetime.show({
                 cancelText: '取消',
                 confirmText: '确定',
-                format: 'YYYY年M月D日 H点',
-                value: '2017-05-20 18',
+                format: 'YYYY-M-D-H',
+                yearRow : '{value}年',
+                monthRow : '{value}月',
+                dayRow : '{value}日',
+                hourRow : '{value}点',
+                minYear: '1890',
+                maxYear: '2090',
+                onHide : (type) => {
+                    if(type === 'cancel') {
+                        this.birthDate = "";
+                        this.dateArray = [];
+                    }
+                },
                 onConfirm:(val) => {
-                    this.birthDate = val;
+                    // 点击确定，将年月日赋值给dateArray，将格式化的日期赋值给birthDate
+                    let valArray = val.split('-');
+                    for(let i=0;i<valArray.length ; ++i) {
+                        this.dateArray[i] = parseInt(valArray[i]);
+                    }
+                    this.birthDate = this.dateArray[0] + '年' + this.dateArray[1] + '月' + this.dateArray[2] + '日' + ' ' + this.dateArray[3] + '点';
                 }
-            })
+            });
         },
         selectProvince : function (item) {
             this.province = item.name;
-            this.provinceId = item.id;
-            this.cityList = global.CITY_LIST[this.provinceId];
+            this.cityList = global.CITY_LIST[item.id];
             this.showProvince = false;
         },
         selectCity : function (item) {
             this.city = item.name;
             this.showCity = false;
+        },
+        saveData : function () {
+            if(!this.$utils.checkName(this.name,this)) {
+                return;
+            }
+            if(this.dateArray.length === 0 || this.birthDate === '') {
+                this.$vux.toast.text('请选择出生日期','top');
+                return;
+            }
+            if(this.dateType === '0') {
+                // 农历转公历的对象
+                let solar = solarLunar.lunar2solar(parseInt(this.dateArray[0]),parseInt(this.dateArray[1]),parseInt(this.dateArray[2]));
+                this.dateArray[0] =solar.cYear;
+                this.dateArray[1] =solar.cMonth;
+                this.dateArray[2] =solar.cDay;
+            }
+            let paipanData = {
+                'cid' : 48,
+                'name' : this.name,
+                'area' : this.province === "忽略" ? null : this.province,
+                'sex' : this.gender,
+                'year' : this.dateArray[0],
+                'month' : this.dateArray[1],
+                'date' : this.dateArray[2],
+                'hour' : this.dateArray[3],
+                'yezis' : 1
+            }
+            let app_paipan_data = [];
+            // 判断localStorage中是否有global.APP_PAIPAN_DATA，有的话取出来
+            if(localStorage.hasOwnProperty(global.APP_PAIPAN_DATA)) {
+                app_paipan_data = JSON.parse(localStorage.getItem(global.APP_PAIPAN_DATA));
+            }
+            // 判断localStorage中的global.APP_PAIPAN_DATA的长度是否等于最大值，是的话删除最后一个元素
+            if(app_paipan_data.length === global.APP_PAIPAN_DATA_MAX){
+                app_paipan_data.splice(global.APP_PAIPAN_DATA_MAX-1,1);
+            }
+            app_paipan_data.unshift(paipanData);
+            localStorage.setItem(global.APP_PAIPAN_DATA,JSON.stringify(app_paipan_data));
+            this.$jump('/bazi');
+        },
+        selectUser : function (item,index) {
+            let app_paipan_data = JSON.parse(localStorage.getItem(global.APP_PAIPAN_DATA));
+            // 删除掉点击的item，再在数组的首部添加item -> 将item移至首位的操作
+            app_paipan_data.splice(index,1);
+            app_paipan_data.unshift(item);
+            localStorage.setItem(global.APP_PAIPAN_DATA,JSON.stringify(app_paipan_data));
+            this.$jump('/bazi');
         }
     }
 }
@@ -228,6 +323,56 @@ export default  {
         height: 90/75rem;
         border-radius: 40/75rem;
         font-size: 28/75rem;
+    }
+    .user-manage {
+        width: 640/75rem;
+        margin: 0 auto 0 auto;
+        .navTitle {
+            font-size:28/75rem;
+            color:rgba(0,0,0,1);
+            opacity:0.7;
+        }
+        .user-item:nth-child(1) {
+            padding: 10/75rem 0 27/75rem 0;
+        }
+        .user-item {
+            padding: 32/75rem 0 27/75rem 0;
+            border-bottom:1px solid rgba(200,200,200,0.35);
+            .flex-between();
+            .avanda {
+                width: 88/75rem;
+                height: 88/75rem;
+                background-color: @baseColor;
+                .round(50%);
+            }
+            .content {
+                margin: 0 60/75rem 0 41/75rem;
+                font-size: 24/75rem;
+                .title {
+                    font-weight: bold;
+                    color : rgba(0,0,0,0.8);
+                }
+                div:nth-child(1){
+                    margin-bottom: 20/75rem;
+                }
+            }
+            .switch-btn {
+                & > button {
+                    width: 130/75rem;
+                    height: 50/75rem;
+                    background-color: #fff;
+                    border: 1px solid #eee;
+                    color: #000;
+                    font-size: 26/75rem;
+                    .round(18/75rem);
+                    .boxshadow(0,0,8/75rem,rgba(0,0,0,0.13));
+                    &.active {
+                        background-color: @baseColor;
+                        color: #fff;
+                    }
+                }
+            }
+        }
     }
 }
 </style>

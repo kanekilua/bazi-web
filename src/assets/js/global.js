@@ -8,6 +8,8 @@ global.GRADIENT_END = BASECOLOR;
 // app info
 global.APP_NAME = 'zhanxing';
 global.APP_TOKEN = APP_NAME + '_token';
+global.APP_PAIPAN_DATA = APP_NAME + '_paipan_data';
+global.APP_PAIPAN_DATA_MAX = 5;
 
 // tip message
 global.CHECK_TIP = '请同意用户协议'
@@ -15,13 +17,13 @@ global.CHECK_ACCOUNT = '账号格式不正确'
 global.CHECK_PASSWORD = '密码格式不正确'
 global.CHECK_CAPTCHA = '验证码格式不正确'
 global.CHECK_PHONE = '手机号码格式不正确'
+global.CHECK_NAME = '请输入中文姓名'
 
 // login page
 global.NAV_LIST = ['手机密码登入','手机验证码登入']
 global.PWD_PLACEHOLDER = '请输入您的密码'
 global.CAPTCHA_PLACEHOLDER = '请输入验证码'
 global.TIME_COUNT = 60
-
 
 // province data
 global.PROVINCE_LIST = [{

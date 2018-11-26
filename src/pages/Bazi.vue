@@ -1,7 +1,7 @@
 <template>
     <div class="fortune-wrap">
         <v-active-header :navTitle="navTitle"></v-active-header>
-        <v-title-header :title='navTitle'>
+        <v-title-header :title='navTitle' :backLink="backLink">
             <slot><div class="switchUser" @click="$jump('/baziBirth')"></div></slot>
         </v-title-header>
         <div class="container">
@@ -30,6 +30,7 @@ export default {
     },
     data () {
         return {
+            backLink : '/main/home',
             navList: ["命盘","十年大运"],
             list: [BaziMingpan,BaziDecade],
             swiperOption : { initialSlide: this.navIndex },
