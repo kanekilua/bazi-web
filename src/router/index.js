@@ -6,6 +6,7 @@ import Register from '@/pages/Register'
 import ResetPwd from '@/pages/ResetPwd'
 import UserAgreement from '@/pages/UserAgreement'
 import Birth from '@/pages/Birth'
+import BaziBirth from '@/pages/BaziBirth'
 
 // 主路由页面
 import Main from '@/pages/Main'
@@ -17,6 +18,13 @@ import Mine from '@/pages/Mine'
 import Bazi from '@/pages/Bazi'
 import Ziwei from '@/pages/Ziwei'
 import ZiweiAnalyze from '@/pages/ZiweiAnalyze'
+import Fengshui from '@/pages/Fengshui'
+import FengshuiJiaju from '@/pages/FengshuiJiaju'
+import FengshuiDetail from '@/pages/FengshuiDetail'
+import Love from '@/pages/Love'
+import LoveBlossoms from '@/pages/LoveBlossoms'
+
+
 
 Vue.use(Router)
 
@@ -98,7 +106,38 @@ export default new Router({
     {
       path: '/analyze',
       name:'analyze',
-      component: ZiweiAnalyze
-    }
+      component: ZiweiAnalyze,
+      component : Bazi
+    },
+    {
+      path : '/baziBirth',
+      name : 'baziBirth',
+      component: BaziBirth
+    },
+    {
+      path: '/fengshui',
+      name:'fengshui',
+      component: Fengshui
+    },
+    {
+      path: '/jiaju',
+      name:'jiaju',
+      component: FengshuiJiaju
+    },
+    {
+      path: '/fengshuidetail',
+      name:'fengshuidetail',
+      component: FengshuiDetail
+    },
+    {
+      path: '/love',
+      name:'love',
+      component: Love
+    },
+    {
+      path: '/loveBlossoms',
+      name:'loveBlossoms',
+      component: LoveBlossoms
+    },
   ]
 })

@@ -19,11 +19,11 @@
                 </div>
                 <div class="table-item" @click="$jump('/bazi')">
                     <img src="../assets/image/home/bazi@2x.png">
-                    <div class="item-txt">八字排盘</div>
+                    <div class="item-txt">婚恋爱情</div>
                 </div>
-                <div class="table-item" @click="$jump('/bazi')">
+                <div class="table-item" @click="$jump('/fengshui')">
                     <img src="../assets/image/home/bazi@2x.png">
-                    <div class="item-txt">八字排盘</div>
+                    <div class="item-txt">风水常识</div>
                 </div>
                 <div class="table-item" @click="$jump('/bazi')">
                     <img src="../assets/image/home/bazi@2x.png">

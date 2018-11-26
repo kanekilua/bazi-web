@@ -4,7 +4,9 @@
         <div class="title">
             <slot></slot>
         </div>
-        <div class="switchUser"></div>
+        <slot name="switch">
+            <div class="switchUser"></div>
+        </slot>
     </div>
 </template>
 <script>

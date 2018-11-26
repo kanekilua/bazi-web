@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap">
+    <div class="wrap" v-show="showFlag">
         <div class="mingpan-wrap">
             <div class="top-part-item"><span class="item-key">姓名：</span>{{info.info.bzname}}</div>
             <div class="top-part-item"><span class="item-key">出生地点：</span>{{info.info.area}}</div>
@@ -86,7 +86,8 @@
 export default {
     data () {
         return {
-            info: []
+            showFlag : false,
+            info: {"data":{"ygz":"","mgz":"","rgz":"","hgz":"","zanggan1":"","zanggan2":"","zanggan3":"","zanggan4":"","dayunhtml":"","suicihtml":"","liunian2htmljs":""},"info":{}}
         }
     },
     created() {
@@ -96,24 +97,23 @@ export default {
         getData: function () {
             let userData = {
                 'cid' : 48,
-                'name' : '林健强',
-                'area' : '广东',
-                'sex' : '1',
-                'year' : 1995,
-                'month' : 1,
-                'date' : 7,
-                'hour' : 8,
-                'minute' : 6,
+                'name' : '杨海彬',
+                'area' : '广东省',
+                'sex' : '男',
+                'year' : '1996',
+                'month' : '6',
+                'date' : '19',
+                'hour' : '17',
                 'yezis' : 1
-            }            
-            this.$http.post('/suan/apidata',userData,'cesuan',null,this.success,this.failure) 
+            };
+            if(localStorage.hasOwnProperty(global.APP_PAIPAN_DATA)) {
+                userData = JSON.parse(localStorage.getItem(global.APP_PAIPAN_DATA))[0];
+            }
+            this.$http.post('/suan/apidata',userData,'cesuan',null,this.success,this.failure) ;
         },        
         success: function (res) {
             this.info = res;
-            console.log(this.info.data);
-        },
-        failure: function (res) {
-            // console.log('123123')
+            this.showFlag = true;
         },
         stringSplit: function(str,index) {
             return str.split("")[index];
