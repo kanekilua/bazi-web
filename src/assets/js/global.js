@@ -6,7 +6,7 @@ global.GRADIENT_START = BASECOLOR;
 global.GRADIENT_END = BASECOLOR;
 
 // app info
-global.APP_NAME = 'zhanxing';
+global.APP_NAME = 'bazi';
 global.APP_TOKEN = APP_NAME + '_token';
 
 // tip message
