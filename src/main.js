@@ -65,4 +65,27 @@ document.addEventListener('deviceready', function() {
     components: { App },
     template: '<App/>'
   })
+  GeTuiSdkPlugin.callback_init(callback);
+  GeTuiSdkPlugin.initialize();
 }, false);
+
+// 个推sdk的回调函数
+function callback (type, data) {
+  if(type == 'cid') {
+      //TODO data = clientid
+  } else if(type == 'pid') {
+      //TODO data = 进程pid
+  } else if(type == 'payload') {
+         //TODO data=透传数据
+  } else if(type == 'online') {
+      if(data == 'true') {
+          //TODO 已上线
+      } else {
+          //TODO 已离线
+      }
+  }else if(type == 'onNotificationArrived') {
+        alert('onNotificationArrived' + data) //通知到达回调
+  } else if(type == 'onNotificationClicked') {
+        alert('onNotificationClicked' + data) //点击通知事件回调
+  }
+}
