@@ -99,7 +99,7 @@ export default  {
             birthDate : "",
             dateType : "1",
             dateArray : [],
-            paipanDataList : [],
+            paipanDataList : [1,2],
             touchIndex : -1
         }
     },
