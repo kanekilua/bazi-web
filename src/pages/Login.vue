@@ -6,13 +6,13 @@
             <group>
                 <x-input placeholder="请输入您的手机号" v-model="phone" keyboard="number" is-type="china-mobile" :max="11"></x-input>
                 <x-input placeholder="请输入您的密码" v-if="!navIndex" v-model="password" :min="8" :max="18" type="password"></x-input>
-                <x-input placeholder="请输入验证码" v-else v-model="captcha"  :max="4">
+                <x-input placeholder="请输入您的验证码" v-else v-model="captcha"  :max="4" id="captcha">
                     <x-button slot="right"  :gradients="[gradientStart, gradientEnd]" @click.native="getCaptcha" mini>
                         <span v-show="show">获取验证码</span>
                         <span v-show="!show">{{count}} s</span>
                     </x-button>
                 </x-input>
-                <div class="resetPassword">
+                <div class="resetPassword" v-show="!navIndex">
                     <span :style="{color:resetPwdColor}" @touchstart="resetStyleChange" @click="$jump('resetPwd')">忘记密码?</span>
                     <span>/</span>
                     <span :style="{color:registerColor}" @touchstart="registerStyleChange"  @click="$jump('register')">立即注册</span>
@@ -163,8 +163,18 @@ export default {
             -o-justify-content: space-between;
             justify-content: space-between;
         }
+        /deep/ .item.active{
+            color: @baseColor;
+        }
+        /deep/ .item {
+            color: @inputColor;
+            opacity: 1 !important;
+        }
         /deep/ .weui-cells,.vux-no-group-title {
             margin-top: 0;
+        }
+        #captcha /deep/ .weui-input {
+            width: 75%;
         }
         .weui-cell /deep/ .weui-btn {
             margin-top: 0;

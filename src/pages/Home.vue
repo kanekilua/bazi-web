@@ -139,9 +139,10 @@ export default {
         width: 100%;
         .flex-start();
         flex-wrap: wrap;
+        .boxshadow(0,0,8/75rem,rgba(0,0,0,0.16));
         .table-item{
             width: 33.33%;
-            .boxshadow(0,0,8/75rem,rgba(0,0,0,0.16));
+            .boxshadow(1/75rem,1/75rem,0,rgba(0,0,0,0.13));
             .flex-col();
             & > img {
                 width: 100/75rem;

@@ -78,15 +78,24 @@ export default {
             .tab-bar-item{
                 .flex(1);
                 .flex-col();
-                .tabIco1,.tabIco2,.tabIco4,.tabIco5{
-                    width: 44/75rem;
+                .tabIco1,.tabIco2,.tabIco4,.tabIco5 {
+                    width: 42/75rem;
                     height: 44/75rem;
                     margin-bottom: 10/75rem;
+                }
+                .tabIco2 {
+                    width: 39/75rem;
                 }
                 .tabIco3{
                     width: 88/75rem;
                     height: 88/75rem;
                     margin-bottom: 10/75rem;
+                }
+                .tabIco4 {
+                    width: 37/75rem;
+                }
+                .tabIco5 {
+                    width: 48/75rem;
                 }
             }
             .tab-bar-item:nth-child(3){

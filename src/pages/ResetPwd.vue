@@ -4,7 +4,7 @@
         <div class="form">
             <group>
                 <x-input placeholder="请输入您的手机号" v-model='phone' keyboard="number" is-type="china-mobile" :max="11"></x-input>
-                <x-input placeholder="请输入您的验证码" v-model='captcha' :max="4">
+                <x-input placeholder="请输入您的验证码" v-model='captcha' :max="4" id="captcha">
                     <x-button slot="right" :gradients="[gradientStart, gradientEnd]" @click.native="getCaptcha" mini>
                         <span v-show="show">获取验证码</span>
                         <span v-show="!show">{{count}} s</span>
@@ -87,6 +87,9 @@ export default {
 <style lang="less" scoped>
 .form {
     .loginForm();
+    #captcha /deep/ .weui-input {
+        width: 75%;
+    }
 }
 .weui-cell /deep/ .weui-btn {
     margin-top: 0;
