@@ -6,7 +6,7 @@ global.GRADIENT_START = BASECOLOR;
 global.GRADIENT_END = BASECOLOR;
 
 // app info
-global.APP_NAME = 'zhanxing';
+global.APP_NAME = 'bazi';
 global.APP_TOKEN = APP_NAME + '_token';
 global.APP_PAIPAN_DATA = APP_NAME + '_paipan_data';
 global.APP_PAIPAN_DATA_MAX = 5;
