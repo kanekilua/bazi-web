@@ -28,7 +28,7 @@
     </div>
 </template>
 <script>
-import {mapMutations} from 'vuex';
+import {mapMutations} from 'vuex'
 
 export default {
     name : 'Login',
@@ -108,23 +108,17 @@ export default {
             this.$jump('/main/fortune');
         },
         wechatLogin : function () {
-            console.log("--------------------验证是否下载微信----------------------");
-            Wechat.isInstalled(function (installed) {
-                console.log("--------------------" + "Wechat installed: " + (installed ? "Yes" : "No") + "--------------------");
-                console.log("--------------------进入验证----------------------");
+            Wechat.isInstalled((installed) => {
                 var scope = "snsapi_userinfo",
                 state = "_" + (+new Date());
-                Wechat.auth(scope, state, function (response) {
-                    console.log("--------------------验证通过了----------------------");
+                Wechat.auth(scope, state, (response)=> {
+                    // {"code":"","state":"","country":"CN","lang":"zh_CN"}
                     // you may use response.code to get the access token.
-                    console.log("--------------------"+ JSON.stringify(response)+"--------------------");
-                }, function (reason) {
-                    console.log("--------------------验证失败了----------------------");
-                    this.$vux.toast.text("Failed: " + reason,"top");
-                    console.log("--------------------Failed: " + reason + "--------------------");
+                }, (reason) => {
+                    this.$vux.toast.text(reason,'top');
                 });
-            }, function (reason) {
-                this.$vux.toast.text('系统尚未安装微信');
+            }, (reason) => {
+                this.$vux.toast.text('系统尚未安装微信','top');
             });
         },
         qqLogin : function () {
@@ -132,13 +126,13 @@ export default {
             args.client = QQSDK.ClientType.QQ;
             QQSDK.checkClientInstalled(() => {
                 QQSDK.ssoLogin(result => {
-                    localStorage.setItem('BZ_QQ_TOKEN',{
-                        'access_token' : result.access_token,
-                        'userId' : result.userid,
-                        'expires_time' : new Date(parseInt(result.expires_time))
-                    });
+                    // localStorage.setItem('BZ_QQ_TOKEN',{
+                    //     'access_token' : result.access_token,
+                    //     'userId' : result.userid,
+                    //     'expires_time' : new Date(parseInt(result.expires_time))
+                    // });
                     this.$jump('main');
-                }, function (failReason) {
+                }, (failReason) => {
                     this.$vux.toast.text(failReason,"top");
                 }, args);
             }, () => {
