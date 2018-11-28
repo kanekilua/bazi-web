@@ -113,8 +113,11 @@ export default {
                 state = "_" + (+new Date());
                 Wechat.auth(scope, state, (response)=> {
                     // {"code":"","state":"","country":"CN","lang":"zh_CN"}
-                    // you may use response.code to get the access token.
-                    this.$jump('main');
+                    let loginData = {
+                        "platform" : "wechat",
+                        "code" : response.code
+                    }
+                    this.$http.post('/thirdlogin',loginData,'app',null,this.loginSuccess,null);
                 }, (reason) => {
                     this.$vux.toast.text(reason,'top');
                 });
