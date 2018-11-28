@@ -37,6 +37,7 @@ export default {
             phone : "",
             password : "",
             captcha : "",
+            captchaFlag : false,
             gradientStart : global.GRADIENT_START,
             gradientEnd : global.GRADIENT_END,
             resetPwdColor : global.INPUTCOLOR,
@@ -58,12 +59,24 @@ export default {
         },
         updateNavIndex : function (value) {
             this.navIndex = value;
+            this.password = "";
+            this.captcha = "";
         },
         getCaptcha : function () {
-            if(!this.$utils.checkPhone(this.phone,this)) {
+            if(!this.show) {
                 return;
             }
-            if(this.show) {
+            if(!this.$utils.checkPhone(this.phone,this)) {
+
+                return;
+            }
+            if(this.captchaFlag) {
+                this.$vux.toast.text(global.REPEAT_CAPTCHA,'top');
+                return;
+            }
+            this.captchaFlag = true;
+            let postData = {mobile : this.phone};
+            this.$http.post('/verlogin',postData,'app',null,() =>{
                 this.show = false;
                 this.count = global.TIME_COUNT;
                 this.timer = setInterval(()=>{
@@ -75,9 +88,8 @@ export default {
                         this.time = null;
                     }
                 },1000);
-                let postData = {mobile : this.phone};
-                this.$http.post('/register',postData,'app',null,null,null);
-            }
+            },null);
+            this.captchaFlag = false;
         },
         login :function () {
             if(!this.$utils.checkPhone(this.phone,this)) {
@@ -93,22 +105,30 @@ export default {
                 };
                 this.$http.post('/login',loginData,'app',null,this.loginSuccess,null);
             }else {
-                // if(!this.$utils.checkCaptcha(this.captcha,this)) {
-                //     return;
-                // }
-                // let loginData = {
-                //     account : this.phone,
-                //     captcha : this.captcha
-                // };
+                if(!this.$utils.checkCaptcha(this.captcha,this)) {
+                    return;
+                }
+                let loginData = {
+                    mobile : this.phone,
+                    captcha : this.captcha,
+                    event : 'verlogin'
+                };
+                this.$http.post('/submit',loginData,'app',null,this.loginSuccess,null);
             }
         },
         loginSuccess : function(result) {
-            this.updateLoginAccount(this.account);
+            // 需要加上对生辰八字信息的处理（需要有获取生辰八字的接口）
+            let header = {'Authorization':result.data.token};
+            this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,null);
+            this.updateLoginAccount(this.phone);
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             this.$jump('main/fortune');
         },
-        updateNavIndex : function (value) {
-            this.navIndex = value;
+        getUserInfoSuccess : function(result) {
+            let userInfo = {
+                [this.phone] : result.data
+            }
+            localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(userInfo));
         }
     }
 }

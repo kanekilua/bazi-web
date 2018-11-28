@@ -25,6 +25,7 @@ export default {
         return {
             phone : "",
             captcha : "",
+            captchaFlag : false,
             password : "",
             passwordComfirm : "",
             gradientStart : global.GRADIENT_START,
@@ -37,10 +38,19 @@ export default {
     },
     methods : {
         getCaptcha : function () {
+            if(!this.show) {
+                return;
+            }
             if(!this.$utils.checkPhone(this.phone,this)) {
                 return;
             }
-            if(this.show) {
+            if(this.captchaFlag) {
+                this.$vux.toast.text(global.REPEAT_CAPTCHA,'top');
+                return;
+            }
+            this.captchaFlag = true;
+            let postData = {mobile : this.phone};
+            this.$http.post('/changepwd',postData,'app',null,() => {
                 this.show = false;
                 this.count = global.TIME_COUNT;
                 this.timer = setInterval(()=>{
@@ -52,9 +62,8 @@ export default {
                         this.time = null;
                     }
                 },1000);
-                let postData = {mobile : this.phone};
-                this.$http.post('/changepwd',postData,'app',null,null,null);
-            }
+            },null);
+            this.captchaFlag = false;
         },
         resetPwd : function () {
             if(!this.$utils.checkPhone(this.phone,this)) {
@@ -69,6 +78,7 @@ export default {
             if(!this.$utils.checkPassword(this.passwordComfirm,this)) {
                 return;
             }
+            // 接口还没有测试
             let postData = {
                 mobile : this.phone,
                 password : this.password,
