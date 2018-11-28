@@ -3,7 +3,7 @@
         <v-title-header>紫微斗数</v-title-header>
         <div class="ziwei-box">
             <flexbox :gutter="0">
-                <flexbox-item><div class="table-cell" v-html="info[0]"></div></flexbox-item>
+                <flexbox-item><div class="table-cell"><div>{{redTag[4][0]}}</div><div>{{redTag[4][1]}}</div></div></flexbox-item>
                 <flexbox-item><div class="table-cell" v-html="info[1]"></div></flexbox-item>
                 <flexbox-item><div class="table-cell" v-html="info[2]"></div></flexbox-item>
                 <flexbox-item><div class="table-cell" v-html="info[3]"></div></flexbox-item>
@@ -32,7 +32,8 @@
 export default {
     data () {
         return {
-            info: []
+            info: [],
+            redTag: [],
         }
     },
     created () {
@@ -67,15 +68,21 @@ export default {
                 let k = this.$utils.delHtmlTag(resStr[i].toString());
                 let r = k.match(redReg)
                 // console.log(r)
+                if(r==null){
+                    this.redTag.push('')
+                    console.log(111)
+                }
                 if(r!=null){
-                    for( let item of r){
-                        item = "<span class=red-tag>"+item+"</span>"
-                    }
+                    this.redTag.push(r)
                 }             
                 result.push(k)
                            
             }
-            console.log(result)
+            console.log(this.redTag)
+
+            // console.log(this.redTag[2][0])
+
+            // console.log(result)
         },
         failure: function (res) {
             // console.log('123123')
