@@ -27,7 +27,7 @@ Object.keys(components).forEach((key) => {
 })
 
 // vux基础组件引用
-import { XButton,XInput,Group,Flexbox,FlexboxItem,ToastPlugin,Tab,TabItem,Swiper,SwiperItem,AlertPlugin } from 'vux'
+import { XButton,XInput,Group,Flexbox,FlexboxItem,ToastPlugin,Tab,TabItem,Swiper,SwiperItem,DatetimePlugin,AlertPlugin } from 'vux'
 Vue.component('x-button', XButton);
 Vue.component('x-input', XInput);
 Vue.component('group', Group);
@@ -38,6 +38,7 @@ Vue.component('tab-item', TabItem);
 Vue.component('swiper', Swiper);
 Vue.component('swiper-item', SwiperItem);
 Vue.use(AlertPlugin);
+Vue.use(DatetimePlugin);
 Vue.use(ToastPlugin);
 
 // vue2.0移动设备指令

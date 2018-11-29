@@ -15,7 +15,7 @@
                     <check-icon :value.sync="checkUserAgreement"></check-icon>
                     <span>我已阅读并同意</span><router-link to="userAgreement">《注册服务协议》</router-link>
                 </div>
-                <x-button :gradients="[gradientStart, gradientEnd]" @click.native="register">注册并登入</x-button>
+                <x-button :gradients="[gradientStart, gradientEnd]" @click.native="register">立刻注册</x-button>
             </group>
         </div>
     </div>
@@ -30,6 +30,7 @@ export default {
         return {
             phone : "",
             captcha : "",
+            captchaFlag : false,
             password : "",
             gradientStart : global.GRADIENT_START,
             gradientEnd : global.GRADIENT_END,
@@ -45,10 +46,19 @@ export default {
     methods : {
         ...mapMutations (['updateLoginAccount']),
         getCaptcha : function () {
+            if(!this.show) {
+                return;
+            }
             if(!this.$utils.checkPhone(this.phone,this)) {
                 return;
             }
-            if(this.show) {
+            if(this.captchaFlag) {
+                this.$vux.toast.text(global.REPEAT_CAPTCHA,'top');
+                return;
+            }
+            this.captchaFlag = true;
+            let postData = {mobile : this.phone};
+            this.$http.post('/register',postData,'app',null,() => {
                 this.show = false;
                 this.count = global.TIME_COUNT;
                 this.timer = setInterval(()=>{
@@ -60,9 +70,8 @@ export default {
                         this.time = null;
                     }
                 },1000);
-                let postData = {mobile : this.phone};
-                this.$http.post('/register',postData,'app',null,null,null);
-            }
+            },null);
+            this.captchaFlag = false;
         },
         register : function () {
             if(!this.checkUserAgreement) {
@@ -87,8 +96,16 @@ export default {
             this.$http.post('/submit',postData,'app',null,this.registerSuccess,null);
         },
         registerSuccess : function () {
+            let loginData = {
+                account : this.phone,
+                password : this.password
+            }
+            this.$http.post('/login',loginData,'app',null,this.loginSuccess,null);
+        },
+        loginSuccess : function (result) {
             this.updateLoginAccount(this.phone);
-            this.$jump('/main/fortune');
+            localStorage.setItem(global.APP_TOKEN,result.data.token);
+            this.$jump('birth');
         }
     }
 }

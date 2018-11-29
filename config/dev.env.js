@@ -4,5 +4,5 @@ const prodEnv = require('./prod.env')
 
 module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
-  API_ROOT: '"http://qiming.mdsoftware.cn/api"'
+  API_ROOT: '"https://mingli.szmonster.com/api"'
 })
