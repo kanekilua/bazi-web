@@ -117,18 +117,32 @@ export default {
             }
         },
         loginSuccess : function(result) {
-            // 需要加上对生辰八字信息的处理（需要有获取生辰八字的接口）
-            let header = {'Authorization':result.data.token};
-            this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,null);
+            // 判断本地有没有存这个手机号对应的account_info
+            if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
+                let account_info = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
+                if(account_info[this.phone] === undefined || account_info[this.phone] === null) {
+                    let header = {'Authorization':result.data.token};
+                    this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,null);
+                }
+            }else {
+                let header = {'Authorization':result.data.token};
+                this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,null);
+            }
             this.updateLoginAccount(this.phone);
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             this.$jump('main/fortune');
         },
         getUserInfoSuccess : function(result) {
-            let userInfo = {
-                [this.phone] : result.data
+            let accountInfo;
+            if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
+                accountInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
+                accountInfo[this.phone] = result.data;
+            }else {
+                accountInfo = {
+                    [this.phone] : result.data
+                }
             }
-            localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(userInfo));
+            localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
         }
     }
 }

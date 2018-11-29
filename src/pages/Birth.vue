@@ -90,14 +90,15 @@ export default {
             let header = {'Authorization':token};
             this.$http.post('/scbazi',postData,'app',header,this.saveSuccess,null);
         },
-        saveSuccess : function () {
+        saveSuccess : function (result) {
             // 保存生辰八字成功的话保存在本地一份然后就跳转到fortune
-            let timestamp = new Date(this.dateArray[0],this.dateArray[1],this.dateArray[2],this.dateArray[3],0,0).getTime()/1000;
-            let accountInfo = {
-                [this.loginAccount] : {
-                    realname : this.name,
-                    gender : this.gender,
-                    birthday : timestamp
+            let accountInfo;
+            if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
+                accountInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
+                accountInfo[this.loginAccount] = result.data;
+            }else {
+                accountInfo = {
+                    [this.loginAccount] : result.data
                 }
             }
             localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
