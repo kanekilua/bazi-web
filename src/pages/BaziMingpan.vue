@@ -83,7 +83,11 @@
     </div>
 </template>
 <script>
+import {mapState} from 'vuex'
 export default {
+    computed : {
+        ...mapState ('baziMingPan',['baziUserInfo'])
+    },
     data () {
         return {
             showFlag : false,
@@ -95,21 +99,8 @@ export default {
     },
     methods : {
         getData: function () {
-            let userData = {
-                'cid' : 48,
-                'name' : '杨海彬',
-                'area' : '广东省',
-                'sex' : '男',
-                'year' : '1996',
-                'month' : '6',
-                'date' : '19',
-                'hour' : '17',
-                'yezis' : 1
-            };
-            if(localStorage.hasOwnProperty(global.APP_PAIPAN_DATA)) {
-                userData = JSON.parse(localStorage.getItem(global.APP_PAIPAN_DATA))[0];
-            }
-            this.$http.post('/suan/apidata',userData,'cesuan',null,this.success,this.failure) ;
+            
+            this.$http.post('/suan/apidata',this.baziUserInfo,'cesuan',null,this.success,this.failure) ;
         },        
         success: function (res) {
             this.info = res;

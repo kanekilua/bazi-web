@@ -13,7 +13,7 @@
                 <div slot="more"></div>
             </v-title-nav>
             <div class="table-list">           
-                <div class="table-item" @click="$jump('/bazi')">
+                <div class="table-item" @click="jumpBazi">
                     <img src="../assets/image/home/bazi@2x.png">
                     <div class="item-txt">八字排盘</div>
                 </div>
@@ -76,11 +76,13 @@
 </template>
 
 <script>
-
+import {mapState,mapMutations} from 'vuex'
 export default {
+    computed : {
+        ...mapState (['loginAccount'])
+    },
     data () {
         return {
-            // navTitle: "首页",
             imgList: [
                 {url: require('../assets/image/home/banner@2x.png')},
                 {url: require('../assets/image/home/banner@2x.png')},
@@ -101,9 +103,33 @@ export default {
             }
         }
     },
-
     methods: {
-        
+        ...mapMutations('baziMingPan',['updateBaziUserInfo']),
+        jumpBazi : function () {
+            let userInfo;
+            if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
+                userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))[this.loginAccount];
+            }
+            if(userInfo  === undefined) {
+                this.$vux.toast.text('请先登录','top');
+                return ;
+            }
+            let birthArray = userInfo.birthday.split(' ');
+            let dateArray = birthArray[0].split('-');
+            let hour = birthArray[1].split(':')[0];
+            let baziPaiPanData = {
+                'cid' : 48,
+                'name' : userInfo.realname,
+                'sex' : userInfo.gender,
+                'year' : dateArray[0],
+                'month' : dateArray[1],
+                'date' : dateArray[2],
+                'hour' : hour,
+                'yezis' : 1
+            };
+            this.updateBaziUserInfo(baziPaiPanData);
+            this.$jump('/bazi');
+        }
     }
 }
 </script>

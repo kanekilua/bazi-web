@@ -9,6 +9,8 @@ global.GRADIENT_END = BASECOLOR;
 global.APP_NAME = 'bazi';
 global.APP_TOKEN = APP_NAME + '_token';
 global.APP_ACCOUNT_INFO = APP_NAME + '_account_info';
+global.APP_BAZI_DATA = APP_NAME + '_bazi_data';
+global.APP_BAZI_DATA_MAX = 5;
 
 // tip message
 global.CHECK_TIP = '请同意用户协议'

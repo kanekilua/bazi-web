@@ -4,6 +4,7 @@ Vue.use(vuex);
 
 import fortune from "./module/fortune"
 import bazi from "./module/bazi"
+import baziMingPan from "./module/bazi-mingpan"
 
 export default new vuex.Store ({
     state : {
@@ -11,7 +12,8 @@ export default new vuex.Store ({
     },
     modules : {
         fortune: fortune,
-        bazi : bazi
+        bazi : bazi,
+        baziMingPan : baziMingPan
     },
     mutations: {
         updateLoginAccount: function (state,value) {

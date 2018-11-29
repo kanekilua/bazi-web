@@ -76,10 +76,11 @@
 </template>
 <script>
 import solarLunar from 'solarLunar'
+import {mapMutations} from 'vuex'
 
 export default  {
     created() {
-        let app_paipan_data = localStorage.getItem(global.APP_PAIPAN_DATA);
+        let app_paipan_data = localStorage.getItem(global.APP_BAZI_DATA);
         if(app_paipan_data != undefined) {
             this.paipanDataList = JSON.parse(app_paipan_data);
         }
@@ -105,6 +106,7 @@ export default  {
         }
     },
     methods : {
+        ...mapMutations('baziMingPan',['updateBaziUserInfo']),
         btnStyleChange : function (index) {
             this.touchIndex = index;
         },
@@ -171,24 +173,26 @@ export default  {
                 'yezis' : 1
             }
             let app_paipan_data = [];
-            // 判断localStorage中是否有global.APP_PAIPAN_DATA，有的话取出来
-            if(localStorage.hasOwnProperty(global.APP_PAIPAN_DATA)) {
-                app_paipan_data = JSON.parse(localStorage.getItem(global.APP_PAIPAN_DATA));
+            // 判断localStorage中是否有global.APP_BAZI_DATA，有的话取出来
+            if(localStorage.hasOwnProperty(global.APP_BAZI_DATA)) {
+                app_paipan_data = JSON.parse(localStorage.getItem(global.APP_BAZI_DATA));
             }
-            // 判断localStorage中的global.APP_PAIPAN_DATA的长度是否等于最大值，是的话删除最后一个元素
-            if(app_paipan_data.length === global.APP_PAIPAN_DATA_MAX){
-                app_paipan_data.splice(global.APP_PAIPAN_DATA_MAX-1,1);
+            // 判断localStorage中的global.APP_BAZI_DATA的长度是否等于最大值，是的话删除最后一个元素
+            if(app_paipan_data.length === global.APP_BAZI_DATA_MAX){
+                app_paipan_data.splice(global.APP_BAZI_DATA_MAX-1,1);
             }
             app_paipan_data.unshift(paipanData);
-            localStorage.setItem(global.APP_PAIPAN_DATA,JSON.stringify(app_paipan_data));
+            localStorage.setItem(global.APP_BAZI_DATA,JSON.stringify(app_paipan_data));
+            this.updateBaziUserInfo(paipanData);
             this.$jump('/bazi');
         },
         selectUser : function (item,index) {
-            let app_paipan_data = JSON.parse(localStorage.getItem(global.APP_PAIPAN_DATA));
+            let app_paipan_data = JSON.parse(localStorage.getItem(global.APP_BAZI_DATA));
             // 删除掉点击的item，再在数组的首部添加item -> 将item移至首位的操作
             app_paipan_data.splice(index,1);
             app_paipan_data.unshift(item);
-            localStorage.setItem(global.APP_PAIPAN_DATA,JSON.stringify(app_paipan_data));
+            localStorage.setItem(global.APP_BAZI_DATA,JSON.stringify(app_paipan_data));
+            this.updateBaziUserInfo(item);
             this.$jump('/bazi');
         }
     }
