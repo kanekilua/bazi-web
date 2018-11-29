@@ -122,11 +122,11 @@ export default {
                 let account_info = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
                 if(account_info[this.phone] === undefined || account_info[this.phone] === null) {
                     let header = {'Authorization':result.data.token};
-                    this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,null);
+                    this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,() => {});
                 }
             }else {
                 let header = {'Authorization':result.data.token};
-                this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,null);
+                this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,() => {});
             }
             this.updateLoginAccount(this.phone);
             localStorage.setItem(global.APP_TOKEN,result.data.token);

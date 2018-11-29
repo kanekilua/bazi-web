@@ -1,7 +1,7 @@
 <template>
     <div class="tab-bar">
         <div class="tab-bar-list">
-            <div class="tab-bar-item" v-for="(tab,index) in tabs" :key="index" @click="$jump(tab.route)">
+            <div class="tab-bar-item" v-for="(tab,index) in tabs" :key="index" @click="jumpRoute(tab)">
                 <img :src="isSelect === tab.route ? tab.icoUrlActive : tab.icoUrl" class="ico master-ico" :class="setClass(index)">
                 <div class="tab-title">{{tab.name}}</div>    
             </div>        
@@ -10,8 +10,10 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
     computed : {
+        ...mapState (['loginAccount']),
         'isSelect' () {
             return this.$route.path;
         }
@@ -58,6 +60,14 @@ export default {
             let obj = {tabIco: true}
             obj[`tabIco${index+1}`] = true
             return obj
+        },
+        jumpRoute(tab) {
+            if(tab.name === "运势" && this.loginAccount === "") {
+                this.$vux.toast.text('请先登录','top');
+                return ;
+            }else {
+                this.$jump(tab.route);
+            }
         }
     }
 }

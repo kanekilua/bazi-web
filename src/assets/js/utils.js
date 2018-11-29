@@ -1,4 +1,5 @@
 export default {
+    // input格式校验
     checkAccount :function(account, vue) {
         let result = true;
         if(account.length < 4 || account.length > 12) {
@@ -48,5 +49,18 @@ export default {
             vue.$vux.toast.text(global.CHECK_NAME,'top');
         }
         return result;
+    },
+
+    // 去除html标签
+    delHtmlTag : function (str){
+        return str.replace(/<[^>]+>/g," ");//去掉所有的html标记
+    },
+    // 去除字符串所有空格
+    removeAllSpace: function (str) {
+        return str.replace(/\s+/g, "");
+    },
+    //去除前后空格
+    Trim: function (str){ 
+        return str.replace(/(^\s*)|(\s*$)/g, ""); 
     }
 }

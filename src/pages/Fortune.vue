@@ -5,11 +5,11 @@
            <div class="user-message">
                <div class="user-message-top">
                    <div>名字：{{userName}}</div>
-                   <div class="switchUser" @click="logout">
+                   <div class="switchUser" @click="switchUser">
                        <div>切换用户</div><i></i>
                    </div>
                </div>
-               <div class="user-message-bottom"> 生辰八字： {{birthday}}</div>
+               <div class="user-message-bottom"> 生辰八字：{{birthday}}</div>
            </div>
        </div>
         <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
@@ -30,13 +30,29 @@ import MonthFortune from './MonthFortune';
 import YearFortune from './YearFortune';
 
 export default {
+    created () {
+        let userInfo;
+        if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
+            userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))[this.loginAccount];
+        }
+        if(userInfo  === undefined) {
+            this.$vux.toast.text('请先登录','top');
+            this.$router.push('/login');
+            return ;
+        }
+        this.userName = userInfo.realname;       
+        this.birthday = userInfo.birthday;
+    },
     components: {
         TodayFortune,
         MonthFortune,
         YearFortune
     },
     computed : {
-        ...mapState ('fortune',['navIndex']),
+        ...mapState ({
+            navIndex : state => state.fortune.navIndex,
+            loginAccount : state => state.loginAccount
+        }),
         swiper () {
             return this.$refs.mySwiper.swiper;
         }
@@ -57,8 +73,8 @@ export default {
     data () {
         return {
             avatar: require('../assets/image/fortune/avatar@2x.png'),
-            userName: "卿大海",
-            birthday: "1887年11月9日凌晨1:00",
+            userName: "",
+            birthday: "",
             navList: ["今日运程","本月运程","2019运程"],
             list: [TodayFortune,MonthFortune,YearFortune,],
             swiperOption : { initialSlide: this.navIndex }
@@ -66,7 +82,8 @@ export default {
     },
     methods : {
         ...mapMutations('fortune',['updateNavIndex']),
-        logout :function () {
+        ...mapMutations(['updateLoginAccount']),
+        switchUser :function () {
             let token = localStorage.getItem(global.APP_TOKEN);
             let header = {'Authorization':token};
             this.$http.get('/logout',null,'app',header,this.logoutSuccess,null);
@@ -74,7 +91,7 @@ export default {
         logoutSuccess : function (result) {
             this.updateLoginAccount("");
             localStorage.setItem(global.APP_TOKEN,result.data.token);
-            this.$jump('login');
+            this.$jump('/login');
         }
     }
 }
@@ -103,7 +120,7 @@ export default {
                         display: inline-block;
                         width: 43/75rem;
                         height: 44/75rem;
-                        background: url('../assets/image/fortune/switch-user@2x.png') no-repeat center center / 100% 100%;
+                        background: url('../assets/image/bazi/switchUser@2x.png') no-repeat center center / 100% 100%;
                         margin-left: 16/75rem;
                     }
                 }

@@ -6,6 +6,7 @@ import Register from '@/pages/Register'
 import ResetPwd from '@/pages/ResetPwd'
 import UserAgreement from '@/pages/UserAgreement'
 import Birth from '@/pages/Birth'
+import BaziBirth from '@/pages/BaziBirth'
 
 // 主路由页面
 import Main from '@/pages/Main'
@@ -86,7 +87,12 @@ export default new Router({
     {
       path : '/bazi',
       name : 'bazi',
-      component : Bazi,
+      component : Bazi
+    },
+    {
+      path : '/baziBirth',
+      name : 'baziBirth',
+      component: BaziBirth
     }
   ]
 })
