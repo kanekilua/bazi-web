@@ -23,8 +23,7 @@
 </template>
 
 <script>
-import {mapState } from 'vuex';
-import { Datetime } from 'vux'
+import {mapState } from 'vuex'
 
 export default {
     computed: {
@@ -40,9 +39,6 @@ export default {
             birthDate: "",
             dateArray: []
         }
-    },
-    components: {
-        Datetime
     },
     methods : {
         showDatePlugin : function () {
