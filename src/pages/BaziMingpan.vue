@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <x-button class="save-btn">保存命盘</x-button>
+        <x-button class="save-btn" @click.native="saveScreenshot">保存命盘</x-button>
     </div>
 </template>
 <script>
@@ -152,6 +152,16 @@ export default {
         cangganFormat: function (obj) {
             let newObj = obj.toString().replace(/\(|\)/g,'');
             return(newObj);
+        },
+        saveScreenshot : function() {
+            navigator.screenshot.save(function(error,res){
+                if(error){
+                    console.error("---------------" + error + "---------------");
+                }else{
+                    console.log('---------------ok---------------');
+                    console.error("---------------"+JSON.stringify(res)+"---------------");
+                }
+            });
         }
     }
 }
