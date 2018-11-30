@@ -7,6 +7,7 @@ import ResetPwd from '@/pages/ResetPwd'
 import UserAgreement from '@/pages/UserAgreement'
 import Birth from '@/pages/Birth'
 import BaziBirth from '@/pages/BaziBirth'
+import PeachBlossom from '@/pages/PeachBlossom'
 
 // 主路由页面
 import Main from '@/pages/Main'
@@ -138,6 +139,10 @@ export default new Router({
       path: '/loveBlossoms',
       name:'loveBlossoms',
       component: LoveBlossoms
-    },
+    },{
+      path : '/peachBlossom',
+      name : 'peachBlossom',
+      component: PeachBlossom
+    }
   ]
 })

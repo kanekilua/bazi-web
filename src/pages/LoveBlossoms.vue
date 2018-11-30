@@ -1,7 +1,10 @@
 <template>
     <div class="wrap">
-        <v-active-header>桃花运</v-active-header>
-        <v-title-header>桃花运</v-title-header>
+        <v-active-header :backLink="backLink">桃花运</v-active-header>
+        <v-title-header :backLink="backLink">
+            桃花运
+            <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
+        </v-title-header>
         <div class="content-wrap">
             <img src="../assets/image/love/love-blossoms@2x.png" class="title-img">
             <input type="text" class="name-input" placeholder="请输入您的姓名" placeholder-align="left">
@@ -16,7 +19,7 @@
                 <label for="nongli">农历</label>
             </div>
             <input id="dateInput" type="text" class="name-input input-born" placeholder="请选择您的出生日期" @click="showDatePlugin" readonly="readonly" v-model="birthDate">
-            <button class="begin-test">开始测算</button>
+            <button class="begin-test" @click="$jump('/peachBlossom')">开始测算</button>
             <div class="user-manage">
                 <div class="title-nav">
                     <div class="nav-left">
@@ -42,6 +45,7 @@
 export default {
     data () {
         return{
+            backLink: "/love",
             birthDate : "",
             dateType : "1",
             dateArray : [],

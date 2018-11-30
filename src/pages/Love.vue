@@ -1,7 +1,10 @@
 <template>
     <div class="wrap">
         <v-active-header>八字排盘</v-active-header>
-        <v-title-header>八字排盘</v-title-header>
+       <v-title-header :backLink="backLink">
+            婚恋爱情
+            <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
+        </v-title-header>
         <div class="img-box">
             <img src="../assets/image/love/taohua@2x.png" @click="$jump('/loveBlossoms')">
             <img src="../assets/image/love/hehun@2x.png">
@@ -12,7 +15,7 @@
 export default {
     data () {
         return{
-
+            backLink: "/main/home",
         }
     }
 }
