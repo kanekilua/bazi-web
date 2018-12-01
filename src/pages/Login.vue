@@ -130,7 +130,9 @@ export default {
             }
             this.updateLoginAccount(this.phone);
             localStorage.setItem(global.APP_TOKEN,result.data.token);
-            this.$jump('main/fortune');
+            setTimeout(() => {
+                this.$jump('main/fortune');
+            },500);
         },
         getUserInfoSuccess : function(result) {
             let accountInfo;
