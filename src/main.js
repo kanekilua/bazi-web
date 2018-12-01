@@ -27,7 +27,7 @@ Object.keys(components).forEach((key) => {
 })
 
 // vux基础组件引用
-import { XButton,XInput,Group,Flexbox,FlexboxItem,ToastPlugin,Tab,TabItem,Swiper,SwiperItem,DatetimePlugin,Popup,TransferDom,Cell} from 'vux'
+import { XButton,XInput,Group,Flexbox,FlexboxItem,ToastPlugin,Tab,TabItem,Swiper,SwiperItem,DatetimePlugin,Popup,TransferDom,Cell,Sticky} from 'vux'
 Vue.component('x-button', XButton);
 Vue.component('x-input', XInput);
 Vue.component('group', Group);
@@ -40,6 +40,7 @@ Vue.component('swiper-item', SwiperItem);
 Vue.component('popup', Popup);
 Vue.component('transfer-dom', TransferDom);
 Vue.component('cell', Cell);
+Vue.component('sticky', Sticky );
 Vue.use(DatetimePlugin)
 Vue.use(ToastPlugin);
 

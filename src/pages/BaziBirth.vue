@@ -1,6 +1,6 @@
 <template>
     <div class="bazi-birth-wrap">
-        <v-title-header :title='headerTitle'></v-title-header>
+        <v-title-header>生辰八字</v-title-header>
         <div class="birth-form">
             <h2 class="form-title">生辰八字</h2>
             <input type="text" class="input-name" placeholder="请输入您的姓名" v-model="name">
@@ -89,7 +89,6 @@ export default  {
         return  {
             gradientStart : global.GRADIENT_START,
             gradientEnd : global.GRADIENT_END,
-            headerTitle : '生辰八字',
             name : "",
             gender: "1",
             province : "忽略",
@@ -101,7 +100,7 @@ export default  {
             birthDate : "",
             dateType : "1",
             dateArray : [],
-            paipanDataList : [],
+            paipanDataList : [1,2],
             touchIndex : -1
         }
     },

@@ -1,14 +1,14 @@
 <template>
     <div class="header">
         <div class="back icon" @click="back"></div>
-        <div class="title">{{title}}</div>
-        <slot><div class="icon"></div></slot>
+        <div class="title"><slot></slot></div>
+        <div class="icon"><slot name="icon"></slot></div>
     </div>
 </template>
 <script>
 export default {
     name : 'TitleHeader',
-    props : ['title','backLink'],
+    props : ['backLink'],
     methods : {
         back : function () {
             if(this.backLink != null) {

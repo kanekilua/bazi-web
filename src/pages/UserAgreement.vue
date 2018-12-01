@@ -1,6 +1,6 @@
 <template>
     <div class="userAgreement">
-        <v-title-header :title='title'></v-title-header>
+        <v-title-header>注册协议</v-title-header>
         <div class="content">
             <p>尊敬的用户，欢迎阅读本协议</p>
             <p>占星依据本协议的规定提供服务，本协议具有合同效力。您必须完全同意以下所有条款，才能保证享受到更好的占星服务。您使用服务的行为将视为对本协议的接受，并同意接受本协议各项条款的约束。</p>
@@ -21,12 +21,7 @@
 </template>
 <script>
 export default {
-    name : 'UserAgreement',
-    data() {
-        return {
-            title : '注册协议'
-        }
-    }
+    name : 'UserAgreement'
 }
 </script>
 <style lang="less" scoped>
