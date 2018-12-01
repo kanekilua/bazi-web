@@ -20,9 +20,9 @@
                 <x-button :gradients="[gradientStart, gradientEnd]" @click.native="login">立刻登入</x-button>
             </group>
             <div class="externLink">
-                <img src="../assets/image/login/qq@3x.png" alt="qq">
+                <img src="../assets/image/login/qq@3x.png" alt="qq" @click="qqLogin">
                 <!-- <img src="../assets/image/login/sina@3x.png" alt="sina"> -->
-                <img src="../assets/image/login/wechat@3x.png" alt="wechat">
+                <img src="../assets/image/login/wechat@3x.png" alt="wechat" @click="wechatLogin">
             </div>
         </div>
     </div>
@@ -117,22 +117,23 @@ export default {
             }
         },
         loginSuccess : function(result) {
+            this.updateLoginAccount(this.phone);
+            localStorage.setItem(global.APP_TOKEN,result.data.token);
             // 判断本地有没有存这个手机号对应的account_info
             if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
                 let account_info = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
                 if(account_info[this.phone] === undefined || account_info[this.phone] === null) {
                     let header = {'Authorization':result.data.token};
                     this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,() => {});
+                }else {
+                    setTimeout(() => {
+                        this.$jump('main/fortune');
+                    },300);
                 }
             }else {
                 let header = {'Authorization':result.data.token};
                 this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,() => {});
             }
-            this.updateLoginAccount(this.phone);
-            localStorage.setItem(global.APP_TOKEN,result.data.token);
-            setTimeout(() => {
-                this.$jump('main/fortune');
-            },500);
         },
         wechatLogin : function () {
             Wechat.isInstalled((installed) => {
@@ -144,7 +145,7 @@ export default {
                         platform : "wechat",
                         code : response.code
                     }
-                    this.$http.post('/thirdlogin',loginData,'app',null,this.loginSuccess,null);
+                    this.$http.post('/thirdlogin',loginData,'app',null,this.thirdLogin,null);
                 }, (reason) => {
                     this.$vux.toast.text(reason,'top');
                 });
@@ -166,10 +167,9 @@ export default {
                         platform : 'QQ',
                         openid : result.userid,
                         access_token : result.access_token,
-                        expires_in : parseInt(result.expires_time)
+                        expires_in : result.expires_time
                     }
-                    this.$http.post('/thirdlogin',loginData,'app',null,this.loginSuccess,null);
-                    this.$jump('main');
+                    this.$http.post('/thirdlogin',loginData,'app',null,this.thirdLogin,null);
                 }, (failReason) => {
                     this.$vux.toast.text(failReason,"top");
                 }, args);
@@ -188,6 +188,24 @@ export default {
                 }
             }
             localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
+            setTimeout(() => {
+                this.$jump('main/fortune');
+            },300);
+        },
+        thirdLogin : function (result) {
+            let account;
+            if(result.data.code === undefined) {
+                account = "QQ";
+            }else {
+                account = "WECHAT";
+            }
+            this.updateLoginAccount(account);
+            localStorage.setItem(global.APP_TOKEN,result.data.token);
+            let header = {'Authorization':result.data.token};
+            this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,this.getUserInfoFail);
+        },
+        getUserInfoFail : function () {
+            this.$jump('birth');
         }
     }
 }
