@@ -139,8 +139,8 @@ export default {
                 Wechat.auth(scope, state, (response)=> {
                     // {"code":"","state":"","country":"CN","lang":"zh_CN"}
                     let loginData = {
-                        "platform" : "wechat",
-                        "code" : response.code
+                        platform : "wechat",
+                        code : response.code
                     }
                     this.$http.post('/thirdlogin',loginData,'app',null,this.loginSuccess,null);
                 }, (reason) => {
@@ -160,6 +160,13 @@ export default {
                     //     'userId' : result.userid,
                     //     'expires_time' : new Date(parseInt(result.expires_time))
                     // });
+                    let loginData = {
+                        platform : 'QQ',
+                        openid : result.userid,
+                        access_token : result.access_token,
+                        expires_in : parseInt(result.expires_time)
+                    }
+                    this.$http.post('/thirdlogin',loginData,'app',null,this.loginSuccess,null);
                     this.$jump('main');
                 }, (failReason) => {
                     this.$vux.toast.text(failReason,"top");
