@@ -1,6 +1,6 @@
 <template>
     <div class="resetPwd">
-        <v-title-header :title='title'></v-title-header>
+        <v-title-header>忘记密码</v-title-header>
         <div class="form">
             <group>
                 <x-input placeholder="请输入您的手机号" v-model='phone' keyboard="number" is-type="china-mobile" :max="11"></x-input>
@@ -30,7 +30,6 @@ export default {
             passwordComfirm : "",
             gradientStart : global.GRADIENT_START,
             gradientEnd : global.GRADIENT_END,
-            title : '忘记密码',
             count : '',
             timer : null,
             show : true
