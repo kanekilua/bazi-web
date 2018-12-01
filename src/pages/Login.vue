@@ -21,7 +21,7 @@
             </group>
             <div class="externLink">
                 <img src="../assets/image/login/qq@3x.png" alt="qq">
-                <img src="../assets/image/login/sina@3x.png" alt="sina">
+                <!-- <img src="../assets/image/login/sina@3x.png" alt="sina"> -->
                 <img src="../assets/image/login/wechat@3x.png" alt="wechat">
             </div>
         </div>
@@ -191,7 +191,7 @@ export default {
         }
         .externLink {
             margin-top : 80/75rem;
-            .flex-between();
+            .flex-around();
             img {
                 height: 88/75rem;
                 width: 88/75rem;
