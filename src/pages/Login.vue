@@ -20,9 +20,9 @@
                 <x-button :gradients="[gradientStart, gradientEnd]" @click.native="login">立刻登入</x-button>
             </group>
             <div class="externLink">
-                <img src="../assets/image/login/qq@3x.png" alt="qq" @click="qqLogin">
-                <img src="../assets/image/login/sina@3x.png" alt="sina">
-                <img src="../assets/image/login/wechat@3x.png" alt="wechat" @click="wechatLogin">
+                <img src="../assets/image/login/qq@3x.png" alt="qq">
+                <!-- <img src="../assets/image/login/sina@3x.png" alt="sina"> -->
+                <img src="../assets/image/login/wechat@3x.png" alt="wechat">
             </div>
         </div>
     </div>
@@ -227,7 +227,7 @@ export default {
         }
         .externLink {
             margin-top : 80/75rem;
-            .flex-between();
+            .flex-around();
             img {
                 height: 88/75rem;
                 width: 88/75rem;
