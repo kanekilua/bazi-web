@@ -4,7 +4,7 @@
         <div class="ziwei-box">
             <flexbox :gutter="0">
                 <flexbox-item>
-                    <div class="table-cell">
+                    <div class="table-cell" @click="drawTriangle(1)">
                         <div class="tag-list">
                             <div class="red-tag" v-if="this.redTag[5][0]" v-html="this.redTag[5][0]"></div>
                             <div class="red-tag" v-if="this.redTag[5][1]" v-html="this.redTag[5][1]"></div>
@@ -41,7 +41,7 @@
                     </div>
                 </flexbox-item>
                 <flexbox-item>
-                    <div class="table-cell">
+                    <div class="table-cell" @click="drawTriangle(2)">
                         <div class="tag-list">
                             <div class="red-tag" v-if="this.redTag[6][0]" v-html="this.redTag[6][0]"></div>
                             <div class="red-tag" v-if="this.redTag[6][1]" v-html="this.redTag[6][1]"></div>
@@ -78,7 +78,7 @@
                     </div>
                 </flexbox-item>
                  <flexbox-item>
-                    <div class="table-cell">
+                    <div class="table-cell"  @click="drawTriangle(3)">
                         <div class="tag-list">
                             <div class="red-tag" v-if="this.redTag[7][0]" v-html="this.redTag[7][0]"></div>
                             <div class="red-tag" v-if="this.redTag[7][1]" v-html="this.redTag[7][1]"></div>
@@ -115,7 +115,7 @@
                     </div>
                 </flexbox-item>
                 <flexbox-item>
-                    <div class="table-cell">
+                    <div class="table-cell" @click="drawTriangle(4)">
                         <div class="tag-list">
                             <div class="red-tag" v-if="this.redTag[8][0]" v-html="this.redTag[8][0]"></div>
                             <div class="red-tag" v-if="this.redTag[8][1]" v-html="this.redTag[8][1]"></div>
@@ -154,7 +154,7 @@
             </flexbox>
             <flexbox :gutter="0">
                 <div style="width:25%">                   
-                   <div class="table-cell">
+                   <div class="table-cell" @click="drawTriangle(12)">
                         <div class="tag-list">
                             <div class="red-tag" v-if="this.redTag[4][0]" v-html="this.redTag[4][0]"></div>
                             <div class="red-tag" v-if="this.redTag[4][1]" v-html="this.redTag[4][1]"></div>
@@ -189,7 +189,7 @@
                         </div>
                         <div class="shichen">{{this.shichenTag[4][0]}}</div>
                     </div>
-                    <div class="table-cell">
+                    <div class="table-cell" @click="drawTriangle(11)">
                         <div class="tag-list">
                             <div class="red-tag" v-if="this.redTag[3][0]" v-html="this.redTag[3][0]"></div>
                             <div class="red-tag" v-if="this.redTag[3][1]" v-html="this.redTag[3][1]"></div>
@@ -225,8 +225,8 @@
                         <div class="shichen">{{this.shichenTag[3][0]}}</div>
                     </div>
                 </div>
-                <canvas class="double-table-cell table-cell" id="canvas" ref="canvas">
-                    <!-- <div>
+                <div class="double-table-cell table-cell canvas-father">
+                    <div>
                         <div class="middle-item"><span class="item-key">姓名:</span>{{this.info.name}}</div>
                         <div class="middle-item"><span class="item-key">年龄:</span>19</div>
                         <div class="middle-item"><span class="item-key">公历:</span>{{this.resStr.data.yangdate}}</div>
@@ -234,11 +234,11 @@
                         <div class="center-item"><span class="item-key">盘类:</span><span>天盘</span></div>
                         <div class="center-item"><span class="item-key">命主:</span>{{this.resStr.data.mingzhum}}</div>
                         <div class="center-item"><span class="item-key">子年斗君:</span>{{this.resStr.data.dz_a1}}</div>
-                    </div>  -->
-                    <!-- <canvas ref="drawArea"></canvas>                  -->
-                </canvas>
+                    </div>
+                    <canvas id="canvas" ref="canvas"></canvas>                 
+                </div>
                 <div style="width:25%">                   
-                    <div class="table-cell">
+                    <div class="table-cell"  @click="drawTriangle(5)">
                         <div class="tag-list">
                             <div class="red-tag" v-if="this.redTag[9][0]" v-html="this.redTag[9][0]"></div>
                             <div class="red-tag" v-if="this.redTag[9][1]" v-html="this.redTag[9][1]"></div>
@@ -273,7 +273,7 @@
                         </div>
                         <div class="shichen">{{this.shichenTag[9][0]}}</div>
                     </div>
-                     <div class="table-cell">
+                     <div class="table-cell" @click="drawTriangle(6)">
                         <div class="tag-list">
                             <div class="red-tag" v-if="this.redTag[10][0]" v-html="this.redTag[10][0]"></div>
                             <div class="red-tag" v-if="this.redTag[10][1]" v-html="this.redTag[10][1]"></div>
@@ -312,7 +312,7 @@
             </flexbox>
             <flexbox :gutter="0">
                  <flexbox-item>
-                     <div class="table-cell">
+                     <div class="table-cell" @click="drawTriangle(10)">
                         <div class="tag-list">
                             <div class="red-tag" v-if="this.redTag[2][0]" v-html="this.redTag[2][0]"></div>
                             <div class="red-tag" v-if="this.redTag[2][1]" v-html="this.redTag[2][1]"></div>
@@ -349,7 +349,7 @@
                     </div>
                 </flexbox-item>
                  <flexbox-item>
-                     <div class="table-cell" :data-id="2" @click="drawTriangle(2)">
+                     <div class="table-cell" :data-id="2" @click="drawTriangle(9)">
                         <div class="tag-list">
                             <div class="red-tag" v-if="this.redTag[1][0]" v-html="this.redTag[1][0]"></div>
                             <div class="red-tag" v-if="this.redTag[1][1]" v-html="this.redTag[1][1]"></div>
@@ -386,7 +386,7 @@
                     </div>
                 </flexbox-item>
                  <flexbox-item>
-                     <div class="table-cell">
+                     <div class="table-cell"  @click="drawTriangle(8)">
                         <div class="tag-list">
                             <div class="red-tag" v-if="this.redTag[0][0]" v-html="this.redTag[0][0]"></div>
                             <div class="red-tag" v-if="this.redTag[0][1]" v-html="this.redTag[0][1]"></div>
@@ -423,7 +423,7 @@
                     </div>
                 </flexbox-item>
                  <flexbox-item>
-                     <div class="table-cell">
+                     <div class="table-cell"  @click="drawTriangle(7)">
                         <div class="tag-list">
                             <div class="red-tag" v-if="this.redTag[11][0]" v-html="this.redTag[11][0]"></div>
                             <div class="red-tag" v-if="this.redTag[11][1]" v-html="this.redTag[11][1]"></div>
@@ -479,14 +479,16 @@ export default {
             doctorTag: [],
             officerTag:[], 
             qianxiTag: [], 
-            shichenTag: [],  
+            shichenTag: [], 
+            
+            centerItem: false,
         }
     },
     created () {
         this.getData()
     },
     updated () {
-        this.drawTriangle();
+        // this.drawTriangle();
     },
     methods: {
         getData: function () {
@@ -614,6 +616,7 @@ export default {
                 }
                 result.push(k)         
             }
+            console.log(result)
         },
         failure: function (res) {
             // console.log('123123')
@@ -622,11 +625,12 @@ export default {
            return str.replace(/\s+|&nbsp/g, "");
         },
         drawTriangle: function (e){
+            this.centerItem = true; //显示中间模块
             let id = e;
-            console.log(e)
             let canvas = document.getElementById("canvas");//获取canvas对象
             let bgWidth = parseInt(this.$refs.canvas.width);
             let bgHeight = parseInt(this.$refs.canvas.height);
+            let ctx = canvas.getContext("2d"); //创建二维的绘图上下文对象
             let x1 = 0;
             let y1 = 0;
             let x2 = bgWidth/4;
@@ -644,7 +648,6 @@ export default {
             let x8 = bgWidth/4*3;
             let y8 = bgHeight;
             let x9 = bgWidth/4;
-            console.log(x9)
             let y9 = bgHeight;
             let x10 = 0;
             let y10 = bgHeight;
@@ -652,22 +655,107 @@ export default {
             let y11 = bgHeight/4*3;
             let x12 = 0;
             let y12 = bgHeight/4;
-            let ctx = canvas.getContext("2d"); //创建二维的绘图上下文对象
             ctx.beginPath();
             ctx.linewidth=2;
-            ctx.moveTo(x1,y1);
-            ctx.lineTo(x5,y5);
-            ctx.lineTo(x9,y9);
-            // ctx.moveTo('x'+id,'y'+id);
-            // ctx.lineTo('x'+id+4,'y'+id+4);
-            // ctx.lineTo('x'+id+8,'y'+id+4);
+            if (id==1){
+                this.$refs.canvas.height = bgHeight;
+                ctx.moveTo(x1,y1);
+                ctx.lineTo(x5,y5);
+                ctx.lineTo(x9,y9); 
+                ctx.lineTo(x1,y1);
+                ctx.lineTo(x7,y7);
+            }else if (id==2){
+                this.$refs.canvas.height = bgHeight;
+                ctx.moveTo(x2,y2);
+                ctx.lineTo(x6,y6);
+                ctx.lineTo(x10,y10); 
+                ctx.lineTo(x2,y2);
+                ctx.lineTo(x8,y8);
+            }else if (id==3){
+                this.$refs.canvas.height = bgHeight;
+                ctx.moveTo(x3,y3);
+                ctx.lineTo(x7,y7);
+                ctx.lineTo(x11,y11); 
+                ctx.lineTo(x3,y3);
+                ctx.lineTo(x9,y9);
+            }else if (id==4){
+                this.$refs.canvas.height = bgHeight;
+                ctx.moveTo(x4,y4);
+                ctx.lineTo(x8,y8);
+                ctx.lineTo(x12,y12); 
+                ctx.lineTo(x4,y4);
+                ctx.lineTo(x10,y10);
+            }else if (id==5){
+                this.$refs.canvas.height = bgHeight;
+                ctx.moveTo(x5,y5);
+                ctx.lineTo(x9,y9);
+                ctx.lineTo(x1,y1); 
+                ctx.lineTo(x5,y5);
+                ctx.lineTo(x11,y11);
+            }else if (id==6){
+                this.$refs.canvas.height = bgHeight;
+                ctx.moveTo(x6,y6);
+                ctx.lineTo(x10,y10);
+                ctx.lineTo(x2,y2); 
+                ctx.lineTo(x6,y6);
+                ctx.lineTo(x12,y12);
+            }else if (id==7){
+                this.$refs.canvas.height = bgHeight;
+                ctx.moveTo(x7,y7);
+                ctx.lineTo(x11,y11);
+                ctx.lineTo(x3,y3); 
+                ctx.lineTo(x7,y7);
+                ctx.lineTo(x1,y1);
+            }else if (id==8){
+                this.$refs.canvas.height = bgHeight;                
+                ctx.moveTo(x8,y8);
+                ctx.lineTo(x12,y12);
+                ctx.lineTo(x4,y4); 
+                ctx.lineTo(x8,y8);
+                ctx.lineTo(x2,y2);
+            }else if (id==9){
+                this.$refs.canvas.height = bgHeight;
+                ctx.moveTo(x9,y9);
+                ctx.lineTo(x1,y1);
+                ctx.lineTo(x5,y5); 
+                ctx.lineTo(x9,y9);
+                ctx.lineTo(x3,y3);
+            }else if (id==10){
+                this.$refs.canvas.height = bgHeight;
+                ctx.moveTo(x10,y10);
+                ctx.lineTo(x2,y2);
+                ctx.lineTo(x6,y6); 
+                ctx.lineTo(x10,y10);
+                ctx.lineTo(x4,y4);
+            }else if (id==11){
+                this.$refs.canvas.height = bgHeight;
+                ctx.moveTo(x11,y11);
+                ctx.lineTo(x3,y3);
+                ctx.lineTo(x7,y7); 
+                ctx.lineTo(x11,y11);
+                ctx.lineTo(x5,y5);
+            }else if (id==12){
+                this.$refs.canvas.height = bgHeight;
+                ctx.moveTo(x12,y12);
+                ctx.lineTo(x4,y4);
+                ctx.lineTo(x8,y8); 
+                ctx.lineTo(x12,y12);
+                ctx.lineTo(x6,y6);
+            }
+            
+           
+            
+            // ctx.moveTo(x1,y1);
+            // ctx.lineTo(x5,y5);
+            // ctx.lineTo(x9,y9);
+            // ctx.moveTo(['x'+id],['y'+id]);
+            // ctx.lineTo(['x'+(id+4)],['y'+(id+4)]);
+            // ctx.lineTo(['x'+(id+8)],['y'+(id+8)]);
             ctx.closePath(); //closePath() 关闭路径  闭合
             ctx.strokeStyle="#D52F2E";// strokeStyle 只能填充该路径的颜色
             // ctx.moveTo('x'+id,'y'+id)
-            // ctx.moveTo('x'+id+6,'y'+id+6)
-            ctx.moveTo(x1,y1);
-            ctx.lineTo(x7,y7);
-            ctx.closePath();
+            // ctx.moveTo('x'+(id+6),'y'+(id+6))
+            
             ctx.stroke();
         }
         
@@ -778,7 +866,6 @@ export default {
             width: 50%;
             box-sizing: border-box;
             height: @cellHeight*2;
-            // padding: 15/75rem;
             font-size: 24/75rem;
             .flex-col-only();
             @media screen and(max-device-width:330px) {
@@ -786,12 +873,26 @@ export default {
             }
             .middle-item,.center-item{
                 text-align: center;
-                margin-bottom: 10/75rem;
+                margin-bottom: 33/75rem;
             }
             .item-key{
                 display: inline-block;
                 margin-right: 12/75rem;
                 font-weight: bold;
+            }
+        }
+        .canvas-father{
+            position: relative;
+            overflow-y: hidden;
+            #canvas{
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                width: 100%;
+                height: 100%;
             }
         }
     }
