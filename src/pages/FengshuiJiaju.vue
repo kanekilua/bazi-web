@@ -2,7 +2,7 @@
     <div class="wrap">
         <v-header></v-header>
         <v-title-header>家居风水</v-title-header>
-        <div class="content">
+        <div class="content-wrap">
             <div class="jiaju-item" :key="index" v-for="(item,index) in itemList" @click="$jump('/fengshuidetail')">
                 <img :src="item.imgSrc" class="item-img">
                 <div class="item-message">
@@ -38,13 +38,25 @@ export default {
                     itemTitle:  "风水三见三不见，应该知道的事情",
                     itemArtical: "许多人对风水的印象都还停留在江湖术士和风水先生的一些故弄玄虚的把戏上，觉得这事一种缺乏科学精神的封建产物。其实主要是这门学问历史悠久，文字又晦涩难懂，配合古代的一."
                 },
+                {
+                    imgSrc: require('../assets/image/fengshui/jiaju1@2x.png'),
+                    itemTitle:  "风水三见三不见，应该知道的事情",
+                    itemArtical: "许多人对风水的印象都还停留在江湖术士和风水先生的一些故弄玄虚的把戏上，觉得这事一种缺乏科学精神的封建产物。其实主要是这门学问历史悠久，文字又晦涩难懂，配合古代的一."
+                },
+                
             ]
         }
     }
 }
 </script>
 <style lang="less" scoped>
-.content{
+.content-wrap{
+    position: absolute;
+    top: 170/75rem;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: auto;
     .jiaju-item{
         .flex-start();
         padding: 20/75rem 0 20/75rem 23/75rem;

@@ -37,6 +37,7 @@ export default {
             opacity: 0.8;
             &.active{
                 opacity: 1;
+                font-weight: bold;
                 border-bottom: 5/75rem solid @checkBackGroud;
             }
         }

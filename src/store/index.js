@@ -6,6 +6,8 @@ import fortune from "./module/fortune"
 import bazi from "./module/bazi"
 import baziMingPan from "./module/bazi-mingpan"
 import peach from "./module/peach"
+import love from "./module/love"
+import fengshuiKnowledge from "./module/fengshuiKnowledge"
 
 export default new vuex.Store ({
     state : {
@@ -15,7 +17,9 @@ export default new vuex.Store ({
         fortune: fortune,
         bazi : bazi,
         baziMingPan : baziMingPan,
-        peach : peach
+        peach : peach,
+        love : love,
+        fengshuiKnowledge : fengshuiKnowledge
     },
     mutations: {
         updateLoginAccount: function (state,value) {

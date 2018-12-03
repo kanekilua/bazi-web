@@ -63,7 +63,7 @@ import {mapState,mapMutations} from 'vuex'
 
 export default {
     computed : {
-        ...mapState('peach',['navIndex']),
+        ...mapState('fengshuiKnowledge',['navIndex']),
         'navList' () {
             let list = [];
             for(let item of this.formContent) {
@@ -180,7 +180,7 @@ export default {
         }
     },
     methods : {
-        ...mapMutations('peach',['updateNavIndex'])
+        ...mapMutations('fengshuiKnowledge',['updateNavIndex'])
     }
 }
 </script>

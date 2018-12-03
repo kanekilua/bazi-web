@@ -11,11 +11,6 @@
                 <p>{{itemArtical}}<img :src="imgSrc" class="item-img">{{itemArtical}}</p>
                 <!-- 获得真实数据后要做图片插入数据中间处理 -->
             </div>
-            <div class="btn-list">
-                <button class="luck-good">开运物品</button>
-                <button class="ask-master">问大师</button>
-                <button class="share select-btn">分享</button>
-            </div>
         </div>
     </div>
 </template>
@@ -54,13 +49,6 @@ export default {
             height: 280/75rem;
             margin: 20/75rem auto;
         }   
-    }
-    .btn-list{
-        .flex-around();
-        & > button{
-            width: 177/75rem;
-            height: 66/75rem;
-        }
     }
     
 }
