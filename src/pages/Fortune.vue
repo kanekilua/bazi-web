@@ -31,17 +31,7 @@ import YearFortune from './YearFortune';
 
 export default {
     created () {
-        let userInfo;
-        if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
-            userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))[this.loginAccount];
-        }
-        if(userInfo  === undefined) {
-            this.$vux.toast.text('请先登录','top');
-            this.$router.push('/login');
-            return ;
-        }
-        this.userName = userInfo.realname;       
-        this.birthday = userInfo.birthday;
+        this.init();
     },
     components: {
         TodayFortune,
@@ -83,6 +73,19 @@ export default {
     methods : {
         ...mapMutations('fortune',['updateNavIndex']),
         ...mapMutations(['updateLoginAccount']),
+        init: function() {
+            let userInfo;
+            if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
+                userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))[this.loginAccount];
+            }
+            if(userInfo  === undefined) {
+                this.$vux.toast.text('请先登录','top');
+                this.$router.push('/login');
+                return ;
+            }
+            this.userName = userInfo.realname;       
+            this.birthday = userInfo.birthday;
+        },
         switchUser :function () {
             let token = localStorage.getItem(global.APP_TOKEN);
             let header = {'Authorization':token};
