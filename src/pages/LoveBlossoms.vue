@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <v-active-header :backLink="backLink">桃花运</v-active-header>
+        <v-header></v-header>
         <v-title-header :backLink="backLink">
             桃花运
             <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
@@ -66,6 +66,22 @@ export default {
                     date: 6,
                     hour: 10,
                 },
+                {
+                    avatarUrl: require('../assets/image/bazi/master-img@2x.png'),
+                    name: "杨海彬",
+                    year: 1996,
+                    month: 1,
+                    date: 6,
+                    hour: 10,
+                },
+                {
+                    avatarUrl: require('../assets/image/bazi/master-img@2x.png'),
+                    name: "杨海彬",
+                    year: 1996,
+                    month: 1,
+                    date: 6,
+                    hour: 10,
+                },
             ]
         }
     },
@@ -102,10 +118,12 @@ export default {
 </script>
 <style lang="less" scoped>
 .content-wrap{
-    // position: absolute;
-    // top: 250/75rem;
-    // bottom: 0;
-    // left: 0;
+    position: absolute;
+    top: 170/75rem;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow-y: hidden;
     background: url('../assets/image/love/love-blossoms-bg@2x.png') no-repeat center center / 100% 100%;
     .title-img{
         display: block;
@@ -152,11 +170,15 @@ export default {
         width: 518/75rem;
         height: 116/75rem;
         display: block;
-        margin: 74/75rem auto 85/75rem auto;
+        margin: 50/75rem auto 85/75rem auto;
         .round(36/75rem);
         background:#EB87A8;
         color: #fff;
         font-size: 28/75rem;
+        border: none;
+        &:active{
+            background: #eee;
+        }
     }
     .user-manage {
         .title-nav{
@@ -180,7 +202,11 @@ export default {
             }
         }
         .user-list{
+            width: 100%;
+            height: 300/75rem;
+            overflow: scroll;
             .user-item{
+                padding-top: 0;
                 padding: 32/75rem 42/75rem 27/75rem 38/75rem;
                 border-bottom: 1px solid rgba(112,112,112,0.35);
                 .flex-between();
@@ -199,6 +225,14 @@ export default {
                 .switch-btn{
                     width: 122/75rem;
                     height: 45/75rem;
+                    background: #EB87A8;
+                    border: none;
+                    .round(15/75rem;);
+                    color: #fff;
+                    outline: none;
+                    &:active{
+                        background: @baseColor;
+                    }
                 }
             }
             
