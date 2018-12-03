@@ -164,7 +164,7 @@ export default {
                     //     'expires_time' : new Date(parseInt(result.expires_time))
                     // });
                     let loginData = {
-                        platform : 'QQ',
+                        platform : 'qq',
                         openid : result.userid,
                         access_token : result.access_token,
                         expires_in : result.expires_time
