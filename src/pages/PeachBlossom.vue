@@ -1,10 +1,11 @@
 <template>
     <div class="wrap">
+        <v-header></v-header>
         <v-title-header :backLink="backLink">
             桃花运
             <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
         </v-title-header>
-        <div class="content">
+        <div class="content-wrap">
             <v-title-nav><h2 slot="title">命中桃花</h2><div slot="more"></div></v-title-nav>
             <div class="pink-bg">
                 <img class="big-flower" src="../assets/image/peachBlossom/bigFlower@2x.png">
@@ -190,8 +191,15 @@ export default {
         height: 44/75rem;
         background: url('../assets/image/bazi/switchUser@2x.png') no-repeat center center / 100% 100%;
     }
-    .content{
-        padding: 32/75rem 32/75rem;
+    .content-wrap{
+        position: absolute;
+        top: 170/75rem;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        box-sizing: border-box;
+        overflow-y: scroll;
+        padding: 0 32/75rem 32/75rem 32/75rem;
         .pink-bg{
             position: relative;
             padding: 35/75rem 16/75rem;

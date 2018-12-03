@@ -1,5 +1,6 @@
 <template>
     <div class="wrap">
+        <v-header></v-header>
         <v-title-header>风水常识</v-title-header>
         <div class="content-box">
             <div class="content">

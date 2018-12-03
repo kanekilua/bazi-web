@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <v-active-header>家居风水</v-active-header>
+        <v-header></v-header>
         <v-title-header>家居风水</v-title-header>
         <div class="content">
             <div class="header">

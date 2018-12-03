@@ -1,6 +1,9 @@
 <template>
     <div class="main">
-        <v-active-header><h2 slot="title" class="nav-title" :class="isFixed ? 'titleHeight' : ''">首页</h2></v-active-header>
+        <div class="header">
+            <h2 slot="title" class="nav-title" :class="isFixed ? 'titleHeight' : ''">首页</h2>
+            <nav class="nav" :class="isFixed ? 'navFixed' : ''"></nav>
+        </div>
         <router-view></router-view>
         <v-tab-bar></v-tab-bar>
     </div>
@@ -31,6 +34,32 @@ export default {
 }
 </script>
 <style lang="less">
-
+.header{
+    .nav{
+        width: 100%;
+        height: 80/75rem;
+        line-height: 140/75rem;
+        background: url('../assets/image/birth/nav.png') no-repeat center center / 100% 100%;
+    }
+    .nav-title{
+        height:80/75rem;
+        line-height:  120/75rem;
+        padding-left: 41/75rem;
+        background: @baseColor;
+        color: #fff;
+    }
+    .navFixed{
+        position: fixed;
+        top: 0;
+        z-index: 999;
+    }
+    .titleHeight{
+        height:158/75rem;
+        line-height:  120/75rem;
+        padding-left: 41/75rem;
+        background: @baseColor;
+        color: #fff;
+    }
+}
 </style>
 

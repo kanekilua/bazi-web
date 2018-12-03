@@ -1,5 +1,6 @@
 <template>
     <div class="wrap">
+        <v-header></v-header>
         <v-title-header>紫微斗数</v-title-header>
         <div class="ziwei-box">
             <flexbox :gutter="0">
@@ -678,6 +679,10 @@ export default {
 .wrap{
     width: 100%;
     .ziwei-box{
+        position: absolute;
+        top: 170/75rem;
+        bottom: 0;
+        overflow: scroll;
         width: 100%;
         padding: 0 8/75rem;
         box-sizing: border-box;

@@ -1,7 +1,7 @@
 <template>
     <div class="wrap">
-        <v-active-header>八字排盘</v-active-header>
-       <v-title-header :backLink="backLink">
+        <v-header></v-header>
+        <v-title-header :backLink="backLink">
             婚恋爱情
             <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
         </v-title-header>
