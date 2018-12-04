@@ -37,10 +37,10 @@
                         <div class="item-txt">紫薇排盘</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/bazi')">
+                <div class="table-item" @click="$jump('/xiangshu')">
                     <div class="item-box">
                         <img src="../assets/image/home/bazi@2x.png">
-                        <div class="item-txt">八字排盘</div>
+                        <div class="item-txt">相术解析</div>
                     </div>
                 </div>
                 <div class="table-item" @click="$jump('/bazi')">

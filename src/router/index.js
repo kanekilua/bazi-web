@@ -26,6 +26,9 @@ import Love from '@/pages/Love'
 import LoveBlossoms from '@/pages/LoveBlossoms'
 import Hehun from '@/pages/Hehun'
 import HehunAnalyze from '@/pages/HehunAnalyze'
+import Xiangshu from '@/pages/Xiangshu'
+import XiangshuInner from '@/pages/XiangshuInner'
+
 
 
 
@@ -156,6 +159,16 @@ export default new Router({
       path : '/hehunAnalyze',
       name : 'hehunAnalyze',
       component: HehunAnalyze
+    },
+    {
+      path : '/xiangshu',
+      name : 'xiangshu',
+      component: Xiangshu
+    },
+    {
+      path : '/xiangshuInner',
+      name : 'xiangshuInner',
+      component: XiangshuInner
     },
   ]
 })

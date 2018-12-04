@@ -185,6 +185,7 @@ export default {
     .content{
         width: 100%;
         background: url('../assets/image/love/hehun-bg@2x.png') no-repeat center center / 100% 100%;
+        overflow: hidden;
     }
     .banxin{
         width: 500/75rem;

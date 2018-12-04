@@ -140,6 +140,9 @@ export default {
         /deep/ .nav .nav-list{
             .flex-between();
         }
+        /deep/ .nav .nav-list .item{
+            height:85/75rem;
+        }
         .hItem{
             .flex-between();
             margin-bottom: 32/75rem;
