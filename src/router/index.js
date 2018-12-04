@@ -24,6 +24,8 @@ import FengshuiJiaju from '@/pages/FengshuiJiaju'
 import FengshuiDetail from '@/pages/FengshuiDetail'
 import Love from '@/pages/Love'
 import LoveBlossoms from '@/pages/LoveBlossoms'
+import Hehun from '@/pages/Hehun'
+import HehunAnalyze from '@/pages/HehunAnalyze'
 
 
 
@@ -139,10 +141,21 @@ export default new Router({
       path: '/loveBlossoms',
       name:'loveBlossoms',
       component: LoveBlossoms
-    },{
+    },
+    {
       path : '/peachBlossom',
       name : 'peachBlossom',
       component: PeachBlossom
-    }
+    },
+    {
+      path : '/hehun',
+      name : 'hehun',
+      component: Hehun
+    },
+    {
+      path : '/hehunAnalyze',
+      name : 'hehunAnalyze',
+      component: HehunAnalyze
+    },
   ]
 })

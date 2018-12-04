@@ -92,7 +92,7 @@ export default {
 <style lang="less" scoped>
 .content-wrap{
     position: absolute;
-    top: 170/75rem;
+    top: 169/75rem;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -153,7 +153,7 @@ export default {
                 height: 44/75rem;
                 background: url("../assets/image/common/right@2x.png") no-repeat center center / 100% 100%;
             }
-        }
+         }
     }
 }
 </style>

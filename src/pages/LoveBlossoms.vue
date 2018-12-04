@@ -119,7 +119,7 @@ export default {
 <style lang="less" scoped>
 .content-wrap{
     position: absolute;
-    top: 170/75rem;
+    top: 169/75rem;
     bottom: 0;
     left: 0;
     width: 100%;

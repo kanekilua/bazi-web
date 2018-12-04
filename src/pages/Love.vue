@@ -13,7 +13,7 @@
                 </div>
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide v-for="(outItem,outIndex) in list" :key="outIndex">
-                        <img :src="outItem.imgUrl" class="item-img">
+                        <img :src="outItem.imgUrl" class="item-img" @click="$jump(outItem.route)">
                         <div class="hItem" v-for="(innerItem,innerIndex) in outItem.val" :key="innerIndex">
                             <h2>{{innerItem}}</h2><i></i>
                         </div>
@@ -53,11 +53,13 @@ export default {
             swiperOption : { initialSlide: this.navIndex },
             list : [
                 {
+                    route: '/loveBlossoms',
                     imgUrl: require("../assets/image/love/taohua@2x.png"),
                     val:[
                         "风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"
                 ]},
                 {
+                    route: '/hehun',
                     imgUrl: require("../assets/image/love/hehun@2x.png"),
                     val:[
                         "风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"
@@ -73,7 +75,7 @@ export default {
 <style lang="less" scoped>
 .content-wrap{
    position: absolute;
-    top: 170/75rem;
+    top: 169/75rem;
     bottom: 0;
     left: 0;
     width: 100%;
