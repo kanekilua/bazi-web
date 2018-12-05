@@ -30,7 +30,6 @@ export default {
     props: ['showShare','shareData'],
     create () {
         this.show = this.showShare;
-        this.$vux.toast.text(JSON.stringify(this.shareData),"top");
     },
     data () {
         return {

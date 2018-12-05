@@ -1,24 +1,24 @@
 <template>
     <div class="today-wrap">
-        <x-button @click.native="showShare = true">唤起分享popup</x-button>
+        <x-button @click.native="switchShowShare(true)">唤起分享popup</x-button>
         <x-button @click.native="shareWechat('0')">微信好友分享</x-button>
         <x-button @click.native="shareWechat('1')">微信朋友圈分享</x-button>
         <x-button @click.native="shareQQ('0')">QQ好友分享</x-button>
         <x-button @click.native="shareQQ('1')">QQ空间分享</x-button>
         <x-button @click.native="wechatPay">微信支付</x-button>
         <x-button @click.native="aliPay">支付宝支付</x-button>
+        <!-- <v-share-popup :showShare='showShare' :shareData='shareData' @switchShowShare='switchShowShare'></v-share-popup> -->
     </div>
-    <v-share-popup :showShare='showShare' :shareData='shareData' @switchShowShare='switchShowShare'></v-share-popup>
 </template>
 <script>
-import {mapState} from 'vuex'
+import {mapState,mapMutations} from 'vuex'
 export default {
     computed : {
         ...mapState(['loginAccount'])
     },
     data () {
         return {
-            showShare : false,
+            // showShare : false,
             shareData : {
                 icon : 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1543927572587&di=8fc2550e1b62ee976840a8ea69f54f8c&imgtype=0&src=http%3A%2F%2Fi-1.52miji.com%2F2018%2F3%2F2%2F8571d41f-3754-4960-b2b1-d116954e30a1.png%3Fwidth%3D360%26height%3D360',
                 title : 'cordova微信分享测试',
@@ -28,9 +28,10 @@ export default {
         }
     },
     methods : {
-        switchShowShare : function (val) {
-            this.showShare = val;
-        },
+        ...mapMutations('main',['switchShowShare']),
+        // switchShowShare : function (val) {
+        //     this.showShare = val;
+        // },
         shareWechat : function (type) {
             let sceneType;
             if(type === "0"){
