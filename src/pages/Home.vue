@@ -33,7 +33,7 @@
                 </div>
                 <div class="table-item" @click="$jump('/ziwei')">
                     <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
+                        <img class="ziwei-ico" src="../assets/image/home/ziwei-ico@2x.png">
                         <div class="item-txt">紫薇排盘</div>
                     </div>
                 </div>
@@ -122,7 +122,7 @@ export default {
         }
     },
     methods: {
-        ...mapMutations('baziMingPan',['updateBaziUserInfo']),
+        ...mapMutations('bazi',['updateBaziUserInfo']),
         jumpBazi : function () {
             let userInfo;
             if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
@@ -143,7 +143,7 @@ export default {
                 'month' : dateArray[1],
                 'date' : dateArray[2],
                 'hour' : hour,
-                'yezis' : 1
+                'yezis' : 10
             };
             this.updateBaziUserInfo(baziPaiPanData);
             this.$jump('/bazi');
@@ -207,6 +207,10 @@ export default {
                 .fengshui-ico{
                     width: 75/75rem;
                     height: 88/85rem;
+                }
+                .ziwei-ico{
+                    width: 105/75rem;
+                    height: 88/75rem;
                 }
                 .item-txt{
                     margin-bottom: 33/75rem;
