@@ -167,7 +167,7 @@ export default {
                         platform : 'qq',
                         openid : result.userid,
                         access_token : result.access_token,
-                        expires_in : result.expires_time
+                        expires_in : result.expires_time.substring(0,result.expires_time.length - 3)
                     }
                     this.$http.post('/thirdlogin',loginData,'app',null,this.thirdLogin,null);
                 }, (failReason) => {
@@ -190,7 +190,7 @@ export default {
             localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
             setTimeout(() => {
                 this.$jump('main/fortune');
-            },300);
+            },400);
         },
         thirdLogin : function (result) {
             let account;
