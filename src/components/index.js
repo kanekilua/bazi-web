@@ -5,6 +5,7 @@ import TabBar from './common/TabBar'
 import Nav from './common/Nav'
 import BaziBottom from './common/BaziBottom'
 import TitleNav from './common/TitleNav'
+import SharePopup from './common/SharePopup'
 
-export default { TitleHeader,LogoHeader,ActiveHeader,TabBar,Nav,BaziBottom,TitleNav}
+export default { TitleHeader,LogoHeader,ActiveHeader,TabBar,Nav,BaziBottom,TitleNav,SharePopup}
 
