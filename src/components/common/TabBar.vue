@@ -64,6 +64,7 @@ export default {
         jumpRoute(tab) {
             if(tab.name === "运势" && this.loginAccount === "") {
                 this.$vux.toast.text('请先登录','top');
+                this.$jump('/login');
                 return ;
             }else {
                 this.$jump(tab.route);

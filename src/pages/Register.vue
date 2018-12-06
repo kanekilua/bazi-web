@@ -103,7 +103,6 @@ export default {
             this.$http.post('/login',loginData,'app',null,this.loginSuccess,null);
         },
         loginSuccess : function (result) {
-            this.updateLoginAccount(this.phone);
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             this.$jump('birth');
         }

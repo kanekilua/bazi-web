@@ -2,14 +2,34 @@
     <div class="welcome"></div>
 </template>
 <script>
-import {mapState} from 'vuex';
+import {mapMutations} from 'vuex'
 
 export default {
     name : 'welcome',
     mounted () {
+        // 默认跳引导
+        let jumpTo = "/firstGuider";
+        if(localStorage.hasOwnProperty(global.APP_FIRST_OPEN)){
+            // 如果不是第一次打开默认跳游客登录 -> home
+            jumpTo = "/main/home";
+            if(localStorage.hasOwnProperty(global.APP_TOKEN)) {
+                // 获取用户信息accountInfo，并确认token的有效性
+                let header = {'Authorization':localStorage.getItem(global.APP_TOKEN)};
+                this.$http.post('/scbazi',null,'app',header,(result) => {
+                    // 成功通过token获取到了accountInfo后，看看是否有填写sc八字的信息，没有的话直接跳游客登录
+                    if(result.data.sctype === 1) {
+                        this.updateLoginAccount(""+result.data.id);
+                        jumpTo = "/main/fortune";
+                    }
+                });
+            }
+        }
         setTimeout (()=>{
-            this.$jump('login');
-        },3000);
+            this.$jump(jumpTo);
+        },1500);
+    },
+    methods : {
+        ...mapMutations(['updateLoginAccount'])
     }
 }
 </script>

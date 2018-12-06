@@ -3,7 +3,7 @@
         <swiper :options="swiperOption" ref="mySwiper">
             <swiper-slide v-for="(item,index) in list" :key="index">
                 <div :style="{backgroundImage: 'url('+item + ')', backgroundSize:'contain'}" class="background">
-                    <x-button v-if="index === 3" :gradients="[gradientStart, gradientEnd]" @click.native="$jump('main')">开始体验</x-button>
+                    <x-button v-if="index === 3" :gradients="[gradientStart, gradientEnd]" @click.native="$jump('/main/home')">开始体验</x-button>
                 </div>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
@@ -12,11 +12,6 @@
 </template>
 <script>
 export default {
-    created () {
-        if(localStorage.hasOwnProperty(global.APP_FIRST_OPEN)){
-            this.$jump('main');
-        }
-    },
     data () {
         return  {
             gradientStart : global.GRADIENT_START,

@@ -117,23 +117,9 @@ export default {
             }
         },
         loginSuccess : function(result) {
-            this.updateLoginAccount(this.phone);
             localStorage.setItem(global.APP_TOKEN,result.data.token);
-            // 判断本地有没有存这个手机号对应的account_info
-            if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
-                let account_info = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
-                if(account_info[this.phone] === undefined || account_info[this.phone] === null) {
-                    let header = {'Authorization':result.data.token};
-                    this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,() => {});
-                }else {
-                    setTimeout(() => {
-                        this.$jump('main/fortune');
-                    },300);
-                }
-            }else {
-                let header = {'Authorization':result.data.token};
-                this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,() => {});
-            }
+            let header = {'Authorization':result.data.token};
+            this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,this.getUserInfoFail);
         },
         wechatLogin : function () {
             Wechat.isInstalled((installed) => {
@@ -179,12 +165,14 @@ export default {
 	    },
         getUserInfoSuccess : function(result) {
             let accountInfo;
+            let accountId = ""+result.data.id;
+            this.updateLoginAccount(accountId);
             if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
                 accountInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
-                accountInfo[this.phone] = result.data;
+                accountInfo[accountId] = result.data;
             }else {
                 accountInfo = {
-                    [this.phone] : result.data
+                    [accountId] : result.data
                 }
             }
             localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
@@ -199,7 +187,6 @@ export default {
             }else {
                 account = "WECHAT";
             }
-            this.updateLoginAccount(account);
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             let header = {'Authorization':result.data.token};
             this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,this.getUserInfoFail);

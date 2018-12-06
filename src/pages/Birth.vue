@@ -23,12 +23,9 @@
 </template>
 
 <script>
-import {mapState } from 'vuex'
+import {mapMutations } from 'vuex'
 
 export default {
-    computed: {
-        ...mapState(['loginAccount'])
-    },
     data () {
         return {
             gradientStart : global.GRADIENT_START,
@@ -40,6 +37,7 @@ export default {
         }
     },
     methods : {
+        ...mapMutations(['updateLoginAccount']),
         showDatePlugin : function () {
             this.$vux.datetime.show({
                 cancelText: '取消',
@@ -88,12 +86,14 @@ export default {
         saveSuccess : function (result) {
             // 保存生辰八字成功的话保存在本地一份然后就跳转到fortune
             let accountInfo;
+            let accountId = "" + result.data.id;
+            this.updateLoginAccount(accountId);
             if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
                 accountInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
-                accountInfo[this.loginAccount] = result.data;
+                accountInfo[accountId] = result.data;
             }else {
                 accountInfo = {
-                    [this.loginAccount] : result.data
+                    [accountId] : result.data
                 }
             }
             localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));

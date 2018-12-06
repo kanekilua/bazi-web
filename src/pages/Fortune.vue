@@ -80,7 +80,6 @@ export default {
             }
             if(userInfo  === undefined) {
                 this.$vux.toast.text('请先登录','top');
-                this.$router.push('/login');
                 return ;
             }
             this.userName = userInfo.realname;       
