@@ -11,6 +11,7 @@ global.APP_TOKEN = APP_NAME + '_token';
 global.APP_ACCOUNT_INFO = APP_NAME + '_account_info';
 global.APP_BAZI_DATA = APP_NAME + '_bazi_data';
 global.APP_BAZI_DATA_MAX = 5;
+global.APP_FIRST_OPEN = APP_NAME + '_first_open';
 
 // tip message
 global.CHECK_TIP = '请同意用户协议'

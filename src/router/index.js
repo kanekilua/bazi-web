@@ -8,6 +8,7 @@ import UserAgreement from '@/pages/UserAgreement'
 import Birth from '@/pages/Birth'
 import BaziBirth from '@/pages/BaziBirth'
 import PeachBlossom from '@/pages/PeachBlossom'
+import FirstGuider from '@/pages/FirstGuider'
 
 // 主路由页面
 import Main from '@/pages/Main'
@@ -24,8 +25,6 @@ import FengshuiJiaju from '@/pages/FengshuiJiaju'
 import FengshuiDetail from '@/pages/FengshuiDetail'
 import Love from '@/pages/Love'
 import LoveBlossoms from '@/pages/LoveBlossoms'
-
-
 
 Vue.use(Router)
 
@@ -143,6 +142,11 @@ export default new Router({
       path : '/peachBlossom',
       name : 'peachBlossom',
       component: PeachBlossom
+    },{
+      path : '/firstGuider',
+      name : 'firstGuider',
+      component : FirstGuider
     }
+    
   ]
 })
