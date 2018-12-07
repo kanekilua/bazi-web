@@ -10,13 +10,31 @@
                     <p>{{item.itemArtical}}</p>
                 </div>
             </div>
+            <!-- <div class="content" v-html="content"></div> -->
         </div>
     </div>
 </template>
 <script>
 export default {
+    created () {
+        // this.getData();
+    },
+    methods: {
+        //  getData: function () {
+        //     let sendData = {
+        //         cid: '95',
+        //         id : '16'
+        //     }
+        //     this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success,this.failure);
+        // },
+        // success: function (res) {
+        //     this.content = res.data.content;
+        //     console.log(res)
+        // }
+    },
     data () {
         return {
+            content: "",
             itemList: [
                 {
                     imgSrc: require('../assets/image/fengshui/jiaju1@2x.png'),

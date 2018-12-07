@@ -97,7 +97,8 @@ export default {
     left: 0;
     width: 100%;
     overflow: auto;
-    padding-top: 40/75rem;
+    padding: 40/75rem;
+    .border-box();
     .content-box{
         width: 670/75rem;
         height: 507/75rem;

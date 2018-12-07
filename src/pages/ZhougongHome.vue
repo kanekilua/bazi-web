@@ -114,7 +114,7 @@ export default {
         width: 100%;
         overflow: scroll;
         padding: 0 28/75rem;
-        box-sizing: border-box;
+        .border-box();
         .content-box{
             overflow: hidden;
             padding-top: 16/75rem;
@@ -132,7 +132,7 @@ export default {
                     margin-top: 278/75rem;
                     background: #fff;
                     padding: 0 22/75rem 0 33/75rem;
-                    box-sizing: border-box;
+                    .border-box();
                     .round(25/75rem);
                     input{
                         width: 80%;
@@ -166,7 +166,7 @@ export default {
                     margin-bottom:32/75rem;
                     padding: 8/75rem 5/75rem;
                     background: #fff;
-                    box-sizing: border-box;
+                    .border-box();
                     .boxshadow(0,3/75rem,6/75rem,rgba(0,0,0,0.16));
                     .round(13/75rem)
                 }

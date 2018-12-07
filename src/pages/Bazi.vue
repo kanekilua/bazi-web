@@ -100,6 +100,7 @@ export default {
     }
     .container{
         padding: 0 25/75rem;
+        .border-box();
         .swiper-top{
             .flex-between();
             .right{
@@ -109,7 +110,7 @@ export default {
             }
         }
         /deep/ .nav .nav-list .item{
-            padding: 5/75rem 13/75rem;
+            padding: 5/75rem 10/75rem;
         }
         .swiper{
             margin-top: 32/75rem;

@@ -42,10 +42,11 @@ export default {
             text-indent: 2em;
             font-size: 24/75rem;
             padding:  0 32/75rem;
+            .border-box();
         }
         .item-img{
             display: block;
-            width: 704/75rem;
+            width: 100%;
             height: 280/75rem;
             margin: 20/75rem auto;
         }   
