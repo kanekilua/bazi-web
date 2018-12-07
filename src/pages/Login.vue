@@ -119,7 +119,7 @@ export default {
         loginSuccess : function(result) {
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             let header = {'Authorization':result.data.token};
-            this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,this.getUserInfoFail);
+            this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,null);
         },
         wechatLogin : function () {
             Wechat.isInstalled((installed) => {
@@ -164,21 +164,26 @@ export default {
             }, args);
 	    },
         getUserInfoSuccess : function(result) {
-            let accountInfo;
-            let accountId = ""+result.data.id;
-            this.updateLoginAccount(accountId);
-            if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
-                accountInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
-                accountInfo[accountId] = result.data;
-            }else {
-                accountInfo = {
-                    [accountId] : result.data
+            if(result.data.sctype === 1) {
+                let accountInfo;
+                let accountId = ""+result.data.id;
+                this.updateLoginAccount(accountId);
+                if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
+                    accountInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
+                    accountInfo[accountId] = result.data;
+                }else {
+                    accountInfo = {
+                        [accountId] : result.data
+                    }
                 }
+                localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
+                setTimeout(() => {
+                    this.$jump('main/fortune');
+                },400);
+            }else {
+                this.$jump('/birth');
             }
-            localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
-            setTimeout(() => {
-                this.$jump('main/fortune');
-            },400);
+            
         },
         thirdLogin : function (result) {
             let account;
@@ -189,10 +194,7 @@ export default {
             }
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             let header = {'Authorization':result.data.token};
-            this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,this.getUserInfoFail);
-        },
-        getUserInfoFail : function () {
-            this.$jump('birth');
+            this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,null);
         }
     }
 }
