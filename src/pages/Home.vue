@@ -43,10 +43,10 @@
                         <div class="item-txt">相术解析</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/bazi')">
+                <div class="table-item" @click="$jump('/zhougongHome')">
                     <div class="item-box">
                         <img src="../assets/image/home/bazi@2x.png">
-                        <div class="item-txt">八字排盘</div>
+                        <div class="item-txt">周公解梦</div>
                     </div>
                 </div>
                 <div class="table-item" @click="$jump('/bazi')">
