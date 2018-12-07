@@ -75,19 +75,30 @@ export default {
 <style lang="less" scoped>
 .content-wrap{
    position: absolute;
-    top: 169/75rem;
+    top: 260/75rem;
     bottom: 0;
     left: 0;
     width: 100%;
     overflow: auto;
+    padding: 0 40/75rem;
+    .border-box();
     .swiper-container{
-        width: 670/75rem;
+        width: 100%;
         margin: 0 auto;
-        /deep/ .nav .nav-list .item{
-            margin-right: 80/75rem;
+        /deep/ .nav .nav-list {
+            position: fixed;
+            left: 0;
+            top: 169/75rem;
+            padding: 0 40/75rem;
+            .border-box();
+            background: #fff;
+            z-index: 999;
+            .item{
+                margin-right: 80/75rem;
+            }
         }
         .item-img{
-            width: 675/75rem;
+            width: 100%;
             height: 298/75rem;
             display: block;
             margin: 34/75rem auto 20/75rem auto;

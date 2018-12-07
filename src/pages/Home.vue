@@ -180,6 +180,7 @@ export default {
 }
 .content-wrap{
     padding: 0 24/75rem;
+    .border-box();
     .table-list{
         width: 100%;
         .flex-start();

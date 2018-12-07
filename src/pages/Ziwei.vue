@@ -774,7 +774,7 @@ export default {
         overflow: auto;
         width: 100%;
         padding: 0 8/75rem;
-        box-sizing: border-box;
+        .border-box();
         @cellHeight: 290/75rem;
         .table-cell {
             position: relative;
@@ -782,7 +782,7 @@ export default {
             height: @cellHeight;
             border: 1px solid red;
             overflow-x: hidden;
-            box-sizing: border-box;
+            .border-box();
             @media screen and(max-device-width:330px) {
                 height: 330/75rem;
             }
@@ -822,9 +822,10 @@ export default {
             }
             .row{
                 width: 100%;
-                box-sizing: border-box;
+                .border-box();
                 margin-bottom: 3/75rem;
                 padding: 0 3/75rem;
+                .border-box();
                 .flex-between-only();
                 .num-range{
                     font-size: 12/75rem;
@@ -870,7 +871,7 @@ export default {
         }
         .double-table-cell{
             width: 50%;
-            box-sizing: border-box;
+            .border-box();
             height: @cellHeight*2;
             font-size: 24/75rem;
             .flex-col-only();
