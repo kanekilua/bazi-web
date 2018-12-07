@@ -4,11 +4,11 @@ Vue.use(vuex);
 
 import fortune from "./module/fortune"
 import bazi from "./module/bazi"
-import baziMingPan from "./module/bazi-mingpan"
 import peach from "./module/peach"
 import love from "./module/love"
-import fengshuiKnowledge from "./module/fengshuiKnowledge"
+import fengshuiKnowledge from "./module/fengshui-Knowledge"
 import xiangshu from "./module/xiangshu"
+import zhougongHome from "./module/zhougong-Home"
 
 export default new vuex.Store ({
     state : {
@@ -17,11 +17,11 @@ export default new vuex.Store ({
     modules : {
         fortune: fortune,
         bazi : bazi,
-        baziMingPan : baziMingPan,
         peach : peach,
         love : love,
         fengshuiKnowledge : fengshuiKnowledge,
         xiangshu : xiangshu,
+        zhougongHome : zhougongHome,
     },
     mutations: {
         updateLoginAccount: function (state,value) {

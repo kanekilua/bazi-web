@@ -86,7 +86,7 @@
 import {mapState} from 'vuex'
 export default {
     computed : {
-        ...mapState ('baziMingPan',['baziUserInfo'])
+        ...mapState ('bazi',['baziUserInfo'])
     },
     data () {
         return {
@@ -99,9 +99,8 @@ export default {
     },
     methods : {
         getData: function () {
-            
             this.$http.post('/suan/apidata',this.baziUserInfo,'cesuan',null,this.success,this.failure) ;
-        },        
+        },     
         success: function (res) {
             this.info = res;
             this.showFlag = true;

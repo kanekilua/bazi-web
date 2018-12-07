@@ -10,20 +10,28 @@
                 <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
                 <div class="right"></div>
             </div>
-            <swiper :options="swiperOption" ref="mySwiper">
-                <swiper-slide v-for="(item,index) in list" :key="index">
-                    <keep-alive>
-                        <component :is="item" ></component>
-                    </keep-alive>
-                </swiper-slide>
-            </swiper>
+            <div class="content-box">
+                <swiper :options="swiperOption" ref="mySwiper">
+                    <swiper-slide v-for="(item,index) in list" :key="index">
+                        <keep-alive>
+                            <component :is="item" :resData='resData'></component>
+                        </keep-alive>
+                    </swiper-slide>
+                </swiper>
+            </div>
         </div>
     </div>    
 </template>
 <script>
 import {mapState,mapMutations} from 'vuex'
 import BaziMingpan from './BaziMingpan'
+import BaziEmotion from './BaziEmotion'
+import BaziCareer from './BaziCareer'
+import BaziFortune from './BaziFortune'
+import BaziHealth from './BaziHealth'
+import BaziKids from './BaziKids'
 import BaziDecade from './BaziDecade'
+
 export default {
     components: {
         BaziMingpan,
@@ -32,13 +40,18 @@ export default {
     data () {
         return {
             backLink : '/main/home',
-            navList: ["命盘","十年大运"],
-            list: [BaziMingpan,BaziDecade],
-            swiperOption : { initialSlide: this.navIndex }
+            navList: ["命盘","感情","事业","财运","健康","亲子","十年大运"],
+            list: [BaziMingpan,BaziEmotion,BaziCareer,BaziFortune,BaziHealth,BaziKids,BaziDecade],
+            swiperOption : { initialSlide: this.navIndex },
+            resData: {"data":{"career":'',"character":'',"d": '',"elements":'',"family":'',"finance":'',"h":'',"health":'',"id":'',"life":'',"love":'',"m":'',"remedy":'',"y":'',}},
         }
+    },
+    created() {
+        this.getData()         
     },
     computed : {
         ...mapState ('bazi',['navIndex']),
+        ...mapState ('bazi',['baziUserInfo']),
         swiper () {
             return this.$refs.mySwiper.swiper;
         },
@@ -57,7 +70,24 @@ export default {
         });
     },  
     methods : {
-        ...mapMutations('bazi',['updateNavIndex'])
+        ...mapMutations('bazi',['updateNavIndex']),
+        getData: function () {
+            // console.log(this.baziUserInfo)
+            let userInfo = {
+                cid : '93',
+                y : '1910',
+                m : '01',
+                d : '01',
+                h : '1',
+            };
+            this.$http.post('/suan/apidata',userInfo,'cesuan',null,this.success,this.failure) ;
+        },
+        success : function (res) {
+            let str = JSON.stringify(res);
+            str = str.replace(/★/g,"<br>★");
+            str = str.replace(/◆/g,"<br>◆");
+            this.resData = JSON.parse(str);
+        }
     }
 }
 </script>
@@ -83,8 +113,11 @@ export default {
         }
         .swiper{
             margin-top: 32/75rem;
+            .swiper-slide{
+                height: auto!important;
+            }
         }
-        .swiper-container, .swiper-container-horizontal, .swiper-container-ios{
+        .content-box{
             width: 100%;
             position: absolute;
             top:300/75rem;

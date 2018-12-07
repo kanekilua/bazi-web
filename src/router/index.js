@@ -28,6 +28,10 @@ import Hehun from '@/pages/Hehun'
 import HehunAnalyze from '@/pages/HehunAnalyze'
 import Xiangshu from '@/pages/Xiangshu'
 import XiangshuInner from '@/pages/XiangshuInner'
+import ZhougongHome from '@/pages/zhougongHome'
+import ZhougongAnalyze from '@/pages/ZhougongAnalyze'
+import Empty from '@/pages/Empty'
+
 
 
 
@@ -170,5 +174,20 @@ export default new Router({
       name : 'xiangshuInner',
       component: XiangshuInner
     },
+    {
+      path : '/zhougongHome',
+      name : 'zhougongHome',
+      component : ZhougongHome
+    },
+    {
+      path : '/zhougongAnalyze',
+      name : 'zhougongAnalyze',
+      component : ZhougongAnalyze
+    },
+    {
+      path : '/empty',
+      name : 'empty',
+      component : Empty
+    }
   ]
 })
