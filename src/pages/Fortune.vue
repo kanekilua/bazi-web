@@ -92,7 +92,9 @@ export default {
         },
         logoutSuccess : function (result) {
             this.updateLoginAccount("");
-            localStorage.setItem(global.APP_TOKEN,result.data.token);
+            // 注销登录返回来的token没有做限制！！
+            // localStorage.setItem(global.APP_TOKEN,result.data.token);
+            localStorage.setItem(global.APP_TOKEN,"");
             this.$jump('/login');
         }
     }
