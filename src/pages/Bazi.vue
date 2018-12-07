@@ -1,6 +1,6 @@
 <template>
     <div class="fortune-wrap">
-        <v-active-header>八字排盘</v-active-header>
+        <v-header></v-header>
         <v-title-header :backLink="backLink">
             八字排盘
             <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>

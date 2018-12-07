@@ -8,6 +8,9 @@ import baziMingPan from "./module/bazi-mingpan"
 import peach from "./module/peach"
 // popup
 import main from "./module/main"
+import love from "./module/love"
+import fengshuiKnowledge from "./module/fengshuiKnowledge"
+import xiangshu from "./module/xiangshu"
 
 export default new vuex.Store ({
     state : {
@@ -19,7 +22,10 @@ export default new vuex.Store ({
         baziMingPan : baziMingPan,
         peach : peach,
         // popup
-        main : main
+        main : main,
+        love : love,
+        fengshuiKnowledge : fengshuiKnowledge,
+        xiangshu : xiangshu,
     },
     mutations: {
         updateLoginAccount: function (state,value) {

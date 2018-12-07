@@ -25,6 +25,11 @@ import FengshuiJiaju from '@/pages/FengshuiJiaju'
 import FengshuiDetail from '@/pages/FengshuiDetail'
 import Love from '@/pages/Love'
 import LoveBlossoms from '@/pages/LoveBlossoms'
+import Hehun from '@/pages/Hehun'
+import HehunAnalyze from '@/pages/HehunAnalyze'
+import Xiangshu from '@/pages/Xiangshu'
+import XiangshuInner from '@/pages/XiangshuInner'
+
 
 Vue.use(Router)
 
@@ -138,7 +143,8 @@ export default new Router({
       path: '/loveBlossoms',
       name:'loveBlossoms',
       component: LoveBlossoms
-    },{
+    },
+    {
       path : '/peachBlossom',
       name : 'peachBlossom',
       component: PeachBlossom
@@ -146,7 +152,25 @@ export default new Router({
       path : '/firstGuider',
       name : 'firstGuider',
       component : FirstGuider
-    }
-    
+    },{
+      path : '/hehun',
+      name : 'hehun',
+      component: Hehun
+    },
+    {
+      path : '/hehunAnalyze',
+      name : 'hehunAnalyze',
+      component: HehunAnalyze
+    },
+    {
+      path : '/xiangshu',
+      name : 'xiangshu',
+      component: Xiangshu
+    },
+    {
+      path : '/xiangshuInner',
+      name : 'xiangshuInner',
+      component: XiangshuInner
+    },
   ]
 })

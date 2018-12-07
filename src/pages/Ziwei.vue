@@ -1,5 +1,6 @@
 <template>
     <div class="wrap">
+        <v-header></v-header>
         <v-title-header>紫微斗数</v-title-header>
         <div class="ziwei-box">
             <flexbox :gutter="0">
@@ -19,25 +20,25 @@
                         </div>
                         <div class="row">
                             <div class="num-range" v-html="this.numTag[5][0]"></div>
-                            <div class="txt-circle" v-if="this.circleTag[5][0]">{{this.circleTag[5][0]}}</div>
-                            <div class="txt-circle" v-if="this.circleTag[5][1]">{{this.circleTag[5][1]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[5][0]">{{circleTag[5][0]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[5][1]">{{circleTag[5][1]}}</div>
                         </div>
                         <div class="row ">
                             <div class="doctor">
-                                <div>{{this.doctorTag[5][0]}}</div>
-                                <div>{{this.doctorTag[5][1]}}</div>
-                                <div>{{this.doctorTag[5][2]}}</div>
+                                <div>{{doctorTag[5][0]}}</div>
+                                <div>{{doctorTag[5][1]}}</div>
+                                <div>{{doctorTag[5][2]}}</div>
                             </div>
                             <div class="officer">
-                                <div v-if="[this.officerTag[5][0]]">{{this.officerTag[5][0]}}</div>
-                                <div v-if="[this.officerTag[5][1]]">{{this.officerTag[5][1]}}</div>
+                                <div v-if="[this.officerTag[5][0]]">{{officerTag[5][0]}}</div>
+                                <div v-if="[this.officerTag[5][1]]">{{officerTag[5][1]}}</div>
                             </div>
                         </div>
                         <div class="qianxi" v-if="this.qianxiTag[5][0]">
-                            <span v-if="this.qianxiTag[5][0]">{{this.qianxiTag[5][0]}}</span>
-                            <span v-if="this.qianxiTag[5][1]">{{this.qianxiTag[5][1]}}</span>
+                            <span v-if="this.qianxiTag[5][0]">{{qianxiTag[5][0]}}</span>
+                            <span v-if="this.qianxiTag[5][1]">{{qianxiTag[5][1]}}</span>
                         </div>
-                        <div class="shichen">{{this.shichenTag[5][0]}}</div>
+                        <div class="shichen">{{shichenTag[5][0]}}</div>
                     </div>
                 </flexbox-item>
                 <flexbox-item>
@@ -56,25 +57,25 @@
                         </div>
                         <div class="row">
                             <div class="num-range" v-html="this.numTag[6][0]"></div>
-                            <div class="txt-circle" v-if="this.circleTag[6][0]">{{this.circleTag[6][0]}}</div>
-                            <div class="txt-circle" v-if="this.circleTag[6][1]">{{this.circleTag[6][1]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[6][0]">{{circleTag[6][0]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[6][1]">{{circleTag[6][1]}}</div>
                         </div>
                         <div class="row ">
                             <div class="doctor">
-                                <div>{{this.doctorTag[6][0]}}</div>
-                                <div>{{this.doctorTag[6][1]}}</div>
-                                <div>{{this.doctorTag[6][2]}}</div>
+                                <div>{{doctorTag[6][0]}}</div>
+                                <div>{{doctorTag[6][1]}}</div>
+                                <div>{{doctorTag[6][2]}}</div>
                             </div>
                             <div class="officer">
-                                <div v-if="[this.officerTag[6][0]]">{{this.officerTag[6][0]}}</div>
-                                <div v-if="[this.officerTag[6][1]]">{{this.officerTag[6][1]}}</div>
+                                <div v-if="[this.officerTag[6][0]]">{{officerTag[6][0]}}</div>
+                                <div v-if="[this.officerTag[6][1]]">{{officerTag[6][1]}}</div>
                             </div>
                         </div>
                         <div class="qianxi" v-if="this.qianxiTag[6][0]">
-                            <span v-if="this.qianxiTag[6][0]">{{this.qianxiTag[6][0]}}</span>
-                            <span v-if="this.qianxiTag[6][1]">{{this.qianxiTag[6][1]}}</span>
+                            <span v-if="this.qianxiTag[6][0]">{{qianxiTag[6][0]}}</span>
+                            <span v-if="this.qianxiTag[6][1]">{{qianxiTag[6][1]}}</span>
                         </div>
-                        <div class="shichen">{{this.shichenTag[6][0]}}</div>
+                        <div class="shichen">{{shichenTag[6][0]}}</div>
                     </div>
                 </flexbox-item>
                  <flexbox-item>
@@ -93,25 +94,25 @@
                         </div>
                         <div class="row">
                             <div class="num-range" v-html="this.numTag[7][0]"></div>
-                            <div class="txt-circle" v-if="this.circleTag[7][0]">{{this.circleTag[7][0]}}</div>
-                            <div class="txt-circle" v-if="this.circleTag[7][1]">{{this.circleTag[7][1]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[7][0]">{{circleTag[7][0]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[7][1]">{{circleTag[7][1]}}</div>
                         </div>
                         <div class="row ">
                             <div class="doctor">
-                                <div>{{this.doctorTag[7][0]}}</div>
-                                <div>{{this.doctorTag[7][1]}}</div>
-                                <div>{{this.doctorTag[7][2]}}</div>
+                                <div>{{doctorTag[7][0]}}</div>
+                                <div>{{doctorTag[7][1]}}</div>
+                                <div>{{doctorTag[7][2]}}</div>
                             </div>
                             <div class="officer">
-                                <div v-if="[this.officerTag[7][0]]">{{this.officerTag[7][0]}}</div>
-                                <div v-if="[this.officerTag[7][1]]">{{this.officerTag[7][1]}}</div>
+                                <div v-if="[this.officerTag[7][0]]">{{officerTag[7][0]}}</div>
+                                <div v-if="[this.officerTag[7][1]]">{{officerTag[7][1]}}</div>
                             </div>
                         </div>
                         <div class="qianxi" v-if="this.qianxiTag[7][0]">
-                            <span v-if="this.qianxiTag[7][0]">{{this.qianxiTag[7][0]}}</span>
-                            <span v-if="this.qianxiTag[7][1]">{{this.qianxiTag[7][1]}}</span>
+                            <span v-if="this.qianxiTag[7][0]">{{qianxiTag[7][0]}}</span>
+                            <span v-if="this.qianxiTag[7][1]">{{qianxiTag[7][1]}}</span>
                         </div>
-                        <div class="shichen">{{this.shichenTag[7][0]}}</div>
+                        <div class="shichen">{{shichenTag[7][0]}}</div>
                     </div>
                 </flexbox-item>
                 <flexbox-item>
@@ -130,25 +131,25 @@
                         </div>
                         <div class="row">
                             <div class="num-range" v-html="this.numTag[8][0]"></div>
-                            <div class="txt-circle" v-if="this.circleTag[8][0]">{{this.circleTag[8][0]}}</div>
-                            <div class="txt-circle" v-if="this.circleTag[8][1]">{{this.circleTag[8][1]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[8][0]">{{circleTag[8][0]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[8][1]">{{circleTag[8][1]}}</div>
                         </div>
                         <div class="row ">
                             <div class="doctor">
-                                <div>{{this.doctorTag[8][0]}}</div>
-                                <div>{{this.doctorTag[8][1]}}</div>
-                                <div>{{this.doctorTag[8][2]}}</div>
+                                <div>{{doctorTag[8][0]}}</div>
+                                <div>{{doctorTag[8][1]}}</div>
+                                <div>{{doctorTag[8][2]}}</div>
                             </div>
                             <div class="officer">
-                                <div v-if="[this.officerTag[8][0]]">{{this.officerTag[8][0]}}</div>
-                                <div v-if="[this.officerTag[8][1]]">{{this.officerTag[8][1]}}</div>
+                                <div v-if="[this.officerTag[8][0]]">{{officerTag[8][0]}}</div>
+                                <div v-if="[this.officerTag[8][1]]">{{officerTag[8][1]}}</div>
                             </div>
                         </div>
                         <div class="qianxi" v-if="this.qianxiTag[8][0]">
-                            <span v-if="this.qianxiTag[8][0]">{{this.qianxiTag[8][0]}}</span>
-                            <span v-if="this.qianxiTag[8][1]">{{this.qianxiTag[8][1]}}</span>
+                            <span v-if="this.qianxiTag[8][0]">{{qianxiTag[8][0]}}</span>
+                            <span v-if="this.qianxiTag[8][1]">{{qianxiTag[8][1]}}</span>
                         </div>
-                        <div class="shichen">{{this.shichenTag[8][0]}}</div>
+                        <div class="shichen">{{shichenTag[8][0]}}</div>
                     </div>
                 </flexbox-item>
             </flexbox>
@@ -169,25 +170,25 @@
                         </div>
                         <div class="row">
                             <div class="num-range" v-html="this.numTag[4][0]"></div>
-                            <div class="txt-circle" v-if="this.circleTag[4][0]">{{this.circleTag[4][0]}}</div>
-                            <div class="txt-circle" v-if="this.circleTag[4][1]">{{this.circleTag[4][1]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[4][0]">{{circleTag[4][0]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[4][1]">{{circleTag[4][1]}}</div>
                         </div>
                         <div class="row ">
                             <div class="doctor">
-                                <div>{{this.doctorTag[4][0]}}</div>
-                                <div>{{this.doctorTag[4][1]}}</div>
-                                <div>{{this.doctorTag[4][2]}}</div>
+                                <div>{{doctorTag[4][0]}}</div>
+                                <div>{{doctorTag[4][1]}}</div>
+                                <div>{{doctorTag[4][2]}}</div>
                             </div>
                             <div class="officer">
-                                <div v-if="[this.officerTag[4][0]]">{{this.officerTag[4][0]}}</div>
-                                <div v-if="[this.officerTag[4][1]]">{{this.officerTag[4][1]}}</div>
+                                <div v-if="[this.officerTag[4][0]]">{{officerTag[4][0]}}</div>
+                                <div v-if="[this.officerTag[4][1]]">{{officerTag[4][1]}}</div>
                             </div>
                         </div>
                         <div class="qianxi" v-if="this.qianxiTag[4][0]">
-                            <span v-if="this.qianxiTag[4][0]">{{this.qianxiTag[4][0]}}</span>
-                            <span v-if="this.qianxiTag[4][1]">{{this.qianxiTag[4][1]}}</span>
+                            <span v-if="this.qianxiTag[4][0]">{{qianxiTag[4][0]}}</span>
+                            <span v-if="this.qianxiTag[4][1]">{{qianxiTag[4][1]}}</span>
                         </div>
-                        <div class="shichen">{{this.shichenTag[4][0]}}</div>
+                        <div class="shichen">{{shichenTag[4][0]}}</div>
                     </div>
                     <div class="table-cell" @click="drawTriangle(11)">
                         <div class="tag-list">
@@ -204,36 +205,36 @@
                         </div>
                         <div class="row">
                             <div class="num-range" v-html="this.numTag[3][0]"></div>
-                            <div class="txt-circle" v-if="this.circleTag[3][0]">{{this.circleTag[3][0]}}</div>
-                            <div class="txt-circle" v-if="this.circleTag[3][1]">{{this.circleTag[3][1]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[3][0]">{{circleTag[3][0]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[3][1]">{{circleTag[3][1]}}</div>
                         </div>
                         <div class="row ">
                             <div class="doctor">
-                                <div>{{this.doctorTag[3][0]}}</div>
-                                <div>{{this.doctorTag[3][1]}}</div>
-                                <div>{{this.doctorTag[3][2]}}</div>
+                                <div>{{doctorTag[3][0]}}</div>
+                                <div>{{doctorTag[3][1]}}</div>
+                                <div>{{doctorTag[3][2]}}</div>
                             </div>
                             <div class="officer">
-                                <div v-if="[this.officerTag[3][0]]">{{this.officerTag[3][0]}}</div>
-                                <div v-if="[this.officerTag[3][1]]">{{this.officerTag[3][1]}}</div>
+                                <div v-if="[this.officerTag[3][0]]">{{officerTag[3][0]}}</div>
+                                <div v-if="[this.officerTag[3][1]]">{{officerTag[3][1]}}</div>
                             </div>
                         </div>
                         <div class="qianxi" v-if="this.qianxiTag[3][0]">
-                            <span v-if="this.qianxiTag[3][0]">{{this.qianxiTag[3][0]}}</span>
-                            <span v-if="this.qianxiTag[3][1]">{{this.qianxiTag[3][1]}}</span>
+                            <span v-if="this.qianxiTag[3][0]">{{qianxiTag[3][0]}}</span>
+                            <span v-if="this.qianxiTag[3][1]">{{qianxiTag[3][1]}}</span>
                         </div>
-                        <div class="shichen">{{this.shichenTag[3][0]}}</div>
+                        <div class="shichen">{{shichenTag[3][0]}}</div>
                     </div>
                 </div>
                 <div class="double-table-cell table-cell canvas-father">
                     <div>
-                        <div class="middle-item"><span class="item-key">姓名:</span>{{this.info.name}}</div>
+                        <div class="middle-item"><span class="item-key">姓名:</span>{{info.name}}</div>
                         <div class="middle-item"><span class="item-key">年龄:</span>19</div>
-                        <div class="middle-item"><span class="item-key">公历:</span>{{this.resStr.data.yangdate}}</div>
-                        <div class="middle-item"><span class="item-key">农历:</span>{{this.resStr.data.NongLi}}</div>
+                        <div class="middle-item"><span class="item-key">公历:</span>{{resStr.data.yangdate}}</div>
+                        <div class="middle-item"><span class="item-key">农历:</span>{{resStr.data.NongLi}}</div>
                         <div class="center-item"><span class="item-key">盘类:</span><span>天盘</span></div>
-                        <div class="center-item"><span class="item-key">命主:</span>{{this.resStr.data.mingzhum}}</div>
-                        <div class="center-item"><span class="item-key">子年斗君:</span>{{this.resStr.data.dz_a1}}</div>
+                        <div class="center-item"><span class="item-key">命主:</span>{{resStr.data.mingzhum}}</div>
+                        <div class="center-item"><span class="item-key">子年斗君:</span>{{resStr.data.dz_a1}}</div>
                     </div>
                     <canvas id="canvas" ref="canvas"></canvas>                 
                 </div>
@@ -253,25 +254,25 @@
                         </div>
                         <div class="row">
                             <div class="num-range" v-html="this.numTag[9][0]"></div>
-                            <div class="txt-circle" v-if="this.circleTag[9][0]">{{this.circleTag[9][0]}}</div>
-                            <div class="txt-circle" v-if="this.circleTag[9][1]">{{this.circleTag[9][1]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[9][0]">{{circleTag[9][0]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[9][1]">{{circleTag[9][1]}}</div>
                         </div>
                         <div class="row ">
                             <div class="doctor">
-                                <div>{{this.doctorTag[9][0]}}</div>
-                                <div>{{this.doctorTag[9][1]}}</div>
-                                <div>{{this.doctorTag[9][2]}}</div>
+                                <div>{{doctorTag[9][0]}}</div>
+                                <div>{{doctorTag[9][1]}}</div>
+                                <div>{{doctorTag[9][2]}}</div>
                             </div>
                             <div class="officer">
-                                <div v-if="[this.officerTag[9][0]]">{{this.officerTag[9][0]}}</div>
-                                <div v-if="[this.officerTag[9][1]]">{{this.officerTag[9][1]}}</div>
+                                <div v-if="[this.officerTag[9][0]]">{{officerTag[9][0]}}</div>
+                                <div v-if="[this.officerTag[9][1]]">{{officerTag[9][1]}}</div>
                             </div>
                         </div>
                         <div class="qianxi" v-if="this.qianxiTag[9][0]">
-                            <span v-if="this.qianxiTag[9][0]">{{this.qianxiTag[9][0]}}</span>
-                            <span v-if="this.qianxiTag[9][1]">{{this.qianxiTag[9][1]}}</span>
+                            <span v-if="this.qianxiTag[9][0]">{{qianxiTag[9][0]}}</span>
+                            <span v-if="this.qianxiTag[9][1]">{{qianxiTag[9][1]}}</span>
                         </div>
-                        <div class="shichen">{{this.shichenTag[9][0]}}</div>
+                        <div class="shichen">{{shichenTag[9][0]}}</div>
                     </div>
                      <div class="table-cell" @click="drawTriangle(6)">
                         <div class="tag-list">
@@ -288,25 +289,25 @@
                         </div>
                         <div class="row">
                             <div class="num-range" v-html="this.numTag[10][0]"></div>
-                            <div class="txt-circle" v-if="this.circleTag[10][0]">{{this.circleTag[10][0]}}</div>
-                            <div class="txt-circle" v-if="this.circleTag[10][1]">{{this.circleTag[10][1]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[10][0]">{{circleTag[10][0]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[10][1]">{{circleTag[10][1]}}</div>
                         </div>
                         <div class="row ">
                             <div class="doctor">
-                                <div>{{this.doctorTag[10][0]}}</div>
-                                <div>{{this.doctorTag[10][1]}}</div>
-                                <div>{{this.doctorTag[10][2]}}</div>
+                                <div>{{doctorTag[10][0]}}</div>
+                                <div>{{doctorTag[10][1]}}</div>
+                                <div>{{doctorTag[10][2]}}</div>
                             </div>
                             <div class="officer">
-                                <div v-if="[this.officerTag[10][0]]">{{this.officerTag[10][0]}}</div>
-                                <div v-if="[this.officerTag[10][1]]">{{this.officerTag[10][1]}}</div>
+                                <div v-if="[this.officerTag[10][0]]">{{officerTag[10][0]}}</div>
+                                <div v-if="[this.officerTag[10][1]]">{{officerTag[10][1]}}</div>
                             </div>
                         </div>
                         <div class="qianxi" v-if="this.qianxiTag[10][0]">
-                            <span v-if="this.qianxiTag[10][0]">{{this.qianxiTag[10][0]}}</span>
-                            <span v-if="this.qianxiTag[10][1]">{{this.qianxiTag[10][1]}}</span>
+                            <span v-if="this.qianxiTag[10][0]">{{qianxiTag[10][0]}}</span>
+                            <span v-if="this.qianxiTag[10][1]">{{qianxiTag[10][1]}}</span>
                         </div>
-                        <div class="shichen">{{this.shichenTag[10][0]}}</div>
+                        <div class="shichen">{{shichenTag[10][0]}}</div>
                     </div>
                 </div>
             </flexbox>
@@ -327,25 +328,25 @@
                         </div>
                         <div class="row">
                             <div class="num-range" v-html="this.numTag[2][0]"></div>
-                            <div class="txt-circle" v-if="this.circleTag[2][0]">{{this.circleTag[2][0]}}</div>
-                            <div class="txt-circle" v-if="this.circleTag[2][1]">{{this.circleTag[2][1]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[2][0]">{{circleTag[2][0]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[2][1]">{{circleTag[2][1]}}</div>
                         </div>
                         <div class="row ">
                             <div class="doctor">
-                                <div>{{this.doctorTag[2][0]}}</div>
-                                <div>{{this.doctorTag[2][1]}}</div>
-                                <div>{{this.doctorTag[2][2]}}</div>
+                                <div>{{doctorTag[2][0]}}</div>
+                                <div>{{doctorTag[2][1]}}</div>
+                                <div>{{doctorTag[2][2]}}</div>
                             </div>
                             <div class="officer">
-                                <div v-if="[this.officerTag[2][0]]">{{this.officerTag[2][0]}}</div>
-                                <div v-if="[this.officerTag[2][1]]">{{this.officerTag[2][1]}}</div>
+                                <div v-if="[this.officerTag[2][0]]">{{officerTag[2][0]}}</div>
+                                <div v-if="[this.officerTag[2][1]]">{{officerTag[2][1]}}</div>
                             </div>
                         </div>
                         <div class="qianxi" v-if="this.qianxiTag[2][0]">
-                            <span v-if="this.qianxiTag[2][0]">{{this.qianxiTag[2][0]}}</span>
-                            <span v-if="this.qianxiTag[2][1]">{{this.qianxiTag[2][1]}}</span>
+                            <span v-if="this.qianxiTag[2][0]">{{qianxiTag[2][0]}}</span>
+                            <span v-if="this.qianxiTag[2][1]">{{qianxiTag[2][1]}}</span>
                         </div>
-                        <div class="shichen">{{this.shichenTag[2][0]}}</div>
+                        <div class="shichen">{{shichenTag[2][0]}}</div>
                     </div>
                 </flexbox-item>
                  <flexbox-item>
@@ -364,25 +365,25 @@
                         </div>
                         <div class="row">
                             <div class="num-range" v-html="this.numTag[1][0]"></div>
-                            <div class="txt-circle" v-if="this.circleTag[1][0]">{{this.circleTag[1][0]}}</div>
-                            <div class="txt-circle" v-if="this.circleTag[1][1]">{{this.circleTag[1][1]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[1][0]">{{circleTag[1][0]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[1][1]">{{circleTag[1][1]}}</div>
                         </div>
                         <div class="row ">
                             <div class="doctor">
-                                <div>{{this.doctorTag[1][0]}}</div>
-                                <div>{{this.doctorTag[1][1]}}</div>
-                                <div>{{this.doctorTag[1][2]}}</div>
+                                <div>{{doctorTag[1][0]}}</div>
+                                <div>{{doctorTag[1][1]}}</div>
+                                <div>{{doctorTag[1][2]}}</div>
                             </div>
                             <div class="officer">
-                                <div v-if="[this.officerTag[1][0]]">{{this.officerTag[1][0]}}</div>
-                                <div v-if="[this.officerTag[1][1]]">{{this.officerTag[1][1]}}</div>
+                                <div v-if="[this.officerTag[1][0]]">{{officerTag[1][0]}}</div>
+                                <div v-if="[this.officerTag[1][1]]">{{officerTag[1][1]}}</div>
                             </div>
                         </div>
                         <div class="qianxi" v-if="this.qianxiTag[1][0]">
-                            <span v-if="this.qianxiTag[1][0]">{{this.qianxiTag[1][0]}}</span>
-                            <span v-if="this.qianxiTag[1][1]">{{this.qianxiTag[1][1]}}</span>
+                            <span v-if="this.qianxiTag[1][0]">{{qianxiTag[1][0]}}</span>
+                            <span v-if="this.qianxiTag[1][1]">{{qianxiTag[1][1]}}</span>
                         </div>
-                        <div class="shichen">{{this.shichenTag[1][0]}}</div>
+                        <div class="shichen">{{shichenTag[1][0]}}</div>
                     </div>
                 </flexbox-item>
                  <flexbox-item>
@@ -401,25 +402,25 @@
                         </div>
                         <div class="row">
                             <div class="num-range" v-html="this.numTag[0][0]"></div>
-                            <div class="txt-circle" v-if="this.circleTag[0][0]">{{this.circleTag[0][0]}}</div>
-                            <div class="txt-circle" v-if="this.circleTag[0][1]">{{this.circleTag[0][1]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[0][0]">{{circleTag[0][0]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[0][1]">{{circleTag[0][1]}}</div>
                         </div>
                         <div class="row ">
                             <div class="doctor">
-                                <div>{{this.doctorTag[0][0]}}</div>
-                                <div>{{this.doctorTag[0][1]}}</div>
-                                <div>{{this.doctorTag[0][2]}}</div>
+                                <div>{{doctorTag[0][0]}}</div>
+                                <div>{{doctorTag[0][1]}}</div>
+                                <div>{{doctorTag[0][2]}}</div>
                             </div>
                             <div class="officer">
-                                <div v-if="[this.officerTag[0][0]]">{{this.officerTag[0][0]}}</div>
-                                <div v-if="[this.officerTag[0][1]]">{{this.officerTag[0][1]}}</div>
+                                <div v-if="[this.officerTag[0][0]]">{{officerTag[0][0]}}</div>
+                                <div v-if="[this.officerTag[0][1]]">{{officerTag[0][1]}}</div>
                             </div>
                         </div>
                         <div class="qianxi" v-if="this.qianxiTag[0][0]">
-                            <span v-if="this.qianxiTag[0][0]">{{this.qianxiTag[0][0]}}</span>
-                            <span v-if="this.qianxiTag[0][1]">{{this.qianxiTag[0][1]}}</span>
+                            <span v-if="this.qianxiTag[0][0]">{{qianxiTag[0][0]}}</span>
+                            <span v-if="this.qianxiTag[0][1]">{{qianxiTag[0][1]}}</span>
                         </div>
-                        <div class="shichen">{{this.shichenTag[0][0]}}</div>
+                        <div class="shichen">{{shichenTag[0][0]}}</div>
                     </div>
                 </flexbox-item>
                  <flexbox-item>
@@ -438,25 +439,25 @@
                         </div>
                         <div class="row">
                             <div class="num-range" v-html="this.numTag[11][0]"></div>
-                            <div class="txt-circle" v-if="this.circleTag[11][0]">{{this.circleTag[11][0]}}</div>
-                            <div class="txt-circle" v-if="this.circleTag[11][1]">{{this.circleTag[11][1]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[11][0]">{{circleTag[11][0]}}</div>
+                            <div class="txt-circle" v-if="this.circleTag[11][1]">{{circleTag[11][1]}}</div>
                         </div>
                         <div class="row ">
                             <div class="doctor">
-                                <div>{{this.doctorTag[11][0]}}</div>
-                                <div>{{this.doctorTag[11][1]}}</div>
-                                <div>{{this.doctorTag[11][2]}}</div>
+                                <div>{{doctorTag[11][0]}}</div>
+                                <div>{{doctorTag[11][1]}}</div>
+                                <div>{{doctorTag[11][2]}}</div>
                             </div>
                             <div class="officer">
-                                <div v-if="[this.officerTag[11][0]]">{{this.officerTag[11][0]}}</div>
-                                <div v-if="[this.officerTag[11][1]]">{{this.officerTag[11][1]}}</div>
+                                <div v-if="[this.officerTag[11][0]]">{{officerTag[11][0]}}</div>
+                                <div v-if="[this.officerTag[11][1]]">{{officerTag[11][1]}}</div>
                             </div>
                         </div>
                         <div class="qianxi" v-if="this.qianxiTag[11][0]">
-                            <span v-if="this.qianxiTag[11][0]">{{this.qianxiTag[11][0]}}</span>
-                            <span v-if="this.qianxiTag[11][1]">{{this.qianxiTag[11][1]}}</span>
+                            <span v-if="this.qianxiTag[11][0]">{{qianxiTag[11][0]}}</span>
+                            <span v-if="this.qianxiTag[11][1]">{{qianxiTag[11][1]}}</span>
                         </div>
-                        <div class="shichen">{{this.shichenTag[11][0]}}</div>
+                        <div class="shichen">{{shichenTag[11][0]}}</div>
                     </div>
                 </flexbox-item>
             </flexbox>
@@ -616,7 +617,7 @@ export default {
                 }
                 result.push(k)         
             }
-            console.log(result)
+            // console.log(result)
         },
         failure: function (res) {
             // console.log('123123')
@@ -766,6 +767,11 @@ export default {
 .wrap{
     width: 100%;
     .ziwei-box{
+        position:absolute;
+        top: 169/75rem;
+        left:0;
+        bottom :0;
+        overflow: auto;
         width: 100%;
         padding: 0 8/75rem;
         box-sizing: border-box;

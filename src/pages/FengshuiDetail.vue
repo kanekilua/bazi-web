@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <v-active-header>家居风水</v-active-header>
+        <v-header></v-header>
         <v-title-header>家居风水</v-title-header>
         <div class="content">
             <div class="header">
@@ -10,11 +10,6 @@
             <div class="item-message">                    
                 <p>{{itemArtical}}<img :src="imgSrc" class="item-img">{{itemArtical}}</p>
                 <!-- 获得真实数据后要做图片插入数据中间处理 -->
-            </div>
-            <div class="btn-list">
-                <button class="luck-good">开运物品</button>
-                <button class="ask-master">问大师</button>
-                <button class="share select-btn">分享</button>
             </div>
         </div>
     </div>
@@ -54,13 +49,6 @@ export default {
             height: 280/75rem;
             margin: 20/75rem auto;
         }   
-    }
-    .btn-list{
-        .flex-around();
-        & > button{
-            width: 177/75rem;
-            height: 66/75rem;
-        }
     }
     
 }

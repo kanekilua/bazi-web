@@ -242,6 +242,7 @@ export default {
     .save-btn{
         .round(0);
         background: @baseColor;
+        color: #fff;
     }
 }
 

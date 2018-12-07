@@ -14,40 +14,58 @@
             </v-title-nav>
             <div class="table-list">           
                 <div class="table-item" @click="jumpBazi">
-                    <img src="../assets/image/home/bazi@2x.png">
-                    <div class="item-txt">八字排盘</div>
+                    <div class="item-box">
+                        <img src="../assets/image/home/bazi@2x.png">
+                        <div class="item-txt">八字排盘</div>
+                    </div>
                 </div>
                 <div class="table-item" @click="$jump('/love')">
-                    <img src="../assets/image/home/love@2x.png">
-                    <div class="item-txt">婚恋爱情</div>
+                    <div class="item-box">
+                        <img class="love-ico" src="../assets/image/home/love@2x.png">
+                        <div class="item-txt">婚恋爱情</div>
+                    </div>
                 </div>
                 <div class="table-item" @click="$jump('/fengshui')">
-                    <img src="../assets/image/home/fengshui@2x.png">
-                    <div class="item-txt">风水常识</div>
+                    <div class="item-box">
+                        <img class="fengshui-ico" src="../assets/image/home/fengshui@2x.png">
+                        <div class="item-txt">风水常识</div>
+                    </div>
                 </div>
                 <div class="table-item" @click="$jump('/ziwei')">
-                    <img src="../assets/image/home/bazi@2x.png">
-                    <div class="item-txt">紫薇排盘</div>
+                    <div class="item-box">
+                        <img src="../assets/image/home/bazi@2x.png">
+                        <div class="item-txt">紫薇排盘</div>
+                    </div>
+                </div>
+                <div class="table-item" @click="$jump('/xiangshu')">
+                    <div class="item-box">
+                        <img src="../assets/image/home/bazi@2x.png">
+                        <div class="item-txt">相术解析</div>
+                    </div>
                 </div>
                 <div class="table-item" @click="$jump('/bazi')">
-                    <img src="../assets/image/home/bazi@2x.png">
-                    <div class="item-txt">八字排盘</div>
+                    <div class="item-box">
+                        <img src="../assets/image/home/bazi@2x.png">
+                        <div class="item-txt">八字排盘</div>
+                    </div>
                 </div>
                 <div class="table-item" @click="$jump('/bazi')">
-                    <img src="../assets/image/home/bazi@2x.png">
-                    <div class="item-txt">八字排盘</div>
+                    <div class="item-box">
+                        <img src="../assets/image/home/bazi@2x.png">
+                        <div class="item-txt">八字排盘</div>
+                    </div>
                 </div>
                 <div class="table-item" @click="$jump('/bazi')">
-                    <img src="../assets/image/home/bazi@2x.png">
-                    <div class="item-txt">八字排盘</div>
+                    <div class="item-box">
+                        <img src="../assets/image/home/bazi@2x.png">
+                        <div class="item-txt">八字排盘</div>
+                    </div>
                 </div>
                 <div class="table-item" @click="$jump('/bazi')">
-                    <img src="../assets/image/home/bazi@2x.png">
-                    <div class="item-txt">八字排盘</div>
-                </div>
-                <div class="table-item" @click="$jump('/bazi')">
-                    <img src="../assets/image/home/bazi@2x.png">
-                    <div class="item-txt">八字排盘</div>
+                    <div class="item-box">
+                        <img src="../assets/image/home/bazi@2x.png">
+                        <div class="item-txt">八字排盘</div>
+                    </div>
                 </div>
             </div>
             <v-title-nav>
@@ -170,20 +188,33 @@ export default {
         .table-item{
             width: 33.33%;
             .boxshadow(1/75rem,1/75rem,0,rgba(0,0,0,0.13));
-            .flex-col();
-            & > img {
-                width: 100/75rem;
-                height: 100/75rem;
-                margin: 45/75rem auto 33/75rem auto; 
-            }
-            .ico1{
-                width: 67/75rem;
-                height: 88/75rem;
-            }
-            .item-txt{
-                margin-bottom: 33/75rem;
+            .item-box{
+                width: 234/75rem;
+                height: 234/75rem;
+                .flex-col();
+                img {
+                    width: 100/75rem;
+                    height: 100/75rem;
+                    margin: 45/75rem auto 33/75rem auto; 
+                }
+                .ico1{
+                    width: 67/75rem;
+                    height: 88/75rem;
+                }
+                .love-ico{
+                    width: 102/75rem;
+                    height: 81/85rem;
+                }
+                .fengshui-ico{
+                    width: 75/75rem;
+                    height: 88/85rem;
+                }
+                .item-txt{
+                    margin-bottom: 33/75rem;
+                }
             }
         }
+        
     }
     .interst-test{
         padding-bottom: 13/75rem;
