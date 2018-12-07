@@ -1,17 +1,17 @@
 <template>
     <div class="wrap">
-        <div class="result-message">你们的感情运势真的是水涨船高，桃花运也是不断向上节节攀升，特别是对于单身生肖属虎的宝宝来说，你们只要把握住这次好的机缘，那么未婚的人士有没有桃花运就会降临在你身边，幸福之门的爱情向你们敞开，但是你们一定要注意身边的烂桃花，打扰，看清楚哪些人对你真心实意，哪些人只是跟你玩玩而已，那么在感情的道路上就能够越走越远。。，，，，</div>
+        <p class="result-message" v-html="this.resData.data.character"></p>
         <v-bazi-bottom></v-bazi-bottom>
     </div>
 </template>
 <script>
 export default {
-    
+    props : ['resData'],
 }
 </script>
 <style lang="less" scoped>
 .wrap{
-    padding: 25/75rem 38/75rem;
+    padding: 0 38/75rem;
     .result-message{
         font-size: 28/75rem;
     }
