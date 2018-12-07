@@ -7,5 +7,5 @@ import BaziBottom from './common/BaziBottom'
 import TitleNav from './common/TitleNav'
 import SharePopup from './common/SharePopup'
 
-export default { TitleHeader,LogoHeader,ActiveHeader,TabBar,Nav,BaziBottom,TitleNav,SharePopup}
+export default { TitleHeader,LogoHeader,Header,TabBar,Nav,BaziBottom,TitleNav,SharePopup}
 

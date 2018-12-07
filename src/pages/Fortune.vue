@@ -80,6 +80,7 @@ export default {
             }
             if(userInfo  === undefined) {
                 this.$vux.toast.text('请先登录','top');
+                this.$jump("/login");
                 return ;
             }
             this.userName = userInfo.realname;       
@@ -95,7 +96,7 @@ export default {
             // 注销登录返回来的token没有做限制！！
             // localStorage.setItem(global.APP_TOKEN,result.data.token);
             localStorage.setItem(global.APP_TOKEN,"");
-            this.$jump('/login');
+            this.$jump('/main/home');
         }
     }
 }
