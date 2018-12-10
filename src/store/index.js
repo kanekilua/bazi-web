@@ -9,6 +9,7 @@ import love from "./module/love"
 import fengshuiKnowledge from "./module/fengshui-Knowledge"
 import xiangshu from "./module/xiangshu"
 import zhougongHome from "./module/zhougong-Home"
+import nameHome from "./module/name-home"
 
 export default new vuex.Store ({
     state : {
@@ -22,6 +23,7 @@ export default new vuex.Store ({
         fengshuiKnowledge : fengshuiKnowledge,
         xiangshu : xiangshu,
         zhougongHome : zhougongHome,
+        nameHome : nameHome
     },
     mutations: {
         updateLoginAccount: function (state,value) {

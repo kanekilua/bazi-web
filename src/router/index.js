@@ -31,6 +31,9 @@ import XiangshuInner from '@/pages/XiangshuInner'
 import ZhougongHome from '@/pages/zhougongHome'
 import ZhougongAnalyze from '@/pages/ZhougongAnalyze'
 import Empty from '@/pages/Empty'
+import GiveName from '@/pages/GiveName'
+import NameHome from '@/pages/NameHome'
+
 
 
 
@@ -188,6 +191,16 @@ export default new Router({
       path : '/empty',
       name : 'empty',
       component : Empty
+    },
+    {
+      path : '/giveName',
+      name : 'giveName',
+      component : GiveName 
+    },
+    {
+      path : '/nameHome',
+      name : 'nameHome',
+      component : NameHome
     }
   ]
 })

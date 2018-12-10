@@ -55,10 +55,10 @@
                         <div class="item-txt">八字排盘</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/bazi')">
+                <div class="table-item" @click="$jump('/nameHome')">
                     <div class="item-box">
                         <img src="../assets/image/home/bazi@2x.png">
-                        <div class="item-txt">八字排盘</div>
+                        <div class="item-txt">姓名大全</div>
                     </div>
                 </div>
                 <div class="table-item" @click="$jump('/bazi')">

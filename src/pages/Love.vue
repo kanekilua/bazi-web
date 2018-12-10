@@ -14,8 +14,10 @@
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide v-for="(outItem,outIndex) in list" :key="outIndex">
                         <img :src="outItem.imgUrl" class="item-img" @click="$jump(outItem.route)">
-                        <div class="hItem" v-for="(innerItem,innerIndex) in outItem.val" :key="innerIndex">
-                            <h2>{{innerItem}}</h2><i></i>
+                        <div class="h-list">
+                            <div class="hItem" v-for="(innerItem,innerIndex) in outItem.val" :key="innerIndex">
+                                <h2>{{innerItem}}</h2><i></i>
+                            </div>
                         </div>
                     </swiper-slide>
                 </swiper>
@@ -81,16 +83,27 @@ export default {
     width: 100%;
     overflow: auto;
     .swiper-container{
-        width: 670/75rem;
+        width: 100%;
         margin: 0 auto;
-        /deep/ .nav .nav-list .item{
-            margin-right: 80/75rem;
+        /deep/ .nav .nav-list{
+            padding: 0 40/75rem;
+            .border-box();
+            .item{
+                margin-right: 80/75rem;
+            }
+        }
+        /deep/ .swiper-slide{
+            width: 100%;
         }
         .item-img{
             width: 675/75rem;
             height: 298/75rem;
             display: block;
             margin: 34/75rem auto 20/75rem auto;
+        }
+        .h-list{
+            padding: 0 40/75rem;
+            .border-box();
         }
         .hItem{
             .flex-between();
@@ -109,17 +122,3 @@ export default {
     }
 }
 </style>
-
-
-
-
-// <style lang="less" scoped>
-// .img-box{
-//     width: 100%;
-//     padding-top: 74/75rem;
-//     & > img{
-     
-//     }
-// }
-// </style>
-
