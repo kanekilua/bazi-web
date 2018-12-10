@@ -2,7 +2,7 @@
     <div class="first-guider">
         <swiper :options="swiperOption" ref="mySwiper">
             <swiper-slide v-for="(item,index) in list" :key="index">
-                <div :style="{backgroundImage: 'url('+item + ')', backgroundSize:'contain'}" class="background">
+                <div :style="{background: 'url('+item + ') no-repeat center center / 100% 100%'}" class="background">
                     <x-button v-if="index === 3" :gradients="[gradientStart, gradientEnd]" @click.native="$jump('/main/home')">开始体验</x-button>
                 </div>
             </swiper-slide>
