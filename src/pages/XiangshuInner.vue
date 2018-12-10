@@ -83,6 +83,7 @@ export default {
             width: 100%;
             box-sizing: border-box;
             padding: 32/75rem;
+            .border-box();
             p{
                 text-indent: 2em;
             }

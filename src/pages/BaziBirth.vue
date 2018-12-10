@@ -100,7 +100,7 @@ export default  {
             birthDate : "",
             dateType : "1",
             dateArray : [],
-            paipanDataList : [1,2],
+            paipanDataList : [],
             touchIndex : -1
         }
     },
@@ -351,6 +351,7 @@ export default  {
             .content {
                 margin: 0 60/75rem 0 41/75rem;
                 font-size: 24/75rem;
+                width: 308/75rem;
                 .title {
                     font-weight: bold;
                     color : rgba(0,0,0,0.8);
