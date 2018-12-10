@@ -77,13 +77,11 @@ export default {
 <style lang="less" scoped>
 .content-wrap{
    position: absolute;
-    top: 260/75rem;
+    top: 169/75rem;
     bottom: 0;
     left: 0;
     width: 100%;
     overflow: auto;
-    padding: 0 40/75rem;
-    .border-box();
     .swiper-container{
         width: 100%;
         margin: 0 auto;
@@ -98,7 +96,7 @@ export default {
             width: 100%;
         }
         .item-img{
-            width: 100%;
+            width: 675/75rem;
             height: 298/75rem;
             display: block;
             margin: 34/75rem auto 20/75rem auto;
