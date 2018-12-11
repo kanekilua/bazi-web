@@ -15,56 +15,56 @@
             <div class="table-list">           
                 <div class="table-item" @click="jumpBazi">
                     <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
+                        <img src="../assets/image/home/bazi.png">
                         <div class="item-txt">八字排盘</div>
                     </div>
                 </div>
                 <div class="table-item" @click="$jump('/love')">
                     <div class="item-box">
-                        <img class="love-ico" src="../assets/image/home/love@2x.png">
+                        <img src="../assets/image/home/love.png">
                         <div class="item-txt">婚恋爱情</div>
                     </div>
                 </div>
                 <div class="table-item" @click="$jump('/fengshui')">
                     <div class="item-box">
-                        <img class="fengshui-ico" src="../assets/image/home/fengshui@2x.png">
+                        <img src="../assets/image/home/fengshui.png">
                         <div class="item-txt">风水常识</div>
+                    </div>
+                </div>
+                <div class="table-item">
+                    <div class="item-box">
+                        <img src="../assets/image/home/shengxiao.png">
+                        <div class="item-txt">十二生肖</div>
                     </div>
                 </div>
                 <div class="table-item" @click="$jump('/ziwei')">
                     <div class="item-box">
-                        <img class="ziwei-ico" src="../assets/image/home/ziwei-ico@2x.png">
-                        <div class="item-txt">紫薇排盘</div>
-                    </div>
-                </div>
-                <div class="table-item" @click="$jump('/xiangshu')">
-                    <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
-                        <div class="item-txt">相术解析</div>
+                        <img src="../assets/image/home/ziwei.png">
+                        <div class="item-txt">紫微斗数</div>
                     </div>
                 </div>
                 <div class="table-item" @click="$jump('/zhougongHome')">
                     <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
+                        <img src="../assets/image/home/dream.png">
                         <div class="item-txt">周公解梦</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/bazi')">
+                <div class="table-item" @click="$jump('/xiangshu')">
                     <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
-                        <div class="item-txt">八字排盘</div>
+                        <img src="../assets/image/home/hand.png">
+                        <div class="item-txt">相术解析</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/bazi')">
+                <div class="table-item">
                     <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
-                        <div class="item-txt">八字排盘</div>
+                        <img src="../assets/image/home/name.png">
+                        <div class="item-txt">姓名大全</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/bazi')">
+                <div class="table-item">
                     <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
-                        <div class="item-txt">八字排盘</div>
+                        <img src="../assets/image/home/more.png">
+                        <div class="item-txt">更多</div>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,7 @@ export default {
     border-radius: 43/75rem;
     margin-top: 24/75rem;
     .swiper-slide{
-        width: 85%;
+        width: 600/75rem;
         height: 350/75rem;
         margin-right: 16/75rem;
         &> img{
@@ -191,13 +191,17 @@ export default {
             width: 33.33%;
             .boxshadow(1/75rem,1/75rem,0,rgba(0,0,0,0.13));
             .item-box{
-                // width: 234/75rem;
+                width: 234/75rem;
                 height: 234/75rem;
                 .flex-col();
                 img {
                     width: 100/75rem;
                     height: 100/75rem;
-                    margin: 45/75rem auto 10/75rem auto; 
+                    margin: 45/75rem auto 33/75rem auto; 
+                }
+                .bazi-ico {
+                    width: 102/75rem;
+                    height: 102/75rem;
                 }
                 .ico1{
                     width: 67/75rem;
@@ -205,15 +209,27 @@ export default {
                 }
                 .love-ico{
                     width: 102/75rem;
-                    height: 81/85rem;
+                    height: 81/75rem;
                 }
                 .fengshui-ico{
                     width: 75/75rem;
                     height: 88/85rem;
                 }
+                .shengxiao-ico {
+                    width: 88/75rem;
+                    height: 88/75rem;
+                }
                 .ziwei-ico{
                     width: 105/75rem;
                     height: 88/75rem;
+                }
+                .xiangshu-ico {
+                    width: 73/75rem;
+                    height: 88/75rem;
+                }
+                .more-ico {
+                    width: 90/75rem;
+                    height: 90/75rem;
                 }
                 .item-txt{
                     margin-bottom: 33/75rem;
