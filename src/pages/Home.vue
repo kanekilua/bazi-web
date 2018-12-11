@@ -135,6 +135,7 @@ export default {
             let birthArray = userInfo.birthday.split(' ');
             let dateArray = birthArray[0].split('-');
             let hour = birthArray[1].split(':')[0];
+            let minute = birthArray[1].split(':')[1];
             let baziPaiPanData = {
                 'cid' : 48,
                 'name' : userInfo.realname,
@@ -143,6 +144,7 @@ export default {
                 'month' : dateArray[1],
                 'date' : dateArray[2],
                 'hour' : hour,
+                'minute' : minute,
                 'yezis' : 10
             };
             this.updateBaziUserInfo(baziPaiPanData);
