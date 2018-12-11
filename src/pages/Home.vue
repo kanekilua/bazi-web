@@ -164,7 +164,7 @@ export default {
     border-radius: 43/75rem;
     margin-top: 24/75rem;
     .swiper-slide{
-        width: 600/75rem;
+        width: 85%;
         height: 350/75rem;
         margin-right: 16/75rem;
         &> img{
@@ -191,13 +191,13 @@ export default {
             width: 33.33%;
             .boxshadow(1/75rem,1/75rem,0,rgba(0,0,0,0.13));
             .item-box{
-                width: 234/75rem;
+                // width: 234/75rem;
                 height: 234/75rem;
                 .flex-col();
                 img {
                     width: 100/75rem;
                     height: 100/75rem;
-                    margin: 45/75rem auto 33/75rem auto; 
+                    margin: 45/75rem auto 10/75rem auto; 
                 }
                 .ico1{
                     width: 67/75rem;
