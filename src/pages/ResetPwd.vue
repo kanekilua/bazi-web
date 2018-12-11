@@ -1,5 +1,6 @@
 <template>
     <div class="resetPwd">
+        <v-header></v-header>
         <v-title-header>忘记密码</v-title-header>
         <div class="form">
             <group>

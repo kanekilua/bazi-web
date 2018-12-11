@@ -1,5 +1,6 @@
 <template>
     <div class="userAgreement">
+        <v-header></v-header>
         <v-title-header>注册协议</v-title-header>
         <div class="content">
             <p>尊敬的用户，欢迎阅读本协议</p>

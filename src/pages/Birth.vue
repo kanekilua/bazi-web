@@ -1,6 +1,6 @@
 <template>
     <div class="birth">
-        <v-header></v-header>
+        <v-header>生辰八字</v-header>
         <div class="birth-form">
             <input type="text" class="input-name" placeholder="请输入您的名字" v-model="name">
             <div class="gender">
