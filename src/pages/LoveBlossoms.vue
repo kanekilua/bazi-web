@@ -1,10 +1,5 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
-        <v-title-header :backLink="backLink">
-            桃花运
-            <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
-        </v-title-header>
         <div class="content-wrap">
             <img src="../assets/image/love/love-blossoms@2x.png" class="title-img">
             <input type="text" class="name-input" placeholder="请输入您的姓名" placeholder-align="left">
@@ -39,10 +34,20 @@
                 </div>
             </div>
         </div>
+        <div class="article">
+            <div class="nav">
+                <div class="color-line"></div>
+                <div class="title">桃花运文章</div>
+            </div>
+            <div class="hItem" v-for="(item,index) in article" :key="index">
+                <h2>{{item}}</h2><i></i>
+            </div>
+        </div>
     </div>
 </template>
 <script>
 export default {
+    props : ['article'],
     data () {
         return{
             backLink: "/love",
@@ -118,12 +123,10 @@ export default {
 </script>
 <style lang="less" scoped>
 .content-wrap{
-    position: absolute;
     top: 169/75rem;
     bottom: 0;
     left: 0;
     width: 100%;
-    overflow-y: hidden;
     background: url('../assets/image/love/love-blossoms-bg@2x.png') no-repeat center center / 100% 100%;
     .title-img{
         display: block;
@@ -168,9 +171,9 @@ export default {
     }
     .begin-test{
         width: 518/75rem;
-        height: 116/75rem;
+        height: 116/75rem;  
         display: block;
-        margin: 50/75rem auto 85/75rem auto;
+        margin: 74/75rem auto 85/75rem auto;
         .round(36/75rem);
         background:#EB87A8;
         color: #fff;
@@ -197,14 +200,12 @@ export default {
                     margin-right: 32/75rem;
                 }
                 .title{
-                    font-size: 20/75rem;
+                    font-size: 28/75rem;
                 }
             }
         }
         .user-list{
             width: 100%;
-            height: 300/75rem;
-            overflow: scroll;
             .user-item{
                 padding-top: 0;
                 padding: 32/75rem 42/75rem 27/75rem 38/75rem;
@@ -225,19 +226,53 @@ export default {
                 .switch-btn{
                     width: 122/75rem;
                     height: 45/75rem;
-                    background: #EB87A8;
+                    background: #fff;
+                    color: #000;
                     border: none;
                     .round(15/75rem;);
-                    color: #fff;
                     outline: none;
                     &:active{
-                        background: @baseColor;
+                        background: #EB87A8;
+                        color: #fff;
                     }
                 }
             }
-            
-        }      
+        }  
     }   
+}
+.article {
+    margin-left : 21/75rem;
+    margin-right: 27/75rem;
+    & > .nav {
+        margin-top: 29/75rem;
+        margin-left: 16/75rem;
+        .flex-start();
+        & > .color-line {
+            width: 9/75rem;
+            height: 37/75rem;
+            background-color: @baseColor;
+            .round(5/75rem);
+            margin-right:24/75rem;
+        }
+        & > .title {
+            font-size: 28/75rem;
+        }
+    }
+    .hItem{
+        margin-top: 30/75rem;
+        .flex-between();
+        margin-bottom: 32/75rem;
+        & > h2{
+            font-size: 28/75rem;
+            font-weight: normal;
+        }
+        & > i{
+            display: inline-block;
+            width: 44/75rem;
+            height: 44/75rem;
+            background: url("../assets/image/common/right@2x.png") no-repeat center center / 100% 100%;
+        }
+    }
 }
 </style>
 

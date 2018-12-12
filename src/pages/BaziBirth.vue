@@ -76,6 +76,7 @@
 </template>
 <script>
 import solarLunar from 'solarLunar'
+import { dateFormat } from 'vux'
 import {mapMutations} from 'vuex'
 
 export default  {
@@ -111,15 +112,8 @@ export default  {
         },
         showDatePlugin : function () {
             this.$vux.datetime.show({
-                cancelText: '取消',
-                confirmText: '确定',
-                format: 'YYYY-M-D-H',
-                yearRow : '{value}年',
-                monthRow : '{value}月',
-                dayRow : '{value}日',
-                hourRow : '{value}点',
-                minYear: '1890',
-                maxYear: '2090',
+                ...global.DATETIME_OPTION,
+                endDate :  dateFormat(new Date(), 'YYYY-MM-DD'),
                 onHide : (type) => {
                     if(type === 'cancel') {
                         this.birthDate = "";
@@ -132,7 +126,7 @@ export default  {
                     for(let i=0;i<valArray.length ; ++i) {
                         this.dateArray[i] = parseInt(valArray[i]);
                     }
-                    this.birthDate = this.dateArray[0] + '年' + this.dateArray[1] + '月' + this.dateArray[2] + '日' + ' ' + this.dateArray[3] + '点';
+                    this.birthDate = this.dateArray[0] + '年' + this.dateArray[1] + '月' + this.dateArray[2] + '日' + ' ' + this.dateArray[3] + '点' + this.dateArray[4] + '分';
                 }
             });
         },
@@ -169,6 +163,7 @@ export default  {
                 'month' : this.dateArray[1],
                 'date' : this.dateArray[2],
                 'hour' : this.dateArray[3],
+                'minute' : this.dateArray[4],
                 'yezis' : 1
             }
             let app_paipan_data = [];

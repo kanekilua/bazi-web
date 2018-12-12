@@ -12,6 +12,19 @@ global.APP_ACCOUNT_INFO = APP_NAME + '_account_info';
 global.APP_BAZI_DATA = APP_NAME + '_bazi_data';
 global.APP_BAZI_DATA_MAX = 5;
 
+// plugins option
+global.DATETIME_OPTION = {
+    cancelText: '取消',
+    confirmText: '确定',
+    format: 'YYYY-M-D-H-m',
+    yearRow : '{value}年',
+    monthRow : '{value}月',
+    dayRow : '{value}日',
+    hourRow : '{value}点',
+    minuteRow : '{value}分',
+    minYear: '1890'
+}
+
 // tip message
 global.CHECK_TIP = '请同意用户协议'
 global.CHECK_ACCOUNT = '账号格式不正确'

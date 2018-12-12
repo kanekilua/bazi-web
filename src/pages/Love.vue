@@ -12,13 +12,10 @@
                     <div class="right"></div>
                 </div>
                 <swiper :options="swiperOption" ref="mySwiper">
-                    <swiper-slide v-for="(outItem,outIndex) in list" :key="outIndex">
-                        <img :src="outItem.imgUrl" class="item-img" @click="$jump(outItem.route)">
-                        <div class="h-list">
-                            <div class="hItem" v-for="(innerItem,innerIndex) in outItem.val" :key="innerIndex">
-                                <h2>{{innerItem}}</h2><i></i>
-                            </div>
-                        </div>
+                    <swiper-slide v-for="(item,index) in list" :key="index">
+                        <keep-alive>
+                            <component :is="item" :article="articleList[index]"></component>
+                        </keep-alive>
                     </swiper-slide>
                 </swiper>
             </div>
@@ -27,6 +24,8 @@
 </template>
 <script>
 import {mapState,mapMutations} from 'vuex'
+import LoveBlossoms from './LoveBlossoms'
+import Hehun from './Hehun'
 
 export default {
     computed : {
@@ -34,6 +33,9 @@ export default {
         swiper () {
             return this.$refs.mySwiper.swiper;
         },
+    },
+    components : {
+        LoveBlossoms , Hehun
     },
     watch : {
         'navIndex' (val) {
@@ -51,22 +53,11 @@ export default {
     data () {
         return {
             backLink: "/main/home",
-            navList: ["桃花测试","八字合婚"],
+            navList: ["桃花运","八字合婚"],
             swiperOption : { initialSlide: this.navIndex },
-            list : [
-                {
-                    route: '/loveBlossoms',
-                    imgUrl: require("../assets/image/love/taohua@2x.png"),
-                    val:[
-                        "风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"
-                ]},
-                {
-                    route: '/hehun',
-                    imgUrl: require("../assets/image/love/hehun@2x.png"),
-                    val:[
-                        "风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"
-                ]},
-            ]
+            list : [LoveBlossoms,Hehun],
+            articleList: [["风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"],
+                ["风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"]]
         }
     },
      methods : {
@@ -101,24 +92,7 @@ export default {
             display: block;
             margin: 34/75rem auto 20/75rem auto;
         }
-        .h-list{
-            padding: 0 40/75rem;
-            .border-box();
-        }
-        .hItem{
-            .flex-between();
-            margin-bottom: 32/75rem;
-            & > h2{
-                font-size: 28/75rem;
-                font-weight: normal;
-            }
-            & > i{
-                display: inline-block;
-                width: 44/75rem;
-                height: 44/75rem;
-                background: url("../assets/image/common/right@2x.png") no-repeat center center / 100% 100%;
-            }
-        }
     }
 }
 </style>
+
