@@ -33,9 +33,12 @@ import ZhougongAnalyze from '@/pages/ZhougongAnalyze'
 import Empty from '@/pages/Empty'
 import GiveName from '@/pages/GiveName'
 import NameHome from '@/pages/NameHome'
-
-
-
+import NameTest from '@/pages/NameTest'
+import NameTestInner from '@/pages/NameTestInner'
+import NameTestResult from '@/pages/NameTestResult'
+import FamilyName from '@/pages/FamilyName'
+import FamilyNameInner from '@/pages/FamilyNameInner'
+import NamedResult from '@/pages/NamedResult'
 
 
 
@@ -201,6 +204,36 @@ export default new Router({
       path : '/nameHome',
       name : 'nameHome',
       component : NameHome
+    },
+    {
+      path : '/nameTest',
+      name : 'nameTest',
+      component : NameTest 
+    },
+    {
+      path : '/nameTestInner',
+      name : 'nameTestInner',
+      component : NameTestInner
+    },
+    {
+      path : '/nameTestResult',
+      name : 'nameTestResult',
+      component : NameTestResult
+    },
+    {
+      path : '/familyName',
+      name : 'familyName',
+      component : FamilyName
+    },
+    {
+      path : '/familyNameInner',
+      name : 'amilyNameInner',
+      component : FamilyNameInner
+    },
+    {
+      path : '/namedResult',
+      name : 'namedResult',
+      component : NamedResult
     }
   ]
 })

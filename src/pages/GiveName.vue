@@ -2,8 +2,7 @@
     <div class="wrap">
         <v-header></v-header>
         <v-title-header :backLink="backLink">
-            桃花运
-            <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
+            起名大全
         </v-title-header>
         <div class="content-wrap">
             <div class="content">
@@ -31,7 +30,7 @@
                     <label for="nongli">农历</label>
                 </div>
                 <input id="dateInput" type="text" class="name-input input-born" placeholder="请选择您的出生日期" @click="showDatePlugin" readonly="readonly" v-model="birthDate">
-                <button class="begin-test" @click="$jump('/peachBlossom')">开始起名</button>
+                <button class="begin-test" @click="$jump('/namedResult')">开始起名</button>
             </div>
         </div>
     </div>
@@ -40,7 +39,7 @@
 export default {
     data () {
         return{
-            backLink: "/love",
+            backLink: "/nameHome",
             birthDate : "",
             dateType : "1",
             dateArray : [],
@@ -86,7 +85,7 @@ export default {
         },
         selectOption : function (e) {
             let val = e;
-            setTimeout((e)=>{
+            setTimeout(()=>{
                 this.showSelect = false;
                 if(val===1){
                     this.selectValue = '单'

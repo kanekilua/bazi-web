@@ -5,12 +5,12 @@
             婚恋爱情
             <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
         </v-title-header>
+        <div class="swiper-top">
+            <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
+            <div class="right"></div>
+        </div>
         <div class="content-wrap">
             <div class="swiper-container">
-                <div class="swiper-top">
-                    <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
-                    <div class="right"></div>
-                </div>
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide v-for="(outItem,outIndex) in list" :key="outIndex">
                         <img :src="outItem.imgUrl" class="item-img" @click="$jump(outItem.route)">
@@ -27,7 +27,6 @@
 </template>
 <script>
 import {mapState,mapMutations} from 'vuex'
-
 export default {
     computed : {
         ...mapState('love',['navIndex']),
@@ -75,15 +74,20 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.swiper-top{
+    padding: 0 40/75rem;
+    .border-box();
+    /deep/ .item{
+        margin-right: 40/75rem;
+    }
+}
 .content-wrap{
    position: absolute;
-    top: 260/75rem;
+    top: 270/75rem;
     bottom: 0;
     left: 0;
     width: 100%;
     overflow: auto;
-    padding: 0 40/75rem;
-    .border-box();
     .swiper-container{
         width: 100%;
         margin: 0 auto;
@@ -98,7 +102,7 @@ export default {
             width: 100%;
         }
         .item-img{
-            width: 100%;
+            width: 675/75rem;
             height: 298/75rem;
             display: block;
             margin: 34/75rem auto 20/75rem auto;

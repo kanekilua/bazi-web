@@ -2,20 +2,19 @@
     <div class="wrap">
         <v-header></v-header>
         <v-title-header :backLink="backLink">
-            婚恋爱情
-            <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
+            姓名大全
         </v-title-header>
+        <div class="swiper-top">
+            <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
+            <div class="right"></div>
+        </div>
         <div class="content-wrap">
             <div class="swiper-container">
-                <div class="swiper-top">
-                    <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
-                    <div class="right"></div>
-                </div>
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide v-for="(outItem,outIndex) in list" :key="outIndex">
                         <img :src="outItem.imgUrl" class="item-img" @click="$jump(outItem.route)">
                         <div class="h-list">
-                            <div class="hItem" v-for="(innerItem,innerIndex) in outItem.val" :key="innerIndex">
+                            <div class="hItem" v-for="(innerItem,innerIndex) in outItem.val" :key="innerIndex"  @click="$jump('/nameTestInner')">
                                 <h2>{{innerItem}}</h2><i></i>
                             </div>
                         </div>
@@ -27,7 +26,6 @@
 </template>
 <script>
 import {mapState,mapMutations} from 'vuex'
-
 export default {
     computed : {
         ...mapState('nameHome',['navIndex']),
@@ -55,19 +53,19 @@ export default {
             swiperOption : { initialSlide: this.navIndex },
             list : [
                 {
-                    route: '/loveBlossoms',
+                    route: '/nameTest',
                     imgUrl: require("../assets/image/name/banner1@2x.png"),
                     val:[
                         "风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"
                 ]},
                 {
-                    route: '/hehun',
+                    route: '/giveName',
                     imgUrl: require("../assets/image/name/banner2@2x.png"),
                     val:[
                         "风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"
                 ]},
                 {
-                    route: '/hehun',
+                    route: '/familyName',
                     imgUrl: require("../assets/image/name/banner3@2x.png"),
                     val:[
                         "风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"
@@ -75,15 +73,26 @@ export default {
             ]
         }
     },
-     methods : {
+    methods : {
         ...mapMutations('nameHome',['updateNavIndex'])
     }
 }
 </script>
 <style lang="less" scoped>
+.swiper-top{
+    /deep/ .nav{
+        width: 100%;
+        padding: 0 40/75rem;
+        .border-box();
+        .nav-list{
+            .flex-between();
+        }
+    }
+    
+}
 .content-wrap{
    position: absolute;
-    top: 169/75rem;
+    top: 270/75rem;
     bottom: 0;
     left: 0;
     width: 100%;
