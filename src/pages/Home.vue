@@ -55,7 +55,7 @@
                         <div class="item-txt">相术解析</div>
                     </div>
                 </div>
-                <div class="table-item">
+                <div class="table-item" @click="$jump('/nameHome')">
                     <div class="item-box">
                         <img src="../assets/image/home/name.png">
                         <div class="item-txt">姓名大全</div>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="table-item" @click="$jump('/qimenFile')">
                     <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
+                        <img src="../assets/image/home/more.png">
                         <div class="item-txt">奇门遁甲</div>
                     </div>
                 </div>

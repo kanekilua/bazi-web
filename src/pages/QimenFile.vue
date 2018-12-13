@@ -32,26 +32,28 @@
                 </div>
             </div>
             <input id="dateInput" type="text" class="input-born" placeholder="请选择您的出生日期" @click="showDatePlugin" readonly="readonly" v-model="birthDate">
-            <div class="qijuList">
+            <div class="qimenList">
                 <div class="qijuItem">
-                    <input type="radio" id="gongli" name='qijuList' v-model="qijuList" value="gongli">
+                    <input type="radio" id="gongli" name='qimenList' v-model="qimenList" value="zp">
                     <label for="gongli"></label>
-                    <div class="qiju-txt">按公历起局</div>
+                    <div class="qiju-txt">转盘奇门</div>
                 </div>
                 <div class="qijuItem">
-                    <input type="radio" id="sizhu" name='qijuList' v-model="qijuList" value="sizhu">
+                    <input type="radio" id="sizhu" name='qimenList' v-model="qimenList" value="fg">
                     <label for="sizhu"></label>
-                    <div  class="qiju-txt">按四柱起局</div>
-                </div>
-                <div class="qijuItem">
-                    <input type="radio" id="zhuanpan" name='qijuList' v-model="qijuList" value="zhuanpan">
-                    <label for="zhuanpan"></label>
-                    <div  class="qiju-txt">转盘奇门</div>
-                </div>
-                <div class="qijuItem">
-                    <input type="radio" id="feipan" name='qijuList' v-model="qijuList" value="feipan">
-                    <label for="feipan"></label>
                     <div  class="qiju-txt">飞盘奇门</div>
+                </div>
+            </div>
+            <div class="feipanList" v-show="qimenList==='fg'">
+                <div class="qijuItem">
+                    <input type="radio" id="reverse" name='feipanList' v-model="feipanList" value="1">
+                    <label for="reverse"></label>
+                    <div  class="qiju-txt">阳顺阴逆</div>
+                </div>
+                <div class="qijuItem">
+                    <input type="radio" id="sort" name='feipanList' v-model="feipanList" value="0">
+                    <label for="sort"></label>
+                    <div  class="qiju-txt">全部顺排</div>
                 </div>
             </div>
             <x-button :gradients="[gradientStart, gradientEnd]" id="save-confirm" @click.native="saveData">确认保存</x-button>
@@ -61,6 +63,7 @@
 <script>
 import solarLunar from 'solarLunar'
 import {mapMutations} from 'vuex'
+import { dateFormat } from 'vux'
 
 export default  {
     data () {
@@ -73,23 +76,18 @@ export default  {
             dateType : "1",
             qipanType: "1",
             dateArray : [],
-            qijuList : 'gongli',
-            zhanshi : ''
+            qimenList : 'zp',
+            zhanshi : '',
+            feipanList : '1',
+            apiParams : {},
         }
     },
     methods : {
         ...mapMutations('baziMingPan',['updateBaziUserInfo']),
         showDatePlugin : function () {
             this.$vux.datetime.show({
-                cancelText: '取消',
-                confirmText: '确定',
-                format: 'YYYY-M-D-H',
-                yearRow : '{value}年',
-                monthRow : '{value}月',
-                dayRow : '{value}日',
-                hourRow : '{value}点',
-                minYear: '1890',
-                maxYear: '2090',
+                ...global.DATETIME_OPTION,
+                endDate :  dateFormat(new Date(), 'YYYY-MM-DD'),
                 onHide : (type) => {
                     if(type === 'cancel') {
                         this.birthDate = "";
@@ -123,19 +121,28 @@ export default  {
             }
             // 抽取api所需参数
             let apiParams = {
-                cid: '52',
+                cid: "52",
                 name: this.name,
-                birthyear: dateArray[0],
-                sex: this.gemder,
+                birthyear: this.dateArray[0].toString(),
+                sex: this.gender,
                 zhanshi: this.zhanshi,
-                yea: dateArray[0],
-                mont: dateArray[1],
-                dat: dateArray[2],
-                hou: dateArray[3],
-                // minut: 
-                jutag: 0,
+                yea: this.dateArray[0].toString(),
+                mont: this.dateArray[1].toString(),
+                dat: this.dateArray[2].toString(),
+                hou: this.dateArray[3].toString(),
+                minut: this.dateArray[4].toString(),
+                jutag: "0",
+                R1: this.qimenList,
+                order: this.feipanList
             }
-            this.$jump('/qimenPan');
+            this.apiParams = apiParams;
+            // 传递参数并跳转
+            this.$router.push(
+                {
+                    name: 'qimenPan',
+                    params: {data: this.apiParams}
+                }
+            )
         }
     }
 }
@@ -258,9 +265,8 @@ export default  {
            }
         }
     }
-    .qijuList{
+    .qimenList,.feipanList{
         .flex-between();
-        margin-bottom: 50/75rem;
         flex-wrap: wrap;
         .qijuItem{
             width: 48%;
@@ -281,7 +287,7 @@ export default  {
                 }
             }
             
-            input[name="qijuList"]:checked  + label{
+            input[type="radio"]:checked  + label{
                 background-color: @baseColor;
                 & + div{
                     color:rgba(0,0,0,0.8);
