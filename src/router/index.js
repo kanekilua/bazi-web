@@ -8,6 +8,8 @@ import UserAgreement from '@/pages/UserAgreement'
 import Birth from '@/pages/Birth'
 import BaziBirth from '@/pages/BaziBirth'
 import PeachBlossom from '@/pages/PeachBlossom'
+import Activity from '@/pages/Activity'
+import Calendar from '@/pages/Calendar'
 
 // 主路由页面
 import Main from '@/pages/Main'
@@ -108,6 +110,15 @@ export default new Router({
           path : '/main/mine',
           name : 'mine',
           component: Mine
+        },{
+          path : '/main/activity',
+          name : 'activity',
+          component : Activity
+        }
+        ,{
+          path : '/main/calendar',
+          name : 'calendar',
+          component : Calendar
         }
       ]
     },

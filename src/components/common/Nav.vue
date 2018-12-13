@@ -3,6 +3,7 @@
         <ul class="nav-list">
             <li class="item" v-for="(item,index) in navList" :key="index" :class="{'active': nowIndex===index}" @click="tabClick(index)">
                 {{item}}
+                <div :class="{'point' : nowIndex===index}"></div>
             </li>
         </ul>
     </div>
@@ -27,18 +28,26 @@ export default {
         .flex-start();
         .item{
             padding: 0 10/75rem;
-            display: inline-block;
+            display: block;
             text-align: center;
-            height: 70/75rem;
+            height: 86/75rem;
             line-height: 70/75rem;
             margin-top: 20/75rem;
             font-size: 28/75rem;
             font-weight:400;
             opacity: 0.8;
+            position: relative;
             &.active{
                 opacity: 1;
                 font-weight: bold;
-                border-bottom: 5/75rem solid @checkBackGroud;
+                font-size: 34/75rem;
+            }
+            & > .point {
+                width: 8/75rem;
+                height: 8/75rem;
+                background: @baseColor;
+                .round(50%);
+                margin: 0 auto;
             }
         }
         

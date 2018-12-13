@@ -1,9 +1,5 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
-        <v-title-header :backLink="backLink">
-            桃花运
-        </v-title-header>
         <div class="content-wrap">
             <div class="content">
                 <div class="banxin">
@@ -62,12 +58,22 @@
                 </div>
             </div>
         </div>
+        <div class="article">
+            <div class="nav">
+                <div class="color-line"></div>
+                <div class="title">八字合婚文章</div>
+            </div>
+            <div class="hItem" v-for="(item,index) in article" :key="index">
+                <h2>{{item}}</h2><i></i>
+            </div>
+        </div>
     </div>
 </template>
 <script>
 import solarLunar from 'solarLunar'
 import {mapMutations} from 'vuex'
 export default {
+    props : ['article'],
     data () {
         return{
             backLink: "/love",
@@ -176,8 +182,6 @@ export default {
 </script>
 <style lang="less" scoped>
 .content-wrap{
-    position: absolute;
-    top: 169/75rem;
     bottom: 0;
     left: 0;
     width: 100%;
@@ -275,6 +279,40 @@ export default {
             &:active{
                 background: #eee;
             }
+        }
+    }
+}
+.article {
+    margin-left : 21/75rem;
+    margin-right : 27/75rem;
+    & > .nav {
+        margin-top: 29/75rem;
+        margin-left : 16/75rem;
+        .flex-start();
+        & > .color-line {
+            width: 9/75rem;
+            height: 37/75rem;
+            background-color: @baseColor;
+            .round(5/75rem);
+            margin-right:24/75rem;
+        }
+        & > .title {
+            font-size: 28/75rem;
+        }
+    }
+    .hItem{
+        margin-top: 30/75rem;
+        .flex-between();
+        margin-bottom: 32/75rem;
+        & > h2{
+            font-size: 28/75rem;
+            font-weight: normal;
+        }
+        & > i{
+            display: inline-block;
+            width: 44/75rem;
+            height: 44/75rem;
+            background: url("../assets/image/common/right@2x.png") no-repeat center center / 100% 100%;
         }
     }
 }
