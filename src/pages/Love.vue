@@ -5,12 +5,12 @@
             婚恋爱情
             <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
         </v-title-header>
+        <div class="swiper-top">
+            <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
+            <div class="right"></div>
+        </div>
         <div class="content-wrap">
             <div class="swiper-container">
-                <div class="swiper-top">
-                    <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
-                    <div class="right"></div>
-                </div>
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide v-for="(item,index) in list" :key="index">
                         <keep-alive>
@@ -66,9 +66,16 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.swiper-top{
+    padding: 0 40/75rem;
+    .border-box();
+    /deep/ .item{
+        margin-right: 40/75rem;
+    }
+}
 .content-wrap{
    position: absolute;
-    top: 169/75rem;
+    top: 270/75rem;
     bottom: 0;
     left: 0;
     width: 100%;
