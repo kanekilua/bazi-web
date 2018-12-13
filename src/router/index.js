@@ -35,8 +35,9 @@ import ZhougongAnalyze from '@/pages/ZhougongAnalyze'
 import Empty from '@/pages/Empty'
 import GiveName from '@/pages/GiveName'
 import NameHome from '@/pages/NameHome'
-
-
+import Shengxiao from '@/pages/Shengxiao'
+import ShengxiaoDetail from '@/pages/ShengxiaoDetail'
+import Article from '@/pages/Article'
 
 
 
@@ -212,6 +213,20 @@ export default new Router({
       path : '/nameHome',
       name : 'nameHome',
       component : NameHome
+    },
+    {
+      path : '/shengxiao',
+      name : 'shengxiao',
+      component : Shengxiao
+    },{
+      path : '/shengxiao/detail',
+      name : 'shengxiaoDetail',
+      component : ShengxiaoDetail
+    },
+    {
+      path : '/article',
+      name : 'article',
+      component : Article
     }
   ]
 })

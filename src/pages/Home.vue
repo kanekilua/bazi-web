@@ -31,7 +31,7 @@
                         <div class="item-txt">风水常识</div>
                     </div>
                 </div>
-                <div class="table-item">
+                <div class="table-item" @click="$jump('/shengxiao')">
                     <div class="item-box">
                         <img src="../assets/image/home/shengxiao.png">
                         <div class="item-txt">十二生肖</div>
