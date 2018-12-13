@@ -15,56 +15,56 @@
             <div class="table-list">           
                 <div class="table-item" @click="jumpBazi">
                     <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
+                        <img src="../assets/image/home/bazi.png">
                         <div class="item-txt">八字排盘</div>
                     </div>
                 </div>
                 <div class="table-item" @click="$jump('/love')">
                     <div class="item-box">
-                        <img class="love-ico" src="../assets/image/home/love@2x.png">
+                        <img src="../assets/image/home/love.png">
                         <div class="item-txt">婚恋爱情</div>
                     </div>
                 </div>
                 <div class="table-item" @click="$jump('/fengshui')">
                     <div class="item-box">
-                        <img class="fengshui-ico" src="../assets/image/home/fengshui@2x.png">
+                        <img src="../assets/image/home/fengshui.png">
                         <div class="item-txt">风水常识</div>
+                    </div>
+                </div>
+                <div class="table-item">
+                    <div class="item-box">
+                        <img src="../assets/image/home/shengxiao.png">
+                        <div class="item-txt">十二生肖</div>
                     </div>
                 </div>
                 <div class="table-item" @click="$jump('/ziwei')">
                     <div class="item-box">
-                        <img class="ziwei-ico" src="../assets/image/home/ziwei-ico@2x.png">
-                        <div class="item-txt">紫薇排盘</div>
-                    </div>
-                </div>
-                <div class="table-item" @click="$jump('/xiangshu')">
-                    <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
-                        <div class="item-txt">相术解析</div>
+                        <img src="../assets/image/home/ziwei.png">
+                        <div class="item-txt">紫微斗数</div>
                     </div>
                 </div>
                 <div class="table-item" @click="$jump('/zhougongHome')">
                     <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
+                        <img src="../assets/image/home/dream.png">
                         <div class="item-txt">周公解梦</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/bazi')">
+                <div class="table-item" @click="$jump('/xiangshu')">
                     <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
-                        <div class="item-txt">八字排盘</div>
+                        <img src="../assets/image/home/hand.png">
+                        <div class="item-txt">相术解析</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/nameHome')">
+                <div class="table-item">
                     <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
+                        <img src="../assets/image/home/name.png">
                         <div class="item-txt">姓名大全</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/bazi')">
+                <div class="table-item">
                     <div class="item-box">
-                        <img src="../assets/image/home/bazi@2x.png">
-                        <div class="item-txt">八字排盘</div>
+                        <img src="../assets/image/home/more.png">
+                        <div class="item-txt">更多</div>
                     </div>
                 </div>
             </div>
@@ -135,6 +135,7 @@ export default {
             let birthArray = userInfo.birthday.split(' ');
             let dateArray = birthArray[0].split('-');
             let hour = birthArray[1].split(':')[0];
+            let minute = birthArray[1].split(':')[1];
             let baziPaiPanData = {
                 'cid' : 48,
                 'name' : userInfo.realname,
@@ -143,6 +144,7 @@ export default {
                 'month' : dateArray[1],
                 'date' : dateArray[2],
                 'hour' : hour,
+                'minute' : minute,
                 'yezis' : 10
             };
             this.updateBaziUserInfo(baziPaiPanData);
@@ -197,21 +199,37 @@ export default {
                     height: 100/75rem;
                     margin: 45/75rem auto 33/75rem auto; 
                 }
+                .bazi-ico {
+                    width: 102/75rem;
+                    height: 102/75rem;
+                }
                 .ico1{
                     width: 67/75rem;
                     height: 88/75rem;
                 }
                 .love-ico{
                     width: 102/75rem;
-                    height: 81/85rem;
+                    height: 81/75rem;
                 }
                 .fengshui-ico{
                     width: 75/75rem;
                     height: 88/85rem;
                 }
+                .shengxiao-ico {
+                    width: 88/75rem;
+                    height: 88/75rem;
+                }
                 .ziwei-ico{
                     width: 105/75rem;
                     height: 88/75rem;
+                }
+                .xiangshu-ico {
+                    width: 73/75rem;
+                    height: 88/75rem;
+                }
+                .more-ico {
+                    width: 90/75rem;
+                    height: 90/75rem;
                 }
                 .item-txt{
                     margin-bottom: 33/75rem;
