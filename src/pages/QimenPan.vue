@@ -87,7 +87,7 @@ export default {
                         width: 100%!important;
                         height: 150/75rem;
                         .border-box();
-                        padding: 0 17/75rem;
+                        padding: 0 0 0 17/75rem;
                         position: relative;
                         background: none;
                         tbody{
