@@ -39,6 +39,8 @@ import NameTestResult from '@/pages/NameTestResult'
 import FamilyName from '@/pages/FamilyName'
 import FamilyNameInner from '@/pages/FamilyNameInner'
 import NamedResult from '@/pages/NamedResult'
+import QimenFile from '@/pages/QimenFile'
+import QimenPan from '@/pages/QimenPan'
 
 
 
@@ -234,6 +236,16 @@ export default new Router({
       path : '/namedResult',
       name : 'namedResult',
       component : NamedResult
+    },
+    {
+      path : '/qimenFile',
+      name : 'qimenFile',
+      component : QimenFile
+    },
+    {
+      path : '/qimenPan',
+      name : 'qimenPan',
+      component : QimenPan
     }
   ]
 })
