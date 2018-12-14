@@ -172,7 +172,7 @@ h2 {
     margin-top: 32/75rem;
 }
 i{
-    display: bolck;
+    display: block;
     width: 44/75rem;
     height: 44/75rem;
     background: url("../assets/image/common/right@2x.png") no-repeat center center / 100% 100%;
@@ -186,6 +186,7 @@ i{
 .content-wrap {
     position: absolute;
     top: 169/75rem;
+    bottom: 0;
     width: 100%;
     overflow: auto;
     /deep/ .title-nav{

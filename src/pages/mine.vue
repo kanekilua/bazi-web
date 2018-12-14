@@ -8,7 +8,7 @@
 export default {
     data () {
         return {
-            navTitle: "用户中心"
+            
         }
     }
 }
