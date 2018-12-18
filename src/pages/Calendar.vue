@@ -19,7 +19,7 @@
                         <i :class="showMonthSelector ? 'select-up' :'select-down'"></i>
                     </div>
                     <div class="month-pop" v-show="showMonthSelector" ref="monthSelect">
-                        <div v-for="(item,index) in monthArr" :key="index" @click="changePickerValue('monthSelect',item)" :class="{'selected' : monthSelectIndex === index}">{{item.value}}</div>
+                        <div v-for="(item,index) in monthArr" :key="index" @click="changePickerValue('monthSelect',item)" :class="{'selected' : calendarType ? (clickItem.month - 1 === index ): (clickItem.lunarMonth - 1 === index)}">{{item.value}}</div>
                     </div>
                 </div>
                 <div class="day-pick">
@@ -28,7 +28,7 @@
                         <i :class="showDaySelector ? 'select-up' :'select-down'"></i>
                     </div>
                     <div class="day-pop" v-show="showDaySelector" ref="daySelect">
-                        <div v-for="(item,index) in dayArr" :key="index" @click="changePickerValue('daySelect',item)" :class="{'selected' : daySelectIndex === index}">{{item.value}}</div>
+                        <div v-for="(item,index) in dayArr" :key="index" @click="changePickerValue('daySelect',item)" :class="{'selected' : calendarType ? (clickItem.day - 1 === index) : (clickItem.lunarDay - 1 === index)}">{{item.value}}</div>
                     </div>
                 </div>
             </div>
@@ -40,7 +40,7 @@
                     <div v-for="(weekItem,weekIndex) in monthData" :key="weekIndex" class="week-item">
                         <div v-for="(dayItem,dayIndex) in weekItem" :key="dayIndex" class="day-item" @click="recordClick(dayItem)">
                             <div class="solar-day" :class="solarClass(dayItem)">{{dayItem.day}}</div>
-                            <div class="lunar-day" :class="lunarClass(dayItem)"><p>{{dayItem.lunarFestival ? dayItem.lunarFestival : dayItem.term ? dayItem.term : dayItem.solarFestival ? dayItem.solarFestival : dayItem.lunarDayName}}</p></div>
+                            <div class="lunar-day" :class="lunarClass(dayItem)"><p>{{dayItem.lunarFestival ? dayItem.lunarFestival : dayItem.term ? dayItem.term : dayItem.solarFestival ? dayItem.solarFestival.split(" ")[0] : dayItem.lunarDayName}}</p></div>
                         </div>
                     </div>
                 </div>
@@ -91,7 +91,7 @@ const currentYear = today.getFullYear();
 const currentMonth = today.getMonth() + 1;
 const currentDay = today.getDate();
 var yearArrayTmp = [];
-for(let i=1900,j=1;i<= currentYear; ++i,++j) {
+for(let i=1900,j=1;i<= 2100; ++i,++j) {
     yearArrayTmp.push({index : j , value : i + "年"});
 }
 const yearArray = yearArrayTmp;
@@ -128,14 +128,9 @@ export default {
     },
     computed : {
         'monthData' () {
-            // 日期控件的计算属性，以monthSelectIndex和yearSelectIndex为基础发生改变
-            let year = parseInt(this.yearSelect);
+            // 日期控件的计算属性，以yearSelectIndex和monthSelectIndex为基础发生改变
+            let year = parseInt(yearArray[this.yearSelectIndex-1].value.split('年')[0]);
             let month = this.monthSelectIndex + 1;
-            // let day = this.daySelectIndex + 1;
-            // if(!this.calendarType) {
-            //     let solarDay = lunarCalendar.lunarToSolar(year,month,day);
-            //     month = solarDay.month;
-            // }
             let lunarCalendarData = lunarCalendar.calendar(year,month,true);
             // monthSelectIndex或者yearSelectIndex更改说明，天的下拉框数据也要发生变化变化
             if(this.calendarType) {
@@ -145,7 +140,7 @@ export default {
                 }
                 this.dayArr = dayArrayTemp;
             }
-            // 日期数据的变化
+            // 日期数据的变化，monthDataTemp会渲染到页面上
             let lunarData = lunarCalendarData.monthData;
             let weekData = [];
             let monthDataTemp = [];
@@ -167,32 +162,26 @@ export default {
         },
         'swiper' () {
             return this.$refs.mySwiper.swiper;
-        },
-        'infoItemDetail' () {
-            // 通过clickItem的日期去获取更详细的信息
         }
     },
     watch : {
-        // 'calendarType' (val) {
-        //     this.monthArr = val ? solarMonthArray : lunarMonthArray;
-        //     this.dayArr = val ? solarDayArray : lunarDayArray;
-        //     this.monthSelect = this.monthArr[this.monthSelectIndex].value;
-        // },
-        // 'monthArr' (val) {
-        //     this.monthSelect = val[this.monthSelectIndex].value;
-        // },
-        'dayArr' (val) {
-            if(this.calendarType) {
-                if(val.length <= this.daySelectIndex) {
-                    this.daySelectIndex = 0;
-                }
-                this.daySelect = val[this.daySelectIndex].value;
-            }
-        },
         'navIndex' (val) {
             this.swiper.slideTo(val, 0, false);
         },
         'clickItem' (val) {
+            this.yearSelectIndex = val.year-1899;
+            this.monthSelectIndex = val.month - 1;
+            this.daySelectIndex = val.day - 1;
+            if(this.calendarType) {
+                this.yearSelect = val.year + "年";
+                this.monthSelect = val.month + "月";
+                this.daySelect = val.day + "日";
+            }else  {
+                this.yearSelect = val.lunarYear + "年";
+                this.monthSelect = this.monthArr[val.lunarMonth-1].value;
+                this.daySelect = this.dayArr[val.lunarDay-1].value;
+            }
+            // 在clickItem发生变化时，从后台获取详细信息，并在getMoreInfoSuccess中处理
             let postData = {
                 'cid' : 97,
                 'y' : val.year + "",
@@ -238,10 +227,11 @@ export default {
     },
     methods : {
         init : function () {
+            // Arr为下拉的数据，select为下拉框的显示值，selectIndex为实际月份/天数减一
             // 年下拉selector数据初始化
             this.yearArr = yearArray;
             this.yearSelect = currentYear + "年";
-            this.yearSelectIndex = this.yearArr.length;
+            this.yearSelectIndex = currentYear - 1899;
             // 月下拉selector数据初始化
             this.monthArr = solarMonthArray;
             this.monthSelect = currentMonth + "月";
@@ -252,6 +242,7 @@ export default {
             this.daySelectIndex = currentDay - 1;
         },
         showSelector : function (target) {
+            // 显示拉下框，并将下拉框中的滚轮滑动到对应地方
             let scrollIndex;
             if(target === "yearSelect") {
                 this.showYearSelector = !this.showYearSelector;
@@ -264,53 +255,77 @@ export default {
                 if(!this.showMonthSelector) {
                     return;
                 }
-                scrollIndex = this.monthSelectIndex + 1;
+                scrollIndex = this.calendarType ? this.clickItem.month : this.clickItem.lunarMonth;
             }else {
                 this.showDaySelector = !this.showDaySelector;
                 if(!this.showDaySelector) {
                     return;
                 }
-                scrollIndex = this.daySelectIndex + 1;
+                scrollIndex = this.calendarType ? this.clickItem.day : this.clickItem.lunarDay;
             }
+            let scrollTopIndex;
             if(scrollIndex > 3) {
-                this.$nextTick(() => {
-                    let div = this.$refs[target];
-                    div.scrollTop = (div.clientHeight/5)*(scrollIndex-3);
-                });
+                scrollTopIndex = scrollIndex-3;
+            }else {
+                scrollTopIndex = 0;
             }
+            this.$nextTick(() => {
+                let div = this.$refs[target];
+                div.scrollTop = (div.clientHeight/5)*scrollTopIndex;
+            });
         },
         changePickerValue : function (target,item) {
+            // 修改clickItem的值
+            let year,month,day,solarDay,lunarDay;
             if(target === "yearSelect") {
-                this.yearSelect = item.value;
-                this.yearSelectIndex = item.index;
                 this.showYearSelector = false;
-            }else if(target === "monthSelect"){
-                this.monthSelect = item.value;
-                this.monthSelectIndex = item.index;
-                this.showMonthSelector = false;
-            }else {
-                this.daySelect = item.value;
-                this.daySelectIndex = item.index;
-                this.showDaySelector = false;
-            }
-            // 根据上面三个select修改clickItem的值
-            let year,month,day,lunarDay,solarDay;
-            year = parseInt(yearArray[this.yearSelectIndex-1].value.split('年')[0]);
-            if(this.calendarType){
-                month = solarMonthArray[this.monthSelectIndex].index + 1;
-                day = solarDayArray[this.daySelectIndex].index + 1;
-                lunarDay = lunarCalendar.solarToLunar(year,month,day);
-                solarDay = lunarCalendar.lunarToSolar(lunarDay.lunarYear,lunarDay.lunarMonth,lunarDay.lunarDay);
-                if(solarDay.month === this.monthSelectIndex + 2) {
-                    solarDay.month = this.monthSelectIndex + 1;
-                    solarDay.day = 1;
+                if(this.calendarType) {
+                    year = parseInt(item.value);
+                    month = this.clickItem.month;
+                    day = this.clickItem.day;
                     lunarDay = lunarCalendar.solarToLunar(year,month,day);
+                    solarDay = lunarCalendar.lunarToSolar(lunarDay.lunarYear,lunarDay.lunarMonth,lunarDay.lunarDay);
+                }else {
+                    year = parseInt(item.value);
+                    month = this.clickItem.lunarMonth;
+                    day = this.clickItem.lunarDay;
+                    solarDay = lunarCalendar.lunarToSolar(year,month,day);
+                    lunarDay = lunarCalendar.solarToLunar(solarDay.year,solarDay.month,solarDay.day);
                 }
-            }else {
-                month = lunarMonthArray[this.monthSelectIndex].index + 1;
-                day = lunarMonthArray[this.daySelectIndex].index + 1;
-                solarDay = lunarCalendar.lunarToSolar(year,month,day);
-                lunarDay = lunarCalendar.solarToLunar(solarDay.year,solarDay.month,solarDay.day);
+            } else if(target === "monthSelect") {
+                this.showMonthSelector = false;
+                if(this.calendarType) {
+                    year = this.clickItem.year;
+                    month = item.index + 1;
+                    day = this.clickItem.day;
+                    let calendarData = lunarCalendar.calendar(year,month,false);
+                    if(calendarData.monthDays < day) {
+                        day = 1;
+                    }
+                    lunarDay = lunarCalendar.solarToLunar(year,month,day);
+                    solarDay = lunarCalendar.lunarToSolar(lunarDay.lunarYear,lunarDay.lunarMonth,lunarDay.lunarDay);
+                }else {
+                    year = this.clickItem.lunarYear;
+                    month = item.index + 1;
+                    day = this.clickItem.lunarDay;
+                    solarDay = lunarCalendar.lunarToSolar(year,month,day);
+                    lunarDay = lunarCalendar.solarToLunar(solarDay.year,solarDay.month,solarDay.day);
+                }
+            } else {
+                this.showDaySelector = false;
+                if(this.calendarType) {
+                    year = this.clickItem.year;
+                    month = this.clickItem.month;
+                    day = item.index + 1;
+                    lunarDay = lunarCalendar.solarToLunar(year,month,day);
+                    solarDay = lunarCalendar.lunarToSolar(lunarDay.lunarYear,lunarDay.lunarMonth,lunarDay.lunarDay);
+                }else  {
+                    year = this.clickItem.lunarYear;
+                    month = this.clickItem.lunarMonth;
+                    day = item.index + 1;
+                    solarDay = lunarCalendar.lunarToSolar(year,month,day);
+                    lunarDay = lunarCalendar.solarToLunar(solarDay.year,solarDay.month,solarDay.day);
+                }
             }
             this.clickItem = {
                 ...solarDay,
@@ -338,11 +353,16 @@ export default {
             return lunarClass;
         },
         recordClick : function (dayItem) {
-            if(dayItem === this.clickItem) {
+            // 点击日期里的dayItem时，修改clickItem，在一个同时点击两次把clickItem设置为todayItem
+            if(dayItem.year === this.clickItem.year && dayItem.month === this.clickItem.month && dayItem.day === this.clickItem.day) {
                 // 改成变成today的item
                 this.clickItem = this.todayItem;
                 return ;
             }
+            if(dayItem.month != this.clickItem.month) {
+                this.monthSelectIndex = dayItem.month - 1;
+            }
+
             this.clickItem = dayItem;
         },
         updateNavIndex : function (value) {
@@ -356,20 +376,20 @@ export default {
             }
         },
         switchSelector : function (calendarType) {
+            // 修改下拉控件的日期类型，并修改Arr的内容和select的显示内容，selectIndex不能变
             this.calendarType = calendarType;
             this.monthArr = calendarType ? solarMonthArray : lunarMonthArray;
             this.dayArr = calendarType ? solarDayArray : lunarDayArray;
 
-            let year = parseInt(yearArray[this.yearSelectIndex-1].value.split('年')[0]);
-            let month = this.monthSelectIndex + 1;
-            let day = this.daySelectIndex + 1;
+            // let year = parseInt(yearArray[this.yearSelectIndex-1].value.split('年')[0]);
             if(calendarType) {
-                this.monthSelect = month + "月";
-                this.daySelect = day + "日";
+                this.yearSelect = this.clickItem.year + "年";
+                this.monthSelect = this.clickItem.month + "月";
+                this.daySelect = this.clickItem.day + "日";
             }else {
-                let lunarDay = lunarCalendar.solarToLunar(year,month,day);
-                this.monthSelect = this.monthArr[lunarDay.lunarMonth-1].value;
-                this.daySelect = this.dayArr[lunarDay.lunarDay-1].value;
+                this.yearSelect = this.clickItem.lunarYear + "年";
+                this.monthSelect = this.monthArr[this.clickItem.lunarMonth-1].value;
+                this.daySelect = this.dayArr[this.clickItem.lunarDay-1].value;
             }
         }
     }
