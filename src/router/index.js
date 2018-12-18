@@ -10,7 +10,6 @@ import BaziBirth from '@/pages/BaziBirth'
 import PeachBlossom from '@/pages/PeachBlossom'
 import Activity from '@/pages/Activity'
 import Calendar from '@/pages/Calendar'
-
 // 主路由页面
 import Main from '@/pages/Main'
 import Home from '@/pages/Home'
@@ -46,6 +45,18 @@ import FamilyNameInner from '@/pages/FamilyNameInner'
 import NamedResult from '@/pages/NamedResult'
 import QimenFile from '@/pages/QimenFile'
 import QimenPan from '@/pages/QimenPan'
+import Setting from '@/pages/Setting'
+import UserFile from '@/pages/UserFile'
+import Security from '@/pages/Security'
+import ChangePhone from '@/pages/ChangePhone'
+import UserMessage from '@/pages/UserMessage'
+import Recruitment from '@/pages/Recruitment'
+import RecruitmentStep1 from '@/pages/RecruitmentStep1'
+import RecruitmentStep2 from '@/pages/RecruitmentStep2'
+import RecruitmentStep3 from '@/pages/RecruitmentStep3'
+import MyCollection from '@/pages/MyCollection'
+import ContactService from '@/pages/ContactService'
+import FeedBack from '@/pages/FeedBack'
 
 
 
@@ -110,10 +121,6 @@ export default new Router({
           component: Predict
         },
         {
-          path : '/main/mine',
-          name : 'mine',
-          component: Mine
-        },{
           path : '/main/activity',
           name : 'activity',
           component : Activity
@@ -273,6 +280,78 @@ export default new Router({
       path : '/qimenPan',
       name : 'qimenPan',
       component : QimenPan
+    },
+    {
+      path : '/main/mine',
+      name : 'mine',
+      component: Mine
+    },
+    {
+      path : '/main/mine/setting',
+      name : 'setting',
+      component: Setting
+    },
+    {
+      path : '/main/mine/setting/userFile',
+      name : 'userFile',
+      component: UserFile
+    },
+    {
+      path : '/main/mine/setting/security',
+      name : 'security',
+      component: Security
+    },
+    {
+      path : '/main/mine/setting/security/changePhone',
+      name : 'changePhone',
+      component: ChangePhone
+    },
+    {
+      path : '/main/mine/userMessage',
+      name : 'userMessage',
+      component: UserMessage
+    },
+    {
+      path : '/main/mine/recruitment',
+      name : 'recruitment',
+      component: Recruitment,
+      children : [
+        {
+          path : '',
+          name : '',
+          component : RecruitmentStep1
+        },
+        {
+          path : 'recruitmentStep1',
+          name : 'recruitmentStep1',
+          component : RecruitmentStep1
+        },
+        {
+          path : 'recruitmentStep2',
+          name : 'recruitmentStep2',
+          component : RecruitmentStep2
+        },
+        {
+          path : 'recruitmentStep3',
+          name : 'recruitmentStep3',
+          component : RecruitmentStep3
+        },
+      ]
+    },
+    {
+      path : '/main/mine/myCollection',
+      name : 'myCollection',
+      component: MyCollection
+    },
+    {
+      path : '/main/mine/contactService',
+      name : 'contactService',
+      component : ContactService
+    },
+    {
+      path : '/main/mine/feedBack',
+      name : 'feedBack',
+      component : FeedBack 
     }
   ]
 })

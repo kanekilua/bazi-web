@@ -1,5 +1,6 @@
 <template>
     <div class="bazi-birth-wrap">
+        <v-header></v-header>
         <v-title-header>生辰八字</v-title-header>
         <div class="birth-form">
             <h2 class="form-title">生辰八字</h2>
