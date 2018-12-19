@@ -61,7 +61,7 @@
                         <div class="title">忌</div>
                         <div>无</div>
                     </div>
-                    <div class="more">
+                    <div class="more" @click="moreDetail">
                         <div>更多详情</div><i></i>
                     </div>
                 </div>
@@ -391,6 +391,14 @@ export default {
                 this.monthSelect = this.monthArr[this.clickItem.lunarMonth-1].value;
                 this.daySelect = this.dayArr[this.clickItem.lunarDay-1].value;
             }
+        },
+        moreDetail : function () {
+            this.$router.push({
+                name : "calendarDetail",
+                params : {
+                    dateInfo : this.clickItem
+                }
+            });
         }
     }
 }
