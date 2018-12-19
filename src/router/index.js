@@ -46,6 +46,7 @@ import FamilyNameInner from '@/pages/FamilyNameInner'
 import NamedResult from '@/pages/NamedResult'
 import QimenFile from '@/pages/QimenFile'
 import QimenPan from '@/pages/QimenPan'
+import CalendarDetail from '@/pages/CalendarDetail'
 
 
 
@@ -273,6 +274,12 @@ export default new Router({
       path : '/qimenPan',
       name : 'qimenPan',
       component : QimenPan
+    },
+    {
+      path : '/main/calendar/detail',
+      name : 'calendarDetail',
+      component : CalendarDetail
     }
+    
   ]
 })
