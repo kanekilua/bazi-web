@@ -2,7 +2,6 @@
     <div class="birth">
         <v-header>生辰八字</v-header>
         <div class="birth-form">
-            <h2 class="form-title">生辰八字</h2>
             <input type="text" class="input-name" placeholder="请输入您的名字" v-model="name">
             <div class="gender">
                 <div class="male">
@@ -16,6 +15,19 @@
                     <div  class="gender-txt">女</div>
                 </div>
             </div>
+            <div class="dateType">
+                日期类型：
+                <div class="gregorian">
+                    <input type="radio" id="gregorian" name='dateType' v-model="dateType" value="1">
+                    <label for="gregorian"></label>
+                    <div class="date-txt">公历</div>
+                </div>
+                <div class="lunar">
+                    <input type="radio" id="lunar" name='dateType' v-model="dateType" value="0">
+                    <label for="lunar"></label>
+                    <div  class="date-txt">农历</div>
+                </div>
+            </div>
             <input type="text" class="input-born" placeholder="请选择您的出生日期" @click="showDatePlugin" readonly="readonly" v-model="birthDate">
             <x-button :gradients="[gradientStart, gradientEnd]" id="save-confirm" @click.native="saveData">确认保存</x-button>
         </div>
@@ -23,7 +35,9 @@
 </template>
 
 <script>
-import {mapMutations } from 'vuex'
+import {mapState,mapMutations } from 'vuex'
+import { dateFormat } from 'vux'
+import solarLunar from 'solarLunar'
 
 export default {
     data () {
@@ -33,22 +47,16 @@ export default {
             name : "",
             gender : "1",
             birthDate: "",
-            dateArray: []
+            dateArray: [],
+            dateType : "1"
         }
     },
     methods : {
         ...mapMutations(['updateLoginAccount']),
         showDatePlugin : function () {
             this.$vux.datetime.show({
-                cancelText: '取消',
-                confirmText: '确定',
-                format: 'YYYY-M-D-H',
-                yearRow : '{value}年',
-                monthRow : '{value}月',
-                dayRow : '{value}日',
-                hourRow : '{value}点',
-                minYear: '1890',
-                maxYear: '2090',
+                ...global.DATETIME_OPTION,
+                endDate :  dateFormat(new Date(), 'YYYY-MM-DD'),
                 onHide : (type) => {
                     if(type === 'cancel') {
                         this.birthDate = "";
@@ -61,7 +69,7 @@ export default {
                     for(let i=0;i<valArray.length ; ++i) {
                         this.dateArray[i] = parseInt(valArray[i]);
                     }
-                    this.birthDate = this.dateArray[0] + '年' + this.dateArray[1] + '月' + this.dateArray[2] + '日' + ' ' + this.dateArray[3] + '点';
+                    this.birthDate = this.dateArray[0] + '年' + this.dateArray[1] + '月' + this.dateArray[2] + '日' + ' ' + this.dateArray[3] + '点' + this.dateArray[4] + '分';
                 }
             });
         },
@@ -73,7 +81,14 @@ export default {
                 this.$vux.toast.text('请选择出生日期','top');
                 return;
             }
-            let timestamp = new Date(this.dateArray[0],this.dateArray[1],this.dateArray[2],this.dateArray[3],0,0).getTime()/1000;
+            if(this.dateType === '0') {
+                // 农历转公历的对象
+                let solar = solarLunar.lunar2solar(parseInt(this.dateArray[0]),parseInt(this.dateArray[1]),parseInt(this.dateArray[2]));
+                this.dateArray[0] =solar.cYear;
+                this.dateArray[1] =solar.cMonth;
+                this.dateArray[2] =solar.cDay;
+            }
+            let timestamp = new Date(this.dateArray[0],this.dateArray[1],this.dateArray[2],this.dateArray[3],this.dateArray[4],0).getTime()/1000;
             let postData = {
                 realname : this.name,
                 gender : this.gender,
@@ -171,6 +186,38 @@ export default {
         .gender-txt{
             color:rgba(0,0,0,1);
                 opacity:0.2;
+        }
+    }
+    .dateType {
+        .flex-start();
+        margin-top: 28/75rem;
+        font-size: 34/75rem;
+        padding-left: 7.5/75rem;
+        color:@inputColor;
+        margin-bottom: 40/75rem;
+        .gregorian{
+            .flex-start();
+        }
+        .lunar {
+            .flex-start();
+            margin-left: 55/75rem;
+        }
+        input[type="radio"]{
+            display: none;
+        }
+        input[type="radio"] + label{
+            width: 22/75rem;
+            height: 22/75rem;
+            .round(50%);
+            margin-right: 26/75rem;
+            border: 1px solid #eee;
+        }
+        input[name="dateType"]:checked  + label{
+            background-color: @baseColor;
+           & + div{
+                color:rgba(0,0,0,1);
+                opacity:0.8;
+           }
         }
     }
     #save-confirm{

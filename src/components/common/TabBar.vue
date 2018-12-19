@@ -28,22 +28,28 @@ export default {
                     route: "/main/home"
                 },
                 {
-                    icoUrl:  require("../../assets/image/tab-bar/master-ico@2x.png"),
-                    icoUrlActive: require("../../assets/image/tab-bar/master-ico-active@2x.png"),
-                    name: "大师",
-                    route: "/main/master"
-                },
-                {
-                    icoUrl:  require("../../assets/image/tab-bar/fortune-ico@2x.png"),
-                    icoUrlActive: require("../../assets/image/tab-bar/fortune-ico@2x.png"),
+                    icoUrl:  require("../../assets/image/tab-bar/fortune.png"),
+                    icoUrlActive: require("../../assets/image/tab-bar/fortune-active.png"),
                     name: "运势",
                     route: "/main/fortune"
                 },
                 {
-                    icoUrl:  require("../../assets/image/tab-bar/predict-ico-@2x.png"),
-                    icoUrlActive: require("../../assets/image/tab-bar/predict-ico-active@2x.png"),
-                    name: "测算",
-                    route: "/main/predict"
+                    icoUrl:  require("../../assets/image/tab-bar/2019.png"),
+                    icoUrlActive: require("../../assets/image/tab-bar/2019.png"),
+                    // name: "运势",
+                    route: "/main/activity"
+                },
+                // {
+                //     icoUrl:  require("../../assets/image/tab-bar/predict-ico-@2x.png"),
+                //     icoUrlActive: require("../../assets/image/tab-bar/predict-ico-active@2x.png"),
+                //     name: "测算",
+                //     route: "/main/predict"
+                // },
+                {
+                    icoUrl:  require("../../assets/image/tab-bar/calendar.png"),
+                    icoUrlActive: require("../../assets/image/tab-bar/calendar-active.png"),
+                    name: "黄历",
+                    route: "/main/calendar"
                 },
                 {
                     icoUrl:  require("../../assets/image/tab-bar/mine-ico@2x.png"),
@@ -95,22 +101,24 @@ export default {
                     margin-bottom: 10/75rem;
                 }
                 .tabIco2 {
-                    width: 39/75rem;
+                    width: 44/75rem;
+                    height: 44/75rem;
                 }
                 .tabIco3{
-                    width: 88/75rem;
-                    height: 88/75rem;
-                    margin-bottom: 10/75rem;
+                    width: 133/75rem;
+                    height: 115/75rem;
+                    // margin-bottom: 10/75rem;
                 }
                 .tabIco4 {
-                    width: 37/75rem;
+                    width: 44/75rem;
+                    height: 44/75rem;
                 }
                 .tabIco5 {
                     width: 48/75rem;
                 }
             }
             .tab-bar-item:nth-child(3){
-                .translate(0,-20/75rem)               
+                .translate(0,-13/75rem)               
             }
         }
     }

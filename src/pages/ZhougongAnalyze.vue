@@ -77,12 +77,12 @@ export default {
 <style lang="less" scoped>
 .content-wrap{
     position: absolute;
-        top: 170/75rem;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        box-sizing: border-box;
-        overflow-y: scroll;
+    top: 170/75rem;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-y: scroll;
     .header{
         padding: 32/75rem 0;
         text-align: center;

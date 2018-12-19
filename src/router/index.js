@@ -10,6 +10,8 @@ import BaziBirth from '@/pages/BaziBirth'
 import PeachBlossom from '@/pages/PeachBlossom'
 import FirstGuider from '@/pages/FirstGuider'
 
+import Activity from '@/pages/Activity'
+import Calendar from '@/pages/Calendar'
 // 主路由页面
 import Main from '@/pages/Main'
 import Home from '@/pages/Home'
@@ -32,8 +34,32 @@ import XiangshuInner from '@/pages/XiangshuInner'
 import ZhougongHome from '@/pages/zhougongHome'
 import ZhougongAnalyze from '@/pages/ZhougongAnalyze'
 import Empty from '@/pages/Empty'
-
-
+import GiveName from '@/pages/GiveName'
+import NameHome from '@/pages/NameHome'
+import Shengxiao from '@/pages/Shengxiao'
+import ShengxiaoDetail from '@/pages/ShengxiaoDetail'
+import Article from '@/pages/Article'
+import NameTest from '@/pages/NameTest'
+import NameTestInner from '@/pages/NameTestInner'
+import NameTestResult from '@/pages/NameTestResult'
+import FamilyName from '@/pages/FamilyName'
+import FamilyNameInner from '@/pages/FamilyNameInner'
+import NamedResult from '@/pages/NamedResult'
+import QimenFile from '@/pages/QimenFile'
+import QimenPan from '@/pages/QimenPan'
+import CalendarDetail from '@/pages/CalendarDetail'
+import Setting from '@/pages/Setting'
+import UserFile from '@/pages/UserFile'
+import Security from '@/pages/Security'
+import ChangePhone from '@/pages/ChangePhone'
+import UserMessage from '@/pages/UserMessage'
+import Recruitment from '@/pages/Recruitment'
+import RecruitmentStep1 from '@/pages/RecruitmentStep1'
+import RecruitmentStep2 from '@/pages/RecruitmentStep2'
+import RecruitmentStep3 from '@/pages/RecruitmentStep3'
+import MyCollection from '@/pages/MyCollection'
+import ContactService from '@/pages/ContactService'
+import FeedBack from '@/pages/FeedBack'
 
 Vue.use(Router)
 
@@ -96,9 +122,14 @@ export default new Router({
           component: Predict
         },
         {
-          path : '/main/mine',
-          name : 'mine',
-          component: Mine
+          path : '/main/activity',
+          name : 'activity',
+          component : Activity
+        }
+        ,{
+          path : '/main/calendar',
+          name : 'calendar',
+          component : Calendar
         }
       ]
     },
@@ -190,6 +221,147 @@ export default new Router({
       path : '/empty',
       name : 'empty',
       component : Empty
+    },
+    {
+      path : '/giveName',
+      name : 'giveName',
+      component : GiveName 
+    },
+    {
+      path : '/nameHome',
+      name : 'nameHome',
+      component : NameHome
+    },
+    {
+      path : '/shengxiao',
+      name : 'shengxiao',
+      component : Shengxiao
+    },{
+      path : '/shengxiao/detail',
+      name : 'shengxiaoDetail',
+      component : ShengxiaoDetail
+    },
+    {
+      path : '/article',
+      name : 'article',
+      component : Article
+    },{
+      path : '/nameTest',
+      name : 'nameTest',
+      component : NameTest 
+    },
+    {
+      path : '/nameTestInner',
+      name : 'nameTestInner',
+      component : NameTestInner
+    },
+    {
+      path : '/nameTestResult',
+      name : 'nameTestResult',
+      component : NameTestResult
+    },
+    {
+      path : '/familyName',
+      name : 'familyName',
+      component : FamilyName
+    },
+    {
+      path : '/familyNameInner',
+      name : 'amilyNameInner',
+      component : FamilyNameInner
+    },
+    {
+      path : '/namedResult',
+      name : 'namedResult',
+      component : NamedResult
+    },
+    {
+      path : '/qimenFile',
+      name : 'qimenFile',
+      component : QimenFile
+    },
+    {
+      path : '/qimenPan',
+      name : 'qimenPan',
+      component : QimenPan
+    },
+    {
+      path : '/main/calendar/detail',
+      name : 'calendarDetail',
+      component : CalendarDetail
+    },
+    {
+      path : '/main/mine',
+      name : 'mine',
+      component: Mine
+    },
+    {
+      path : '/main/mine/setting',
+      name : 'setting',
+      component: Setting
+    },
+    {
+      path : '/main/mine/setting/userFile',
+      name : 'userFile',
+      component: UserFile
+    },
+    {
+      path : '/main/mine/setting/security',
+      name : 'security',
+      component: Security
+    },
+    {
+      path : '/main/mine/setting/security/changePhone',
+      name : 'changePhone',
+      component: ChangePhone
+    },
+    {
+      path : '/main/mine/userMessage',
+      name : 'userMessage',
+      component: UserMessage
+    },
+    {
+      path : '/main/mine/recruitment',
+      name : 'recruitment',
+      component: Recruitment,
+      children : [
+        {
+          path : '',
+          name : '',
+          component : RecruitmentStep1
+        },
+        {
+          path : 'recruitmentStep1',
+          name : 'recruitmentStep1',
+          component : RecruitmentStep1
+        },
+        {
+          path : 'recruitmentStep2',
+          name : 'recruitmentStep2',
+          component : RecruitmentStep2
+        },
+        {
+          path : 'recruitmentStep3',
+          name : 'recruitmentStep3',
+          component : RecruitmentStep3
+        },
+      ]
+    },
+    {
+      path : '/main/mine/myCollection',
+      name : 'myCollection',
+      component: MyCollection
+    },
+    {
+      path : '/main/mine/contactService',
+      name : 'contactService',
+      component : ContactService
+    },
+    {
+      path : '/main/mine/feedBack',
+      name : 'feedBack',
+      component : FeedBack 
     }
+    
   ]
 })

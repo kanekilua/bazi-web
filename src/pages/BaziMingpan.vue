@@ -2,7 +2,7 @@
     <div class="wrap" v-show="showFlag">
         <div class="mingpan-wrap">
             <div class="top-part-item"><span class="item-key">姓名：</span>{{info.info.bzname}}</div>
-            <div class="top-part-item"><span class="item-key">出生地点：</span>{{info.info.area}}</div>
+            <div class="top-part-item" v-if="info.info.area"><span class="item-key">出生地点：</span>{{info.info.area}}</div>
             <div class="top-part-item"><span class="item-key">公历：</span>{{info.data.bzdate}}</div>
             <div class="top-part-item"><span class="item-key">农历：</span>{{info.data.nongdate}}</div>
             <div class="top-part-item"><span class="item-key">节气：</span>{{info.data.jqstr}}</div>

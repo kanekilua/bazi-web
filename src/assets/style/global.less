@@ -5,31 +5,6 @@
 @gradientEnd: @baseColor;
 @checkBackGroud: @baseColor;
 
-// @navHeight: 160/75rem;
-// button{
-//     width: 120/75rem;
-//     height: 50/75rem;
-//     font-size: 26/75rem;
-//     border-radius: 13/75rem;
-//     background: #fff;
-//     border: none;
-//     box-shadow: 0 3/75rem 6/75rem rgba(0,0,0,0.16);
-//     outline: none;
-//     &:active{
-//         background: #eee;
-//     }
-// }
-// .select-btn{
-//     background: @baseColor;
-// }
-.border-box{
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -o-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
-}
-
 .loginForm {
     margin: 40/75rem auto 0 auto;
     width: 516/75rem;
@@ -49,8 +24,47 @@
     }
 }
 
+.save-btn {
+    width: 100%;
+    height: 100/75rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    background-color: @baseColor;
+    border:0;
+    font-size: 28/75rem;
+    color:#fff;
+}
 
+.border-box{
+    -moz-box-sizing: border-box;  
+    -webkit-box-sizing: border-box; 
+    -o-box-sizing: border-box; 
+    -ms-box-sizing: border-box; 
+    box-sizing: border-box;
+}
 
+// 让p段落的剩余内容由省略号代替
+.ellipsis(@line : 3) {
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: @line;
+    -webkit-box-orient: vertical;
+}
+
+.my-button{
+    border: none;
+    outline: none;
+    display: block;
+    font-size: 26/75rem;
+    color: #fff;
+}
+.my-input{
+    border: none;
+    outline: none;
+}
 /*
 定义圆角
 @radius 圆角大小

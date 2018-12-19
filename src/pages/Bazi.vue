@@ -121,7 +121,7 @@ export default {
         .content-box{
             width: 100%;
             position: absolute;
-            top:300/75rem;
+            top:280/75rem;
             bottom: 0px;
             left: 0px;
             overflow-y: scroll;
