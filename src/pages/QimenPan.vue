@@ -74,15 +74,15 @@ export default {
                 .flex-start();
                 flex-wrap: wrap;
                 .border-box();
-                border-top: 1px solid rgba(112,112,112,1);
-                border-left: 1px solid rgba(112,112,112,1);
+                border-top: 1px solid rgba(112,112,112,0.2);
+                border-left: 1px solid rgba(112,112,112,0.2);
                 .td-item{
                     .flex-center();
                     width: 33.333%;
                     height: 200/75rem;
                     .border-box();
-                    border-right: 1px solid rgba(112,112,112,1);
-                    border-bottom: 1px solid rgba(112,112,112,1);
+                    border-right: 1px solid rgba(112,112,112,0.2);
+                    border-bottom: 1px solid rgba(112,112,112,0.2);
                     table{
                         width: 100%!important;
                         height: 150/75rem;

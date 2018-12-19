@@ -199,38 +199,6 @@ export default {
                     height: 100/75rem;
                     margin: 45/75rem auto 33/75rem auto; 
                 }
-                .bazi-ico {
-                    width: 102/75rem;
-                    height: 102/75rem;
-                }
-                .ico1{
-                    width: 67/75rem;
-                    height: 88/75rem;
-                }
-                .love-ico{
-                    width: 102/75rem;
-                    height: 81/75rem;
-                }
-                .fengshui-ico{
-                    width: 75/75rem;
-                    height: 88/85rem;
-                }
-                .shengxiao-ico {
-                    width: 88/75rem;
-                    height: 88/75rem;
-                }
-                .ziwei-ico{
-                    width: 105/75rem;
-                    height: 88/75rem;
-                }
-                .xiangshu-ico {
-                    width: 73/75rem;
-                    height: 88/75rem;
-                }
-                .more-ico {
-                    width: 90/75rem;
-                    height: 90/75rem;
-                }
                 .item-txt{
                     margin-bottom: 33/75rem;
                 }

@@ -67,7 +67,6 @@ export default {
                 return;
             }
             if(!this.$utils.checkPhone(this.phone,this)) {
-
                 return;
             }
             if(this.captchaFlag) {

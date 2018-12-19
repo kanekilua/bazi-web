@@ -16,46 +16,46 @@
             </div>
         </div>
         <div v-transfer-dom>
-        <x-dialog v-model="showDialogStyle" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '50%', 'background-color': 'transparent'}">
-            <div class="fillter-dialog">
-                <div class="exit" @click="showDialogStyle=false">X</div>
-                <h2>单双名筛选</h2>
-                <div class="name-num">
-                    <label for="double-name">
-                        <input type="radio" name="name-num" id="double-name" checked>
-                        <div class="name-btn">双名</div>
-                    </label>
-                    <label for="single-name">
-                        <input type="radio" name="name-num" id="single-name">
-                        <div class="name-btn">单名</div>
-                    </label>
-                </div>
-                <h2>名字笔画数量筛选</h2>
-                <div class="pick-box">
-                    <div class="select" @click="ShowSelect">
-                        <div>{{selectNum}}</div>
-                        <i :class="showSelect ? 'select-up' :'select-down'"></i>
+            <x-dialog v-model="showDialogStyle" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '50%', 'background-color': 'transparent'}">
+                <div class="fillter-dialog">
+                    <div class="exit" @click="showDialogStyle=false">X</div>
+                    <h2>单双名筛选</h2>
+                    <div class="name-num">
+                        <label for="double-name">
+                            <input type="radio" name="name-num" id="double-name" checked>
+                            <div class="name-btn">双名</div>
+                        </label>
+                        <label for="single-name">
+                            <input type="radio" name="name-num" id="single-name">
+                            <div class="name-btn">单名</div>
+                        </label>
                     </div>
-                    <picker :data='numArr' v-model='num' @on-change='changeNum' v-show="showSelect"></picker>
+                    <h2>名字笔画数量筛选</h2>
+                    <div class="pick-box">
+                        <div class="select" @click="ShowSelect">
+                            <div>{{selectNum}}</div>
+                            <i :class="showSelect ? 'select-up' :'select-down'"></i>
+                        </div>
+                        <picker :data='numArr' v-model='num' @on-change='changeNum' v-show="showSelect"></picker>
+                    </div>
+                    <h2>五行筛选</h2>
+                    <div class="checkbox-list">
+                        <input type="checkbox" id="jin" value="金" v-model="checkboxArr">
+                        <label for="jin">金</label>
+                        <input type="checkbox" id="mu" value="木" v-model="checkboxArr">
+                        <label for="mu">木</label>
+                        <input type="checkbox" id="shui" value="水" v-model="checkboxArr">
+                        <label for="shui">水</label>
+                        <input type="checkbox" id="huo" value="火" v-model="checkboxArr">
+                        <label for="huo">火</label>
+                        <input type="checkbox" id="tu" value="土" v-model="checkboxArr">
+                        <label for="tu">土</label>
+                    </div>
+                    <h2>自筛选</h2>
+                    <input type="text" placeholder="输入您命中要带的字" class="fillter-input">
+                    <input type="button" value="开始筛选" class="fillter-btn">
                 </div>
-                <h2>五行筛选</h2>
-                <div class="checkbox-list">
-                    <input type="checkbox" id="jin" value="金" v-model="checkboxArr">
-                    <label for="jin">金</label>
-                    <input type="checkbox" id="mu" value="木" v-model="checkboxArr">
-                    <label for="mu">木</label>
-                    <input type="checkbox" id="shui" value="水" v-model="checkboxArr">
-                    <label for="shui">水</label>
-                    <input type="checkbox" id="huo" value="火" v-model="checkboxArr">
-                    <label for="huo">火</label>
-                    <input type="checkbox" id="tu" value="土" v-model="checkboxArr">
-                    <label for="tu">土</label>
-                </div>
-                <h2>自筛选</h2>
-                <input type="text" placeholder="输入您命中要带的字" class="fillter-input">
-                <input type="button" value="开始筛选" class="fillter-btn">
-            </div>
-        </x-dialog>
+            </x-dialog>
         </div>
         <div class="content-wrap">
             <div class="swiper-container">

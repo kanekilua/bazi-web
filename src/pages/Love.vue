@@ -74,7 +74,7 @@ export default {
     }
 }
 .content-wrap{
-   position: absolute;
+    position: absolute;
     top: 270/75rem;
     bottom: 0;
     left: 0;

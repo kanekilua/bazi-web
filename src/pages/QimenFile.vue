@@ -112,6 +112,10 @@ export default  {
                 this.$vux.toast.text('请选择出生日期','top');
                 return;
             }
+            if(this.zhanshi.trim()==''){
+                this.$vux.toast.text('请输入您想占卜的事','top');
+                return;
+            }
             if(this.dateType === '0') {
                 // 农历转公历的对象
                 let solar = solarLunar.lunar2solar(parseInt(this.dateArray[0]),parseInt(this.dateArray[1]),parseInt(this.dateArray[2]));

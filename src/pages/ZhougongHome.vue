@@ -25,12 +25,12 @@
             </div>
             <!-- 数据来源易安居 -->
             <!-- <v-title-nav><h2 slot="title">解梦文化</h2><div slot="more"></div></v-title-nav> -->
-             <v-title-nav><h2 slot="title">孕妇的梦</h2><div slot="more"></div></v-title-nav>
-             <div class="hList">
-                <div class="hItem" v-for="(item,index) in pregnantList" :key="index">
-                    <h2>{{item}}</h2><i></i>
-                </div>
-             </div>
+            <v-title-nav><h2 slot="title">孕妇的梦</h2><div slot="more"></div></v-title-nav>
+            <div class="hList">
+            <div class="hItem" v-for="(item,index) in pregnantList" :key="index">
+                <h2>{{item}}</h2><i></i>
+            </div>
+            </div>
         </div>
     </div>
 </template>
