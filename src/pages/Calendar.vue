@@ -550,14 +550,23 @@ h2 {
                     background:rgba(0,0,0,0.1);
                 }
                 .not-click-day {
+                    // & > p {
+                    //     .ellipsis(1);
+                    // }
                     & > p {
-                        .ellipsis(1);
+                        overflow : hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        // display: -webkit-box;
+                        // -webkit-line-clamp: 1;
+                        // -webkit-box-orient: vertical;
                     }
                 }
                 .lunar-click-day {
-                    & > p {
-                        .ellipsis(2);
-                    }
+                    overflow: hidden;
+                    // & > p {
+                    //     .ellipsis(2);
+                    // }
                 } 
                 .lunar-today {
                     color : @baseColor;
@@ -580,8 +589,13 @@ h2 {
                     line-height: 62/75rem;
                 }
                 .lunar-day {
-                    font-size:24/75rem;
-                    text-align: center;
+                    width: 100%;
+                    max-height: 66/75rem;
+                    & > p {
+                        width: 100%;
+                        text-align: center;
+                        font-size:24/75rem;
+                    }
                 }
             }
         }
@@ -591,7 +605,7 @@ h2 {
     }
     .info {
         width:95%;
-        margin : 10/75rem auto 0 auto;
+        margin : 25/75rem auto 0 auto;
         height:281/75rem;
         background:rgba(255,255,255,1);
         box-shadow:0px 3px 6px rgba(0,0,0,0.16);
