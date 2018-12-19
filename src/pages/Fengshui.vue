@@ -6,30 +6,29 @@
             <div class="content-box">
                 <div class="content">
                     <div class="btn-row">
-                        <button class="fengshui-btn select-btn" @click="$jump('/jiaju')">家居风水</button>
-                        <button class="fengshui-btn">办公风水</button>
-                        <button class="fengshui-btn">感情风水</button>
+                        <button class="fengshui-btn select-btn" @click="toList('301')">家居风水</button>
+                        <button class="fengshui-btn" @click="toList('302','办公室风水')">办公风水</button>
+                        <button class="fengshui-btn" @click="toList('301','感情风水')">感情风水</button>
                     </div>
                     <div class="btn-row">
-                        <button class="fengshui-btn">房屋风水</button>
-                        <button class="fengshui-btn">招财风水</button>
+                        <button class="fengshui-btn" @click="toList('303')">房屋风水</button>
+                        <button class="fengshui-btn" @click="toList('301','招财风水')">招财风水</button>
                     </div>
                     <div class="btn-row">
-                        <button class="fengshui-btn">风水摆设</button>
-                        <button class="fengshui-btn">商业风水</button>
-                        <button class="fengshui-btn">风水大师</button>
+                        <button class="fengshui-btn" @click="toList('301','风水摆设')">风水摆设</button>
+                        <button class="fengshui-btn" @click="toList('302')">商业风水</button>
+                        <!-- <button class="fengshui-btn">风水大师</button>暂时无风水大师数据 -->
                     </div>
                 </div>
             </div>
             <div class="swiper-container">
-                <div class="swiper-top">
+                <div class="swiper-top" ref="swiperTop">
                     <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
-                    <div class="right"></div>
                 </div>
                 <swiper :options="swiperOption" ref="mySwiper">
-                    <swiper-slide v-for="(outItem,outIndex) in list" :key="outIndex">
-                        <div class="hItem" v-for="(innerItem,innerIndex) in outItem.val" :key="innerIndex">
-                            <h2>{{innerItem}}</h2><i></i>
+                    <swiper-slide v-for="(outItem,key,outIndex) of list" :key="outIndex">
+                        <div class="hItem" v-for="(innerItem,innerIndex) in outItem" :key="innerIndex" @click="toInner(innerItem.id)">
+                            <h2>{{innerItem.title}}</h2><i></i>
                         </div>
                     </swiper-slide>
                 </swiper>
@@ -50,7 +49,17 @@ export default {
     watch : {
         'navIndex' (val) {
             this.swiper.slideTo(val, 0, false);
+            // 保持swipertop滚动位置
+            if (val >3){
+                this.$refs.swiperTop.scrollLeft = this.$refs.swiperTop.scrollWidth;
+            }
+            else{
+                this.$refs.swiperTop.scrollLeft = 0;
+            }
         }
+    },
+    created () {
+        this.getData();
     },
     mounted () {
         if(this.navIndex != 0) { 
@@ -62,30 +71,50 @@ export default {
     },
     data () {
         return {
-            navList: ["家居风水","住宅风水","商业风水","文化风水",],
+            navList: ["家居风水","房屋风水","办公风水","感情风水","风水摆设","商业风水","招财风水"],
             swiperOption : { initialSlide: this.navIndex },
-            list : [
-                {
-                    val:[
-                        "风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"
-                ]},
-                {
-                    val:[
-                        "风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"
-                ]},
-                {
-                    val:[
-                        "风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"
-                ]},
-                {
-                    val:[
-                        "风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"
-                ]},
-            ]
+            list : {},
         }
     },
      methods : {
-        ...mapMutations('peach',['updateNavIndex'])
+        ...mapMutations('peach',['updateNavIndex']),
+        getData: function () {
+            let sendData = {
+                cid: '100',
+            }
+            this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success,this.failure);
+        },
+        success: function(res) {
+            this.list = res;
+        },
+        // 跳转文章页面
+        toInner: function (innerId) {
+            let id = innerId;
+            this.$router.push({
+                name: 'fengshuidetail',
+                query: {
+                    id : id
+                }
+            })
+        },
+        toList : function(tid,category) {
+            if(!arguments[1]){
+                this.$router.push({
+                    path : '/jiaju',
+                    query : {
+                        tid: tid,
+                    }
+                })
+            }else{
+                this.$router.push({
+                    path : '/jiaju',
+                    query : {
+                        tid: tid,
+                        category : category,
+                    }
+                })
+            }
+        }
     }
 }
 </script>
@@ -138,11 +167,22 @@ export default {
     .swiper-container{
         width: 670/75rem;
         margin: 0 auto;
-        /deep/ .nav .nav-list{
-            .flex-between();
+        .swiper-top{
+            width: 100%;
+            overflow-x: scroll;
+            &::-webkit-scrollbar{
+                width: 0!important;
+            }
+        }
+        /deep/ .nav{
+            width: 160%;
+            overflow-x: scroll; 
+        }
+        .nav-list{
+            .flex-start();
         }
         /deep/ .nav .nav-list .item{
-            height:85/75rem;
+            height: 85/75rem;
         }
         .hItem{
             .flex-between();
@@ -150,6 +190,7 @@ export default {
             & > h2{
                 font-size: 28/75rem;
                 font-weight: normal;
+                .ellipsis(1);
             }
             & > i{
                 display: inline-block;
