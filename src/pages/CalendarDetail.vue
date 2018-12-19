@@ -193,7 +193,6 @@ export default {
     methods : {
         init : function () {
             this.dateInfo = this.$route.params.dateInfo;
-            console.log(this.dateInfo);
             this.ganzhiInfo = [this.dateInfo.GanZhiYear + "年",this.dateInfo.GanZhiMonth + "月", this.dateInfo.GanZhiDay + "日"];
         }
     }
