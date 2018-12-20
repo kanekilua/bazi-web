@@ -151,6 +151,20 @@ export default {
                 }
             });
         },
+        getData: function () {
+            let sendData = {
+                cid : '98',
+                tid: '404',
+            }
+            this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success,this.failure);
+        },
+        success: function(res) {
+            // console.log(res);
+            this.knowledges = res.data.splice(0,2);
+            for( let i of this.knowledges){
+                i.img = 'https://mingli.szmonster.com' + i.img;
+            }
+        },
         showArticle : function (article) {
             this.$router.push({
                 name: "article",

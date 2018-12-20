@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap">
+    <div class="xiangshu-wrap">
         <v-header></v-header>
         <v-title-header>
             相术解析
@@ -11,11 +11,11 @@
                 </div>
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide v-for="(outItem,outIndex) in list" :key="outIndex">
-                        <div class="hItem" v-for="(innerItem,innerIndex) in outItem.val" :key="innerIndex" @click="$jump('/xiangshuInner')">
-                            <img :src="innerItem.imgUrl">
+                        <div class="hItem" v-for="(innerItem,innerIndex) in outItem.data" :key="innerIndex" @click="$jump('/xiangshuInner')">
+                            <img :src="innerItem.img">
                             <div class="right">
                                 <h2>{{innerItem.title}}</h2>
-                                <p>{{innerItem.itemP}}</p>
+                                <p v-html="innerItem.content"></p>
                             </div>
                         </div>
                     </swiper-slide>
@@ -37,7 +37,32 @@ export default {
     watch : {
         'navIndex' (val) {
             this.swiper.slideTo(val, 0, false);
+            if(val===1 && this.list[1].data.length===0){
+                let sendData = {
+                    cid : '98',
+                    tid: '502',
+                }
+            this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success1);
+            };
+            if(val===2 && this.list[2].data.length===0){
+                let sendData = {
+                    cid : '98',
+                    tid: '503',
+                }
+            this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success2);
+            };
+            if(val===3 && this.list[3].data.length===0){
+                let sendData = {
+                    cid : '98',
+                    tid: '504',
+                }
+            this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success3);
+            }
+            
         }
+    },
+    created() {
+        this.getData();
     },
     mounted () {
         if(this.navIndex != 0) { 
@@ -51,79 +76,51 @@ export default {
         return {
             navList: ["面相图解","手相解析","痣向解析","相学大全",],
             swiperOption : { initialSlide: this.navIndex },
-            list : [
-                {
-                    val:[
-                       {
-                           imgUrl: require("../assets/image/xiangshu/item-img@2x.png"),
-                           title: "眉毛淡的男人命运好吗，眉毛fdsaFASGASG",
-                           itemP: "眉毛在相学中又被视为保寿官，从这个寿字就可以知道，眉毛与我们的寿命有关，通过观察一个人的眉相，可以知道一个人的寿命长短和心性如何，面相中认为眉毛长垂，高寿无疑，就",
-                       },
-                       {
-                           imgUrl: require("../assets/image/xiangshu/item-img@2x.png"),
-                           title: "眉毛淡的男人命运好吗，眉毛fdsaFASGASG",
-                           itemP: "眉毛在相学中又被视为保寿官，从这个寿字就可以知道，眉毛与我们的寿命有关，通过观察一个人的眉相，可以知道一个人的寿命长短和心性如何，面相中认为眉毛长垂，高寿无疑，就",
-                       },
-                       {
-                           imgUrl: require("../assets/image/xiangshu/item-img@2x.png"),
-                           title: "眉毛淡的男人命运好吗，眉毛fdsaFASGASG",
-                           itemP: "眉毛在相学中又被视为保寿官，从这个寿字就可以知道，眉毛与我们的寿命有关，通过观察一个人的眉相，可以知道一个人的寿命长短和心性如何，面相中认为眉毛长垂，高寿无疑，就",
-                       },
-                       {
-                           imgUrl: require("../assets/image/xiangshu/item-img@2x.png"),
-                           title: "眉毛淡的男人命运好吗，眉毛fdsaFASGASG",
-                           itemP: "眉毛在相学中又被视为保寿官，从这个寿字就可以知道，眉毛与我们的寿命有关，通过观察一个人的眉相，可以知道一个人的寿命长短和心性如何，面相中认为眉毛长垂，高寿无疑，就",
-                       },
-                       {
-                           imgUrl: require("../assets/image/xiangshu/item-img@2x.png"),
-                           title: "眉毛淡的男人命运好吗，眉毛fdsaFASGASG",
-                           itemP: "眉毛在相学中又被视为保寿官，从这个寿字就可以知道，眉毛与我们的寿命有关，通过观察一个人的眉相，可以知道一个人的寿命长短和心性如何，面相中认为眉毛长垂，高寿无疑，就",
-                       },
-                       {
-                           imgUrl: require("../assets/image/xiangshu/item-img@2x.png"),
-                           title: "眉毛淡的男人命运好吗，眉毛fdsaFASGASG",
-                           itemP: "眉毛在相学中又被视为保寿官，从这个寿字就可以知道，眉毛与我们的寿命有关，通过观察一个人的眉相，可以知道一个人的寿命长短和心性如何，面相中认为眉毛长垂，高寿无疑，就",
-                       },
-                       {
-                           imgUrl: require("../assets/image/xiangshu/item-img@2x.png"),
-                           title: "眉毛淡的男人命运好吗，眉毛fdsaFASGASG",
-                           itemP: "眉毛在相学中又被视为保寿官，从这个寿字就可以知道，眉毛与我们的寿命有关，通过观察一个人的眉相，可以知道一个人的寿命长短和心性如何，面相中认为眉毛长垂，高寿无疑，就",
-                       },
-                ]},
-                {
-                    val:[
-                       {
-                           imgUrl: require("../assets/image/xiangshu/item-img@2x.png"),
-                           title: "眉毛淡的男人命运好吗，眉毛",
-                           itemP: "眉毛在相学中又被视为保寿官，从这个寿字就可以知道，眉毛与我们的寿命有关，通过观察一个人的眉相，可以知道一个人的寿命长短和心性如何，面相中认为眉毛长垂，高寿无疑，就",
-                       }
-                ]},
-                 {
-                    val:[
-                       {
-                           imgUrl: require("../assets/image/xiangshu/item-img@2x.png"),
-                           title: "眉毛淡的男人命运好吗，眉毛",
-                           itemP: "眉毛在相学中又被视为保寿官，从这个寿字就可以知道，眉毛与我们的寿命有关，通过观察一个人的眉相，可以知道一个人的寿命长短和心性如何，面相中认为眉毛长垂，高寿无疑，就",
-                       }
-                ]},
-                 {
-                    val:[
-                       {
-                           imgUrl: require("../assets/image/xiangshu/item-img@2x.png"),
-                           title: "眉毛淡的男人命运好吗，眉毛",
-                           itemP: "眉毛在相学中又被视为保寿官，从这个寿字就可以知道，眉毛与我们的寿命有关，通过观察一个人的眉相，可以知道一个人的寿命长短和心性如何，面相中认为眉毛长垂，高寿无疑，就",
-                       }
-                ]},
-            ]
+            list : [{data: []},{data: []},{data: []},{data: []}]
         }
     },
     methods : {
-        ...mapMutations('xiangshu',['updateNavIndex'])
+        ...mapMutations('xiangshu',['updateNavIndex']),
+        getData: function () {
+            let sendData = {
+                cid : '98',
+                tid: '501',
+            }
+            this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success);
+        },
+        success: function(res) {
+            this.list[0].data = res.data;
+            for (let i of this.list[0].data){
+                i.img = i.img.split(' ')//取第一张张片
+                i.img = 'https://mingli.szmonster.com'+ i.img[0];
+            }
+        },
+        success1: function(res) {
+            this.list[1].data = res.data;
+            for (let i of this.list[1].data){
+                i.img = i.img.split(' ');//取第一张张片
+                i.img = 'https://mingli.szmonster.com'+ i.img[0];
+            }
+        },
+        success2: function(res) {
+            this.list[2].data = res.data;
+            for (let i of this.list[2].data){
+                i.img = i.img.split(' ');//取第一张张片
+                i.img = 'https://mingli.szmonster.com'+ i.img[0];
+            }
+        },
+        success3: function(res) {
+            this.list[3].data = res.data;
+            for (let i of this.list[3].data){
+                i.img = i.img.split(' ');//取第一张张片
+                i.img = 'https://mingli.szmonster.com'+ i.img[0];
+            }
+        },
     }
 }
 </script>
-<style lang="less" scoped>
-.wrap{
+<style lang="less">
+.xiangshu-wrap{
     .content-wrap{
         position: absolute;
         top: 285/75rem;
@@ -158,6 +155,8 @@ export default {
                 & > img{
                     width: 258/75rem;
                     height: 198/75rem;
+                    .round(27/75rem);
+                    margin-left: 14/75rem;
                 }
                 .right{
                     margin-left: 20/75rem;
@@ -181,6 +180,12 @@ export default {
                         -webkit-box-orient: vertical;
                         font-size: 26/75rem;
                         line-height: 40/75rem;
+                        & > strong {
+                            display: none;
+                            & + div{
+                                display: none;
+                            }
+                        }
                     }
                 }
             }
