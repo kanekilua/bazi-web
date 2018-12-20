@@ -6,16 +6,14 @@
         </v-title-header>
         <div class="content-wrap">
             <div class="head">
-                <h2>眉毛淡的男人命运好吗，眉毛</h2>
-                <div class="public-time">时间：2016-10-03 16:57:50</div>
+                <h2>{{analyzeList.title}}</h2>
+                <div class="public-time">时间：{{analyzeList.uptime}}</div>
             </div>
             <div class="banxin">
-                <p>眉毛在相学中又被视为保寿官，从这个寿字就可以知道，眉毛与我们的寿命有关，通过观察一个人的眉相，可以知道一个人的寿命长短和心性如何，面相中认为眉毛长垂，高寿无疑，就</p>
-                <img src="../assets/image/xiangshu/innerImg@2x.png" class="innerImg">
+                <img :src="analyzeList.img" class="innerImg">
                 <div class="analyze-list">
-                    <div class="analyze-item" v-for="(item,index) in analyzeList" :key="index">
-                        <h2>{{index+1}}.{{item.title}}</h2>
-                        <p>{{item.artical}}</p>
+                    <div class="analyze-item">
+                        <p v-html="analyzeList.content"></p>
                     </div>
                 </div>
             </div>
@@ -27,28 +25,22 @@
 export default {
     data () {
         return {
-            analyzeList: [
-                {
-                    title: "浓眉粗犷刚强，淡眉心性狭小多思",
-                    artical: "眉毛淡的人的事业心一般，对于自己想要达到的目标缺少很强目的性和计划性，比较随遇而安，很少会主动参与竞争，眉毛淡的男人在事业上很难成为领导型的人，因为他们做事缺少魄力，遇事喜欢偏安一隅，踏踏实实，而很少会主动力争上游"
-                },
-                {
-                    title: "浓眉粗犷刚强，淡眉心性狭小多思",
-                    artical: "眉毛淡的人的事业心一般，对于自己想要达到的目标缺少很强目的性和计划性，比较随遇而安，很少会主动参与竞争，眉毛淡的男人在事业上很难成为领导型的人，因为他们做事缺少魄力，遇事喜欢偏安一隅，踏踏实实，而很少会主动力争上游"
-                },
-                {
-                    title: "浓眉粗犷刚强，淡眉心性狭小多思",
-                    artical: "眉毛淡的人的事业心一般，对于自己想要达到的目标缺少很强目的性和计划性，比较随遇而安，很少会主动参与竞争，眉毛淡的男人在事业上很难成为领导型的人，因为他们做事缺少魄力，遇事喜欢偏安一隅，踏踏实实，而很少会主动力争上游"
-                },
-                {
-                    title: "浓眉粗犷刚强，淡眉心性狭小多思",
-                    artical: "眉毛淡的人的事业心一般，对于自己想要达到的目标缺少很强目的性和计划性，比较随遇而安，很少会主动参与竞争，眉毛淡的男人在事业上很难成为领导型的人，因为他们做事缺少魄力，遇事喜欢偏安一隅，踏踏实实，而很少会主动力争上游"
-                },
-                {
-                    title: "浓眉粗犷刚强，淡眉心性狭小多思",
-                    artical: "眉毛淡的人的事业心一般，对于自己想要达到的目标缺少很强目的性和计划性，比较随遇而安，很少会主动参与竞争，眉毛淡的男人在事业上很难成为领导型的人，因为他们做事缺少魄力，遇事喜欢偏安一隅，踏踏实实，而很少会主动力争上游"
-                },
-            ]
+            analyzeList: {}
+        }
+    },
+    created() {
+        this.getData();
+    },
+    methods: {
+        getData: function () {
+            console.log(this.$route.params.params);
+            this.$http.post('/suan/apidata',this.$route.params.params,'cesuan',null,this.success);
+        },
+        success: function (res) {
+            res.data.img = 'https://mingli.szmonster.com'+ res.data.img;
+            this.analyzeList = res.data;
+            
+            console.log(this.analyzeList);
         }
     }
 }
@@ -68,7 +60,7 @@ export default {
             width: 100%;
             border-bottom: 1px solid rgba(0,0,0,0.1);
             & > h2{
-                width: 100%;
+                width: 80%;
                 margin: 32/75rem auto 16/75rem auto;
                 font-size: 32/75rem;
                 text-align: center;
@@ -88,9 +80,11 @@ export default {
                 text-indent: 2em;
             }
             .innerImg{
-                width: 704/75rem;
+                display: block;
+                width: 80%;
                 height: 274/75rem;
                 margin: 34/75rem auto;
+                .round(27/75rem);
             }
             .analyze-item{
                 & > h2{

@@ -143,7 +143,7 @@ export default {
         },
         getData: function () {
             let sendData = {
-                cid : '98',
+                cid : '96',
                 tid: '404',
             }
             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success,this.failure);

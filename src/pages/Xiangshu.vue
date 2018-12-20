@@ -11,7 +11,7 @@
                 </div>
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide v-for="(outItem,outIndex) in list" :key="outIndex">
-                        <div class="hItem" v-for="(innerItem,innerIndex) in outItem.data" :key="innerIndex" @click="$jump('/xiangshuInner')">
+                        <div class="hItem" v-for="(innerItem,innerIndex) in outItem.data" :key="innerIndex" @click="toInner(innerItem.id)">
                             <img :src="innerItem.img">
                             <div class="right">
                                 <h2>{{innerItem.title}}</h2>
@@ -83,10 +83,25 @@ export default {
         ...mapMutations('xiangshu',['updateNavIndex']),
         getData: function () {
             let sendData = {
-                cid : '96',
+                cid : 96,
                 tid: '501',
             }
             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success);
+            let sendData1 = {
+                    cid : 96,
+                    tid: '502',
+                }
+            this.$http.post('/suan/apidata',sendData1,'cesuan',null,this.success1);
+            let sendData2 = {
+                    cid : 96,
+                    tid: '503',
+                }
+            this.$http.post('/suan/apidata',sendData2,'cesuan',null,this.success2);
+             let sendData3 = {
+                    cid : 96,
+                    tid: '504',
+                }
+            this.$http.post('/suan/apidata',sendData3,'cesuan',null,this.success3);
         },
         success: function(res) {
             this.list[0].data = res.data;
@@ -116,6 +131,18 @@ export default {
                 i.img = 'https://mingli.szmonster.com'+ i.img[0];
             }
         },
+        toInner: function (id) {
+            let params = {
+                cid: '95',
+                id: id
+            }
+            this.$router.push({
+                name: 'xiangshuInner',
+                params: {
+                    params
+                },
+            }) 
+        }
     }
 }
 </script>
