@@ -39,21 +39,21 @@ export default {
             this.swiper.slideTo(val, 0, false);
             if(val===1 && this.list[1].data.length===0){
                 let sendData = {
-                    cid : '98',
+                    cid : '96',
                     tid: '502',
                 }
             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success1);
             };
             if(val===2 && this.list[2].data.length===0){
                 let sendData = {
-                    cid : '98',
+                    cid : '96',
                     tid: '503',
                 }
             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success2);
             };
             if(val===3 && this.list[3].data.length===0){
                 let sendData = {
-                    cid : '98',
+                    cid : '96',
                     tid: '504',
                 }
             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success3);
@@ -83,7 +83,7 @@ export default {
         ...mapMutations('xiangshu',['updateNavIndex']),
         getData: function () {
             let sendData = {
-                cid : '98',
+                cid : '96',
                 tid: '501',
             }
             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success);
