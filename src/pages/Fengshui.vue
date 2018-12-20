@@ -80,12 +80,13 @@ export default {
         ...mapMutations('peach',['updateNavIndex']),
         getData: function () {
             let sendData = {
-                cid: '100',
+                cid: '99',
             }
             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success,this.failure);
         },
         success: function(res) {
             this.list = res;
+            console.log(res);
         },
         // 跳转文章页面
         toInner: function (innerId) {
