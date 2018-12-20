@@ -7,12 +7,12 @@
                 <img src="../assets/image/shengxiao/shengxiao-text.png" alt="生肖配对" class="pair-img">
                 <div class="form">
                     <div>
-                        <input placeholder="请输入男方名字" v-model="maleName"></input>
-                        <input placeholder="请输入出生日期" v-model="maleBirth" @click="showDatePlugin(1)"></input>
+                        <input placeholder="请输入男方名字" v-model="maleName">
+                        <input placeholder="请输入出生日期" v-model="maleBirth" @click="showDatePlugin(1)">
                     </div>
                     <div>
-                        <input placeholder="请输入女方名字" v-model="femaleName"></input>
-                        <input placeholder="请输入出生日期" v-model="femaleBirth" @click="showDatePlugin(0)"></input>
+                        <input placeholder="请输入女方名字" v-model="femaleName">
+                        <input placeholder="请输入出生日期" v-model="femaleBirth" @click="showDatePlugin(0)">
                     </div>
                     <button @click="$jump('/shengxiao/detail')">开始配对</button>
                 </div>
@@ -67,20 +67,7 @@ export default {
     data () {
         return {
             pairArticles : ["属猪和什么属相最相配，看看","属鸡和什么属相最相配，看看","属羊和什么属相最相配，看看"],
-            knowledges : [
-                {
-                    img : require('../assets/image/shengxiao/konwledge1.png'),
-                    title : "哪个生肖的男人最好色，女生",
-                    date : "2017-10-10 18:12:12",
-                    content : "说到男人喜欢欣赏漂亮的异性，这个也是一种天性吧，但是任何事物都有一个度，对于欣赏异性这一点来说，太过了就成了好色。很多男人其实在不太熟悉的异性面前，还不一定放得开..."
-                },
-                {
-                    img : require('../assets/image/shengxiao/konwledge2.png'),
-                    title : "生肖相冲能结婚吗，会不会害",
-                    date : "2018-10-15 17:15:15",
-                    content : "在结婚的时候，关于夫妻两个人生肖的事情，其实在很多地方依旧是有一些讲究的，不支持两个生肖相冲的人结婚。因为这样的两个人在一起，对于彼此的运势都会有着非常不好的影响..."
-                }
-            ],
+            knowledges : [],
             famousList : ['麦玲玲','苏民峰','李居明','宋韶光','董易林'],
             famousArticle : [
                 ['麦玲玲2016年属鼠运程','麦玲玲2016年属鼠运程','麦玲玲2016年属鼠运程','麦玲玲2016年属鼠运程','麦玲玲2016年属鼠运程','麦玲玲2016年属鼠运程','麦玲玲2016年属鼠运程'],
@@ -108,6 +95,9 @@ export default {
         'navIndex' (val) {
             this.swiper.slideTo(val, 0, false);
         }
+    },
+    created() {
+        this.getData();
     },
     mounted() {
         this.swiper.on('slideChange', () => {
@@ -150,6 +140,20 @@ export default {
                     }
                 }
             });
+        },
+        getData: function () {
+            let sendData = {
+                cid : '98',
+                tid: '404',
+            }
+            this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success,this.failure);
+        },
+        success: function(res) {
+            console.log(res);
+            this.knowledges = res.data.splice(0,2);
+            for( let i of this.knowledges){
+                i.img = 'https://mingli.szmonster.com' + i.img;
+            }
         },
         showArticle : function (article) {
             this.$router.push({
@@ -265,6 +269,7 @@ i{
                 & > img {
                     width: 258/75rem;
                     height: 198/75rem;
+                    .round(27/75rem);
                 }
                 & > div {
                     margin-left: 16/75rem;

@@ -1,7 +1,7 @@
 <template>
     <div class="jiaju-wrap">
         <v-header></v-header>
-        <v-title-header></v-title-header>
+        <v-title-header>{{title}}</v-title-header>
         <div class="content-wrap">
             <div class="jiaju-item" :key="index" v-for="(item,index) in itemList" @click="toInner(item.id)">
                 <img :src="item.img" class="item-img">
@@ -20,6 +20,7 @@ export default {
     },
     data () {
         return {
+            title: this.$route.query.navTitle,
             itemList: [
                 {
                     itemTitle:  "风水三见三不见，应该知道的事情",

@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap">
+    <div class="fsDetail-wrap">
         <v-header></v-header>
         <v-title-header>{{res.data.category}}</v-title-header>
         <div class="content-wrap">
@@ -48,42 +48,47 @@ export default {
     }
 }
 </script>
-<style lang="less" scoped>
-.content-wrap{
-    position: absolute;
-    top: 169/75rem;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: auto;
-    .header{
-        padding: 32/75rem 0;
-        text-align: center;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
-        & > h2{
-            font-size: 32/75rem;
-            margin-bottom: 16/75rem;
-            padding: 0 50/75rem;
-            .border-box();
-        }      
-    }
-    .item-message{
-        padding: 32/75rem 0;
-        & > p{
-            text-indent: 2em;
-            font-size: 24/75rem;
-            padding:  0 32/75rem;
-            .border-box();
+<style lang="less">
+.fsDetail-wrap{
+    .content-wrap{
+        position: absolute;
+        top: 169/75rem;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        overflow: auto;
+        .header{
+            padding: 32/75rem 0;
+            text-align: center;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            & > h2{
+                font-size: 32/75rem;
+                margin-bottom: 16/75rem;
+                padding: 0 50/75rem;
+                .border-box();
+            }      
         }
-        .item-img{
-            display: block;
-            width: 80%;
-            height: 280/75rem;
-            margin: 20/75rem auto;
-            .round(50/75rem);
-        }   
+        .item-message{
+            padding: 32/75rem 0;
+            & > p{
+                font-size: 24/75rem;
+                padding:  0 32/75rem;
+                .border-box();
+                strong + div> br{
+                    display: none;
+                }
+            }
+            .item-img{
+                display: block;
+                width: 80%;
+                height: 280/75rem;
+                margin: 20/75rem auto;
+                .round(50/75rem);
+            }   
+        }
+        
     }
-    
 }
+
 </style>
 

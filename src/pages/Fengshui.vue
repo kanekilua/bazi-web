@@ -6,17 +6,17 @@
             <div class="content-box">
                 <div class="content">
                     <div class="btn-row">
-                        <button class="fengshui-btn select-btn" @click="toList('301')">家居风水</button>
-                        <button class="fengshui-btn" @click="toList('302','办公室风水')">办公风水</button>
-                        <button class="fengshui-btn" @click="toList('301','感情风水')">感情风水</button>
+                        <button class="fengshui-btn select-btn" @click="toList('301','家居风水')">家居风水</button>
+                        <button class="fengshui-btn" @click="toList('302','办公室风水','办公室风水')">办公风水</button>
+                        <button class="fengshui-btn" @click="toList('301','感情风水','感情风水')">感情风水</button>
                     </div>
                     <div class="btn-row">
-                        <button class="fengshui-btn" @click="toList('303')">房屋风水</button>
-                        <button class="fengshui-btn" @click="toList('301','招财风水')">招财风水</button>
+                        <button class="fengshui-btn" @click="toList('303','房屋风水')">房屋风水</button>
+                        <button class="fengshui-btn" @click="toList('301','招财风水','招财风水')">招财风水</button>
                     </div>
                     <div class="btn-row">
-                        <button class="fengshui-btn" @click="toList('301','风水摆设')">风水摆设</button>
-                        <button class="fengshui-btn" @click="toList('302')">商业风水</button>
+                        <button class="fengshui-btn" @click="toList('301','风水摆设','风水摆设')">风水摆设</button>
+                        <button class="fengshui-btn" @click="toList('302','商业风水')">商业风水</button>
                         <!-- <button class="fengshui-btn">风水大师</button>暂时无风水大师数据 -->
                     </div>
                 </div>
@@ -97,12 +97,13 @@ export default {
                 }
             })
         },
-        toList : function(tid,category) {
-            if(!arguments[1]){
+        toList : function(tid,navTitle,category) {
+            if(!arguments[2]){
                 this.$router.push({
                     path : '/jiaju',
                     query : {
                         tid: tid,
+                        navTitle: navTitle,
                     }
                 })
             }else{
@@ -110,6 +111,7 @@ export default {
                     path : '/jiaju',
                     query : {
                         tid: tid,
+                        navTitle: navTitle,
                         category : category,
                     }
                 })
