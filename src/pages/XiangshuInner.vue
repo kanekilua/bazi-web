@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap">
+    <div class="xiangshuInner-wrap">
         <v-header></v-header>
         <v-title-header>
             相术解析
@@ -10,10 +10,9 @@
                 <div class="public-time">时间：{{analyzeList.uptime}}</div>
             </div>
             <div class="banxin">
-                <img :src="analyzeList.img" class="innerImg">
                 <div class="analyze-list">
                     <div class="analyze-item">
-                        <p v-html="analyzeList.content"></p>
+                        <p v-html="content"></p>
                     </div>
                 </div>
             </div>
@@ -25,7 +24,8 @@
 export default {
     data () {
         return {
-            analyzeList: {}
+            analyzeList: {},
+            content: "",
         }
     },
     created() {
@@ -33,20 +33,33 @@ export default {
     },
     methods: {
         getData: function () {
-            console.log(this.$route.params.params);
-            this.$http.post('/suan/apidata',this.$route.params.params,'cesuan',null,this.success);
+            let params = {
+                cid: '95',
+                // id: this.$route.query.querys.id,
+                id: '2756',//测试id
+                tid: '501',
+                category: '面相图'
+        
+            }
+            this.$http.post('/suan/apidata',params,'cesuan',null,this.success);
         },
         success: function (res) {
-            res.data.img = 'https://mingli.szmonster.com'+ res.data.img;
-            this.analyzeList = res.data;
-            
-            console.log(this.analyzeList);
+            let Img = res.data.img.split(' ');
+            let reg = /src="http:([^"]+)/gi;  //匹配src="http"
+            let srcArr = res.data.content.match(reg);
+            let content = res.data.content;
+            for(let i=0; i<srcArr.length; i++){
+                content = content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');
+                srcArr[i] ='src='+'"'+'https://mingli.szmonster.com'+Img[i];//拼接服务器图片地址
+                content = content.replace(/src="http:([^"]+)/,srcArr[i])//替换图片
+            };
+            this.content = content;
         }
     }
 }
 </script>
-<style lang="less" scoped>
-.wrap{
+<style lang="less">
+.xiangshuInner-wrap{
     .content-wrap{
         position: absolute;
         top: 169/75rem;
@@ -107,6 +120,11 @@ export default {
         height: 84/75rem;
         color: #fff;
         border: none;
+    }
+    img{
+        width: 90%!important;
+        height: 300/75rem!important;
+        .round(27/75rem;)
     }
 }
 </style>
