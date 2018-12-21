@@ -10,15 +10,15 @@
         <div class="form">
             <div class="form-item">
                 <div class="key">真实姓名</div>
-                <input type="text" class="form-input" placeholder="与身份证上一致">
+                <input type="text" class="form-input" v-model="masterName" placeholder="与身份证上一致">
             </div>
             <div class="form-item">
                 <div class="key">手机号码</div>
-                <input type="text" class="form-input" placeholder="请填写您的手机号码">
+                <input type="text"  class="form-input" v-model="masterPhone" placeholder="请填写您的手机号码">
             </div>
             <div class="form-item">
                 <div class="key">QQ号码</div>
-                <input type="text" class="form-input" placeholder="1945192493">
+                <input type="text" class="form-input" v-model="masterQQ" placeholder="1945192493">
             </div>
             <div class="radio-box">
                 <div class="key">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</div>
@@ -89,6 +89,10 @@ export default {
             showCity : false,
             provinceList : global.PROVINCE_LIST,
             cityList : global.CITY_LIST['0'],
+
+            masterName: "",
+            masterPhone: "",
+            masterQQ: "",
         }
     },
     methods: {
@@ -102,6 +106,18 @@ export default {
             this.showCity = false;
         },
         nextStep : function () {
+            // 检查名字
+            if(!this.$utils.checkName(this.masterName,this)){
+                return;
+            }
+            // 检查手机号
+            if(!this.$utils.checkPhone(this.masterPhone,this)){
+                return;
+            }
+            // 检查qq号
+            if(!this.$utils.checkQQ(this.masterQQ,this)){
+                return;
+            }
             this.$jump('/main/mine/recruitment/recruitmentStep2')
         }
     }

@@ -33,6 +33,7 @@ global.CHECK_CAPTCHA = '验证码格式不正确'
 global.CHECK_PHONE = '手机号码格式不正确'
 global.CHECK_NAME = '请输入中文姓名'
 global.REPEAT_CAPTCHA = '请勿重复获取验证码'
+global.CHECK_QQ = '请输入正确的QQ号码'
 
 // login page
 global.NAV_LIST = ['手机密码登入','手机验证码登入']
