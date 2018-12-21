@@ -7,7 +7,7 @@
                 <div class="search-bg">
                     <div class="input-box">
                         <input type="text" placeholder="输入您梦到的事情" v-model="keyWord">
-                        <i></i>
+                        <i @click="search"></i>
                     </div>
                 </div>
             </div>
@@ -47,6 +47,9 @@ export default {
     watch : {
         'navIndex' (val) {
             this.swiper.slideTo(val, 0, false);
+        },
+        keyWord: function (val) {
+            console.log(val)
         }
     },
     created () {
@@ -68,6 +71,7 @@ export default {
             slideList: [],
             pregnantList: [],
             keyWord: "",
+            result: "",
         }
     },
     methods : {
@@ -101,6 +105,9 @@ export default {
             //传递id,跳转结果页面
             this.$router.push({name: 'zhougongAnalyze',query: {id: id},params:{objList: obj}});
         },
+        search: function () {
+
+        }
     }
 }
 </script>

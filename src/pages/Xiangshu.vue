@@ -132,14 +132,13 @@ export default {
             }
         },
         toInner: function (id) {
-            let params = {
-                cid: '95',
+            let querys = {
                 id: id
             }
             this.$router.push({
                 name: 'xiangshuInner',
-                params: {
-                    params
+                query: {
+                    querys
                 },
             }) 
         }
