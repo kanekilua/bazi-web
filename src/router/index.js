@@ -45,6 +45,7 @@ import FamilyNameInner from '@/pages/FamilyNameInner'
 import NamedResult from '@/pages/NamedResult'
 import QimenFile from '@/pages/QimenFile'
 import QimenPan from '@/pages/QimenPan'
+import CalendarDetail from '@/pages/CalendarDetail'
 import Setting from '@/pages/Setting'
 import UserFile from '@/pages/UserFile'
 import Security from '@/pages/Security'
@@ -282,6 +283,11 @@ export default new Router({
       component : QimenPan
     },
     {
+      path : '/main/calendar/detail',
+      name : 'calendarDetail',
+      component : CalendarDetail
+    },
+    {
       path : '/main/mine',
       name : 'mine',
       component: Mine
@@ -353,5 +359,6 @@ export default new Router({
       name : 'feedBack',
       component : FeedBack 
     }
+    
   ]
 })
