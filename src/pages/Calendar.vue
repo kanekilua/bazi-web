@@ -47,19 +47,19 @@
             </div>
             <div class="info" :class="{'info-without-more' : moreInfo === null}">
                 <div class="info-header">
-                    {{clickItem.lunarMonthName}}{{clickItem.lunarDayName}}  星期一
+                    {{clickItem.lunarMonthName}}{{clickItem.lunarDayName}}  {{moreInfo.week}}
                 </div>
                 <div class="info-gz">
                     <span>干支</span>  {{clickItem.GanZhiYear}} {{clickItem.GanZhiMonth}} {{clickItem.GanZhiDay}}
                 </div>
                 <div class="info-yi" v-show="moreInfo != null">
                     <div class="title">宜</div>
-                    <div>祭祀  解除  破屋  坏垣  馀事</div>
+                    <div class="yiji">{{moreInfo.yiji.yi}}</div>
                 </div>
                 <div class="info-ji" v-show="moreInfo != null">
                     <div class="left">
                         <div class="title">忌</div>
-                        <div>无</div>
+                        <div class="yiji">{{moreInfo.yiji.ji}}</div>
                     </div>
                     <div class="more" @click="moreDetail">
                         <div>更多详情</div><i></i>
@@ -222,7 +222,7 @@ export default {
                 ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉'],
                 ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉']
             ],
-            moreInfo : null,
+            moreInfo : {'yiji':{'yi':'','ji':''},'week':''}
         }
     },
     methods : {
@@ -347,8 +347,8 @@ export default {
                 'lunar-today' : dayItem.year === currentYear && dayItem.month === currentMonth && dayItem.day === currentDay,
                 'solar-festival' : dayItem.lunarFestival === undefined && dayItem.solarFestival != undefined && dayItem.term === undefined && dayItem.month.toString() ===(this.monthSelectIndex + 1),
                 'lunar-festival' : (dayItem.lunarFestival != undefined || dayItem.term != undefined)  && dayItem.month.toString() === (this.monthSelectIndex + 1),
-                'not-click-day' : !(dayItem.year === this.clickItem.year && dayItem.month === this.clickItem.month && dayItem.day === this.clickItem.day && (dayItem.year != currentYear || dayItem.month != currentMonth || dayItem.day != currentDay)),
-                'lunar-click-day' : dayItem.year === this.clickItem.year && dayItem.month === this.clickItem.month && dayItem.day === this.clickItem.day && (dayItem.year != currentYear || dayItem.month != currentMonth || dayItem.day != currentDay)
+                'not-click-day' : !(dayItem.year === this.clickItem.year && dayItem.month === this.clickItem.month && dayItem.day === this.clickItem.day),
+                'lunar-click-day' : dayItem.year === this.clickItem.year && dayItem.month === this.clickItem.month && dayItem.day === this.clickItem.day
             }
             return lunarClass;
         },
@@ -370,7 +370,7 @@ export default {
         },
         getMoreInfoSuccess : function (res) {
             if(res.data != undefined) {
-                this.moreInfo = res.data.content;
+                this.moreInfo = this.handleDateInfo(res.data.content);
             }else {
                 this.moreInfo = null;
             }
@@ -396,9 +396,74 @@ export default {
             this.$router.push({
                 name : "calendarDetail",
                 params : {
-                    dateInfo : this.clickItem
+                    dateInfo : this.clickItem,
+                    moreInfo : this.moreInfo
                 }
             });
+        },
+        handleDateInfo : function (res) {
+            let handleResult = {};
+            let resWithoutHtml = this.$utils.delHtmlTag(res);
+            // 星期
+            let solarDateString = resWithoutHtml.slice(resWithoutHtml.indexOf("公历  ") + 4,resWithoutHtml.indexOf("农历  "));
+            let week = solarDateString.split('月')[1].trim().slice(-3);
+            handleResult['week'] = week;
+            // 年的中文
+            let lunarDateString = resWithoutHtml.slice(resWithoutHtml.indexOf("农历   ") + 5,resWithoutHtml.indexOf("农历   ") + 15);
+            let lunarYear = lunarDateString.split('年 ')[0].slice(-4);
+            handleResult['lunarYearName'] = lunarYear;
+             // 星座
+            const xingzuoKey = ['星座','生肖'];
+            handleResult['xingzuo'] = this.getDateInfo(resWithoutHtml,xingzuoKey);
+            // 干支等
+            const ganzhiList = [['干支','纳音','　'],['纳音','旬空','　'],['旬空','星座','　'],['值神','吉神',','],['吉神','凶神',' '],['凶神','宜',' ']];
+            const ganzhiKeyList = ['ganzhi','nayin','xunkong','zhishen','jishen','xiongshen'];
+            let ganzhiObject = {};
+            for(let i=0;i<ganzhiList.length;++i) {
+                ganzhiObject[ganzhiKeyList[i]] = this.getDateInfo(resWithoutHtml,ganzhiList[i]);
+            }
+            handleResult['ganzhi'] = ganzhiObject;
+            // 宜，忌
+            const yijiList = [['宜','忌'],['忌','儒略日']];
+            const yijiKeyList = ['yi','ji'];
+            let yijiObject = {};
+            for(let i=0;i<yijiList.length;++i) {
+                yijiObject[yijiKeyList[i]] = this.getDateInfo(resWithoutHtml,yijiList[i]);
+            }
+            handleResult['yiji'] = yijiObject;
+            // 今日胎神等
+            const taishenList = [
+                ['今日胎神','彭祖百忌'],['彭祖百忌','月名'],['十二神','今日胎神'],['九星','星宿'],
+                ['星宿','日禄'],['日禄','六曜'],['六曜','相冲'],['相冲','大殓吉时'],['大殓吉时','的呼之人']
+            ];
+            const taishenKeyList = ['taishen','pengzu','shiershen','jiuxing','xingxiu','rilu','liuyao','xiangchong','dalian'];
+            let taishenObject = {};
+            for(let i=0;i<taishenList.length;++i) {
+                taishenObject[taishenKeyList[i]] = this.getDateInfo(resWithoutHtml,taishenList[i]);
+            }
+            handleResult['taishen'] = taishenObject;
+            // 今日冲合
+            const chongheKey = ['今日冲合','年三煞'];
+            handleResult['chonghe'] = this.getDateInfo(resWithoutHtml,chongheKey);
+            // 喜神等
+            const xishenList = [['喜神','福神'],['福神','财神'],['财神','阳贵'],['阳贵','阴贵'],['阴贵','生门'],['生门','死门'],['死门','五鬼'],['五鬼','白虎'],['白虎','当日吉时']];
+            const xishenKeyList = ['xishen','fushen','chaishen','yanggui','yingui','shengmen','simen','wugui','baihu'];
+            let xishenObject = {};
+            for(let i=0;i<xishenList.length;++i) {
+                xishenObject[xishenKeyList[i]] = this.getDateInfo(resWithoutHtml,xishenList[i]);
+            }
+            handleResult['xishen'] = xishenObject;
+            // 当日吉时
+            let jishiString = resWithoutHtml.slice(resWithoutHtml.indexOf("当日吉时  ") + 4,resWithoutHtml.length -2).trim();
+            handleResult['jishi'] = jishiString.split('  ');
+            return handleResult;
+        },
+        getDateInfo : function (str,keyArr) {
+            if(keyArr.length === 3) {
+                return str.slice(str.indexOf(keyArr[0] + "  ") + 4,str.indexOf(" " + keyArr[1] + "  ")).trim().split(keyArr[2]);
+            }else {
+                return str.slice(str.indexOf(keyArr[0] + "  "),str.indexOf(" "+keyArr[1]+"  ")).trim().split("  ")[1];
+            }
         }
     }
 }
@@ -606,7 +671,6 @@ h2 {
     .info {
         width:95%;
         margin : 25/75rem auto 0 auto;
-        height:281/75rem;
         background:rgba(255,255,255,1);
         box-shadow:0px 3px 6px rgba(0,0,0,0.16);
         border-radius:29/75rem;
@@ -628,7 +692,7 @@ h2 {
             }
         }
         .info-yi {
-            .flex-start();
+            .flex-start-only();
             .title {
                 width: 34/75rem;
                 height: 34/75rem;
@@ -638,6 +702,9 @@ h2 {
                 line-height: 34/75rem;
                 text-align: center;
                 color : @lunarFestivalColor;
+            }
+            .yiji {
+                width: 400/75rem;
             }
         }
         .info-ji {
