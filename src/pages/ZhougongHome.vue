@@ -4,12 +4,18 @@
         <v-title-header :backLink="backLink">周公解梦</v-title-header>
         <div class="content-wrap">
             <div class="content-box">
-                <div class="search-bg">
-                    <div class="input-box">
-                        <input type="text" placeholder="输入您梦到的事情" v-model="keyWord">
-                        <i @click="search"></i>
+                <div class="search-box">
+                    <div class="search-bg">
+                        <div class="input-box">
+                            <input type="text" placeholder="输入您梦到的事情" @focus="ShowPannel" @blur="ShowPannel" v-model="keyWord">
+                            <i></i>
+                        </div>
                     </div>
                 </div>
+                <ul class="result-box" v-show="showPannel">
+                    <div v-if="result.length===0">未匹配到相关词条</div>
+                    <li v-for="(item,index) in result" :key="index" v-if="index<=10" @click="Result(item.id,item.title)">{{item.title}}</li>
+                </ul>
             </div>
             <div class="swiper-container">
                 <div class="swiper-top">
@@ -17,7 +23,7 @@
                 </div>
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide class="tag-list" v-for="(obj,objIndex) in slideList" :key="objIndex">
-                        <div class="tag-item" v-for="(item,index) in obj" :key="index" @click="Result(obj,item.id)">
+                        <div class="tag-item" v-for="(item,index) in obj" :key="index" @click="Result(item.id,item.title)">
                             {{item.title}}
                         </div>
                     </swiper-slide>
@@ -27,8 +33,8 @@
             <!-- <v-title-nav><h2 slot="title">解梦文化</h2><div slot="more"></div></v-title-nav> -->
             <v-title-nav><h2 slot="title">孕妇的梦</h2><div slot="more"></div></v-title-nav>
             <div class="hList">
-            <div class="hItem" v-for="(item,index) in pregnantList" :key="index">
-                <h2>{{item}}</h2><i></i>
+            <div class="hItem" v-if="index<8" v-for="(item,index) in pregnantList" :key="index" @click="Result(item.id,item.title)">
+                <h2>{{item.title}}</h2><i></i>
             </div>
             </div>
         </div>
@@ -36,7 +42,15 @@
 </template>
 <script>
 import {mapState,mapMutations} from 'vuex'
-
+import { clearTimeout, setTimeout } from 'timers';
+// 搜索节流
+const delay = (function () {
+    let timer = 0;
+    return function (callBack,ms) {
+        clearTimeout(timer);
+        timer = setTimeout(callBack,ms)
+    }
+})()
 export default {
     computed : {
         ...mapState('xiangshu',['navIndex']),
@@ -49,7 +63,9 @@ export default {
             this.swiper.slideTo(val, 0, false);
         },
         keyWord: function (val) {
-            console.log(val)
+            delay(() => {
+                this.fetchData();
+            },300);
         }
     },
     created () {
@@ -71,7 +87,8 @@ export default {
             slideList: [],
             pregnantList: [],
             keyWord: "",
-            result: "",
+            result: [],
+            showPannel: false,// 搜索框
         }
     },
     methods : {
@@ -94,19 +111,30 @@ export default {
                 }
             }
             // 渲染孕妇数据 
-            let pregnant = resData.pregnant
-            for(let i=0; i<pregnant.length; i++){
-                if(i<8){
-                    this.pregnantList.push(pregnant[i].title)
-                }
-            }
+            this.pregnantList = resData.pregnant;
         },
-        Result: function (obj,id) {
+        Result: function (id,title) {
             //传递id,跳转结果页面
-            this.$router.push({name: 'zhougongAnalyze',query: {id: id},params:{objList: obj}});
+            this.$router.push({name: 'zhougongAnalyze',query: {id: id,q:title}});
         },
-        search: function () {
-
+        ShowPannel: function() {
+            this.showPannel = !this.showPannel
+        },
+        // 搜索
+        fetchData: function () {
+            const query = {
+                cid: '67',
+                q: this.keyWord,
+                page: '1',
+            }
+            this.$http.post('/suan/apidata',query,'cesuan',null,this.fetchSuccess,null)
+        },
+        // 搜索结果
+        fetchSuccess (res){
+            let resData = JSON.stringify(res).replace(/&#8203;/g,'');
+            resData = JSON.parse(resData);
+            this.result = resData.list;
+            // console.log(res)
         }
     }
 }
@@ -123,7 +151,7 @@ export default {
         padding: 0 28/75rem;
         .border-box();
         .content-box{
-            overflow: hidden;
+            position: relative;
             padding-top: 16/75rem;
             .search-bg{
                 width: 700/75rem;
@@ -153,6 +181,34 @@ export default {
                         width: 44/75rem;
                         height: 44/75rem;
                         background:url('../assets/image/zhougong/search@2x.png') no-repeat center center / 100% 100%;
+                    }
+                }
+            }
+            .result-box{
+                position: absolute;
+                top: 90%;
+                left: 0;
+                right: 0;
+                z-index: 999;
+                width: 80%;
+                min-height: 60/75rem;
+                max-height: 600/75rem;
+                margin:auto;
+                padding: 20/75rem 0;
+                .border-box(); 
+                background: #fff;
+                .round(10/75rem);
+                .boxshadow(0,3/75rem,6/75rem,rgba(0,0,0,0.16));
+                & > div{
+
+                    padding-left: 20/75rem;
+                    .border-box();
+                }
+                li{
+                    padding: 0 0 20/75rem 20/75rem;
+                    list-style: none;
+                    &:active{
+                        background: #eee;
                     }
                 }
             }

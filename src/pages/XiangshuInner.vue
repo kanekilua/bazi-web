@@ -44,6 +44,7 @@ export default {
             this.$http.post('/suan/apidata',params,'cesuan',null,this.success);
         },
         success: function (res) {
+            this.analyzeList = res.data;
             let Img = res.data.img.split(' ');
             let reg = /src="http:([^"]+)/gi;  //匹配src="http"
             let srcArr = res.data.content.match(reg);
@@ -68,7 +69,6 @@ export default {
         width: 100%;
         overflow: auto;
         padding-bottom: 80/75rem;
-
         .head{
             width: 100%;
             border-bottom: 1px solid rgba(0,0,0,0.1);
