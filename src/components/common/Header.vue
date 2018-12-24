@@ -1,5 +1,5 @@
 <template>
-    <div class="wrap">
+    <div class="header-wrap">
         <nav class="header-nav"></nav>
     </div>
 </template>

@@ -47,6 +47,9 @@ import NamedResult from '@/pages/NamedResult'
 import QimenFile from '@/pages/QimenFile'
 import QimenPan from '@/pages/QimenPan'
 import CalendarDetail from '@/pages/CalendarDetail'
+import Weather from '@/pages/Weather'
+import WeatherProvince from '@/pages/WeatherProvince'
+import WeatherCity from '@/pages/WeatherCity'
 
 
 
@@ -118,11 +121,6 @@ export default new Router({
           path : '/main/activity',
           name : 'activity',
           component : Activity
-        }
-        ,{
-          path : '/main/calendar',
-          name : 'calendar',
-          component : Calendar
         }
       ]
     },
@@ -276,10 +274,29 @@ export default new Router({
       component : QimenPan
     },
     {
+      path : '/main/calendar',
+      name : 'calendar',
+      component : Calendar
+    },
+    {
       path : '/main/calendar/detail',
       name : 'calendarDetail',
       component : CalendarDetail
+    },
+    {
+      path : '/main/calendar/weather',
+      name : 'weather',
+      component :Weather
+    },
+    {
+      path : '/main/calendar/weather/province',
+      name : 'province',
+      component :WeatherProvince
+    },
+    {
+      path : '/main/calendar/weather/city',
+      name : 'city',
+      component :WeatherCity
     }
-    
   ]
 })
