@@ -73,6 +73,12 @@ export default {
                 this.$jump('/login');
                 return ;
             }else {
+                if(tab.name === "运势") {
+                    MobclickAgent.onEvent('tab_fortune')
+                }
+                if(tab.name === "首页") {
+                    MobclickAgent.onEvent('tab_home')
+                }
                 this.$jump(tab.route);
             }
         }
