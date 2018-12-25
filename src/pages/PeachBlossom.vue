@@ -3,23 +3,22 @@
         <v-header></v-header>
         <v-title-header :backLink="backLink">
             桃花运
-            <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
         </v-title-header>
         <div class="content-wrap">
             <v-title-nav><h2 slot="title">命中桃花</h2><div slot="more"></div></v-title-nav>
             <div class="pink-bg">
                 <img class="big-flower" src="../assets/image/peachBlossom/bigFlower@2x.png">
                 <div class="pink-header">
-                    <h2>命中带{{totalNum}}朵桃花:</h2>
-                    <img class="small-flower" src="../assets/image/peachBlossom/smallFlower@2x.png" v-for="(item,index) in this.totalNum" :key="index">
+                    <h2>命中带{{resData.totalNum}}朵桃花:</h2>
+                    <img class="small-flower" src="../assets/image/peachBlossom/smallFlower@2x.png" v-for="(item,index) in resData.totalNum" :key="index">
                 </div>
-                <div class="pink-item" v-for="(item,index) in this.pinkList" :key="index">
+                <div class="pink-item" v-for="(item,index) in pinkList" :key="index">
                     <div class="row">
-                        <h2>{{item.title}}{{item.itemNum}}朵</h2>
-                        <img class="small-flower" src="../assets/image/peachBlossom/smallFlower@2x.png" v-for="(item,index) in item.itemNum" :key="index">
+                        <h2>{{item.title}}{{item.num}}朵:</h2>
+                        <img class="small-flower" src="../assets/image/peachBlossom/smallFlower@2x.png" v-for="(item,index) in item.num" :key="index">
                     </div>
                     <div class="artical">
-                        {{item.artical}}
+                        {{item.content}}
                     </div>
                 </div>
             </div>
@@ -40,20 +39,15 @@
             </div>
             <v-title-nav><h2 slot="title">桃花解释</h2><div slot="more"></div></v-title-nav>
             <div class="swiper-container">
-                <div class="swiper-top">
+                <div class="swiper-top" ref="swiperTop">
                     <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
                     <div class="right"></div>
                 </div>
                 <swiper :options="swiperOption" ref="mySwiper">
-                    <swiper-slide v-for="(item,index) in list" :key="index">
+                    <swiper-slide v-for="(item,index) in pList" :key="index">
                         <p>{{item}}</p>
                     </swiper-slide>
                 </swiper>
-            </div>
-            <div class="btn-list">
-                <button class="luck-good">开运物品</button>
-                <button class="ask-master">问大师</button>
-                <button class="share select-btn">分享</button>
             </div>
         </div>
     </div>    
@@ -78,37 +72,32 @@ export default {
     watch : {
         'navIndex' (val) {
             this.swiper.slideTo(val, 0, false);
+            // 保持swipertop滚动位置
+            if (val >4){
+                this.$refs.swiperTop.scrollLeft = this.$refs.swiperTop.scrollWidth;
+            }
+            else{
+                this.$refs.swiperTop.scrollLeft = 0;
+            }
         }
+    },
+    created() {
+        this.getData();
     },
     mounted () {
         if(this.navIndex != 0) { 
             this.swiper.slideTo(this.navIndex, 0, false);
         }
-        this.swiper.on('slideChange', () => {
+        this.swiper.on('slideChange',() => {
             this.updateNavIndex(this.swiper.activeIndex);
         });
     },
     data () {
         return{
-            backLink : '/loveBlossoms',
+            backLink : '/love',
+            resData: {},
             totalNum: 6,
-            pinkList: [
-                {
-                    title: "天喜桃花",
-                    itemNum: 1,
-                    artical: "天喜桃花是一朵非常吉祥的桃花，会使恋爱过程减少曲折，带给你婚姻美满、甜蜜又吉利的桃花，命带天喜桃花会让所有爱情问题逢凶化吉！"
-                },
-                {
-                    title: "红艳桃花",
-                    itemNum: 1,
-                    artical: "命带红艳桃花的人，代表异性缘旺，也很容易促成爱慕者表白爱意。如你的命中不带红艳桃花，但只要掌握爱情窍门，了解自身的魅力所在，同样也能吸引优质情人上门追求哟。"
-                },
-                {
-                    title: "正缘桃花",
-                    itemNum: 4,
-                    artical: "你的命中带有正缘桃花，象徵情路开花结果。所以，就算目前情路不顺，也不用太过忧虑，那只是一时的情况。只要抱持正面想法，不断修正自己，往更好的方向前进，最后一定能找"
-                }
-            ],
+            pinkList: [],
             formHeader: [{title:"序号"},{title:"类别"},{title:"象征"},{title:"命中有几朵"}],
             formContent: [
                 {
@@ -116,71 +105,101 @@ export default {
                     sort: "天喜桃花",
                     symbolOne: "爱情顺利",
                     symbolTwo: "婚姻喜庆",
-                    flowerNum: "1朵",
+                    flowerNum: "",
                 },
                 {
-                    idNum: "01",
-                    sort: "天喜桃花",
-                    symbolOne: "爱情顺利",
-                    symbolTwo: "婚姻喜庆",
-                    flowerNum: "1朵",
+                    idNum: "02",
+                    sort: "红鸾桃花",
+                    symbolOne: "早熟早恋",
+                    symbolTwo: "追求情欲",
+                    flowerNum: "",
                 },
                 {
-                    idNum: "01",
-                    sort: "天喜桃花",
-                    symbolOne: "爱情顺利",
-                    symbolTwo: "婚姻喜庆",
-                    flowerNum: "1朵",
+                    idNum: "03",
+                    sort: "墙内桃花",
+                    symbolOne: "闺房情趣",
+                    symbolTwo: "夫妻恩爱",
+                    flowerNum: "",
                 },
                 {
-                    idNum: "01",
-                    sort: "天喜桃花",
-                    symbolOne: "爱情顺利",
-                    symbolTwo: "婚姻喜庆",
-                    flowerNum: "1朵",
+                    idNum: "04",
+                    sort: "墙外桃花",
+                    symbolOne: "外遇出轨",
+                    symbolTwo: "异性缘旺",
+                    flowerNum: "",
                 },
                 {
-                    idNum: "01",
-                    sort: "天喜桃花",
-                    symbolOne: "爱情顺利",
-                    symbolTwo: "婚姻喜庆",
-                    flowerNum: "1朵",
+                    idNum: "05",
+                    sort: "沐浴桃花",
+                    symbolOne: "性感魅力",
+                    symbolTwo: "吸引力强",
+                    flowerNum: "",
                 },
                 {
-                    idNum: "01",
-                    sort: "天喜桃花",
-                    symbolOne: "爱情顺利",
-                    symbolTwo: "婚姻喜庆",
-                    flowerNum: "1朵",
+                    idNum: "06",
+                    sort: "正缘桃花",
+                    symbolOne: "喜结良缘",
+                    symbolTwo: "夫妻恩爱",
+                    flowerNum: "",
                 },
                 {
-                    idNum: "01",
-                    sort: "天喜桃花",
-                    symbolOne: "爱情顺利",
-                    symbolTwo: "婚姻喜庆",
-                    flowerNum: "1朵",
+                    idNum: "07",
+                    sort: "红艳桃花",
+                    symbolOne: "高雅优美",
+                    symbolTwo: "浪漫爱情",
+                    flowerNum: "",
                 },
                 {
-                    idNum: "01",
-                    sort: "天喜桃花",
-                    symbolOne: "爱情顺利",
-                    symbolTwo: "婚姻喜庆",
-                    flowerNum: "1朵",
+                    idNum: "08",
+                    sort: "玉门桃花",
+                    symbolOne: "观念开放",
+                    symbolTwo: "追求情欲",
+                    flowerNum: "",
                 },
                 {
-                    idNum: "01",
-                    sort: "天喜桃花",
-                    symbolOne: "爱情顺利",
-                    symbolTwo: "婚姻喜庆",
-                    flowerNum: "1朵",
+                    idNum: "09",
+                    sort: "咸池桃花",
+                    symbolOne: "多情多欲",
+                    symbolTwo: "风流妖艳",
+                    flowerNum: "",
                 }
             ],
             swiperOption : { initialSlide: this.navIndex },
-            list : ["天喜桃花是一朵非常吉祥的桃花，会使恋爱过程减少曲折，带给你婚姻美满、甜蜜又吉利的桃花，命带天喜桃花会让所有爱情问题逢凶化吉！何时会走天喜桃花运：无论你命中有抑或无天喜桃花，但在流年逢天喜，亦会有天喜桃花的效应！你走天喜桃花运的年份有：26岁：2043(癸亥)年 38岁：2055(乙亥)年 50岁：2067(丁亥)年","天喜桃花是一朵非常吉祥的桃花，会使恋爱过程减少曲折，带给你婚姻美满、甜蜜又吉利的桃花，命带天喜桃花会让所有爱情问题逢凶化吉！何时会走天喜桃花运：无论你命中有抑或无天喜桃花，但在流年逢天喜，亦会有天喜桃花的效应！你走天喜桃花运的年份有：26岁：2043(癸亥)年 38岁：2055(乙亥)年 50岁：2067(丁亥)年","天喜桃花是一朵非常吉祥的桃花，会使恋爱过程减少曲折，带给你婚姻美满、甜蜜又吉利的桃花，命带天喜桃花会让所有爱情问题逢凶化吉！何时会走天喜桃花运：无论你命中有抑或无天喜桃花，但在流年逢天喜，亦会有天喜桃花的效应！你走天喜桃花运的年份有：26岁：2043(癸亥)年 38岁：2055(乙亥)年 50岁：2067(丁亥)年","天喜桃花是一朵非常吉祥的桃花，会使恋爱过程减少曲折，带给你婚姻美满、甜蜜又吉利的桃花，命带天喜桃花会让所有爱情问题逢凶化吉！何时会走天喜桃花运：无论你命中有抑或无天喜桃花，但在流年逢天喜，亦会有天喜桃花的效应！你走天喜桃花运的年份有：26岁：2043(癸亥)年 38岁：2055(乙亥)年 50岁：2067(丁亥)年","天喜桃花是一朵非常吉祥的桃花，会使恋爱过程减少曲折，带给你婚姻美满、甜蜜又吉利的桃花，命带天喜桃花会让所有爱情问题逢凶化吉！何时会走天喜桃花运：无论你命中有抑或无天喜桃花，但在流年逢天喜，亦会有天喜桃花的效应！你走天喜桃花运的年份有：26岁：2043(癸亥)年 38岁：2055(乙亥)年 50岁：2067(丁亥)年","天喜桃花是一朵非常吉祥的桃花，会使恋爱过程减少曲折，带给你婚姻美满、甜蜜又吉利的桃花，命带天喜桃花会让所有爱情问题逢凶化吉！何时会走天喜桃花运：无论你命中有抑或无天喜桃花，但在流年逢天喜，亦会有天喜桃花的效应！你走天喜桃花运的年份有：26岁：2043(癸亥)年 38岁：2055(乙亥)年 50岁：2067(丁亥)年","天喜桃花是一朵非常吉祥的桃花，会使恋爱过程减少曲折，带给你婚姻美满、甜蜜又吉利的桃花，命带天喜桃花会让所有爱情问题逢凶化吉！何时会走天喜桃花运：无论你命中有抑或无天喜桃花，但在流年逢天喜，亦会有天喜桃花的效应！你走天喜桃花运的年份有：26岁：2043(癸亥)年 38岁：2055(乙亥)年 50岁：2067(丁亥)年","天喜桃花是一朵非常吉祥的桃花，会使恋爱过程减少曲折，带给你婚姻美满、甜蜜又吉利的桃花，命带天喜桃花会让所有爱情问题逢凶化吉！何时会走天喜桃花运：无论你命中有抑或无天喜桃花，但在流年逢天喜，亦会有天喜桃花的效应！你走天喜桃花运的年份有：26岁：2043(癸亥)年 38岁：2055(乙亥)年 50岁：2067(丁亥)年","天喜桃花是一朵非常吉祥的桃花，会使恋爱过程减少曲折，带给你婚姻美满、甜蜜又吉利的桃花，命带天喜桃花会让所有爱情问题逢凶化吉！何时会走天喜桃花运：无论你命中有抑或无天喜桃花，但在流年逢天喜，亦会有天喜桃花的效应！你走天喜桃花运的年份有：26岁：2043(癸亥)年 38岁：2055(乙亥)年 50岁：2067(丁亥)年"]
+            pList : []
         }
     },
     methods : {
-        ...mapMutations('fengshuiKnowledge',['updateNavIndex'])
+        ...mapMutations('fengshuiKnowledge',['updateNavIndex']),
+        getData: function () {
+            this.$http.post('/suan/apidata',this.$route.query,'cesuan',null,this.success,null)
+        },
+        success: function (res) {
+            console.log(res);
+            this.resData = res.data;
+            this.resData.totalNum = parseInt(this.resData.blossom.match(/\b\w*\d\b/g)[0]);
+            let list = this.resData.huajs.split('卍');
+            let listObj = [];
+            for(let i of list){
+                // console.log(i)
+                let item = {
+                    title:"",
+                    num: "",
+                    content: "",
+                }
+                item.title = i.match(/(.*)\S(?=\d)/g)[0]  //匹配数字前的字符串=>title;
+                item.num = i.match(/\d/g)[0];   //匹配朵数;
+                item.content = i.substring(i.indexOf(' ')).trim();  //处理content数据;
+                listObj.push(item);
+            }
+            this.pinkList = listObj;
+            // console.log(listObj)
+            let flowerArr = this.resData.quantity.split('卍');
+            for(let i=0; i<this.formContent.length;i++){
+               this.formContent[i].flowerNum = flowerArr[i];
+            }
+            //swiper解释文本
+            this.pList = res.data.thjs.split('卍');
+        },
     }
 }
 </script>
@@ -246,7 +265,7 @@ export default {
                     width: 25%;
                     height: 80/75rem;
                     line-height: 80/75rem;
-                    padding-left: 25/75rem;
+                    text-align: center;
                     font-size: 26/75rem;
                     border-right: 1px solid rgba(112,112,112,0.3);
                     border-bottom: 1px solid rgba(112,112,112,0.3);                    
@@ -259,7 +278,7 @@ export default {
                     width: 25%;
                     height: 80/75rem;
                     line-height: 80/75rem;
-                    padding-left: 25/75rem;
+                    text-align: center;
                     font-size: 26/75rem;
                     border-right: 1px solid rgba(112,112,112,0.3);
                     border-bottom: 1px solid rgba(112,112,112,0.3);                    
@@ -277,13 +296,24 @@ export default {
             }
         }
         .swiper-container{
-            margin-bottom: 40/75rem; 
-        }
-        .btn-list{
-            .flex-around();
-            & > button{
-                width: 177/75rem;
-                height: 66/75rem;
+            width: 670/75rem;
+            margin: 0 auto;
+            .swiper-top{
+                width: 100%;
+                overflow-x: scroll;
+                &::-webkit-scrollbar{
+                    width: 0!important;
+                }
+            }
+            /deep/ .nav{
+                width: 200%;
+                overflow-x: scroll; 
+            }
+            .nav-list{
+                .flex-start();
+            }
+            /deep/ .nav .nav-list .item{
+                height: 85/75rem;
             }
         }
     }

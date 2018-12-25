@@ -4,7 +4,7 @@
         <v-title-header>
             相术解析
         </v-title-header>
-        <div class="content-wrap">
+        <div class="content-wrap" ref="content">
             <div class="swiper-container">
                 <div class="swiper-top">
                     <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
@@ -18,6 +18,7 @@
                                 <p v-html="innerItem.content"></p>
                             </div>
                         </div>
+                        <load-more tip="正在加载" v-show="loadMore"></load-more>
                     </swiper-slide>
                 </swiper>
             </div>
@@ -26,8 +27,19 @@
 </template>
 <script>
 import {mapState,mapMutations} from 'vuex'
-
+import { LoadMore } from 'vux'
 export default {
+    data () {
+        return {
+            navList: ["面相图解","手相解析","痣向解析","相学大全",],
+            swiperOption : { initialSlide: this.navIndex },
+            list : [{data: []},{data: []},{data: []},{data: []}],
+            loadMore : false,
+        }
+    },
+    components: {
+        LoadMore
+    },
     computed : {
         ...mapState('xiangshu',['navIndex']),
         swiper () {
@@ -57,8 +69,7 @@ export default {
                     tid: '504',
                 }
             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success3);
-            }
-            
+            }   
         }
     },
     created() {
@@ -71,13 +82,15 @@ export default {
         this.swiper.on('slideChange', () => {
             this.updateNavIndex(this.swiper.activeIndex);
         });
-    },
-    data () {
-        return {
-            navList: ["面相图解","手相解析","痣向解析","相学大全",],
-            swiperOption : { initialSlide: this.navIndex },
-            list : [{data: []},{data: []},{data: []},{data: []}]
-        }
+
+        // 下拉刷新未完成
+        // let content = this.$refs.content;
+        // content.addEventListener('scroll',() => {
+        //     if(content.scrollTop+content.offsetHeight==content.scrollHeight-1){
+        //         console.log("到底了")
+        //         this.loadMore = true;
+        //     }
+        // })
     },
     methods : {
         ...mapMutations('xiangshu',['updateNavIndex']),

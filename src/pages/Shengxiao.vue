@@ -223,6 +223,7 @@ i{
                     border: 0;
                     padding-left: 16/75rem;
                     font-size: 24/75rem;
+                    outline: none;
                 }
             }
             & > button {

@@ -55,7 +55,9 @@ export default {
             this.itemTitle = res.data[0].title.replace(/&#8203;/g,'');
         },
         adviceSuccess: function (res) {
-            this.objList = res.list;
+            let resData = JSON.stringify(res).replace(/&#8203;/g,'');
+            resData = JSON.parse(resData);
+            this.objList = resData.list;
         },
         //跳转空路由再跳转回来模拟刷新页面效果
         result: function (id,title) {

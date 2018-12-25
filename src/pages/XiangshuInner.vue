@@ -35,8 +35,8 @@ export default {
         getData: function () {
             let params = {
                 cid: '95',
-                // id: this.$route.query.querys.id,
-                id: '2756',//测试id
+                id: this.$route.query.querys.id,
+                // id: '2756',//测试id
                 tid: '501',
                 category: '面相图'
         
@@ -46,13 +46,14 @@ export default {
         success: function (res) {
             this.analyzeList = res.data;
             let Img = res.data.img.split(' ');
-            let reg = /src="http:([^"]+)/gi;  //匹配src="http"
+            let reg = /src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/gi;  //匹配src="http://www.zhouyi.cc或者src="https://www.zhouyi.cc
             let srcArr = res.data.content.match(reg);
+            // console.log(srcArr)
             let content = res.data.content;
             for(let i=0; i<srcArr.length; i++){
-                content = content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');
+                content = content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
                 srcArr[i] ='src='+'"'+'https://mingli.szmonster.com'+Img[i];//拼接服务器图片地址
-                content = content.replace(/src="http:([^"]+)/,srcArr[i])//替换图片
+                content = content.replace(/src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/,srcArr[i])//替换图片url
             };
             this.content = content;
         }

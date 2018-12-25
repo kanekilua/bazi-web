@@ -93,7 +93,7 @@ export default {
     },
     methods : {
         ...mapMutations('xiangshu',['updateNavIndex']),
-        //获取swiper数据
+        //获取swiper内的数据
         getData: function () {
             let sendData = {
                 cid: '94',
@@ -118,7 +118,7 @@ export default {
             this.$router.push({name: 'zhougongAnalyze',query: {id: id,q:title}});
         },
         ShowPannel: function() {
-            this.showPannel = !this.showPannel
+            this.showPannel = !this.showPannel;
         },
         // 搜索
         fetchData: function () {
