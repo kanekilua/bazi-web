@@ -7,8 +7,7 @@
                 <h2>{{res.data.title}}</h2>
                 <div class="time">时间：{{res.data.uptime}}</div>
             </div>
-            <div class="item-message">
-                <img :src="res.data.img" class="item-img">                    
+            <div class="item-message">                   
                 <p v-html="res.data.content"></p>
             </div>
         </div>
@@ -24,7 +23,6 @@ export default {
                     content: "",
                     title: "",
                     uptime: "",
-                    img: "",
                 }
             },
         }
@@ -43,7 +41,17 @@ export default {
         success: function (res) {
             console.log(res);
             this.res = res;
-            this.res.data.img= 'https://mingli.szmonster.com'+res.data.img;
+            let Img = res.data.img.split(' ');
+            let reg = /src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/gi;  //匹配src="http://www.zhouyi.cc或者src="https://www.zhouyi.cc
+            let srcArr = res.data.content.match(reg);
+            // console.log(srcArr)
+            let content = res.data.content;
+            for(let i=0; i<srcArr.length; i++){
+                content = content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
+                srcArr[i] ='src='+'"'+'https://mingli.szmonster.com'+Img[i];//拼接服务器图片地址
+                content = content.replace(/src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/,srcArr[i])//替换图片url
+            };
+            this.res.data.content = content;
         },
     }
 }
@@ -76,6 +84,13 @@ export default {
                 .border-box();
                 strong + div> br{
                     display: none;
+                }
+                img{
+                    display: block;
+                    width: 90%!important;
+                    height: auto!important;
+                    margin: 0 auto;
+                    .round(27/75rem)
                 }
             }
             .item-img{

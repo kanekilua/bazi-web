@@ -123,9 +123,11 @@ export default {
         border: none;
     }
     img{
+        display: block;
         width: 90%!important;
-        height: 300/75rem!important;
-        .round(27/75rem;)
+        height: auto!important;
+        margin: 0 auto;
+        .round(27/75rem);
     }
 }
 </style>
