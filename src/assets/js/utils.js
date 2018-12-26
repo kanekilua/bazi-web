@@ -50,6 +50,16 @@ export default {
         }
         return result;
     },
+    checkQQ : function (num,vue) {
+        let result = true;
+        if(!/^[1-9][0-9]{4,10}$/gim.test(num)) {
+            result = false;
+        }
+        if(!result) {
+            vue.$vux.toast.text(global.CHECK_QQ,'top');
+        }
+        return result;
+    },
 
     // 去除html标签
     delHtmlTag : function (str){

@@ -48,7 +48,8 @@
 export default {
     data() {
         return{
-            
+            data () {
+            }
         }
     },
     methods: {
@@ -56,6 +57,7 @@ export default {
             this.$jump('/main/mine/recruitment/recruitmentStep1')
         },
         nextStep: function () {
+            
             this.$jump('/main/mine/recruitment/recruitmentStep3')
         }
     }

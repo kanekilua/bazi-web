@@ -6,8 +6,7 @@ export default {
     created () {
         this.$router.push({
                 name: 'zhougongAnalyze',
-                query: {id: this.$route.query.id},
-                params:{objList: this.$route.params.objList}
+                query: {id: this.$route.query.id,q: this.$route.query.q},
             })
     }
 }

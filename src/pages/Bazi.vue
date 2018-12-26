@@ -76,8 +76,8 @@ export default {
             let userInfo = {
                 cid : '93',
                 y : '1910',
-                m : '01',
-                d : '01',
+                m : '1',
+                d : '1',
                 h : '1',
             };
             this.$http.post('/suan/apidata',userInfo,'cesuan',null,this.success,this.failure) ;

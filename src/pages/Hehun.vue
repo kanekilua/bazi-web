@@ -165,7 +165,7 @@ export default {
                  this.showFemaleCity = false;
             }
         },
-        showProvinceFunc : function (flag) {
+        showProvinceFunc : function (flag) { 
             this.inputFlag = flag;
             this.showProvince = true;
         },

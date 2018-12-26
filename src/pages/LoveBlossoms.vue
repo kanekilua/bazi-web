@@ -2,19 +2,19 @@
     <div class="wrap">
         <div class="content-wrap">
             <img src="../assets/image/love/love-blossoms@2x.png" class="title-img">
-            <input type="text" class="name-input" placeholder="请输入您的姓名" placeholder-align="left">
+            <input type="text" class="name-input" placeholder="请输入您的姓名" placeholder-align="left" v-model="userName">
             <div class="check-box">
-                <input type="radio" checked id="male" name="sex">
+                <input type="radio" id="male" value="1" name="sex" v-model="gender">
                 <label for="male">男</label>
-                <input type="radio" id="female" name="sex">
+                <input type="radio" id="female" value="0" name="sex" v-model="gender">
                 <label for="female">女</label>
-                <input type="radio" id="gongli" checked name="date">
+                <input type="radio" id="gongli" value="1" name="date" v-model="calendar">
                 <label for="gongli">公历</label>
-                <input type="radio" id="nongli" name="date">
+                <input type="radio" id="nongli" value="0" name="date" v-model="calendar">
                 <label for="nongli">农历</label>
             </div>
             <input id="dateInput" type="text" class="name-input input-born" placeholder="请选择您的出生日期" @click="showDatePlugin" readonly="readonly" v-model="birthDate">
-            <button class="begin-test" @click="jumpPage">开始测算</button>
+            <button class="begin-test" @click="beginTest">开始测算</button>
             <div class="user-manage">
                 <div class="title-nav">
                     <div class="nav-left">
@@ -52,7 +52,9 @@ export default {
         return{
             backLink: "/love",
             birthDate : "",
-            dateType : "1",
+            userName: "",
+            gender: "1",
+            calendar: "1",
             dateArray : [],
             userList: [
                 {
@@ -118,11 +120,34 @@ export default {
                 }
             });
         },
-        jumpPage : function () {
+        beginTest: function () {
+            // 检查名字
+            if(!this.$utils.checkName(this.userName,this)){
+                return;
+            }
+            if(this.dateArray.length === 0 || this.birthDate === '') {
+                this.$vux.toast.text('请选择出生日期','top');
+                return;
+            }
+            // 友盟埋点
             MobclickAgent.onEventWithParameters('cesuan', {'type' : 'peachBlossoms'});
-            $jump('/peachBlossom');
+
+            this.$router.push({
+                name: 'peachBlossom',
+                query: {
+                    cid: '101',
+                    y : this.dateArray[0],
+                    m : this.dateArray[1],
+                    d : this.dateArray[2],
+                    h : this.dateArray[3],
+                    // 测试数据
+                    // y : '1975',
+                    // m : '6',
+                    // d : '30',
+                    // h : '14',
+                }
+            })
         }
-        
     }
 }
 </script>
@@ -184,6 +209,7 @@ export default {
         color: #fff;
         font-size: 28/75rem;
         border: none;
+        outline: none;
         &:active{
             background: #eee;
         }

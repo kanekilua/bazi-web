@@ -3,7 +3,6 @@
  User: burning <923398776@qq.com>
  Date: 2017年06月09日
  */
-
 ;(function(win, lib) {
   var doc = win.document;
   var docEl = doc.documentElement;

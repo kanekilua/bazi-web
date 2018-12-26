@@ -1,21 +1,18 @@
 <template>
-    <div class="wrap">
+    <div class="xiangshuInner-wrap">
         <v-header></v-header>
         <v-title-header>
             相术解析
         </v-title-header>
         <div class="content-wrap">
             <div class="head">
-                <h2>眉毛淡的男人命运好吗，眉毛</h2>
-                <div class="public-time">时间：2016-10-03 16:57:50</div>
+                <h2>{{analyzeList.title}}</h2>
+                <div class="public-time">时间：{{analyzeList.uptime}}</div>
             </div>
             <div class="banxin">
-                <p>眉毛在相学中又被视为保寿官，从这个寿字就可以知道，眉毛与我们的寿命有关，通过观察一个人的眉相，可以知道一个人的寿命长短和心性如何，面相中认为眉毛长垂，高寿无疑，就</p>
-                <img src="../assets/image/xiangshu/innerImg@2x.png" class="innerImg">
                 <div class="analyze-list">
-                    <div class="analyze-item" v-for="(item,index) in analyzeList" :key="index">
-                        <h2>{{index+1}}.{{item.title}}</h2>
-                        <p>{{item.artical}}</p>
+                    <div class="analyze-item">
+                        <p v-html="content"></p>
                     </div>
                 </div>
             </div>
@@ -27,34 +24,44 @@
 export default {
     data () {
         return {
-            analyzeList: [
-                {
-                    title: "浓眉粗犷刚强，淡眉心性狭小多思",
-                    artical: "眉毛淡的人的事业心一般，对于自己想要达到的目标缺少很强目的性和计划性，比较随遇而安，很少会主动参与竞争，眉毛淡的男人在事业上很难成为领导型的人，因为他们做事缺少魄力，遇事喜欢偏安一隅，踏踏实实，而很少会主动力争上游"
-                },
-                {
-                    title: "浓眉粗犷刚强，淡眉心性狭小多思",
-                    artical: "眉毛淡的人的事业心一般，对于自己想要达到的目标缺少很强目的性和计划性，比较随遇而安，很少会主动参与竞争，眉毛淡的男人在事业上很难成为领导型的人，因为他们做事缺少魄力，遇事喜欢偏安一隅，踏踏实实，而很少会主动力争上游"
-                },
-                {
-                    title: "浓眉粗犷刚强，淡眉心性狭小多思",
-                    artical: "眉毛淡的人的事业心一般，对于自己想要达到的目标缺少很强目的性和计划性，比较随遇而安，很少会主动参与竞争，眉毛淡的男人在事业上很难成为领导型的人，因为他们做事缺少魄力，遇事喜欢偏安一隅，踏踏实实，而很少会主动力争上游"
-                },
-                {
-                    title: "浓眉粗犷刚强，淡眉心性狭小多思",
-                    artical: "眉毛淡的人的事业心一般，对于自己想要达到的目标缺少很强目的性和计划性，比较随遇而安，很少会主动参与竞争，眉毛淡的男人在事业上很难成为领导型的人，因为他们做事缺少魄力，遇事喜欢偏安一隅，踏踏实实，而很少会主动力争上游"
-                },
-                {
-                    title: "浓眉粗犷刚强，淡眉心性狭小多思",
-                    artical: "眉毛淡的人的事业心一般，对于自己想要达到的目标缺少很强目的性和计划性，比较随遇而安，很少会主动参与竞争，眉毛淡的男人在事业上很难成为领导型的人，因为他们做事缺少魄力，遇事喜欢偏安一隅，踏踏实实，而很少会主动力争上游"
-                },
-            ]
+            analyzeList: {},
+            content: "",
+        }
+    },
+    created() {
+        this.getData();
+    },
+    methods: {
+        getData: function () {
+            let params = {
+                cid: '95',
+                id: this.$route.query.querys.id,
+                // id: '2756',//测试id
+                tid: '501',
+                category: '面相图'
+        
+            }
+            this.$http.post('/suan/apidata',params,'cesuan',null,this.success);
+        },
+        success: function (res) {
+            this.analyzeList = res.data;
+            let Img = res.data.img.split(' ');
+            let reg = /src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/gi;  //匹配src="http://www.zhouyi.cc或者src="https://www.zhouyi.cc
+            let srcArr = res.data.content.match(reg);
+            // console.log(srcArr)
+            let content = res.data.content;
+            for(let i=0; i<srcArr.length; i++){
+                content = content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
+                srcArr[i] ='src='+'"'+'https://mingli.szmonster.com'+Img[i];//拼接服务器图片地址
+                content = content.replace(/src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/,srcArr[i])//替换图片url
+            };
+            this.content = content;
         }
     }
 }
 </script>
-<style lang="less" scoped>
-.wrap{
+<style lang="less">
+.xiangshuInner-wrap{
     .content-wrap{
         position: absolute;
         top: 169/75rem;
@@ -63,12 +70,11 @@ export default {
         width: 100%;
         overflow: auto;
         padding-bottom: 80/75rem;
-
         .head{
             width: 100%;
             border-bottom: 1px solid rgba(0,0,0,0.1);
             & > h2{
-                width: 100%;
+                width: 80%;
                 margin: 32/75rem auto 16/75rem auto;
                 font-size: 32/75rem;
                 text-align: center;
@@ -88,9 +94,11 @@ export default {
                 text-indent: 2em;
             }
             .innerImg{
-                width: 704/75rem;
+                display: block;
+                width: 80%;
                 height: 274/75rem;
                 margin: 34/75rem auto;
+                .round(27/75rem);
             }
             .analyze-item{
                 & > h2{
@@ -113,6 +121,13 @@ export default {
         height: 84/75rem;
         color: #fff;
         border: none;
+    }
+    img{
+        display: block;
+        width: 90%!important;
+        height: auto!important;
+        margin: 0 auto;
+        .round(27/75rem);
     }
 }
 </style>
