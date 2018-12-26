@@ -58,6 +58,9 @@ import RecruitmentStep3 from '@/pages/RecruitmentStep3'
 import MyCollection from '@/pages/MyCollection'
 import ContactService from '@/pages/ContactService'
 import FeedBack from '@/pages/FeedBack'
+import Weather from '@/pages/Weather'
+import WeatherProvince from '@/pages/WeatherProvince'
+import WeatherCity from '@/pages/WeatherCity'
 
 
 
@@ -125,11 +128,6 @@ export default new Router({
           path : '/main/activity',
           name : 'activity',
           component : Activity
-        }
-        ,{
-          path : '/main/calendar',
-          name : 'calendar',
-          component : Calendar
         }
       ]
     },
@@ -283,6 +281,11 @@ export default new Router({
       component : QimenPan
     },
     {
+      path : '/main/calendar',
+      name : 'calendar',
+      component : Calendar
+    },
+    {
       path : '/main/calendar/detail',
       name : 'calendarDetail',
       component : CalendarDetail
@@ -358,7 +361,21 @@ export default new Router({
       path : '/main/mine/feedBack',
       name : 'feedBack',
       component : FeedBack 
+    },
+    {
+      path : '/main/calendar/weather',
+      name : 'weather',
+      component :Weather
+    },
+    {
+      path : '/main/calendar/weather/province',
+      name : 'province',
+      component :WeatherProvince
+    },
+    {
+      path : '/main/calendar/weather/city',
+      name : 'city',
+      component :WeatherCity
     }
-    
   ]
 })
