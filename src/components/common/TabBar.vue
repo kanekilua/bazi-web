@@ -1,7 +1,7 @@
 <template>
     <div class="tab-bar">
         <div class="tab-bar-list">
-            <div class="tab-bar-item" v-for="(tab,index) in tabs" :key="index" @click="jumpRoute(tab)">
+            <div class="tab-bar-item" v-for="(tab,index) in tabs" :key="index" @click="jumpRoute(tab,index)">
                 <img :src="isSelect === tab.route ? tab.icoUrlActive : tab.icoUrl" class="ico master-ico" :class="setClass(index)">
                 <div class="tab-title">{{tab.name}}</div>    
             </div>        
@@ -67,18 +67,14 @@ export default {
             obj[`tabIco${index+1}`] = true
             return obj
         },
-        jumpRoute(tab) {
+        jumpRoute(tab,index) {
             if(tab.name === "运势" && this.loginAccount === "") {
                 this.$vux.toast.text('请先登录','top');
                 this.$jump('/login');
                 return ;
             }else {
-                if(tab.name === "运势") {
-                    MobclickAgent.onEvent('tab_fortune')
-                }
-                if(tab.name === "首页") {
-                    MobclickAgent.onEvent('tab_home')
-                }
+                const umengEventId = ['tab_home','tab_fortune','tab_activity','tab_calendar','tab_mine'];
+                MobclickAgent.onEvent(umengEventId[index]);
                 this.$jump(tab.route);
             }
         }

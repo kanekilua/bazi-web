@@ -54,7 +54,7 @@
                         <label for="nongli">农历</label>
                     </div>
                     <input id="dateInput" type="text" class="name-input input-born" placeholder="请选择出生日期" @click="showDatePlugin('0')" readonly="readonly" v-model="femaleBirthDate">
-                    <button class="begin-test" @click="$jump('/HehunAnalyze')">开始测算</button>
+                    <button class="begin-test" @click="jumpPage">开始测算</button>
                 </div>
             </div>
         </div>
@@ -176,6 +176,10 @@ export default {
             }else if (this.inputFlag === '0') {
                  this.showFemaleCity = true;
             }
+        },
+        jumpPage : function () {
+            MobclickAgent.onEventWithParameters('cesuan', {'type' : 'hehun'});
+            $jump('/HehunAnalyze');
         }
     }
 }

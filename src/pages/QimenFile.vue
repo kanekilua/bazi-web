@@ -123,6 +123,9 @@ export default  {
                 this.dateArray[1] =solar.cMonth;
                 this.dateArray[2] =solar.cDay;
             }
+            // 友盟统计
+            MobclickAgent.onEventWithParameters('cesuan', {'type' : 'qimen'});
+
             // 抽取api所需参数
             let apiParams = {
                 cid: "52",

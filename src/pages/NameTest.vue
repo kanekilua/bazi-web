@@ -6,7 +6,7 @@
         </v-title-header>
         <div class="content-wrap">
             <input type="text" class="name-input" placeholder="请输入您的姓名">
-            <input type="button" class="begin-test" value="开始测试" @click="$jump('/nameTestResult')">
+            <input type="button" class="begin-test" value="开始测试" @click="jumpPage">
         </div>
     </div>
 </template>
@@ -16,7 +16,13 @@ export default {
         return {
             backLink: '/nameHome'
         }
-    }
+    },
+    methods: {
+        jumpPage : function () {
+            MobclickAgent.onEventWithParameters('cesuan', {'type' : 'name-test'});
+            $jump('/nameTestResult');
+        }
+    },
 }
 </script>
 <style lang="less" scoped>

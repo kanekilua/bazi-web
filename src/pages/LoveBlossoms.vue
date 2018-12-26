@@ -14,7 +14,7 @@
                 <label for="nongli">农历</label>
             </div>
             <input id="dateInput" type="text" class="name-input input-born" placeholder="请选择您的出生日期" @click="showDatePlugin" readonly="readonly" v-model="birthDate">
-            <button class="begin-test" @click="$jump('/peachBlossom')">开始测算</button>
+            <button class="begin-test" @click="jumpPage">开始测算</button>
             <div class="user-manage">
                 <div class="title-nav">
                     <div class="nav-left">
@@ -118,6 +118,11 @@ export default {
                 }
             });
         },
+        jumpPage : function () {
+            MobclickAgent.onEventWithParameters('cesuan', {'type' : 'peachBlossoms'});
+            $jump('/peachBlossom');
+        }
+        
     }
 }
 </script>

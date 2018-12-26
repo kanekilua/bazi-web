@@ -63,7 +63,7 @@ import FeedBack from '@/pages/FeedBack'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path : '/',
@@ -365,3 +365,13 @@ export default new Router({
     
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if(from.name !== null) {
+    MobclickAgent.onPageBegin(from.name);
+  }
+  MobclickAgent.onPageBegin(to.name);
+  next();
+})
+
+export default router;

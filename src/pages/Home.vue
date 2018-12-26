@@ -19,49 +19,49 @@
                         <div class="item-txt">八字排盘</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/love')">
+                <div class="table-item" @click="jumpPage('/love')">
                     <div class="item-box">
                         <img src="../assets/image/home/love.png">
                         <div class="item-txt">婚恋爱情</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/fengshui')">
+                <div class="table-item" @click="jumpPage('/fengshui')">
                     <div class="item-box">
                         <img src="../assets/image/home/fengshui.png">
                         <div class="item-txt">风水常识</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/shengxiao')">
+                <div class="table-item" @click="jumpPage('/shengxiao')">
                     <div class="item-box">
                         <img src="../assets/image/home/shengxiao.png">
                         <div class="item-txt">十二生肖</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/ziwei')">
+                <div class="table-item" @click="jumpPage('/ziwei')">
                     <div class="item-box">
                         <img src="../assets/image/home/ziwei.png">
                         <div class="item-txt">紫微斗数</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/zhougongHome')">
+                <div class="table-item" @click="jumpPage('/zhougongHome')">
                     <div class="item-box">
                         <img src="../assets/image/home/dream.png">
                         <div class="item-txt">周公解梦</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/xiangshu')">
+                <div class="table-item" @click="jumpPage('/xiangshu')">
                     <div class="item-box">
                         <img src="../assets/image/home/hand.png">
                         <div class="item-txt">相术解析</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/nameHome')">
+                <div class="table-item" @click="jumpPage('/nameHome')">
                     <div class="item-box">
                         <img src="../assets/image/home/name.png">
                         <div class="item-txt">姓名大全</div>
                     </div>
                 </div>
-                <div class="table-item" @click="$jump('/qimenFile')">
+                <div class="table-item" @click="jumpPage('/qimenFile')">
                     <div class="item-box">
                         <img src="../assets/image/home/more.png">
                         <div class="item-txt">奇门遁甲</div>
@@ -130,7 +130,7 @@ export default {
             }
             if(userInfo  === undefined) {
                 this.$vux.toast.text('请先登录','top');
-                this.$jump('/login');
+                this.jumpPage('/login');
                 return ;
             }
             let birthArray = userInfo.birthday.split(' ');
@@ -149,7 +149,21 @@ export default {
                 'yezis' : 10
             };
             this.updateBaziUserInfo(baziPaiPanData);
-            this.$jump('/bazi');
+            this.jumpPage('/bazi');
+        },
+        jumpPage : function (path) {
+            const pathList = [
+                '/bazi','/love','/fengshui','/shengxiao','/ziwei','/zhougongHome','/xiangshu','/nameHome','/qimenFile'
+            ];
+            const eventList = [
+                'home_bazi','home_love','home_fengshui','home_shengxiao','home_ziwei','home_zhougong','home_xiangshu','home_name','home_qimen'
+            ];
+            for(let i = 0; i< pathList.length ; ++i) {
+                if(pathList[i] === path) {
+                    MobclickAgent.onEvent(eventList[i]);
+                }
+            }
+            this.$jump(path);
         }
     }
 }

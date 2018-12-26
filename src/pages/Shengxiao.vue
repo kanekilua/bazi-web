@@ -14,7 +14,7 @@
                         <input placeholder="请输入女方名字" v-model="femaleName"></input>
                         <input placeholder="请输入出生日期" v-model="femaleBirth" @click="showDatePlugin(0)"></input>
                     </div>
-                    <button @click="$jump('/shengxiao/detail')">开始配对</button>
+                    <button @click="jumpPage">开始配对</button>
                 </div>
             </div>
             <div class="pair-article">
@@ -158,6 +158,10 @@ export default {
                     article : article
                 }
             });
+        },
+        jumpPage : function () {
+            MobclickAgent.onEventWithParameters('cesuan', {'type' : 'shengxiao'});    
+            $jump('/shengxiao/detail');
         }
     }
 }
