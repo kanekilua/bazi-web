@@ -11,7 +11,7 @@
                         <div>头像</div>
                     </div>
                     <div class="right">
-                        <div class="right-item"><img src="../assets/image/mine/avatar.png"></div>
+                        <div class="right-item"><img :src="avatar"></div>
                         <i class="right-ico"></i>
                     </div>
                 </div>
@@ -48,8 +48,8 @@
                 <x-dialog v-model="showDialogStyle" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '30%', 'background-color': 'transparent'}">
                     <div class="img-dialog">
                         <img class="fan" src="../assets/image/mine/fan.png">
-                        <button class="takePhoto">拍照</button>
-                        <button class="camera">从相册中选择</button>
+                        <button class="takePhoto" @click="camera">拍照</button>
+                        <button class="camera" @click="photo">从相册中选择</button>
                     </div>
                 </x-dialog>
             </div>
@@ -66,8 +66,39 @@ export default {
         return {
             showDialogStyle: false,//弹窗显示
             nickName: "天道酬勤",
+            image : null,
+            avatar : require('../assets/image/mine/avatar.png')
         }
-    }
+    },
+    methods: {
+        camera : function () {
+            this.showDialogStyle = false;
+            var cameraOptions={
+                quality: 30,
+                sourceType:1,
+                allowEdit: true,
+                saveToPhotoAlbum : true,
+                destinationType: Camera.DestinationType.DATA_URL, 
+            };
+            navigator.camera.getPicture(this.cameraSuccess, this.cameraError, cameraOptions);
+        },
+        photo : function () {
+            this.showDialogStyle = false;
+            var cameraOptions={
+                quality: 30,
+                sourceType:0,
+                allowEdit: true,
+                destinationType:  Camera.DestinationType.DATA_URL, 
+            };
+            navigator.camera.getPicture(this.cameraSuccess, this.cameraError, cameraOptions);
+        },
+        cameraSuccess : function (imageData) {
+            return this.avatar = 'data:image/jpeg;base64,' + imageData;
+        },
+        cameraError : function (message) {
+            // console.log(message);
+        }
+    },
 }
 </script>
 <style lang="less" scoped>
