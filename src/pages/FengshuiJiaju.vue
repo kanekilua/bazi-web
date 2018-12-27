@@ -34,11 +34,9 @@ export default {
             let params = this.$route.query;//接收参数
             params.cid = '96'
             params.limit = 0;
-            // console.log(params);
             this.$http.post('/suan/apidata',params,'cesuan',null,this.success)
         },
         success: function (res) {
-            console.log(res);
             this.itemList = res.data;
             for(let i of this.itemList){
                 let imgArr = i.img.split(' ');
@@ -48,7 +46,7 @@ export default {
         toInner: function (innerId) {
             let id = innerId;
             this.$router.push({
-                name: 'fengshuidetail',
+                name: 'article',
                 query: {
                     id : id
                 }

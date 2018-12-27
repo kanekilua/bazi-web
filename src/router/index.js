@@ -22,13 +22,11 @@ import Ziwei from '@/pages/Ziwei'
 import ZiweiAnalyze from '@/pages/ZiweiAnalyze'
 import Fengshui from '@/pages/Fengshui'
 import FengshuiJiaju from '@/pages/FengshuiJiaju'
-import FengshuiDetail from '@/pages/FengshuiDetail'
 import Love from '@/pages/Love'
 import LoveBlossoms from '@/pages/LoveBlossoms'
 import Hehun from '@/pages/Hehun'
 import HehunAnalyze from '@/pages/HehunAnalyze'
 import Xiangshu from '@/pages/Xiangshu'
-import XiangshuInner from '@/pages/XiangshuInner'
 import ZhougongHome from '@/pages/zhougongHome'
 import ZhougongAnalyze from '@/pages/ZhougongAnalyze'
 import Empty from '@/pages/Empty'
@@ -165,11 +163,6 @@ export default new Router({
       component: FengshuiJiaju
     },
     {
-      path: '/fengshuidetail',
-      name:'fengshuidetail',
-      component: FengshuiDetail
-    },
-    {
       path: '/love',
       name:'love',
       component: Love
@@ -198,11 +191,6 @@ export default new Router({
       path : '/xiangshu',
       name : 'xiangshu',
       component: Xiangshu
-    },
-    {
-      path : '/xiangshuInner',
-      name : 'xiangshuInner',
-      component: XiangshuInner
     },
     {
       path : '/zhougongHome',
