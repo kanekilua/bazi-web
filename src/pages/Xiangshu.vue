@@ -145,14 +145,11 @@ export default {
             }
         },
         toInner: function (id) {
-            let querys = {
-                id: id
-            }
             this.$router.push({
-                name: 'xiangshuInner',
+                name: 'article',
                 query: {
-                    querys
-                },
+                    id : id
+                }
             }) 
         }
     }

@@ -9,30 +9,6 @@
                         <div @click="showProvinceFunc('1')"><span id="province">{{maleProvince}}</span><i></i></div>
                         <div @click="showCityFunc('1')"><span id="city">{{maleCity}}</span><i></i></div>
                     </div>
-                    <!-- 选择省份的弹出框 -->
-                    <div transfer-dom>
-                        <popup v-model="showProvince" position="bottom" height="50%">
-                            <group>
-                                <cell v-for="(item,index) in provinceList" :key="index" :title="item.name" @click.native="selectProvince(item)"></cell>
-                            </group>
-                        </popup>
-                    </div>
-                    <!-- 男性选择城市的弹出框 -->
-                    <div transfer-dom>
-                        <popup v-model="showMaleCity" position="bottom" height="50%">
-                            <group>
-                                <cell v-for="(item,index) in maleCityList" :key="index" :title="item.name" @click.native="selectCity(item)"></cell>
-                            </group>
-                        </popup>
-                    </div>
-                     <!-- 女性选择城市的弹出框 -->
-                    <div transfer-dom>
-                        <popup v-model="showFemaleCity" position="bottom" height="50%">
-                            <group>
-                                <cell v-for="(item,index) in femaleCityList" :key="index" :title="item.name" @click.native="selectCity(item)"></cell>
-                            </group>
-                        </popup>
-                    </div>
                     <div class="check-box">
                         <input type="radio" id="male-gongli" name="male-date" v-model="maleDateType" value="1">
                         <label for="male-gongli">公历</label>
@@ -71,41 +47,34 @@
 </template>
 <script>
 import solarLunar from 'solarLunar'
-import {mapMutations} from 'vuex'
+import {mapState,mapMutations} from 'vuex'
 export default {
     props : ['article'],
+    computed : {
+        ...mapState('love',['hehunInputFlag','maleProvince','femaleProvince','maleCity','femaleCity']),
+    },
     data () {
         return{
             backLink: "/love",
             // male info
             maleName : "",
-            maleProvince : "省份",
-            maleCity : "城市",
             maleDateType : "1",
             maleBirthDate : "",
             maleDateArray : [],
-            maleCityList : global.CITY_LIST['0'],
             showMaleCity : false,
 
             // female info
             femaleName : "",
-            femaleProvince : "省份",
-            femaleCity : "城市",
             femaleDateType : "1",
             femaleBirthDate : "",
             femaleDateArray : [],
-            femaleCityList : global.CITY_LIST['0'],
-            showFemaleCity : false,
-            
-            inputFlag : "1" , //male时为"1",female时为"0"
-            // 城市
-            showProvince : false,
-            provinceList : global.PROVINCE_LIST,
+            showFemaleCity : false
         }
     },
     methods: {
+        ...mapMutations('love',['updateShowProvince','updateShowMaleCity','updateShowFemaleCity','updateHehunInputFlag']),
         showDatePlugin : function (flag) {
-            this.inputFlag = flag;
+            this.updateHehunInputFlag(flag);
             this.$vux.datetime.show({
                 cancelText: '取消',
                 confirmText: '确定',
@@ -118,10 +87,10 @@ export default {
                 maxYear: '2090',
                 onHide : (type) => {
                     if(type === 'cancel') {
-                        if(this.inputFlag === '1') {
+                        if(this.hehunInputFlag === '1') {
                             this.maleBirthDate = "";
                             this.maleDateArray = [];
-                        }else if (this.inputFlag === '0') {
+                        }else if (this.hehunInputFlag === '0') {
                             this.femaleBirthDate = "";
                             this.femaleDateArray = [];
                         }
@@ -129,17 +98,16 @@ export default {
                 },
                 onConfirm:(val) => {
                     // 点击确定，将年月日赋值给dateArray，将格式化的日期赋值给birthDate
-                    console.log(this.inputFlag)
                     let valArray = val.split('-');
                     let dateArrayTemp = [];
                     for(let i=0;i<valArray.length ; ++i) {
                         dateArrayTemp[i] = parseInt(valArray[i]);
                     }
                     let birthDateTemp = dateArrayTemp[0] + '年' + dateArrayTemp[1] + '月' + dateArrayTemp[2] + '日' + ' ' + dateArrayTemp[3] + '点';
-                    if(this.inputFlag === '1') {
+                    if(this.hehunInputFlag === '1') {
                         this.maleBirthDate = birthDateTemp;
                         this.maleDateArray = dateArrayTemp;
-                    }else if (this.inputFlag === '0') {
+                    }else if (this.hehunInputFlag === '0') {
                         this.femaleBirthDate = birthDateTemp;
                         this.femaleDateArray = dateArrayTemp;
                     }
@@ -147,34 +115,34 @@ export default {
             });
         },
         selectProvince : function (item) {
-            if(this.inputFlag === '1') {
+            if(this.hehunInputFlag === '1') {
                 this.maleProvince = item.name;
                 this.maleCityList = global.CITY_LIST[item.id];
-            }else if (this.inputFlag === '0') {
+            }else if (this.hehunInputFlag === '0') {
                 this.femaleProvince = item.name;
                 this.femaleCityList = global.CITY_LIST[item.id];
             }
             this.showProvince = false;
         },
         selectCity : function (item) {
-            if(this.inputFlag === '1') {
+            if(this.hehunInputFlag === '1') {
                  this.maleCity = item.name;
                  this.showMaleCity = false;
-            }else if (this.inputFlag === '0') {
+            }else if (this.hehunInputFlag === '0') {
                  this.femaleCity = item.name;
                  this.showFemaleCity = false;
             }
         },
         showProvinceFunc : function (flag) { 
-            this.inputFlag = flag;
-            this.showProvince = true;
+            this.updateHehunInputFlag(flag);
+            this.updateShowProvince(true);
         },
         showCityFunc :function (flag) {
-            this.inputFlag = flag;
-            if(this.inputFlag === '1') {
-                 this.showMaleCity = true;
-            }else if (this.inputFlag === '0') {
-                 this.showFemaleCity = true;
+            this.updateHehunInputFlag(flag);
+            if(this.hehunInputFlag === '1') {
+                this.updateShowMaleCity(true);
+            }else if (this.hehunInputFlag === '0') {
+                this.updateShowFemaleCity(true);
             }
         }
     }
