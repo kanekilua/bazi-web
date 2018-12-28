@@ -54,7 +54,7 @@ export default {
         return {
             backLink: "/main/home",
             navList: ["桃花运","八字合婚"],
-            swiperOption : { initialSlide: this.navIndex },
+            swiperOption : { initialSlide: this.navIndex ,autoHeight : true},
             list : [LoveBlossoms,Hehun],
             articleList: [["风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"],
                 ["风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"]]

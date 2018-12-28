@@ -8,7 +8,6 @@
         <div class="container">
             <div class="swiper-top">
                 <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
-                <div class="right"></div>
             </div>
             <div class="content-box">
                 <swiper :options="swiperOption" ref="mySwiper">
@@ -42,7 +41,7 @@ export default {
             backLink : '/main/home',
             navList: ["命盘","感情","事业","财运","健康","亲子","十年大运"],
             list: [BaziMingpan,BaziEmotion,BaziCareer,BaziFortune,BaziHealth,BaziKids,BaziDecade],
-            swiperOption : { initialSlide: this.navIndex },
+            swiperOption : { initialSlide: this.navIndex ,autoHeight : true},
             resData: {"data":{"career":'',"character":'',"d": '',"elements":'',"family":'',"finance":'',"h":'',"health":'',"id":'',"life":'',"love":'',"m":'',"remedy":'',"y":'',}},
         }
     },

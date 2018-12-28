@@ -9,7 +9,7 @@
                     <div class="date">时间：{{article.date}}</div>
                 </header>
                 <div class="content">
-                    <p>{{article.content}}</p>
+                    <p v-html="article.content"></p>
                 </div>
                 <button class="save-btn">立即分享</button>
             </div>
@@ -18,14 +18,14 @@
 </template>
 <script>
 export default {
-    mounted () {
-        this.article = this.$route.params.article;
-    },
     data () {
         return {
             article : {}
         }
-    }
+    },
+    mounted () {
+        this.article = this.$route.params.article;
+    },
 }
 </script>
 <style lang="less" scoped>
@@ -58,7 +58,7 @@ export default {
     }
     .content {
         width: 93.33%;
-        margin : 0 auto;
+        margin : 30/75rem auto;
         & > p {
             text-indent:2em;
             font-size: 24/75rem;

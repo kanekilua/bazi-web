@@ -9,7 +9,7 @@
                         <div @click="showProvinceFunc('1')"><span id="province">{{maleProvince}}</span><i></i></div>
                         <div @click="showCityFunc('1')"><span id="city">{{maleCity}}</span><i></i></div>
                     </div>
-                    <!-- 选择省份的弹出框 -->
+                     <!-- 选择省份的弹出框 -->
                     <div transfer-dom>
                         <popup v-model="showProvince" position="bottom" height="50%">
                             <group>

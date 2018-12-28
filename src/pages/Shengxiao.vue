@@ -14,12 +14,12 @@
                         <input placeholder="请输入女方名字" v-model="femaleName">
                         <input placeholder="请输入出生日期" v-model="femaleBirth" @click="showDatePlugin(0)">
                     </div>
-                    <button @click="$jump('/shengxiao/detail')">开始配对</button>
+                    <button @click="beginMatch">开始配对</button>
                 </div>
             </div>
             <div class="pair-article">
-                <div class="article-cell" v-for="(item,index) in pairArticles" :key="index">
-                    <h2>{{item}}</h2><i></i>
+                <div class="article-cell" v-if="index<4" v-for="(item,index) in pairArticles" :key="index">
+                    <h2>{{item.title}}</h2><i></i>
                 </div>
                 <div class="more-cell">
                     <h2>更多生肖配对</h2><i></i>
@@ -62,11 +62,12 @@
     </div>
 </template>
 <script>
+import solarLunar from 'solarLunar'
 import { dateFormat } from 'vux'
 export default {
     data () {
         return {
-            pairArticles : ["属猪和什么属相最相配，看看","属鸡和什么属相最相配，看看","属羊和什么属相最相配，看看"],
+            pairArticles : [],
             knowledges : [],
             famousList : ['麦玲玲','苏民峰','李居明','宋韶光','董易林'],
             famousArticle : [
@@ -77,13 +78,17 @@ export default {
                 ['董易林2016年属鼠运程','董易林2016年属鼠运程','董易林2016年属鼠运程','董易林2016年属鼠运程','董易林2016年属鼠运程','董易林2016年属鼠运程','董易林2016年属鼠运程']
             ],
             navIndex : 0,
-            swiperOption : { initialSlide: this.navIndex },
+            swiperOption : { initialSlide: this.navIndex ,autoHeight : true},
             maleName : "",
             maleBirth : "",
             maleBirthArray : [],
             femaleName : "",
             femaleBirth : "",
-            femaleBirthArray : []
+            femaleBirthArray : [],
+            maleSolar : "",
+            femaleSolar : "",
+            maleShengxiao : "",
+            femaleShengxiao : "",
         }
     },
     computed : {
@@ -98,6 +103,7 @@ export default {
     },
     created() {
         this.getData();
+        this.getPairArticles();
     },
     mounted() {
         this.swiper.on('slideChange', () => {
@@ -130,17 +136,24 @@ export default {
                     for(let i=0;i<valArray.length ; ++i) {
                         dateArray[i] = parseInt(valArray[i]);
                     }
-                    let birthDate = dateArray[0] + '年' + dateArray[1] + '月' + dateArray[2] + '日' + ' ' + dateArray[3] + '点' + dateArray[4] + '分';
+                    let birthDate = dateArray[0] + '年' + dateArray[1] + '月' + dateArray[2] + '日'  + dateArray[3] + '时' + dateArray[4] + '分';
                     if(genderType) {
                         this.maleBirth = birthDate;
                         this.maleBirthArray = dateArray;
+                        let solar = solarLunar.lunar2solar(parseInt(this.maleBirthArray[0]),parseInt(this.maleBirthArray[1]),parseInt(this.maleBirthArray[2]));
+                        this.maleSolar = solar.yearCn + ' ' + solar.monthCn + ' ' + solar.dayCn;
+                        this.maleShengxiao = solar.animal;
                     }else {
                         this.femaleBirth = birthDate;
-                        this.femaleBirthArray = [];
+                        this.femaleBirthArray = dateArray;
+                        let solar= solarLunar.lunar2solar(parseInt(this.femaleBirthArray[0]),parseInt(this.femaleBirthArray[1]),parseInt(this.femaleBirthArray[2]));
+                        this.femaleSolar = solar.yearCn + ' ' + solar.monthCn + ' ' + solar.dayCn;
+                        this.femaleShengxiao = solar.animal;
                     }
                 }
             });
         },
+        // 获取生肖知识data
         getData: function () {
             let sendData = {
                 cid : '96',
@@ -149,11 +162,24 @@ export default {
             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success,this.failure);
         },
         success: function(res) {
-            console.log(res);
+            // console.log(res);
             this.knowledges = res.data.splice(0,2);
             for( let i of this.knowledges){
                 i.img = 'https://mingli.szmonster.com' + i.img;
             }
+        },
+        // 获取pairArticles
+        getPairArticles: function () {
+            let params = {
+                cid : "96",
+                tid : "403",
+                category : "生肖属相最配",
+            }
+            this.$http.post('/suan/apidata',params,'cesuan',null,this.PairArticlesSuccess,null);
+        },
+        PairArticlesSuccess : function (res) {
+            this.pairArticles = res.data;
+            // console.log(res);
         },
         showArticle : function (article) {
             this.$router.push({
@@ -162,6 +188,42 @@ export default {
                     article : article
                 }
             });
+        },
+        // 开始匹配
+        beginMatch: function () {
+            // 表单验证
+            if(!this.$utils.checkName(this.maleName,this) || !this.$utils.checkName(this.femaleName,this)){
+                return;
+            }
+            if(this.maleBirthArray.length === 0 || this.maleBirthArray === '' || this.femaleBirthArray.length === 0 || this.femaleBirthArray === '' ) {
+                this.$vux.toast.text('请选择出生日期','top');
+                return;
+            }
+            // 跳转
+            this.$router.push({
+                name : 'shengxiaoDetail',
+                // 传递参数
+                query : {
+                    cid : "102",
+                    y1 : this.maleBirthArray[0],
+                    m1 : this.maleBirthArray[1],
+                    d1 : this.maleBirthArray[2],
+                    y2 : this.femaleBirthArray[0],
+                    m2 : this.femaleBirthArray[1],
+                    d2 : this.femaleBirthArray[2],
+                },
+                // 传递数据
+                params: {
+                    maleName: this.maleName,
+                    maleBirth: this.maleBirth,
+                    maleSolar: this.maleSolar,
+                    maleShengxiao: this.maleShengxiao,
+                    femaleName: this.femaleName,
+                    femaleBirth: this.femaleBirth,
+                    femaleSolar: this.femaleSolar,
+                    femaleShengxiao: this.femaleShengxiao,
+                }
+            })
         }
     }
 }
@@ -237,6 +299,7 @@ i{
                 box-shadow:0px 3px 6px rgba(0,0,0,0.16);
                 color: #fff;
                 font-size: 28/75rem;
+                outline: none;
             }
         }
     }
