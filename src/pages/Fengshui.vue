@@ -46,6 +46,13 @@ export default {
             return this.$refs.mySwiper.swiper;
         },
     },
+    data () {
+        return {
+            navList: ["家居风水","房屋风水","办公风水","感情风水","风水摆设","商业风水","招财风水"],
+            swiperOption : { initialSlide: this.navIndex ,autoHeight : true},
+            list : {},
+        }
+    },
     watch : {
         'navIndex' (val) {
             this.swiper.slideTo(val, 0, false);
@@ -68,13 +75,6 @@ export default {
         this.swiper.on('slideChange', () => {
             this.updateNavIndex(this.swiper.activeIndex);
         });
-    },
-    data () {
-        return {
-            navList: ["家居风水","房屋风水","办公风水","感情风水","风水摆设","商业风水","招财风水"],
-            swiperOption : { initialSlide: this.navIndex },
-            list : {},
-        }
     },
      methods : {
         ...mapMutations('peach',['updateNavIndex']),

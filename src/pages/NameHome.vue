@@ -50,7 +50,7 @@ export default {
         return {
             backLink: "/main/home",
             navList: ["姓名测试","起名大全","姓名大全"],
-            swiperOption : { initialSlide: this.navIndex },
+            swiperOption : { initialSlide: this.navIndex ,autoHeight : true },
             list : [
                 {
                     route: '/nameTest',
