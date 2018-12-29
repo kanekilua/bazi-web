@@ -124,14 +124,11 @@ export default {
             this.pickFirstPicture(res.data)
         },
         toInner: function (id) {
-            let querys = {
-                id: id
-            }
             this.$router.push({
-                name: 'xiangshuInner',
+                name: 'article',
                 query: {
-                    querys
-                },
+                    id : id
+                }
             }) 
         },
         //下拉加载更多

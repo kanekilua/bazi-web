@@ -92,7 +92,7 @@ export default {
         toInner: function (innerId) {
             let id = innerId;
             this.$router.push({
-                name: 'fengshuidetail',
+                name: 'article',
                 query: {
                     id : id
                 }

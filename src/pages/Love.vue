@@ -20,6 +20,30 @@
                 </swiper>
             </div>
         </div>
+        <!-- 选择省份的弹出框 -->
+        <div transfer-dom>
+            <popup v-model="showProvinceFlag" position="bottom" height="50%">
+                <group>
+                    <cell v-for="(item,index) in provinceList" :key="index" :title="item.name" @click.native="selectProvince(item)"></cell>
+                </group>
+            </popup>
+        </div>
+        <!-- 男性选择城市的弹出框 -->
+        <div transfer-dom>
+            <popup v-model="showMaleCityFlag" position="bottom" height="50%">
+                <group>
+                    <cell v-for="(item,index) in maleCityList" :key="index" :title="item.name" @click.native="selectCity(item)"></cell>
+                </group>
+            </popup>
+        </div>
+            <!-- 女性选择城市的弹出框 -->
+        <div transfer-dom>
+            <popup v-model="showFemaleCityFlag" position="bottom" height="50%">
+                <group>
+                    <cell v-for="(item,index) in femaleCityList" :key="index" :title="item.name" @click.native="selectCity(item)"></cell>
+                </group>
+            </popup>
+        </div>
     </div>
 </template>
 <script>
@@ -29,7 +53,7 @@ import Hehun from './Hehun'
 
 export default {
     computed : {
-        ...mapState('love',['navIndex']),
+        ...mapState('love',['navIndex','hehunInputFlag','showProvince','showMaleCity','showFemaleCity','maleCityList','femaleCityList']),
         swiper () {
             return this.$refs.mySwiper.swiper;
         },
@@ -40,9 +64,49 @@ export default {
     watch : {
         'navIndex' (val) {
             this.swiper.slideTo(val, 0, false);
-        }
+            if(val === 0) {
+                this.updateMaleCityList([]);
+                this.updateFemaleCityList([]);
+                this.updateMaleProvince('省份');    
+                this.updateFemaleProvince('省份');
+                this.updateMaleCity('城市');
+                this.updateFemaleCity('城市');
+            }
+        },
+        'showProvinceFlag' (val) {
+            if(this.showProvince !== val) {
+                this.updateShowProvince(val);
+            }
+        },
+        'showProvince' (val) {
+            if(this.showProvinceFlag !== val) {
+                this.showProvinceFlag = val;
+            }
+        },
+        'showMaleCityFlag' (val) {
+            if(this.showMaleCity !== val) {
+                this.updateShowMaleCity(val);
+            }
+        },
+        'showMaleCity' (val) {
+            if(this.showMaleCityFlag !== val) {
+                this.showMaleCityFlag = val;
+            }
+        },
+        'showFemaleCityFlag' (val) {
+            if(this.showFemaleCity !== val) {
+                this.updateShowFemaleCity(val);
+            }
+        },
+        'showFemaleCity' (val) {
+            if(this.showFemaleCityFlag !== val) {
+                this.showFemaleCityFlag = val;
+            }
+        },
     },
     mounted () {
+        this.updateMaleCityList(global.CITY_LIST['0']);
+        this.updateFemaleCityList(global.CITY_LIST['0']);
         if(this.navIndex != 0) { 
             this.swiper.slideTo(this.navIndex, 0, false);
         }
@@ -57,11 +121,41 @@ export default {
             swiperOption : { initialSlide: this.navIndex ,autoHeight : true},
             list : [LoveBlossoms,Hehun],
             articleList: [["风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"],
-                ["风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"]]
+                ["风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"]],
+            // 八字合婚的弹窗
+            showProvinceFlag : false,
+            provinceList : global.PROVINCE_LIST,
+            showMaleCityFlag : false,
+            showFemaleCityFlag : false,
+            maleProvince : '',
+            femaleProvince : '',
         }
     },
      methods : {
-        ...mapMutations('love',['updateNavIndex'])
+        ...mapMutations('love',[
+            'updateNavIndex','updateShowProvince','updateShowMaleCity','updateShowFemaleCity',
+            'updateMaleCityList','updateFemaleCityList','updateMaleProvince','updateFemaleProvince',
+            'updateMaleCity','updateFemaleCity'
+        ]),
+        selectProvince : function (item) {
+            if(this.hehunInputFlag === '1') {
+                this.updateMaleProvince(item.name);
+                this.updateMaleCityList(global.CITY_LIST[item.id]);
+            }else if (this.hehunInputFlag === '0') {
+                this.updateFemaleProvince(item.name);
+                this.updateFemaleCityList(global.CITY_LIST[item.id]);
+            }
+            this.showProvinceFlag = false;
+        },
+        selectCity : function (item) {
+            if(this.hehunInputFlag === '1') {
+                this.updateMaleCity(item.name);
+                this.showMaleCityFlag = false;
+            }else if (this.hehunInputFlag === '0') {
+                this.updateFemaleCity(item.name);
+                this.showFemaleCityFlag = false;
+            }
+        }
     }
 }
 </script>

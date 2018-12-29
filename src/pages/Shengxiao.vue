@@ -184,8 +184,8 @@ export default {
         showArticle : function (article) {
             this.$router.push({
                 name: "article",
-                params : {
-                    article : article
+                query: {
+                    id : article.id
                 }
             });
         },
