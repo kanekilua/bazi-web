@@ -9,19 +9,19 @@
                     <div slot="more"></div>
                 </v-title-nav>
                 <div class="male-profile">
-                    <div>男生姓名：凯瑟琳</div>
-                    <div>出生公历：1980年11月23日15时10分</div>
-                    <div>农历：庚申年 十月 十六日 申时</div>
-                    <div>男方星座：射手座</div>
-                    <div>男方生肖：属猴</div>
+                    <div>男生姓名：{{params.maleName}}</div>
+                    <div>出生公历：{{params.maleBirth}}</div>
+                    <div>农历：{{params.maleSolar}}</div>
+                    <div>男方星座：{{resData.nan.xingzuo}}</div>
+                    <div>男方生肖：属{{params.maleShengxiao}}</div>
                     <div class="title-hunpei">男方属相婚配</div>
-                    <div>婚姻宜配：鼠、蛇、龙，此中属相相配为珠联璧合，一帆风顺，富贵成功，子孙兴旺。</div>
-                    <div>婚姻忌配：虎、猪，灾害多起，晚景尚可，但恐寿不到永，疾病困难。</div>
-                    <div>三合生肖：鼠、龙、猴</div>
-                    <div>六合生肖：蛇</div>
-                    <div>相冲生肖：虎</div>
-                    <div>相害生肖：猪</div>
-                    <div> 相刑生肖：虎、蛇</div>
+                    <div>婚姻宜配：{{resData.nan.appropriate}}</div>
+                    <div>婚姻忌配：{{resData.nan.avoid}}</div>
+                    <div>三合生肖：{{resData.nan.three}}</div>
+                    <div>六合生肖：{{resData.nan.six}}</div>
+                    <div>相冲生肖：{{resData.nan.punching}}</div>
+                    <div>相害生肖：{{resData.nan.calamity}}</div>
+                    <div> 相刑生肖：{{resData.nan.penalty}}</div>
                 </div>
             </div>
             <div class="profile-wrap">
@@ -30,19 +30,19 @@
                     <div slot="more"></div>
                 </v-title-nav>
                 <div class="female-profile">
-                    <div>女生姓名：吴美玄</div>
-                    <div>出生公历：1980年11月23日15时10分</div>
-                    <div>农历：庚申年 十月 十六日 申时</div>
-                    <div>女方星座：射手座</div>
-                    <div>女方生肖：属猴</div>
+                    <div>女生姓名：{{params.femaleName}}</div>
+                    <div>出生公历：{{params.femaleBirth}}</div>
+                    <div>农历：{{params.femaleSolar}}</div>
+                    <div>女方星座：{{resData.nv.xingzuo}}</div>
+                    <div>女方生肖：属{{params.femaleShengxiao}}</div>
                     <div class="title-hunpei">女方属相婚配</div>
-                    <div>婚姻宜配：鼠、蛇、龙，此中属相相配为珠联璧合，一帆风顺，富贵成功，子孙兴旺。</div>
-                    <div>婚姻忌配：虎、猪，灾害多起，晚景尚可，但恐寿不到永，疾病困难。</div>
-                    <div>三合生肖：鼠、龙、猴</div>
-                    <div>六合生肖：蛇</div>
-                    <div>相冲生肖：虎</div>
-                    <div>相害生肖：猪</div>
-                    <div> 相刑生肖：虎、蛇</div>
+                    <div>婚姻宜配：{{resData.nv.appropriate}}</div>
+                    <div>婚姻忌配：{{resData.nv.avoid}}</div>
+                    <div>三合生肖：{{resData.nv.three}}</div>
+                    <div>六合生肖：{{resData.nv.six}}</div>
+                    <div>相冲生肖：{{resData.nv.punching}}</div>
+                    <div>相害生肖：{{resData.nv.calamity}}</div>
+                    <div> 相刑生肖：{{resData.nv.penalty}}</div>
                 </div>
             </div>
             <div class="profile-wrap">
@@ -51,8 +51,8 @@
                     <div slot="more"></div>
                 </v-title-nav>
                 <div class="result-profile">
-                    <h2>男猴女猴十二生肖配对结果</h2>
-                    <p>人会合谋去做有价值的事，这令相处更加愉快。你们是有着天然的密切感的一对。你们有着许许多多的共同点，但是幸福婚姻的前提建立在假设的基础之上。首先，如果你们改变以自我为中心的出发点，那么你们之间出现的问题将会大大减少；第二，如果你们能够停止互相猜忌，你们将会拥有更加稳固的关系；第三，如果你们能够客观理智地面对困境，危机将会很快过去；第四，如果你们能够倾心相与，你们的生活将会更加美妙和谐。</p>
+                    <h2>男{{params.maleShengxiao}}女{{params.femaleShengxiao}}十二生肖配对结果</h2>
+                    <p>{{resData.jie[0].content}}</p>
                 </div>
             </div>
         </div>
@@ -60,8 +60,56 @@
     </div>
 </template>
 <script>
+
 export default {
-    
+    data () {
+        return {
+            params: {},
+            // 初始化数据
+            resData: {
+                "nan": {
+                    "sx": "",
+                    "appropriate": "",
+                    "avoid": "",
+                    "three": "",
+                    "punching": "",
+                    "calamity": "",
+                    "penalty": "",
+                    "xingzuo": ""
+                },
+                "nv": {
+                    "sx": "",
+                    "appropriate": "",
+                    "avoid": "",
+                    "three": "",
+                    "six": "",
+                    "punching": "",
+                    "calamity": "",
+                    "penalty": "",
+                    "xingzuo": ""
+                },
+                "jie": [
+                    {
+                        "content": ""
+                    }
+                ]
+            },
+        }
+    },
+    created () {
+        this.getData();
+        // console.log(this.$route.params)
+    },
+    methods : {
+        getData () {
+            this.$http.post('/suan/apidata',this.$route.query,'cesuan',null,this.success);
+        },
+        success : function (res) {
+            // console.log(res)
+            this.resData = res;
+            this.params = this.$route.params;
+        }
+    }
 }
 </script>
 <style lang="less" scoped>
@@ -82,7 +130,6 @@ export default {
 }
 .profile {
     width:100%;
-    height:910/75rem;
     box-shadow:0px 3px 6px rgba(0,0,0,0.16);
     .round(33/75rem);
     padding: 8/75rem 0 24/75rem 24/75rem;
@@ -107,15 +154,15 @@ export default {
     }
     .result-profile {
         .profile();
+        margin: 0 0 160/75rem 0;
         background:rgba(255,255,255,1);
-        height:483/75rem;
         & > h2 {
             margin-top: 32/75rem;
             .title-nav();
             color:rgba(0,0,0,0.9);
         }
         & > p {
-            margin: 25/75rem 0 160/75rem 0;
+            margin: 25/75rem 0 0 0;
             text-indent:2em;
             font-size: 28/75rem;
         }
