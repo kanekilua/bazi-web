@@ -26,7 +26,7 @@ Object.keys(components).forEach((key) => {
 })
 
 // vux基础组件引用
-import { XButton,XInput,Group,Flexbox,FlexboxItem,ToastPlugin,Tab,TabItem,Swiper,SwiperItem,DatetimePlugin,Popup,TransferDom,Cell,AlertPlugin,Sticky,XDialog,Picker,LoadMore} from 'vux'
+import { XButton,XInput,Group,Flexbox,FlexboxItem,ToastPlugin,Swiper,SwiperItem,DatetimePlugin,Popup,TransferDom,Cell,AlertPlugin,Sticky,XDialog,Picker,LoadMore} from 'vux'
 Vue.component('x-button', XButton);
 Vue.component('x-input', XInput);
 Vue.component('group', Group);
