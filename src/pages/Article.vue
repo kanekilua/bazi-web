@@ -21,9 +21,6 @@ export default {
     created () {
         this.init();
     },
-    mounted () {
-        this.article = this.$route.params.article;
-    },
     data () {
         return {
             article : {
