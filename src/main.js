@@ -5,9 +5,6 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-// 引用公共样式style
-import './assets/style/commonStyle.less'
-
 // 引用公共js
 import api from './api/api.js'
 import utils from './assets/js/utils'
@@ -18,6 +15,8 @@ Vue.prototype.$utils = utils;
 // 引用外部js
 import rem from '../static/js/rem'
 
+// 引用公共样式style
+import './assets/style/commonStyle.less'
 
 // 加载自定义公共组件
 import components from './components/' 
@@ -33,8 +32,6 @@ Vue.component('x-input', XInput);
 Vue.component('group', Group);
 Vue.component('flexbox', Flexbox);
 Vue.component('flexbox-item', FlexboxItem);
-Vue.component('tab', Tab);
-Vue.component('tab-item', TabItem);
 Vue.component('swiper', Swiper);
 Vue.component('swiper-item', SwiperItem);
 Vue.use(AlertPlugin);
@@ -46,8 +43,18 @@ Vue.component('sticky', Sticky);
 Vue.component('x-dialog', XDialog);
 Vue.component('picker', Picker);
 Vue.component('load-more', LoadMore);
-Vue.use(DatetimePlugin)
+Vue.use(DatetimePlugin);
 Vue.use(ToastPlugin);
+
+
+
+// vant 组件引用
+import {Button,Tab, Tabs,List} from 'vant';
+Vue.use(Button);
+Vue.use(Tab).use(Tabs);
+Vue.use(List);
+
+
 
 // vue2.0移动设备指令
 import touch from 'vue-directive-touch'

@@ -52,6 +52,18 @@ const delay = (function () {
     }
 })()
 export default {
+    data () {
+        return {
+            backLink: '/main/home',
+            navList: ["人物","动物","物品","植物","鬼神","生活","其他"],
+            swiperOption : { initialSlide: this.navIndex , autoHeight : true},
+            slideList: [],
+            pregnantList: [],
+            keyWord: "",
+            result: [],
+            showPannel: false,// 搜索框
+        }
+    },
     computed : {
         ...mapState('xiangshu',['navIndex']),
         swiper () {
@@ -78,18 +90,6 @@ export default {
         this.swiper.on('slideChange', () => {
             this.updateNavIndex(this.swiper.activeIndex);
         });
-    },
-    data () {
-        return {
-            backLink: '/main/home',
-            navList: ["人物","动物","物品","植物","鬼神","生活","其他"],
-            swiperOption : { initialSlide: this.navIndex },
-            slideList: [],
-            pregnantList: [],
-            keyWord: "",
-            result: [],
-            showPannel: false,// 搜索框
-        }
     },
     methods : {
         ...mapMutations('xiangshu',['updateNavIndex']),
