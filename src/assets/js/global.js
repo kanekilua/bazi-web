@@ -12,6 +12,8 @@ global.APP_ACCOUNT_INFO = APP_NAME + '_account_info';
 global.APP_BAZI_DATA = APP_NAME + '_bazi_data';
 global.APP_BAZI_DATA_MAX = 5;
 global.APP_FIRST_OPEN = APP_NAME + '_first_open';
+global.APP_HTML_URL = 'http://www.szmonster.com:8089'
+global.APP_MINGLI_URL = 'https://mingli.szmonster.com'
 
 // plugins option
 global.DATETIME_OPTION = {

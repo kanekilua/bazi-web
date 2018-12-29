@@ -5,8 +5,6 @@ Vue.use(vuex);
 import fortune from "./module/fortune"
 import bazi from "./module/bazi"
 import peach from "./module/peach"
-// popup
-import main from "./module/main"
 import love from "./module/love"
 import fengshuiKnowledge from "./module/fengshui-Knowledge"
 import xiangshu from "./module/xiangshu"
@@ -22,8 +20,6 @@ export default new vuex.Store ({
         fortune: fortune,
         bazi : bazi,
         peach : peach,
-        // popup
-        main : main,
         love : love,
         fengshuiKnowledge : fengshuiKnowledge,
         xiangshu : xiangshu,

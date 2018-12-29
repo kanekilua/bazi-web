@@ -10,9 +10,10 @@
                 <div class="content">
                     <p v-html="article.data.content"></p>
                 </div>
-                <button class="save-btn">立即分享</button>
+                <button @click="showShare = true" class="save-btn">立即分享</button>
             </div>
         </div>
+        <v-share-popup :showShare='showShare' :shareData='shareData' @switchShowShare='switchShowShare'></v-share-popup>
     </div>
 </template>
 <script>
@@ -25,8 +26,19 @@ export default {
     },
     data () {
         return {
-            article : {}
+            article : {
+                data : {
+                    category : "",
+                    title : "",
+                    content : ""
+                }
+            },
+            showShare : false,
+            shareData : {},
         }
+    },
+    created () {
+        this.init();
     },
     methods: {
         init : function () {
@@ -48,7 +60,17 @@ export default {
                 content = content.replace(/src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/,srcArr[i])//替换图片url
             };
             this.article.data.content = content;
+
+            this.shareData  =  {
+                icon : global.APP_MINGLI_URL + Img[0],
+                title : this.article.data.title,
+                text : this.$utils.delHtmlTag(this.article.data.content),
+                url : global.APP_HTML_URL + '/article.html?id=' + this.article.data.id
+            }
         },
+        switchShowShare : function (val) {
+            this.showShare = val;
+        }
     }
 }
 </script>

@@ -67,7 +67,6 @@ export default {
                 },
                 scene: sceneType  // share to Timeline
             }, (res) => {
-                this.$vux.toast.text("分享成功","bottom");
             }, (reason) => {
                 this.$vux.toast.text("分享失败","bottom");
             });
