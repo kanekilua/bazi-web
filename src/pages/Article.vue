@@ -1,7 +1,7 @@
 <template>
     <div class="wrap">
         <v-header></v-header>
-        <v-title-header>{{article.data.category}}</v-title-header>
+        <v-title-header :backLink="$store.state.deepLink ? '/main/home' : null">{{article.data.category}}</v-title-header>
         <div class="content-wrap">
             <div class="article">
                 <header class="article-header">

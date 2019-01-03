@@ -15,6 +15,7 @@ import familyNameInner from "./module/familyname-inner"
 export default new vuex.Store ({
     state : {
         loginAccount : '',
+        deepLink : ''
     },
     modules : {
         fortune: fortune,
@@ -30,6 +31,9 @@ export default new vuex.Store ({
     mutations: {
         updateLoginAccount: function (state,value) {
             state.loginAccount = value;
+        },
+        updateDeepLink : function (state ,value) {
+            state.deepLink = value;
         }
     },
     actions : {

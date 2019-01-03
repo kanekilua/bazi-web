@@ -25,6 +25,9 @@ export default {
             }
         }
         setTimeout (()=>{
+            if(this.$store.state.deepLink !== undefined && this.$store.state.deepLink !== null && this.$store.state.deepLink !== '') {
+                jumpTo = "";
+            }
             this.$jump(jumpTo);
         },1500);
     },

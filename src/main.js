@@ -73,8 +73,9 @@ Vue.prototype.$jump = function(index) {
   this.$router.push(index);
 }
 
+var vue;
 document.addEventListener('deviceready', function() {
-  new Vue({
+  vue = new Vue({
     el: '#app',
     router,
     store,
@@ -83,6 +84,7 @@ document.addEventListener('deviceready', function() {
   })
   GeTuiSdkPlugin.callback_init(callback);
   GeTuiSdkPlugin.initialize();
+  universalLinks.subscribe('deeplink', deeplink);
 }, false);
 
 // 个推sdk的回调函数
@@ -105,3 +107,17 @@ function callback (type, data) {
         alert('onNotificationClicked' + data) //点击通知事件回调
   }
 }
+
+// deep link的回调
+function deeplink (eventData) {
+  // do some work
+  // vue.$vux.toast.text(eventData.url,'top');
+  vue.$router.push({
+    name: "article",
+    query: {
+      id : 5000
+    }
+  });
+  vue.$store.commit('updateDeepLink','deeplink');
+}
+
