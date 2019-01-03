@@ -24,7 +24,7 @@
                     <i></i>
                     <div>推荐好友</div>
                 </div>
-                <div class="table-cell recruitment" @click="$jump('/main/mine/recruitment')">
+                <div class="table-cell recruitment" @click="$jump('/main/mine/recruitment/recruitmentStep1')">
                     <i></i>
                     <div>大师招募</div>
                 </div>

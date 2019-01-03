@@ -136,18 +136,18 @@ export default {
             this.nowIndex= this.navIndex;
             let content = this.$refs.content;
             content.addEventListener('scroll',() => {
-                console.log(content.scrollTop)
+                // console.log(content.scrollTop)
                 if(this.nowIndex===0){
                     if(this.list[0].switchBack===false){//首次切换时设置滚动条在顶部
                         content.scrollTop = 0;
                         this.list[0].switchBack=true
                     }
                     this.list[0].scrollPosition = content.scrollTop;
-                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[0].loading==false){ //触底且没有在发送状态
-                        console.log('到底了') //滚动条触底
+                    //滚动条触底且没有在发送状态时
+                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[0].loading===false){
                         this.tip="正在加载";
                         this.showLoading = true; //显示加载ico
-                        this.list[0].loading=true; //加载中停止发送更多请求
+                        this.list[0].loading = true; //加载中停止发送更多请求
                         this.list[0].limit++;//请求10条数据
                         let sendData = {
                             cid : 96,
@@ -164,11 +164,11 @@ export default {
                         this.list[1].switchBack=true
                     }
                     // content.scrollTop = this.list[1].scrollPosition;          
-                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[1].loading==false){ //触底且没有在发送状态
-                        console.log('到底了');
+                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[1].loading===false){ //触底且没有在发送状态
+                        // console.log('到底了');
                         this.tip="正在加载";
                         this.showLoading = true;
-                        this.list[1].loading=true; 
+                        this.list[1].loading = true; 
                         this.list[1].limit++;
                         let sendData = {
                             cid : 96,
@@ -185,11 +185,10 @@ export default {
                         this.list[2].switchBack=true
                     }
                     // this.list[2].scrollPosition = content.scrollTop;
-                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[2].loading==false){ //触底且没有在发送状态
-                        console.log('到底了') //滚动条触底
+                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[2].loading===false){ //触底且没有在发送状态
                         this.tip="正在加载";
                         this.showLoading = true;
-                        this.list[2].loading=true; //加载中停止发送更多请求
+                        this.list[2].loading = true; //加载中停止发送更多请求
                         this.list[2].limit++;//请求10条数据
                         let sendData = {
                             cid : 96,
@@ -206,11 +205,10 @@ export default {
                         this.list[3].switchBack=true
                     }
                     // this.list[2].scrollPosition = content.scrollTop;
-                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[3].loading==false){ //触底且没有在发送状态
-                        console.log('到底了') //滚动条触底
+                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[3].loading===false){ //触底且没有在发送状态
                         this.tip="正在加载";
                         this.showLoading = true;
-                        this.list[3].loading=true; //加载中停止发送更多请求
+                        this.list[3].loading = true; //加载中停止发送更多请求
                         this.list[3].limit++;//请求10条数据
                         let sendData = {
                             cid : 96,
@@ -224,14 +222,12 @@ export default {
             })  
         },
         loadmore: function (res) {
-            console.log(res)
             for (let i of res.data){
                 i.img = i.img.split(' ') //取第一张照片
                 i.img = 'https://mingli.szmonster.com'+ i.img[0];//替换url
                 this.list[0].data.push(i); //添加10条数据
             }
             if(res.data.length===10){
-                console.log(10)
                 //数据渲染完成后关闭加载动画
                 this.$nextTick(function () {
                     this.list[0].loading=false;
@@ -239,14 +235,12 @@ export default {
                 })  
             }
             if(res.data.length!=10 && this.nowIndex===0){
-                console.log("<10")
                 this.showIco = true;
                 this.tip="没有更多数据！";
                 this.showLoading = false;
             }   
         },
         loadmore1: function (res) {
-            console.log(res)
             for (let i of res.data){
                 i.img = i.img.split(' ') //取第一张照片
                 i.img = 'https://mingli.szmonster.com'+ i.img[0];
@@ -267,7 +261,6 @@ export default {
                 
         },
         loadmore2: function (res) {
-            console.log(res)
             for (let i of res.data){
                 i.img = i.img.split(' ') //取第一张照片
                 i.img = 'https://mingli.szmonster.com'+ i.img[0];
@@ -288,7 +281,6 @@ export default {
             }  
         },
         loadmore3: function (res) {
-            console.log(res)
             for (let i of res.data){
                 i.img = i.img.split(' ') //取第一张照片
                 i.img = 'https://mingli.szmonster.com'+ i.img[0];
