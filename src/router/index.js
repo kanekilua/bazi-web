@@ -36,6 +36,9 @@ import GiveName from '@/pages/GiveName'
 import NameHome from '@/pages/NameHome'
 import Shengxiao from '@/pages/Shengxiao'
 import ShengxiaoDetail from '@/pages/ShengxiaoDetail'
+import ShengxiaoFamous from '@/pages/ShengxiaoFamous'
+import ShengxiaoArtical from '@/pages/ShengxiaoArtical'
+import ShengxiaoKnowledge from '@/pages/ShengxiaoKnowledge'
 import Article from '@/pages/Article'
 import NameTest from '@/pages/NameTest'
 import NameTestInner from '@/pages/NameTestInner'
@@ -58,6 +61,7 @@ import RecruitmentStep3 from '@/pages/RecruitmentStep3'
 import MyCollection from '@/pages/MyCollection'
 import ContactService from '@/pages/ContactService'
 import FeedBack from '@/pages/FeedBack'
+
 
 
 
@@ -233,16 +237,33 @@ export default new Router({
       path : '/shengxiao',
       name : 'shengxiao',
       component : Shengxiao
-    },{
+    },
+    {
+      path : '/shengxiao/knowledge',
+      name : 'shengxiaoKnowledge',
+      component : ShengxiaoKnowledge
+    },
+    {
       path : '/shengxiao/detail',
       name : 'shengxiaoDetail',
       component : ShengxiaoDetail
     },
     {
+      path : '/shengxiao/famous/:name/:imgUrl/:identify/:works/:experience',
+      name : 'shengxiaoFamous',
+      component : ShengxiaoFamous,
+    },
+    {
+      path : '/shengxiao/famous/artical',
+      name : 'shengxiaoArtical',
+      component : ShengxiaoArtical
+    },
+    {
       path : '/article',
       name : 'article',
       component : Article
-    },{
+    },
+    {
       path : '/nameTest',
       name : 'nameTest',
       component : NameTest 
@@ -322,11 +343,6 @@ export default new Router({
       name : 'recruitment',
       component: Recruitment,
       children : [
-        {
-          path : '',
-          name : '',
-          component : RecruitmentStep1
-        },
         {
           path : 'recruitmentStep1',
           name : 'recruitmentStep1',

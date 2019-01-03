@@ -5,7 +5,7 @@
             八字排盘
             <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
         </v-title-header>
-        <div class="container">
+        <div class="content-wrap">
             <div class="swiper-top">
                 <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
             </div>
@@ -97,10 +97,11 @@ export default {
         height: 44/75rem;
         background: url('../assets/image/bazi/switchUser@2x.png') no-repeat center center / 100% 100%;
     }
-    .container{
+    .content-wrap{
         padding: 0 25/75rem;
         .border-box();
         .swiper-top{
+            width: 100%;
             .flex-between();
             .right{
                 width: 44/75rem;
@@ -108,27 +109,21 @@ export default {
                 background: url('../assets/image/bazi/right@2x.png') no-repeat center center / 100% 100%;
             }
         }
-        /deep/ .nav .nav-list .item{
-            padding: 5/75rem 10/75rem;
-        }
-        .swiper{
-            margin-top: 32/75rem;
+        .swiper-container{
+            margin-bottom: 32/75rem;
             .swiper-slide{
                 height: auto!important;
             }
         }
         .content-box{
             width: 100%;
-            position: absolute;
-            top:280/75rem;
-            bottom: 0px;
-            left: 0px;
-            overflow-y: scroll;
+            // position: absolute;
+            // top:280/75rem;
+            // bottom: 0px;
+            // left: 0px;
+            // overflow-y: scroll;
         }
     }
-}
-/deep/ .nav .nav-list .item{
-    padding: 30px;
 }
 </style>
 

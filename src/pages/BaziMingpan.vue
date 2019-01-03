@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <x-button class="save-btn">保存命盘</x-button>
+        <button class="save-btn">保存命盘</button>
     </div>
 </template>
 <script>
@@ -229,6 +229,10 @@ export default {
         }
     }
     .save-btn{
+        position: fixed;
+        display: block;
+        width: 100%;
+        bottom: 0;
         .round(0);
         background: @baseColor;
         color: #fff;

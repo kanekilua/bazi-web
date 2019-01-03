@@ -3,8 +3,14 @@
         <div class="nav-left">
             <div class="color-line"></div>
             <div class="title">
-                <slot></slot>
+                <slot name="title"></slot>
             </div>
+        </div>
+        <div class="nav-right">
+            <div class="more-txt">
+                <slot name="more"></slot>
+            </div>   
+            <i class="right"></i>
         </div>
     </div>
 </template>
@@ -30,6 +36,21 @@ export default {
             font-size: 32/75rem;
             color: @baseBoldColor;
             font-weight: bold;
+        }
+    }
+    .nav-right{
+        font-size: 20/75rem;
+        color: @baseBoldColor;
+        .flex-end();
+        .more-txt{
+            font-size: 20/75rem;
+        }
+        .right{
+            display: block;
+            width: 11/75rem;
+            height: 20/75rem;
+            margin: 5/75rem 0 0 10/75rem;
+            background: url('../../assets/image/common/more.png') no-repeat center center /100% 100%;
         }
     }
 }
