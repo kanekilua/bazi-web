@@ -63,7 +63,10 @@ export default {
         result: function (id,title) {
             this.$router.push({
                 name: 'empty',
-                query: {id: id,q: title},
+                params : {
+                    name: 'zhougongAnalyze',
+                    query: {id: id,q: title}
+                }
             })
         }
     }
