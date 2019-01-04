@@ -37,6 +37,9 @@ export default {
     created () {
         this.init();
     },
+    destroyed() {
+        this.$store.commit('updateDeepLink','');
+    },
     methods: {
         init : function () {
             let params = {
@@ -61,7 +64,7 @@ export default {
             this.shareData  =  {
                 icon : global.APP_MINGLI_URL + Img[0],
                 title : this.article.data.title,
-                text : this.$utils.delHtmlTag(this.article.data.content),
+                text : this.$utils.delHtmlTag(this.article.data.content).slice(0,100),
                 url : global.APP_HTML_URL + '/article.html?id=' + this.article.data.id
             }
         },

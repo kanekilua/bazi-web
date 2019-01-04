@@ -111,11 +111,13 @@ function callback (type, data) {
 // deep link的回调
 function deeplink (eventData) {
   // do some work
-  // vue.$vux.toast.text(eventData.url,'top');
+  // vue.$vux.toast.text(vue.$utils.getUrlParam(eventData.url,'articleId'),'top');
+  var paramStr = eventData.url.split('?')[1];
+  var articleId = paramStr.split('=')[1];
   vue.$router.push({
     name: "article",
     query: {
-      id : 5000
+      id : articleId
     }
   });
   vue.$store.commit('updateDeepLink','deeplink');

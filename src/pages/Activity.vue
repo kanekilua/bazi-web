@@ -2,7 +2,7 @@
     <div class="main">
         
 
-        活动页面
+        活动页面11
         
     </div>
 </template>

@@ -68,7 +68,6 @@ export default {
                 scene: sceneType  // share to Timeline
             }, (res) => {
             }, (reason) => {
-                this.$vux.toast.text("分享失败","bottom");
             });
             this.show = false;
         },
@@ -87,9 +86,7 @@ export default {
             args.description = this.shareData.text;
             args.image = this.shareData.icon;
             QQSDK.shareNews( () => {
-                this.$vux.toast.text("分享成功","bottom");
             }, (failReason) => {
-                this.$vux.toast.text("分享失败","bottom");
             }, args);
             this.show = false;
         }
