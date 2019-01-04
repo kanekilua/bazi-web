@@ -18,9 +18,6 @@
 </template>
 <script>
 export default {
-    created () {
-        this.init();
-    },
     data () {
         return {
             article : {
@@ -33,6 +30,13 @@ export default {
             showShare : false,
             shareData : {},
         }
+    },
+    beforeRouteEnter : (to, from, next) => {
+        next(vm => {
+            if(from.name === 'empty') {
+                vm.$store.commit('updateDeepLink','deeplink');
+            }
+        });
     },
     created () {
         this.init();

@@ -115,9 +115,12 @@ function deeplink (eventData) {
   var paramStr = eventData.url.split('?')[1];
   var articleId = paramStr.split('=')[1];
   vue.$router.push({
-    name: "article",
-    query: {
-      id : articleId
+    name : 'empty',
+    params : {
+      name: "article",
+      query: {
+        id : articleId
+      }
     }
   });
   vue.$store.commit('updateDeepLink','deeplink');
