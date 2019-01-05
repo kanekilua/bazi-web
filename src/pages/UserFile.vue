@@ -1,6 +1,5 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
         <v-title-header>
             设置
         </v-title-header>
@@ -38,7 +37,7 @@
                         <div>背景图片</div>
                     </div>
                     <div class="right">
-                        <div class="right-item"><img src="../assets/image/mine/avatar.png"></div>
+                        <div class="right-item"><img src="../assets/image/mine/transition-bg.png"></div>
                         <i class="right-ico"></i>
                     </div>
                 </div>
@@ -47,7 +46,6 @@
             <div v-transfer-dom>
                 <x-dialog v-model="showDialogStyle" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '30%', 'background-color': 'transparent'}">
                     <div class="img-dialog">
-                        <img class="fan" src="../assets/image/mine/fan.png">
                         <button class="takePhoto">拍照</button>
                         <button class="camera">从相册中选择</button>
                     </div>
@@ -71,84 +69,81 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.content-wrap{
-    position: absolute;
-    top: 169/75rem;
-    bottom: 0;
-    left: 0;
+.wrap{
     width: 100%;
-    overflow: auto;
-    .list{
-        margin-top: 32/75rem;
-        .item{
-            .flex-between();
-            .round(30/75rem);
-            padding: 32/75rem 23/75rem;
-            .border-box();
-            .boxshadow(0,3/75rem,6/75rem,rgba(5, 0, 0, 0.16));
-            width: 96%;
-            margin: 0 auto 32/75rem auto;
-            font-size: 26/75rem;
-            .right{
-                .flex-around();
-                .right-item{
-                    .flex-col();
-                    margin-right: 20/75rem;
-                    font-size: 26/75rem;
-                    & > img{
-                        width: 72/75rem;
-                        height: 72/75rem;
-                        .round(50%);
+    height: 100%;
+    background: #f1f1f1;
+    .content-wrap{
+        padding-top: 90/75rem;
+        .border-box();
+        .list{
+            margin-top: 10/75rem;
+            .item{
+                .flex-between();
+                padding: 32/75rem 23/75rem;
+                .border-box();
+                width: 100%;
+                height: 100/75rem;
+                margin: 0 auto 10/75rem auto;
+                font-size: 30/75rem;
+                background: #fff;
+                .right{
+                    .flex-around();
+                    font-size: 28/75rem;
+                    .right-item{
+                        .flex-col();
+                        margin-right: 20/75rem;
+                        font-size: 26/75rem;
+                        & > img{
+                            width: 72/75rem;
+                            height: 72/75rem;
+                            .round(50%);
+                        }
                     }
-                }
-                .right-ico{
-                    display: block;
-                    width: 44/75rem;
-                    height: 44/75rem;
-                    background: url(../assets/image/common/right@2x.png) no-repeat center center / 100% 100%;
-                }
-                .nick-input{
-                    width: 100%;
-                    text-align: right;
-                    border: none;
-                    outline: none;
+                    .right-ico{
+                        display: block;
+                        width: 20/75rem;
+                        height: 32/75rem;
+                        background: url(../assets/image/common/right@2x.png) no-repeat center center / 100% 100%;
+                    }
+                    .nick-input{
+                        width: 100%;
+                        text-align: right;
+                        border: none;
+                        outline: none;
+                    }
                 }
             }
         }
     }
 }
+
 /deep/ .weui-dialog{
     .flex-center();
     .img-dialog{
-        position: relative;
         width: 90%;
         margin: 0 auto;
         .flex-col();
         & > button {
             display: block;
-            width: 100%;
-            height: 105/75rem;
+            width: 440/75rem;
+            height: 86/75rem;
             border: none;
             outline: none;
+            font-size: 34/75rem;
+            font-weight: bold;
             &:active{
                 background: #eee;
             }
         }
         .takePhoto{
-            .round(30/75rem 30/75rem 0 0);
+            .round(10/75rem 10/75rem 0 0);
             background: #fff;
         }
         .camera{
-            .round(0 0 30/75rem 30/75rem);
-            background: @baseColor;
+            .round(0 0 10/75rem 10/75rem);
+            background: @baseBoldColor;
             color: #fff;
-        }
-        .fan{
-            position: absolute;
-            right: 68/75rem;
-            top: -78/75rem;
-            width: 158/75rem;
-            height: 118/75rem;   
         }
     }
 }

@@ -1,11 +1,24 @@
 <template>
     <div class="content">
         <div class="step">
-            <div class="step1 active">个人信息</div>
-            <i class="step-ico1"></i>
-            <div class="step2 active">专业相关</div>
-            <i class="step-ico2"></i>
-            <div class="step3">平台相关</div>
+            <div class="step-item">
+                <img src="../assets/image/master/step1-active.png">
+                <div class="num active">1</div>
+            </div>
+             <div class="step-item">
+                <img src="../assets/image/master/step2-active.png">
+                <div class="num active">2</div>
+            </div>
+             <div class="step-item">
+                <img src="../assets/image/master/step3.png">
+                <div class="num">3</div>
+            </div>
+        </div>
+        <div class="line">
+            <div class="part active"></div>
+            <div class="part active"></div>
+            <div class="part"></div>
+            <div class="part"></div>
         </div>
         <div class="form">
             <div class="form-item">
@@ -18,7 +31,7 @@
             </div>
              <div class="form-item">
                 <div class="key">学习经历</div>
-                <textarea></textarea>
+                <textarea placeholder="请填写您的学习经历"></textarea>
             </div>
             <div class="form-item">
                 <div class="key">从业年限</div>
@@ -67,29 +80,43 @@ export default {
 .content{
     .step{
         .flex-between();
-        width: 100%;
-        padding: 40/75rem 48/75rem;
+        width: 74%;
+        margin: 0 auto;
+        padding: 40/75rem 48/75rem 0 48/75rem;
         .border-box();
+        img{
+            width: 80/75rem;
+            height: 80/75rem;
+        }
         & > div{
-            width: 142/75rem;
-            height: 60/75rem;
-            line-height: 60/75rem;
-            text-align: center;
-            .round(20/75rem);
-            background: rgba(0,0,0,0.2);
+            & > div{
+                width: 28/75rem;
+                height: 28/75rem;
+                line-height: 28/75rem;
+                .round(50%);
+                text-align: center;
+            }
+        }
+    }
+    .step-item{
+        .flex-col();
+        .num{
+            .translate(0,14/75rem);
+            background: #cccccc;
             color: #fff;
         }
-        & > i{
-            display: inline-block;
-            width: 45/75rem;
-            height: 23/75rem;
-            background: url('../assets/image/common/step-ico.png') no-repeat center center / 100% 100%;
-        }
-        .step-ico1{
-            background: url('../assets/image/common/step-active.png') no-repeat center center / 100% 100%;
-        }
-        .active{
-            background: @baseColor;
+    }
+    .active{
+        background: @baseBoldColor!important;
+    }
+    .line{
+        width: 100%;
+        height: 4/75rem;
+        background: #cccccc;
+        .flex-start();
+        .part{
+            flex: 1;
+            height: 100%;
         }
     }
     .form{
@@ -102,7 +129,7 @@ export default {
             .flex-between();
             margin-bottom: 24/75rem;
             .key{
-               font-size: 26/75rem; 
+                font-size: 32/75rem;
             }
             & >  input[type="text"]{
                width: 79%;
@@ -134,14 +161,14 @@ export default {
     .btn-list{
         .flex-between();
         & > button{
-            width: 320/75rem;
-            height: 80/75rem;
-            margin: 0 auto;
+            width: 250/75rem;
+            height: 70/75rem;
+            margin: 50/75rem auto;
             .my-button();
-            .round(30/75rem);
+            .round(35/75rem);
         }
         .next-step{
-            background: @baseColor;
+            background: @baseBoldColor;
         }
     }
 }

@@ -1,7 +1,9 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
-        <v-title-header>{{article.data.category}}</v-title-header>
+        <v-title-header>
+            {{article.data.category}}
+            <div class="right-ico" slot="right-ico"></div>
+        </v-title-header>
         <div class="content-wrap">
             <div class="article">
                 <header class="article-header">
@@ -10,7 +12,6 @@
                 <div class="content">
                     <p v-html="article.data.content"></p>
                 </div>
-                <button class="save-btn">立即分享</button>
             </div>
         </div>
     </div>
@@ -57,27 +58,26 @@ export default {
 </script>
 <style lang="less" scoped>
 .content-wrap{
-    position: absolute;
-    top: 169/75rem;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    overflow: auto;
+    padding-top: 90/75rem;
+    .border-box();
+    .right-ico{
+        width: 38/75rem;
+        height: 38/75rem;
+        background: url('../assets/image/common/share.png')no-repeat center center / 100% 100%;
+    }
     .article {
         .article-header {
             padding: 32/75rem 0;
-            text-align: center;
+            text-align: left;
             border-bottom: 1px solid rgba(0,0,0,0.1);
             & > h2 {
                 font-size: 32/75rem;
-                margin-bottom: 16/75rem;
-                padding: 0 50/75rem;
+                padding: 0 26/75rem;
                 .border-box();
             }
         }
         .content {
             padding: 32/75rem 0;
-            margin-bottom: 80/75rem;
             & > p{
                 font-size: 24/75rem;
                 padding:  0 32/75rem;
@@ -87,10 +87,10 @@ export default {
                 }
                 /deep/ img{
                     display: block;
-                    width: 90%!important;
+                    width: 98%!important;
                     height: auto!important;
                     margin: 20/75rem auto;
-                    .round(27/75rem)
+                    .round(10/75rem)
                 }
             }
             .item-img{

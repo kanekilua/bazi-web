@@ -21,9 +21,11 @@ export default {
 <style lang="less" scoped>
 
 .nav{
-    margin-bottom: 20/75rem;
+    width: 100%;
+    margin: 10/75rem 0;
     .nav-list{
         width: 100%;
+        height: 90/75rem;
         overflow: hidden;
         .flex-start();
         .item{

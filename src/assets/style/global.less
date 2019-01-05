@@ -5,6 +5,10 @@
 @gradientEnd: @baseColor;
 @checkBackGroud: @baseColor;
 
+@baseLightColor: #C3976D;
+@baseBoldColor: #BD8144;
+
+
 .loginForm {
     margin: 40/75rem auto 0 auto;
     width: 516/75rem;
@@ -60,6 +64,9 @@
     display: block;
     font-size: 26/75rem;
     color: #fff;
+    &:active{
+        background: #eee;
+    }
 }
 .my-input{
     border: none;
@@ -82,7 +89,7 @@
 @box  阴影大小
 @box_color 阴影颜色
 */
-.boxshadow(@right_left:5px,@bottom_top:5px,@box :5px,@box_color:#b6ebf7){
+.boxshadow(@right_left:0px,@bottom_top:3px,@box :6px,@box_color:rgba(0,0,0,0.16)){
     box-shadow:@arguments;
    -moz-box-shadow:@arguments;
    -webkit-box-shadow:@arguments;

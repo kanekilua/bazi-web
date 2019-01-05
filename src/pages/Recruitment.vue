@@ -1,7 +1,6 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
-        <v-title-header>
+        <v-title-header :backLink="backLink">
             大师招募
         </v-title-header>
         <div class="content-wrap">
@@ -13,19 +12,15 @@
 export default {
     data () {
         return {
-            
+            backLink: "/main/mine"
         }
     }
 }
 </script>
 <style lang="less" scoped>
 .content-wrap{
-    position: absolute;
-    top: 169/75rem;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: auto;
+    padding-top: 90/75rem;
+    .border-box();
 }
 </style>
 

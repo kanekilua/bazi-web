@@ -1,11 +1,10 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
         <v-title-header>
             意见反馈
         </v-title-header>
         <div class="content-wrap">
-            <v-title-nav><h2 slot="title">反馈类型</h2><div slot="more"></div></v-title-nav>
+            <v-title-nav>反馈类型</v-title-nav>
             <div class="check-list">
                 <label for="check1">
                     <input type="checkbox" id="check1" value='1' v-model="checkList">
@@ -32,8 +31,8 @@
                     <div>其他</div>
                 </label>
             </div>
-            <v-title-nav><h2 slot="title">提出建议</h2><div slot="more"></div></v-title-nav>
-            <textarea placeholder="请您提出意见，以及我们的不足之处"></textarea>
+            <v-title-nav>提出建议</v-title-nav>
+            <textarea placeholder="简要描述你要反馈的问题和意见"></textarea>
             <button class="conmit">确认提交</button>
         </div>
     </div>
@@ -57,56 +56,55 @@ export default {
 </script>
 <style lang="less" scoped>
 .content-wrap{
-    position: absolute;
-    top: 169/75rem;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: auto;
-    padding: 38/75rem 32/75rem;
+    padding-top: 90/75rem;
+    .border-box();
     .border-box();
     .check-list{
-        .flex-between();
+        .flex-around();
         flex-wrap: wrap;
-        margin-top: 10/75rem;
+        width: 95%;
+        margin: 10/75rem auto 0 auto;
         & > label{
             margin-bottom: 45/75rem;
             & > input{
                 display: none;
             }
             & > div{
-                width: 184/75rem;
-                height: 80/75rem;
-                line-height: 80/75rem;
+                width: 200/75rem;
+                height: 40/75rem;
+                line-height: 40/75rem;
                 text-align: center;
                 .round(40/75rem);
                 font-size: 24/75rem;
                 .boxshadow(0,3/75rem,6/75rem,rgba(0,0,0,0.6));
             }
             & > input:checked + div{
-                background: @baseColor;
+                background: @baseBoldColor;
                 color: #fff;
             }
         }
     }
     textarea{
         overflow: hidden;
-        width: 686/75rem;
-        height: 285/75rem;
+        width: 670/75rem;
+        height: 276/75rem;
+        display: block;
+        margin: 0 auto;
         .boxshadow(0,3/75rem,6/75rem,rgba(0,0,0,0.16));
         .round(26/75rem);
         resize: none;
         border: none;
         margin-top: 17/75rem;
-        padding: 32/75rem;
+        padding: 20/75rem;
         .border-box();
         outline: none;
+        background: #eeeeee;
     }
     .conmit{
-        width: 500/75rem;
-        height: 100/75rem;
+        width: 648/75rem;
+        height: 90/75rem;
         .my-button();
-        background: @baseColor;
+        background: @baseBoldColor;
         margin: 80/75rem auto;
         .round(30/75rem);
         font-size: 28/75rem;

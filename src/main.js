@@ -47,7 +47,7 @@ Vue.use(ToastPlugin);
 
 
 // vant 组件引用
-import {Button,Tab, Tabs,List} from 'vant';
+import {Button,Tab,Tabs,List} from 'vant';
 Vue.use(Button);
 Vue.use(Tab).use(Tabs);
 Vue.use(List);
