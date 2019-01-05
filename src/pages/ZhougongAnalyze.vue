@@ -1,11 +1,9 @@
 <template>
     <div class="zg-analyze-wrap">
-        <v-header></v-header>
         <v-title-header :backLink="backLink">周公解梦</v-title-header>
         <div class="content-wrap">
             <div class="header">
                 <h2>{{itemTitle}}</h2>
-                <div class="time">时间：{{upTime}}</div>
             </div>
             <div class="item-message">                    
                 <p v-html="itemArtical"></p>
@@ -13,7 +11,7 @@
             <div class="bottom">
                 <h2 class="bottom-title">你是否还梦见？</h2>
                 <div class="bottom-list">
-                    <div class="tag-item" v-if="index<10" v-for="(item,index) in objList" :key="index" @click="result(item.id,item.title)">
+                    <div class="tag-item" v-show="index<10" v-for="(item,index) in objList" :key="index" @click="result(item.id,item.title)">
                         {{item.title}}
                     </div>
                 </div>
@@ -32,7 +30,6 @@ export default {
             backLink: '/zhougongHome',
             imgSrc: require('../assets/image/fengshui/jiaju1@2x.png'),
             itemTitle:  "",
-            upTime: "",
             itemArtical: "",
             objList: [],
             id: "",
@@ -51,7 +48,6 @@ export default {
         },
         success: function (res) {
             this.itemArtical = res.data[0].content.replace(/(<\/?a.*?>)/g, '');//正则去除a标签
-            this.upTime = res.data[0].uptime;
             this.itemTitle = res.data[0].title.replace(/&#8203;/g,'');
         },
         adviceSuccess: function (res) {
@@ -75,26 +71,21 @@ export default {
 <style lang="less">
 .zg-analyze-wrap{
     .content-wrap{
-        position: absolute;
-        top: 170/75rem;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        box-sizing: border-box;
-        overflow-y: scroll;
+        padding-top: 90/75rem;
+        .border-box();
         .header{
             padding: 32/75rem 0;
             text-align: center;
             border-bottom: 1px solid rgba(0,0,0,0.1);
             & > h2{
-                font-size: 32/75rem;
-                margin-bottom: 16/75rem;
+                padding-left: 32/75rem;
+                .border-box();
+                font-size: 36/75rem;
+                text-align: left;
             }      
         }
         .item-message{
             width: 100%;
-            height: 650/75rem;
-            overflow: scroll;
             border-bottom: 1px solid rgba(0,0,0,0.1);
             padding: 32/75rem 0;
             & > p{
