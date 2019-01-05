@@ -103,7 +103,6 @@ export default {
                 this.showLoading = false;
                 this.tip = "没有更多数据！"
             } else {
-                // console.log(res)
                 for(let i of res.data){
                     i.img = 'https://mingli.szmonster.com' + i.img; //拼接url
                     i.content = i.content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
@@ -112,8 +111,13 @@ export default {
                 this.loading = false; 
                 this.showIco = false;
             } 
-        }
-    }
+        },
+    },
+   // 移除监听事件
+    beforeDestroy() {
+        window.removeEventListener("scroll",null);
+    },
+
 }
 </script>
 <style lang="less" scoped>
