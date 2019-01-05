@@ -1,16 +1,15 @@
 <template>
-    <div class="wrap">
-        <v-header></v-header>
+    <div class="calendar-detail-wrap">
         <v-title-header>
             <div class="title-header" @click="showDatePlugin(selectDay)"><h2>{{selectDay[0]}}.{{selectDay[1]}}.{{selectDay[2]}}</h2><i></i></div>
-            <div slot="icon" class="today" @click="selectToday"></div>
+            <div slot="right-ico" class="today" @click="selectToday"></div>
         </v-title-header> 
         <div class="content-wrap">
             <div class="date-info">
                 <div class="arrow arrow-left" :class="{'arrow-left-active':arrowActive[0]}" @touchstart="$set(arrowActive,0,true)" @touchend="$set(arrowActive,0,false)" @click="selectPre"></div>
                 <div class="date">
                     <div class="lunar-info">农历 {{dateInfo.lunarMonthName}} {{dateInfo.lunarDayName}}日</div>
-                    <div class="solar-info"><span>{{moreInfo.lunarYearName}}年</span><span>{{moreInfo.week}}</span></div>
+                    <div class="solar-info"><span>{{moreInfo.lunarYearName}}年</span><span class="month">{{moreInfo.week}}</span></div>
                 </div>
                 <div class="arrow arrow-right" :class="{'arrow-right-active':arrowActive[1]}" @touchstart="$set(arrowActive,1,true)" @touchend="$set(arrowActive,1,false)" @click="selectLater"></div>
             </div>
@@ -159,8 +158,7 @@
             </div>
             <div class="jishi">
                 <v-title-nav>
-                    <h2 slot="title">当日吉时</h2>
-                    <div slot="more"></div>
+                    <h2>当日吉时</h2>
                 </v-title-nav>
                 <div class="content">
                     <div v-for="(item,index) in moreInfo.jishi" :key="index" class="item" :style="{'text-align':index%3===0 ?'left':index%3===1?'center':'right'}">
@@ -169,7 +167,6 @@
                 </div>
             </div>
         </div>
-        <button class="save-btn">立刻分享</button>
     </div>
 </template>
 <script>
@@ -330,7 +327,7 @@ export default {
     .flex-start();
     h2 {
         font-size: 40/75rem;
-        color: @baseColor;
+        color: @baseBoldColor;
     }
     i {
         width: 24/75rem;
@@ -344,241 +341,248 @@ export default {
     height: 44/75rem;
     background: url('../assets/image/calendar-detail/today.png') no-repeat center center / 100% 100%;
 }
-.content-wrap {
-    position: absolute;
-    top: 169/75rem;
-    bottom: 110/75rem;
-    left: 0;
-    width: 100%;
-    overflow: auto;
-    .border-box();
-    .date-info {
-        height: 152/75rem;
+.calendar-detail-wrap {
+    .content-wrap {
+        padding: 90/75rem 0 50/75rem 0;
         .border-box();
-        .flex-between();
-        padding: 32/75rem;
-        border-bottom: 1px solid #eee;
-        .arrow {
-            width: 57/75rem;
-            height: 88/75rem;
-        }
-        .arrow-left {
-            background: url("../assets/image/calendar-detail/arrow-left.png") no-repeat center center / 100% 100%;
-        }
-        .arrow-left-active {
-            background: url("../assets/image/calendar-detail/arrow-left-active.png") no-repeat center center / 100% 100%;
-        }
-        .arrow-right {
-            background: url("../assets/image/calendar-detail/arrow-right.png") no-repeat center center / 100% 100%;
-        }
-        .arrow-right-active {
-            background: url("../assets/image/calendar-detail/arrow-right-active.png") no-repeat center center / 100% 100%;
-        }
-        .date {
-            color : @baseColor;
-            .lunar-info {
-                font-size: 32/75rem;
-                font-weight: bold;
-                margin-bottom: 5/75rem;
-            }
-            .solar-info {
-                font-size: 26/75rem;
-                .flex-between();
-                & > span {
-                    display: inline-block;
-                }
-            }
-        }
-    }
-    .info-content {
-        padding : 24/75rem 41/75rem;
+        width: 100%;
         .border-box();
-        border-bottom: 1px solid #eee;
-        .xingzuo-shengxiao {
-            .flex-around();
-            .key-value {
-                font-size: 32/75rem;
-                font-weight: bold;
-                color: @baseColor;
-                & > span {
-                    display: inline-block;
-                    color:rgba(0,0,0,0.5);
-                    margin-left: 32/75rem;
-                }
-            }
-        }
-        .lunar-info-title {
+        .date-info {
+            height: 152/75rem;
+            .border-box();
             .flex-between();
-            margin-top: 24/75rem;
-            & > div{
-                width:220/75rem;
-                height:50/75rem;
-                box-shadow:0px 3px 6px rgba(0,0,0,0.16);
-                text-align: center;
-                & > span {
-                    line-height: 50/75rem;
-                    font-size: 26/75rem;
-                    color : @baseColor;
+            padding: 32/75rem;
+            border-bottom: 1px solid #eee;
+            .arrow {
+                width: 57/75rem;
+                height: 88/75rem;
+            }
+            .arrow-left {
+                background: url("../assets/image/calendar-detail/arrow-left.png") no-repeat center center / 100% 100%;
+            }
+            .arrow-left-active {
+                background: url("../assets/image/calendar-detail/arrow-left-active.png") no-repeat center center / 100% 100%;
+            }
+            .arrow-right {
+                background: url("../assets/image/calendar-detail/arrow-right.png") no-repeat center center / 100% 100%;
+            }
+            .arrow-right-active {
+                background: url("../assets/image/calendar-detail/arrow-right-active.png") no-repeat center center / 100% 100%;
+            }
+            .date {
+                .lunar-info {
+                    font-size: 32/75rem;
+                    color : @baseBoldColor;
                     font-weight: bold;
-                    opacity:0.8;
+                    margin-bottom: 5/75rem;
+                }
+                .solar-info {
+                    font-size: 26/75rem;
+                    color: #171717;
+                    .flex-between();
+                    & > span {
+                        display: inline-block;
+                    }
+                    .month {
+                        font-size: 24/75rem;
+                    }
                 }
             }
-            div:nth-child(1) {
-                border-radius:20/75rem 0 0 20/75rem;
-            }
-            div:nth-child(2) {
-                border-radius:0;
-            }
-            div:nth-child(3) {
-                border-radius:0 20/75rem 20/75rem 0;
-            }
         }
-        .lunar-info-content {
-            .flex-start-only();
-            margin-top : 10/75rem;
-            & > div{
-                width:220/75rem;
-                text-align: center;
-                & > div {
+        .info-content {
+            padding : 24/75rem 41/75rem;
+            .border-box();
+            border-bottom: 1px solid #eee;
+            .xingzuo-shengxiao {
+                .flex-around();
+                .key-value {
+                    font-size: 32/75rem;
+                    font-weight: bold;
+                    color: @baseBoldColor;
+                    & > span {
+                        display: inline-block;
+                        color:rgba(0,0,0,0.5);
+                        margin-left: 32/75rem;
+                    }
+                }
+            }
+            .lunar-info-title {
+                .flex-between();
+                margin-top: 24/75rem;
+                & > div{
+                    width:220/75rem;
                     height:50/75rem;
+                    box-shadow:0px 3px 6px rgba(0,0,0,0.16);
+                    text-align: center;
                     & > span {
                         line-height: 50/75rem;
-                        font-size: 24/75rem;
-                    }
-                }
-            }
-        }
-    }
-    .lunar-yi-ji {
-        .border-box();
-        padding : 20/75rem 7/75rem 20/75rem 32/75rem;
-        border-bottom: 1px solid #eee;
-        .lunar-yiji-common {
-            .flex-start-only();
-            .left {
-                width: 64/75rem;
-                height: 64/75rem;
-                .round(50%);
-                color: #fff;
-                line-height: 64/75rem;
-                text-align: center;
-                font-size: 32/75rem;
-                margin-right: 32/75rem;
-            }
-            .right {
-                width: 90%;
-                line-height: 58/75rem;
-                font-size: 24/75rem;
-                word-spacing : 30/75rem;
-            }
-        }
-        .lunar-yi {
-            .left {
-                background-color: #FDC52E;
-            }
-        }
-        .lunar-ji {
-            margin-top: 30/75rem;
-            .left {
-                background-color: @baseColor;
-            }
-        }
-    }
-    .lunar-info-2 {
-        width:100%;
-        padding: 30/75rem 0;
-        border-bottom: 1px solid #eee;
-        .lunar-info-2-wrap {
-            width: 90%;
-            margin:0 auto;
-            .lunar-info-wrap:nth-child(1) {
-                margin-top: 0;
-            }
-            .lunar-info-wrap {
-                margin:24/75rem auto 0 auto;
-                .flex-around-only();
-                .info-content-wrap {
-                    width: 33.33%;
-                    div:nth-child(1) {
                         font-size: 26/75rem;
-                        color : @baseColor;
-                        text-align: center;
+                        color : @baseBoldColor;
+                        font-weight: bold;
+                        opacity:0.8;
                     }
-                    div:nth-child(2) {
-                        height: 63/75rem;
-                        font-size: 24/75rem;
-                        margin-top: 30/75rem;
-                        text-align: center;
-                        overflow: hidden;
-                    }
-                    & > div > i {
-                        width: 10/75rem;
-                        height: 20/75rem;
-                        background: url("../assets/image/calendar-detail/enter.png") no-repeat center center / 100% 100%;
-                        display: inline-block;
-                        margin-left: 16/75rem;
-                    }
+                }
+                div:nth-child(1) {
+                    border-radius:20/75rem 0 0 20/75rem;
+                }
+                div:nth-child(2) {
+                    border-radius:0;
+                }
+                div:nth-child(3) {
+                    border-radius:0 20/75rem 20/75rem 0;
                 }
             }
-            .jinrichonghe {
-                height:183/75rem;
-                background:rgba(235,241,255,1);
-                box-shadow:0px 3px 6px rgba(0,0,0,0.16);
-                border-radius:30/75rem;
-                .border-box();
-                margin-top : 32/75rem;
-                padding: 32/75rem 20/75rem 20/75rem 32/75rem;
-                .header {
-                    color: @baseColor;
-                    font-size: 26/75rem;
-                    margin-bottom: 16/75rem;
-                }
-                .content { 
-                    font-size: 24/75rem;
-                }
-            }
-            .xishen {
-                margin-top: 19/75rem;
-                .xishen-line {
-                    .flex-between();
-                    margin-top:33/75rem;
-                    .xishen-wrap {
-                        width: 25%;
-                        .flex-between();
-                        .title { 
-                            font-size: 26/75rem;
-                            color: @baseColor;
-                        }
-                        .content {
+            .lunar-info-content {
+                .flex-start-only();
+                margin-top : 10/75rem;
+                & > div{
+                    width:220/75rem;
+                    text-align: center;
+                    & > div {
+                        height:50/75rem;
+                        & > span {
+                            line-height: 50/75rem;
                             font-size: 24/75rem;
                         }
                     }
                 }
             }
         }
-    }
-    .jishi {
-        width: 90%;
-        margin: 0 auto;
-        h2 {
-            font-size: 28/75rem;
-            font-weight: normal;
-            color: @baseColor;
-        }
-        .content {
-            .flex-start();
-            flex-wrap:wrap;
-            font-size: 24/75rem;
-            .item:nth-child(1) {
-                color: @baseColor;
+        .lunar-yi-ji {
+            .border-box();
+            padding : 20/75rem 7/75rem 20/75rem 32/75rem;
+            border-bottom: 1px solid #eee;
+            .lunar-yiji-common {
+                .flex-start-only();
+                .left {
+                    width: 64/75rem;
+                    height: 64/75rem;
+                    .round(50%);
+                    color: #fff;
+                    line-height: 64/75rem;
+                    text-align: center;
+                    font-size: 32/75rem;
+                    margin-right: 32/75rem;
+                }
+                .right {
+                    width: 90%;
+                    line-height: 58/75rem;
+                    font-size: 24/75rem;
+                    word-spacing : 30/75rem;
+                }
             }
-            .item {
-                width: 33.33%;
-                line-height: 50/75rem;
+            .lunar-yi {
+                .left {
+                    background-color: #FDC52E;
+                }
+            }
+            .lunar-ji {
+                margin-top: 30/75rem;
+                .left {
+                    background-color: #D52E2D;
+                }
+            }
+        }
+        .lunar-info-2 {
+            width:100%;
+            padding: 30/75rem 0;
+            border-bottom: 1px solid #eee;
+            .lunar-info-2-wrap {
+                width: 90%;
+                margin:0 auto;
+                .lunar-info-wrap:nth-child(1) {
+                    margin-top: 0;
+                }
+                .lunar-info-wrap {
+                    margin:24/75rem auto 0 auto;
+                    .flex-around-only();
+                    .info-content-wrap {
+                        width: 33.33%;
+                        div:nth-child(1) {
+                            font-size: 26/75rem;
+                            color : @baseBoldColor;
+                            text-align: center;
+                        }
+                        div:nth-child(2) {
+                            height: 63/75rem;
+                            font-size: 24/75rem;
+                            margin-top: 30/75rem;
+                            text-align: center;
+                            overflow: hidden;
+                        }
+                        & > div > i {
+                            width: 10/75rem;
+                            height: 20/75rem;
+                            background: url("../assets/image/calendar-detail/enter.png") no-repeat center center / 100% 100%;
+                            display: inline-block;
+                            margin-left: 16/75rem;
+                        }
+                    }
+                }
+                .jinrichonghe {
+                    height:183/75rem;
+                    background:rgba(255,252,248,1);
+                    box-shadow:0px 3px 6px rgba(0,0,0,0.16);
+                    .round(10/75rem);
+                    .border-box();
+                    margin-top : 32/75rem;
+                    padding: 32/75rem 20/75rem 20/75rem 32/75rem;
+                    .header {
+                        color: @baseBoldColor;
+                        font-size: 26/75rem;
+                        margin-bottom: 16/75rem;
+                    }
+                    .content { 
+                        font-size: 24/75rem;
+                    }
+                }
+                .xishen {
+                    margin-top: 19/75rem;
+                    .xishen-line {
+                        .flex-between();
+                        margin-top:33/75rem;
+                        .xishen-wrap {
+                            width: 25%;
+                            .flex-between();
+                            .title { 
+                                font-size: 26/75rem;
+                                color: @baseBoldColor;
+                            }
+                            .content {
+                                font-size: 24/75rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .jishi {
+            width: 90%;
+            margin: 0 auto;
+            /deep/ .title-nav {
+                padding-left: 0;
+            }
+            h2 {
+                font-size: 28/75rem;
+                font-weight: normal;
+                color: @baseBoldColor;
+            }
+            .content {
+                .flex-start();
+                flex-wrap:wrap;
+                font-size: 24/75rem;
+                .item:nth-child(1) {
+                    color: @baseBoldColor;
+                }
+                .item {
+                    width: 33.33%;
+                    line-height: 50/75rem;
+                }
             }
         }
     }
 }
+
 </style>
 
 

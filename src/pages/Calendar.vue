@@ -1,20 +1,24 @@
 <template>
-    <div class="wrap">
-        <div class="header-bg"><div></div><nav></nav></div>
-        <div class="header">
-            <div class="header-left">
-                <div>黄历</div>
-                <i class="today" @click="clickItem = todayItem"></i>
+    <div class="calendar-wrap">
+        <div class="calendar-header-wrap">
+            <div class="left">
+                <div class="title">黄历</div>
+                <div class="today" @click="clickItem = todayItem"></div>
             </div>
-            <div class="header-center">
-                <div class="solar-date">{{todayItem.year}}.{{todayItem.month}}.{{todayItem.day}}</div>
-                <div class="lunar-date">{{todayItem.lunarMonthName}}{{todayItem.lunarDayName}}    {{todayMoreInfo ? todayMoreInfo.week : ""}}</div>
+            <div class="center">
+                <div class="content">
+                    <div class="solar-date">{{todayItem.year}}.{{todayItem.month}}.{{todayItem.day}}</div>
+                    <div class="lunar-date">{{todayItem.lunarMonthName}}{{todayItem.lunarDayName}}    {{todayMoreInfo ? todayMoreInfo.week : ""}}</div>
+                </div>
             </div>
-            <div class="header-right" @click="$jump('/main/calendar/weather')">
-                <i class="weather"></i>
-                <div class="right">
-                    <div class="city">福田</div>
-                    <div class="temperature">21~26℃</div>
+            <div class="right" @click="$jump('/main/calendar/weather')">
+                <div class="content">
+                    <div class="upper">
+                        <i class="weather"></i><div class="city">福田</div>
+                    </div>
+                    <div class="under">
+                        21~26℃
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,7 +69,10 @@
             </div>
             <div class="info" :class="{'info-without-more' : moreInfo === null}">
                 <div class="info-header">
-                    {{clickItem.lunarMonthName}}{{clickItem.lunarDayName}}  {{moreInfo ? moreInfo.week : ""}}
+                    <div class="info-title">{{clickItem.lunarMonthName}}{{clickItem.lunarDayName}}  {{moreInfo ? moreInfo.week : ""}}</div>
+                    <div class="more" @click="moreDetail">
+                        更多详情<i></i>
+                    </div>
                 </div>
                 <div class="info-gz">
                     <span>干支</span>  {{clickItem.GanZhiYear}} {{clickItem.GanZhiMonth}} {{clickItem.GanZhiDay}}
@@ -75,13 +82,8 @@
                     <div class="yiji">{{moreInfo.yiji.yi}}</div>
                 </div>
                 <div class="info-ji" v-if="moreInfo != null">
-                    <div class="left">
-                        <div class="title">忌</div>
-                        <div class="yiji">{{moreInfo.yiji.ji}}</div>
-                    </div>
-                    <div class="more" @click="moreDetail">
-                        <div>更多详情</div><i></i>
-                    </div>
+                    <div class="title">忌</div>
+                    <div class="yiji">{{moreInfo.yiji.ji}}</div>
                 </div>
                 <div class="info-more"></div>
             </div>
@@ -493,7 +495,7 @@ export default {
 </script>
 <style lang="less" scoped>
 @lunarFestivalColor: #FDC52E;
-@solarFestivalColor: @baseColor;
+@solarFestivalColor: @baseBoldColor;
 
 .btn(@width:110) {
     width: @width/75rem;
@@ -501,7 +503,7 @@ export default {
     border: 0;
     box-shadow:0px 3px 6px rgba(0,0,0,0.16);
     background-color: #fff;
-    .round(14/75rem);
+    .round(10/75rem);
     font-size: 26/75rem;
 }
 .select{
@@ -539,7 +541,7 @@ export default {
         border-bottom: 1px solid #eee;
     }
     .selected {
-        background-color: @baseColor;
+        background-color: @baseBoldColor;
         color: #fff;
     }
 }
@@ -549,9 +551,9 @@ export default {
 }
 i{
     display: block;
-    width: 44/75rem;
-    height: 44/75rem;
-    background: url("../assets/image/common/right@2x.png") no-repeat center center / 100% 100%;
+    width: 13/75rem;
+    height: 25/75rem;
+    background: url("../assets/image/common/more.png") no-repeat center center / 100% 100%;
 }
 
 .header-bg {
@@ -561,7 +563,7 @@ i{
     z-index: 1;
     & > div {
         height:80/75rem;
-        background: @baseColor;
+        background: @baseBoldColor;
     }
     & > nav {
         width: 100%;
@@ -569,83 +571,80 @@ i{
         background: url('../assets/image/common/nav.png') no-repeat center center / 100% 100%;
     }
 }
-.wrap {
+.calendar-wrap {
     overflow: hidden;
-    .header {
+    .calendar-header-wrap {
         position: fixed;
-        width: 100%;
-        height: 160/75rem;
-        padding-top : 25/75rem;
-        top : 0;
         z-index: 999;
-        color: #fff;
-        .border-box();
-        .flex-start-only();
-        .header-left {
-            width: 30%;
-            .border-box();
-            padding-left: 43/75rem;
-            margin-top : 5/75rem;
-            .flex-start-only();
-            & > div {
-                height: 44/75rem;
-                font-size: 40/75rem;
-                font-weight: bold;
+        .flex-between();
+        width: 100%;
+        height: 125/75rem;
+        color: #2E2E2E;
+        background-color: #fff;
+        box-shadow:0px 2px 6px rgba(148,148,148,0.14);
+        .left {
+            width: 25%;
+            height: 100%;
+            font-size: 40/75rem;
+            .flex-start();
+            .title {
+                margin-left: 31/75rem;
             }
             .today {
-                margin-top: 8/75rem;
-                margin-left: 22/75rem;
-                width: 44/75rem;
-                height: 44/75rem;
+                width: 58/75rem;
+                height: 58/75rem;
+                margin-left: 8/75rem;
                 background: url('../assets/image/calendar/today.png') no-repeat center center / 100% 100%;
+                .round(50%);
             }
         }
-        .header-center {
-            width:40%;
-            & > div {
-                width: 100%;
-                text-align: center;
-            }
-            .solar-date {
-                font-size: 40/75rem;
-                font-weight: bold;   
-            }
-            .lunar-date {
-                font-size: 26/75rem;
-            }
-        }
-        .header-right {
-            .flex-end-only();
-            width:30%;
-            padding-right: 18/75rem;
-            margin-top : 5/75rem;
-            .border-box();
-            .weather {
-                width: 48/75rem;
-                height: 44/75rem;
-                background: url('../assets/image/calendar/weather.png') no-repeat center center / 100% 100%;
-                margin-right: 24/75rem;
-                margin-top: 8/75rem;
-            }
-            .right {
-                .city {
-                    font-size: 26/75rem;
+        .center {
+            width: 50%;
+            height: 100%;
+            .flex-center-only();
+            .content {
+                .solar-date {
+                    font-size: 40/75rem;
                     text-align: center;
                 }
-                .temperature {
-                    font-size: 24/75rem;
+                .lunar-date {
+                    font-size: 22/75rem;
+                    text-align: center;
+                }
+            }
+            
+        }
+        .right {
+            .flex-end();
+            width: 25%;
+            height: 100%;
+            .content {
+                height: 70/75rem;
+                margin-right: 30/75rem;
+                color : @baseBoldColor;
+                & > div  {
+                    height: 35/75rem;
+                }
+                .upper {
+                    .flex-end();
+                    font-size: 26/75rem;
+                    .weather {
+                        width: 38/75rem;
+                        height: 35/75rem;
+                        background: url('../assets/image/calendar/weather.png') no-repeat center center / 100% 100%;
+                    }
+                }
+                .under {
+                    text-align: right;
+                    font-size: 27/75rem;
                 }
             }
         }
-        
     }
     .content-wrap {
-        position: absolute;
-        top: 169/75rem;
-        bottom: 110/75rem;
-        left: 0;
+        padding-top: 140/75rem;
+        .border-box();
         width: 100%;
-        overflow: auto;
         .border-box();
         h2 {
             font-size: 28/75rem;
@@ -654,7 +653,7 @@ i{
         .btn-list {
             .flex-around();
             .btn-seleced {
-                background-color: @baseColor !important;
+                background-color: @baseBoldColor !important;
                 color: #fff;
             }
             & > .btn {
@@ -713,7 +712,7 @@ i{
                         color:rgba(0,0,0,0.8);
                     }
                     .solar-today {
-                        background:@baseColor;
+                        background:@baseBoldColor;
                         box-shadow:0px 3px 6px rgba(0,0,0,0.16);
                         border-radius:50%;
                         color: #fff;
@@ -742,7 +741,7 @@ i{
                         // }
                     } 
                     .lunar-today {
-                        color : @baseColor;
+                        color : @baseBoldColor;
                         font-weight: bold;
                     }
                     .solar-festival {
@@ -781,8 +780,8 @@ i{
             margin : 25/75rem auto 0 auto;
             background:rgba(255,255,255,1);
             box-shadow:0px 3px 6px rgba(0,0,0,0.16);
-            border-radius:29/75rem;
-            padding : 0 24/75rem 24/75rem 24/75rem;
+            .round(10/75rem);
+            padding : 0 0 24/75rem 24/75rem;
             overflow: hidden;
             .border-box();
             & > div {
@@ -790,9 +789,31 @@ i{
                 font-size: 24/75rem;
             }
             .info-header {
-                color: @baseColor;
-                font-size: 28/75rem;
-                font-weight: bold;
+                .flex-between();
+                .info-title {
+                    color: @baseBoldColor;
+                    font-size: 28/75rem;
+                    font-weight: bold;
+                }
+                .more {
+                    width: 176/75rem;
+                    height: 54/75rem;
+                    padding-left: 15/75rem;
+                    .border-box();
+                    line-height: 54/75rem;
+                    font-size: 26/75rem;
+                    color: #fff;
+                    text-align: center;
+                    background-color: @baseBoldColor;
+                    .round(10/75rem 0 0 10/75rem);
+                    & > i {
+                        width: 11/75rem;
+                        height: 20/75rem;
+                        background: url('../assets/image/calendar/arrow-right.png') no-repeat center center / 100% 100%;
+                        display: inline-block;
+                        margin-left: 15/75rem;
+                    }
+                }
             }
             .info-gz {
                 & > span {
@@ -812,29 +833,19 @@ i{
                     color : @lunarFestivalColor;
                 }
                 .yiji {
-                    width: 400/75rem;
+                    width: 610/75rem;
                 }
             }
             .info-ji {
-                .flex-between();
-                .left {
-                    .info-yi();
-                    .title { 
-                        color : @baseColor;
-                    }
-                }
-                .more {
-                    .flex-end();
-                    & > div {
-                        margin-right : 16/75rem;
-                        font-size: 28/75rem;
-                        font-weight: bold;
-                        color: rgba(0, 0, 0, 0.5);
-                    }
+                .info-yi();
+                .title { 
+                    color : #D52E2D;
                 }
             }
         }
         .article {
+            width: 95%;
+            margin : 0 auto;
             /deep/ .nav {
                 margin-right: 16/75rem;
                 margin-bottom: 0;
@@ -843,7 +854,7 @@ i{
                 }
             }
             .swiper {
-                padding: 0 20/75rem 0 32/75rem;;
+                padding: 0 10/75rem 0 10/75rem;
             }
         }
     }
