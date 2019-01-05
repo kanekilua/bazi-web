@@ -1,6 +1,5 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
         <v-title-header>
             我的收藏
         </v-title-header>
@@ -82,12 +81,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .content-wrap{
-    position: absolute;
-    top: 169/75rem;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: auto;
+    padding-top: 90/75rem;
+    .border-box();
     .collection-list{
         width: 686/75rem;
         margin: 40/75rem auto;

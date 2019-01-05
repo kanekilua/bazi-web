@@ -69,14 +69,16 @@
                     >
                         <img :src="item.imgUrl">
                         <div class="msg">
-                            <div class="name">{{item.name}}</div>
+                            <div class="name">
+                                <div>{{item.name}}</div>
+                                <i class="more"></i>
+                            </div>
                             <div class="short-tag">
                                 <div class="tag-item" v-for="(tagItem,tagIndex) in item.tag" :key="tagIndex">{{tagItem}}</div>
                             </div>
                             <div class="introduction">
                                 <p>{{item.introduction}}</p>
                             </div>
-                            <i class="more"></i>
                         </div>
                     </div>
                 </div>
@@ -374,6 +376,7 @@ export default {
                         .round(10/75rem);
                     }
                     & > div {
+                        flex: 1;
                         margin-left: 16/75rem;
                         & > h2 {
                             margin: 0 0 20/75rem 20/75rem;
@@ -401,20 +404,28 @@ export default {
                     .round(10/75rem);
                     margin-bottom: 20/75rem;
                     img{
-                        width: 185/75rem;
-                        height: 222/75rem;
+                        width: 190/75rem;
+                        height: 190/75rem;
                         .boxshadow(0,3/75rem,15/75rem,rgba(0,0,0,0.14));
                         .round(10/75rem);
                         margin: 0 30/75rem;
                     }
                     .msg{
+                        flex: 1;
                         overflow: hidden;
                         position: relative;
-                        padding-bottom: 50/75rem;
+                        padding: 50/75rem 0;
                         .name{
                             font-size: 30/75rem;
                             font-weight: bold;
-                            margin-top: 40/75rem;
+                            .flex-between();
+                            .more{
+                                display: inline-block;
+                                width: 40/75rem;
+                                height: 10/75rem;
+                                margin-right: 20/75rem;
+                                background: url('../assets/image/common/more-point.png') no-repeat center center / 100% 100%;
+                            }
                         }
                         .short-tag{
                             margin: 10/75rem 0;
@@ -434,15 +445,6 @@ export default {
                                 width: 94%;
                                 font-size: 1em;
                             }
-                        }
-                        .more{
-                            position: absolute;
-                            right: 20/75rem;
-                            bottom: 20/75rem;
-                            display: inline-block;
-                            width: 40/75rem;
-                            height: 10/75rem;
-                            background: url('../assets/image/common/more-point.png') no-repeat center center / 100% 100%;
                         }
                     }
                 }

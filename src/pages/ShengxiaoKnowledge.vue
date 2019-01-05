@@ -23,7 +23,7 @@
                             <p>{{item.content}}</p>
                         </div>
                     </div>
-                    <load-more :tip="tip" :show-loading="showLoading" :class="showIco? 'show': 'hide'"></load-more>
+                    <load-more :tip="tip" :show-loading="showLoading" :class="showIco ? 'show': 'hide'"></load-more>
                 </div>
             </div>
         </div>
@@ -41,8 +41,9 @@ export default {
             backLink: '/shengxiao',
             knowledges: "",
             tip: "正在加载...",
-            showIco: false,
-            showLoading: true,
+            showIco: false, //加载动画
+            showLoading: true,  //加载ico
+            loading: true, //加载状态
             limit: 0,//下拉加载，++请求下10条数据
         }
     },
@@ -50,7 +51,7 @@ export default {
         this.getData();
     },
     mounted () {
-        // this.pullDown();
+        this.pullDown();
     },
     methods: {
         showArticle : function (article) {
@@ -69,16 +70,31 @@ export default {
             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success,this.failure);
         },
         success: function(res) {
-            // console.log(res);
             this.knowledges = res.data;
             for( let i of this.knowledges){
                 i.img = 'https://mingli.szmonster.com' + i.img;
             }
         },
+        pullDown: function () {
+            window.addEventListener('scroll',function () {
+           		let scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+           		let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+           		let scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+               //滚动条到底部的条件
+               if(scrollTop+windowHeight===scrollHeight){
+                // 请求数据
+                console.log("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
+
+                }   
+            },false)
+        }
     }
 }
 </script>
 <style lang="less" scoped>
+.hide{
+    display: none;
+}
 .knowledge-wrap{
     .content-wrap{
         padding-top: 90/75rem;
@@ -99,15 +115,17 @@ export default {
                     padding-top: 0;
                 }
                 .knowledge-cell {
+                    width: 100%;
                     padding: 23/75rem 0;
                     border-bottom: 1px solid #eee;
-                    .flex-start-only();
+                    .flex-between-only();
                     & > img {
                         width: 300/75rem;
                         height: 170/75rem;
                         .round(10/75rem);
                     }
                     & > div {
+                        flex: 1;
                         margin-left: 16/75rem;
                         & > h2 {
                             margin: 0 0 20/75rem 20/75rem;

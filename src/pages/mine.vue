@@ -1,22 +1,24 @@
 <template>
-    <div class="wrap">
-        <v-header></v-header>
-        <div class="user-bg">
-            <transition name="trans">
-                <div class="transition-bg" v-if="showTrans">
+    <div class="mine-wrap">
+        <div class="mine-header">
+                <i class="message"></i>
+                <h2>我的</h2>
+                <i class="setting"
+                    @click="$jump('/main/mine/setting')"
+                >
+                </i>
+            </div>
+        <div class="content-wrap">
+            <div class="user-bg">
+                <div class="transition-bg">
                     <div class="user-box">
-                        <img  class= "avatar" src="../assets/image/mine/avatar.png">
+                        <div class="avatar-box">
+                            <img  class= "avatar" src="../assets/image/mine/avatar.png">
+                            <img class="gender-ico" src="../assets/image/mine/male.png" v-if="gender===1">
+                            <img class="gender-ico" src="../assets/image/mine/female.png" v-if="gender===0">
+                        </div>
                         <div class="nick-name">ANKGLG</div>
                     </div>
-                </div>
-            </transition>
-        </div>
-        <div class="content">
-            <div class="mine-header">
-                <div>我的</div>
-                <div class="ico-list">
-                    <i class="setting" @click="$jump('/main/mine/setting')"></i>
-                    <i class="message" @click="$jump('/main/mine/UserMessage')"></i>
                 </div>
             </div>
             <div class="table">
@@ -61,6 +63,7 @@ export default {
     data () {
         return {
             showTrans: false,
+            gender: 1,
         }
     },
     mounted() {
@@ -74,85 +77,88 @@ button{
     height: 100px;
     margin-top: 300px;
 }
-.wrap{
+.mine-wrap{
     width:100%;
+    height: 100%;
     overflow-x: hidden;
-    .user-bg{
-        width: 100%;
-        position: absolute;
+    background: #f1f1f1;
+    .mine-header{
+        position: fixed;
         top: 0;
-        left: 0;
-        z-index: -1;
-        .transition-bg{
-            width: 110%;
-            height: 383/75rem;
-            .translate(-220/75rem,0);
-            background: url('../assets/image/mine/transition-bg.png') no-repeat center center / 100% 100%;
-            .flex-end();
-           .user-box{
-                margin-top: 20/75rem;
-                margin-right: 122/75rem;
-                .avatar{
-                    width: 150/75rem;
-                    height: 150/75rem;
-                    border-radius: 50%;
-                }
-                .nick-name{
-                    margin-top: 20/75rem;
-                    font-size: 26/75rem;
-                    font-weight: bold;
-                    text-align: center;
-                }
-           }
+        z-index: 10;
+        .flex-between();
+        padding: 0 20/75rem;
+        .border-box();
+        width: 100%;
+        height: 90/75rem;
+        font-size: 30/75rem;
+        color: @baseBoldColor;
+        background: #fff;
+        .message{
+            display: block;
+            width: 43/75rem;
+            height: 41/75rem;
+            background: url('../assets/image/mine/message.png') no-repeat center center / 100% 100%;
         }
-        .trans-enter{
-            .translate(-800/75rem,0);
-        }
-        .trans-enter-to{
-            .translate(-220/75rem,0);
-        }
-        .trans-enter-active{
-            transition: all 1s;
+        .setting{
+            display: block;
+            width: 43/75rem;
+            height: 43/75rem;
+            background: url('../assets/image/mine/setting.png') no-repeat center center / 100% 100%;
         }
     }
-    .content{
-        .translate(0,-40/75rem);
-        .mine-header{
+   
+    .content-wrap{
+        padding-top: 90/75rem;
+        .border-box();
+        .user-bg{
             width: 100%;
-            padding: 0 40/75rem;
-            .border-box();
-            .flex-between();
-            font-size: 40/75rem;
-            color: @baseColor;
-            font-weight: 600;
-            .setting{
-                display: inline-block;
-                width: 45/75rem;
-                height: 44/75rem;
-                background: url('../assets/image/mine/setting.png') no-repeat center center / 100% 100%;
-            }
-            .message{
-                display: inline-block;
-                margin-left: 20/75rem;
-                width: 43/75rem;
-                height: 38/75rem;
-                background: url('../assets/image/mine/message.png') no-repeat center center / 100% 100%;
+            .transition-bg{
+                width: 100%;
+                height: 254/75rem;
+                background: url("../assets/image/mine/transition-bg.png") no-repeat center center / 100% 100%;
+                .round(0 0 10/75rem 10/75rem);
+                .flex-center();
+                .user-box{
+                        .avatar-box{
+                            position: relative;
+                            .avatar{
+                                width: 125/75rem;
+                                height: 125/75rem;
+                                border-radius: 50%;
+                            }
+                            .gender-ico{
+                                position: absolute;
+                                bottom: 10/75rem;
+                                right: 20/75rem;
+                                width: 20/75rem;
+                                height: 20/75rem;
+                            }
+                        }
+                        .nick-name{
+                            font-size: 30/75rem;
+                            font-weight: bold;
+                            text-align: center;
+                        }
+                }
             }
         }
         .table{
-            & :active{
-                background: #FFF6F6;
-            }
             width: 96%;
-            margin: 360/75rem auto 64/75rem auto;
             .flex-around();
+            margin: 30/75rem auto 20/75rem auto;
+            & :active{
+                background: #eee;
+            }
             .table-cell{
+                background: #fff;
                 .flex-col;
                 width: 25%;
-                padding-bottom: 28/75rem;
+                height: 150/75rem;
+                padding-bottom: 10/75rem;
                 font-size: 26/75rem;
                 & > i {
-                    margin: 32/75rem 0;
+                    margin: 16/75rem 0;
                 }
             }
             .recommend{
@@ -160,8 +166,8 @@ button{
                 .boxshadow(0,3/75rem,6/75rem,rgba(5, 0, 0, 0.16));
                 & > i{
                     display: inline-block;
-                    width: 45/75rem;
-                    height: 44/75rem;
+                    width: 60/75rem;
+                    height: 63/75rem;
                     background: url('../assets/image/mine/recommend.png') no-repeat center center / 100% 100%;
                 }
             }
@@ -170,7 +176,7 @@ button{
                 & > i{
                     display: inline-block;
                     width: 58/75rem;
-                    height: 44/75rem;
+                    height: 67/75rem;
                     background: url('../assets/image/mine/recruitment.png') no-repeat center center / 100% 100%;
                 }
             }
@@ -178,8 +184,8 @@ button{
                 .boxshadow(0,0,8/75rem,rgba(5, 0, 0, 0.16));
                 & > i{
                     display: inline-block;
-                    width: 44/75rem;
-                    height: 44/75rem;
+                    width: 67/75rem;
+                    height: 65/75rem;
                     background: url('../assets/image/mine/attention.png') no-repeat center center / 100% 100%;
                 }
             }
@@ -188,8 +194,8 @@ button{
                 .boxshadow(0,3/75rem,6/75rem,rgba(5, 0, 0, 0.16));
                 & > i{
                     display: inline-block;
-                    width: 36/75rem;
-                    height: 44/75rem;
+                    width: 80/75rem;
+                    height: 60/75rem;
                     background: url('../assets/image/mine/service.png') no-repeat center center / 100% 100%;
                 }
             }
@@ -201,14 +207,15 @@ button{
             .border-box();
             .boxshadow(0,3/75rem,6/75rem,rgba(5, 0, 0, 0.16));
             width: 96%;
-            margin: 0 auto 32/75rem auto;
+            margin: 0 auto 20/75rem auto;
             font-size: 26/75rem;
+            background: #fff;
             &:active{
                 background: #FFF6F6;
             }
             .right{
-                width: 44/75rem;
-                height: 44/75rem;
+                width: 23/75rem;
+                height: 40/75rem;
                 background: url(../assets/image/common/right@2x.png) no-repeat center center / 100% 100%;
             }
         }
@@ -217,8 +224,8 @@ button{
                 .flex-start();
                 & > i {
                     display: inline-block;
-                    width: 57/75rem;
-                    height: 44/75rem;
+                    width: 50/75rem;
+                    height: 53/75rem;
                     margin-right: 34/75rem;
                     background: url('../assets/image/mine/feedback.png') no-repeat center center / 100% 100%;
                 }
@@ -229,8 +236,8 @@ button{
                 .flex-start();
                 & > i {
                     display: inline-block;
-                    width: 37/75rem;
-                    height: 44/75rem;
+                    width: 58/75rem;
+                    height: 50/75rem;
                     margin-right: 34/75rem;
                     background: url('../assets/image/mine/about.png') no-repeat center center / 100% 100%;
                 }

@@ -1,26 +1,24 @@
 <template>
-    <keep-alive>
-        <div class="artical-wrap">
-            <v-title-header>
-                {{this.$route.params.name}}
-                <div class="right-ico" slot="right-ico"></div>
-            </v-title-header>
-            <div class="content-wrap">
-                <div class="top">
-                    <h2>{{title}}</h2>
-                    <div class="person-msg">
-                        <img :src="this.$route.params.img" alt="">
-                        <div class="person-name">{{this.$route.params.name}}</div>
-                        <button>收藏</button>
-                    </div>
-                </div>
-                <div class="artical" 
-                    v-html="content"
-                >
+    <div class="artical-wrap">
+        <v-title-header>
+            {{this.$route.params.name}}
+            <div class="right-ico" slot="right-ico"></div>
+        </v-title-header>
+        <div class="content-wrap">
+            <div class="top">
+                <h2>{{title}}</h2>
+                <div class="person-msg">
+                    <img :src="this.$route.params.img" alt="">
+                    <div class="person-name">{{this.$route.params.name}}</div>
+                    <button>收藏</button>
                 </div>
             </div>
+            <div class="artical" 
+                v-html="content"
+            >
+            </div>
         </div>
-    </keep-alive>
+    </div>
 </template>
 
 <script>
@@ -84,6 +82,9 @@ export default {
             padding: 30/75rem 30/75rem 10/75rem 30/75rem;
             .border-box();
             border-bottom: 1px solid rgba(241,241,241,1);
+            & > h2{
+                font-size: 36/75rem;
+            }
             .person-msg{
                 .flex-between();
                 padding: 20/75rem 30/75rem 20/75rem 40/75rem;
@@ -104,7 +105,7 @@ export default {
                     background: @baseBoldColor;
                 }
                 .person-name{
-                    font-size: 30/75rem;
+                    font-size: 34/75rem;
                     font-weight: bold;
                 }
             }
@@ -112,6 +113,7 @@ export default {
         .artical{
             padding: 30/75rem 50/75rem;
             .border-box();
+            font-size: 30/75rem;
         }
     }
 }

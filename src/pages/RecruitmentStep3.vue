@@ -1,14 +1,27 @@
 <template>
     <div class="content">
         <div class="step">
-            <div class="step1 active">个人信息</div>
-            <i class="step-ico1"></i>
-            <div class="step2 active">专业相关</div>
-            <i class="step-ico2"></i>
-            <div class="step3 active">平台相关</div>
+            <div class="step-item">
+                <img src="../assets/image/master/step1-active.png">
+                <div class="num active">1</div>
+            </div>
+             <div class="step-item">
+                <img src="../assets/image/master/step2-active.png">
+                <div class="num active">2</div>
+            </div>
+             <div class="step-item">
+                <img src="../assets/image/master/step3-active.png">
+                <div class="num active">3</div>
+            </div>
         </div>
-        <div class="content-item">
-            <div class="title">通过什么渠道了解我们平台(可多选)</div>
+        <div class="line">
+            <div class="part active"></div>
+            <div class="part active"></div>
+            <div class="part active"></div>
+            <div class="part"></div>
+        </div>
+        <div class="form">
+            <div class="title">1.通过什么渠道了解我们平台(可多选)</div>
             <div class="checkbox-list">
                 <label for="advertise">
                     <input type="checkbox" name="way" id="advertise" value="1" v-model="way">
@@ -41,9 +54,7 @@
                     <div>其他</div>
                 </label>
             </div>
-        </div>
-        <div class="content-item">
-            <div class="title">入驻平台期望月收入</div>
+            <div class="title">2.入驻平台期望月收入</div>
             <div class="radio-list">
                 <label for="pay1">
                     <input type="radio" name="pay" id="pay1" value="1" v-model="pay">
@@ -105,34 +116,59 @@ export default {
 .content{
     .step{
         .flex-between();
-        width: 100%;
-        padding: 40/75rem 48/75rem;
+        width: 74%;
+        margin: 0 auto;
+        padding: 40/75rem 48/75rem 0 48/75rem;
         .border-box();
+        img{
+            width: 80/75rem;
+            height: 80/75rem;
+        }
         & > div{
-            width: 142/75rem;
-            height: 60/75rem;
-            line-height: 60/75rem;
-            text-align: center;
-            .round(20/75rem);
-            background: rgba(0,0,0,0.2);
-            color: #fff;
-        }
-        & > i{
-            display: inline-block;
-            width: 45/75rem;
-            height: 23/75rem;
-            background: url('../assets/image/common/step-active.png') no-repeat center center / 100% 100%;
-        }
-        .active{
-            background: @baseColor;
+            & > div{
+                width: 28/75rem;
+                height: 28/75rem;
+                line-height: 28/75rem;
+                .round(50%);
+                text-align: center;
+            }
         }
     }
-    .content-item{
-        padding: 40/75rem;
-        .border-box();
+    .step-item{
+        .flex-col();
+        .num{
+            .translate(0,14/75rem);
+            background: #cccccc;
+            color: #fff;
+        }
+    }
+    .active{
+        background: @baseBoldColor!important;
+    }
+    .line{
+        width: 100%;
+        height: 4/75rem;
+        background: #cccccc;
+        .flex-start();
+        .part{
+            flex: 1;
+            height: 100%;
+        }
+    }
+    .form{
+        width: 590/75rem;
+        padding: 30/75rem;
         font-size: 26/75rem;
-        border-top: 1px solid rgba(0,0,0,0.1);
-        border-bottom: 1px solid rgba(0,0,0,0.1);
+        margin: 60/75rem auto 76/75rem auto;
+        .border-box();
+        .boxshadow(0,0,10/75rem,rgba(0,0,0,0.16));
+        .round(15/75rem);
+        .title{
+            font-size: 30/75rem;
+        }
+        .checkbox-list{
+            margin-bottom: 48/75rem;
+        }
         .checkbox-list,.radio-list{
             .flex-center();
             flex-wrap: wrap;
@@ -140,13 +176,13 @@ export default {
                 width: 40%;
                 margin-right: 5%;
                 .flex-start();
-                margin-top: 32/75rem;
+                margin-top: 20/75rem;
                 & > i{
                     display: block;
-                    width: 44/75rem;
-                    height: 44/75rem;
-                    margin-right: 32/75rem;
-                    line-height: 44/75rem;
+                    width: 20/75rem;
+                    height: 20/75rem;
+                    margin-right: 12/75rem;
+                    line-height: 20/75rem;
                     text-align: center;
                     border: 1px solid rgba(112,112,112,1);
                     .round(50%);
@@ -155,8 +191,8 @@ export default {
                     display: none;
                 }
                 &>input:checked + i{
-                    background: @baseColor;
-                    border-color: @baseColor;
+                    background: @baseBoldColor;
+                    border-color: @baseBoldColor;
                 }
             }       
         }
@@ -164,18 +200,17 @@ export default {
     .content-item:nth-of-type(3){
         border-top: none;
     }
-    .btn-list{
+     .btn-list{
         .flex-between();
-        margin-top: 80/75rem;
         & > button{
-            width: 320/75rem;
-            height: 80/75rem;
+            width: 250/75rem;
+            height: 70/75rem;
             margin: 0 auto;
             .my-button();
-            .round(30/75rem);
+            .round(35/75rem);
         }
         .next-step{
-            background: @baseColor;
+            background: @baseBoldColor;
         }
     }
 }

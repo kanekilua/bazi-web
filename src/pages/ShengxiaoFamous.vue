@@ -115,7 +115,7 @@ export default {
                     }
                 }
                 .exprience{
-                    font-size: 24/75rem;
+                    font-size: 26/75rem;
                 }
             }
         }
