@@ -24,8 +24,10 @@ export default {
     data () {
         return {
             article : {
-                data: {
-                    category: "",
+                data : {
+                    category : "",
+                    title : "",
+                    content : ""
                 }
             }
         }
@@ -40,7 +42,6 @@ export default {
         },
         success: function (res) {
             this.article = res;
-            console.log(res)
             let Img = res.data.img.split(' ');
             let reg = /src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/gi;  //匹配src="http://www.zhouyi.cc或者src="https://www.zhouyi.cc
             let srcArr = res.data.content.match(reg);

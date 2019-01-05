@@ -55,10 +55,11 @@ export default {
     },
     methods: {
         showArticle : function (article) {
+            console.log(article);
             this.$router.push({
                 name: "article",
-                params : {
-                    article : article
+                query : {
+                    id : article.id
                 }
             });
         },
