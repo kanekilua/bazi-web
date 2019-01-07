@@ -1,6 +1,6 @@
 <template>
     <div class="weather-wrap">
-        <v-title-header>
+        <v-title-header :backLink="backLink">
             <div class="position"  @click="$jump('/main/calendar/weather/province')">
                 <i class="position-icon"></i>
                 <div>{{weather.city}}</div>
@@ -56,6 +56,7 @@
 export default {
     data() {
         return {
+            backLink : '/main/calendar',
             weather : {},
             night : false,
             imgList : [

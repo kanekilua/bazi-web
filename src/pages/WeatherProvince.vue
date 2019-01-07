@@ -15,7 +15,7 @@
                     <div class="position">
                         <i></i><div>定位</div>
                     </div>
-                    <div v-for="(item,index) in tuijianList" :key="index" class="item" :style="{marginLeft :(index === 0 || index % 5 === 4) ? '' : 60/75 + 'rem' , marginTop : index > 3 ? 37/75 + 'rem' : ''}">{{item}}</div>
+                    <div v-for="(item,index) in tuijianList" :key="index" class="item" :style="{marginLeft :(index === 0 || index % 5 === 4) ? '' : 60/75 + 'rem' , marginTop : index > 3 ? 37/75 + 'rem' : ''}" @click="comfirmCity(item)">{{item}}</div>
                 </div>
             </div>
             <div class="province">
@@ -30,6 +30,7 @@
     </div> 
 </template>
 <script>
+import {mapMutations} from 'vuex';
 export default {
     created () {
         this.init();
@@ -43,6 +44,7 @@ export default {
         }
     },
     methods: {
+        ...mapMutations ('weather',['updateWeather']),
         init : function () {
             // 除去港澳台
             for(let i = 1; i< global.PROVINCE_LIST.length -3 ; ++i) {
@@ -67,6 +69,27 @@ export default {
                     province : item
                 }
             })
+        },
+        comfirmCity : function (item) {
+            var city_code = null;
+            for(var city in global.WEATHER_CITY) {
+                if(global.WEATHER_CITY[city].city.indexOf(item) !== -1) {
+                    city_code = global.WEATHER_CITY[city].code;
+                    break;
+                }
+            }
+            var params = {
+                'city_code' : city_code
+            }
+            this.$http.post('/features/weath',params,null,null,this.getWeatherSussess,null);
+        },
+        getWeatherSussess : function (res)  {
+            res.data.air = JSON.parse(res.data.air);
+            res.data.lifestyle = JSON.parse(res.data.lifestyle);
+            res.data.weather = JSON.parse(res.data.weather);
+            // this.weather = res.data;
+            this.updateWeather(res.data);
+            this.$jump('/main/calendar/weather');
         }
     },
 }
@@ -135,7 +158,7 @@ export default {
                 height: 48/75rem;
                 line-height: 48/75rem;
                 background: @baseBoldColor;
-                box-shadow: 0px 3px 6px rgba(0,0,0,0.10);
+                box-shadow: 0px 2px 5px rgba(0,0,0,0.10);
                 .round(10/75rem);
                 & > i {
                     width: 22/75rem;
@@ -156,7 +179,7 @@ export default {
                 line-height: 48/75rem;
                 text-align: center;
                 background:#fff;
-                box-shadow:0px 3px 6px rgba(0,0,0,0.10);
+                box-shadow:0px 2px 5px rgba(0,0,0,0.10);
                 .round(10/75rem);
             }
         }
