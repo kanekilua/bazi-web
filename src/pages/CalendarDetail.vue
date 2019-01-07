@@ -332,7 +332,7 @@ export default {
     i {
         width: 24/75rem;
         height: 24/75rem;
-        background: url('../assets/image/calendar-detail/arrow-down.png') no-repeat center center / 100% 100%;
+        background: url('../assets/image/calendar/select.png') no-repeat center center / 100% 100%;
         margin-left: 31/75rem;
     }
 } 

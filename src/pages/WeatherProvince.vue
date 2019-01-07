@@ -1,18 +1,15 @@
 <template>
-    <div class="wrap">
-        <v-header></v-header>
+    <div class="province-wrap">
         <v-title-header>
             <div class="search-wrap">
                 <input class="search" type="text" placeholder="输入城市名">
                 <i class="search-btn"></i>
             </div>
-            <div slot="icon"></div>
         </v-title-header>
         <div class="content-wrap">
             <div class="tuijian">
                 <v-title-nav>
-                    <span slot="title">推荐城市</span>
-                    <div slot="more"></div>
+                    <span>推荐城市</span>
                 </v-title-nav>
                 <div class="content">
                     <div class="position">
@@ -23,8 +20,7 @@
             </div>
             <div class="province">
                 <v-title-nav>
-                    <span slot="title">选择省份</span>
-                    <div slot="more"></div>
+                    <span>选择省份</span>
                 </v-title-nav>
                 <div class="content">
                     <div @click="selectCity(item)" v-for="(item,index) in provinceList" :key="index" class="item" :style="{marginLeft :(index === 0 || index % 5 === 0) ? '' : 60/75 + 'rem' , marginTop : index > 4 ? 37/75 + 'rem' : ''}">{{item.name}}</div>
@@ -76,7 +72,15 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.wrap {
+.province-wrap {
+    /deep/ .title-nav {
+        padding-left: 0;
+        font-size: 32/75rem;
+    }
+    /deep/ .header .title {
+        color :#333 !important;
+        font-weight: normal;
+    }
     .search-wrap {
         width: 571/75rem;
         height: 50/75rem;
@@ -108,54 +112,57 @@ export default {
     /deep/ .title {
         font-size: 26/75rem !important;
     }
-    .tuijian {
-        padding: 15/75rem 40/75rem 40/75rem 32/75rem;
-        border-bottom: 1px solid #eee;
+    .content-wrap {
+        padding-top: 90/75rem;
+        .tuijian {
+            padding: 15/75rem 40/75rem 40/75rem 32/75rem;
+            border-bottom: 1px solid #eee;
+            .content {
+                .item:nth-child(2) {
+                    margin-left: 22/75rem;
+                }
+            }
+        }
         .content {
-            .item:nth-child(2) {
-                margin-left: 22/75rem;
-            }
-        }
-    }
-    .content {
-        margin-top: 10/75rem;
-        margin-left: 2/75rem;
-        font-size: 26/75rem;
-        .flex-start();
-        flex-wrap : wrap;
-        .position {
+            margin-top: 10/75rem;
+            margin-left: 2/75rem;
+            font-size: 26/75rem;
             .flex-start();
-            width: 122/75rem;
-            height: 48/75rem;
-            line-height: 48/75rem;
-            background: @baseColor;
-            box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
-            .round(15/75rem);
-            & > i {
-                width: 22/75rem;
-                height: 100%;
-                margin-left: 16/75rem;
-                background: url('../assets/image/weather-province/position.png') no-repeat center center / 100% auto;
+            flex-wrap : wrap;
+            .position {
+                .flex-start();
+                width: 122/75rem;
+                height: 48/75rem;
+                line-height: 48/75rem;
+                background: @baseBoldColor;
+                box-shadow: 0px 3px 6px rgba(0,0,0,0.10);
+                .round(10/75rem);
+                & > i {
+                    width: 22/75rem;
+                    height: 100%;
+                    margin-left: 16/75rem;
+                    background: url('../assets/image/weather-province/position.png') no-repeat center center / 100% auto;
+                }
+                & > div {
+                    width: 52/75rem;
+                    height: 100%;
+                    color: #fff;
+                    margin-left: 16/75rem;
+                }
             }
-            & > div {
-                width: 52/75rem;
-                height: 100%;
-                color: #fff;
-                margin-left: 16/75rem;
+            .item {
+                width:84/75rem;
+                height:48/75rem;
+                line-height: 48/75rem;
+                text-align: center;
+                background:#fff;
+                box-shadow:0px 3px 6px rgba(0,0,0,0.10);
+                .round(10/75rem);
             }
         }
-        .item {
-            width:84/75rem;
-            height:48/75rem;
-            line-height: 48/75rem;
-            text-align: center;
-            background:#fff;
-            box-shadow:0px 3px 6px rgba(0,0,0,0.16);
-            .round(15/75rem);
+        .province {
+            padding: 15/75rem 40/75rem 40/75rem 32/75rem;
         }
-    }
-    .province {
-        padding: 15/75rem 40/75rem 40/75rem 32/75rem;
     }
 }
 </style>

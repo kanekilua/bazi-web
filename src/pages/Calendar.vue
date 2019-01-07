@@ -11,13 +11,14 @@
                     <div class="lunar-date">{{todayItem.lunarMonthName}}{{todayItem.lunarDayName}}    {{todayMoreInfo ? todayMoreInfo.week : ""}}</div>
                 </div>
             </div>
-            <div class="right" @click="$jump('/main/calendar/weather')">
+            <div class="right" @click="jumpWeather">
                 <div class="content">
                     <div class="upper">
-                        <i class="weather"></i><div class="city">福田</div>
+                        <i class="weather" :style="{backgroundImage: 'url(' + weatherIcon + ')'}"></i>
+                        <div class="city">{{weather.weather.HeWeather6[0].basic.location}}</div>
                     </div>
                     <div class="under">
-                        21~26℃
+                        {{weather.weather.HeWeather6[0].daily_forecast[0].tmp_min}}~{{weather.weather.HeWeather6[0].daily_forecast[0].tmp_max}}℃
                     </div>
                 </div>
             </div>
@@ -106,6 +107,7 @@
 
 <script>
 import lunarCalendar from "lunar-calendar"
+import {mapState,mapMutations} from 'vuex';
 
 const today = new Date();
 const currentYear = today.getFullYear();
@@ -144,10 +146,43 @@ var lunarDayArray = [
 ];
 
 export default {
+    data () {
+        return {
+            showYearSelector : false,
+            showMonthSelector : false,
+            showDaySelector : false,
+            calendarType : 1, // 默认 0是阴历 1是阳历
+            yearArr : [],
+            yearSelect : "",
+            yearSelectIndex : 0,
+            monthArr : [],
+            monthSelect : "",
+            monthSelectIndex : 0,
+            dayArr : [],
+            daySelect : "",
+            daySelectIndex : 0,
+            calendarHeader : ['日','一','二','三','四','五','六'],
+            clickItem : {},
+            todayItem : {},
+            navList : ['吉日查询','农历查询','民俗节日'],
+            navIndex : 0,
+            swiperOption : { initialSlide: this.navIndex },
+            articleList : [
+                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉'],
+                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉'],
+                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉']
+            ],
+            moreInfo : {'yiji':{'yi':'','ji':''},'week':''},
+            todayMoreInfo : null,
+            // weather : {'weather': {'HeWeather6' : [{'basic': { 'location' : ''} , 'daily_forecast' : [{'tmp_min' : ''}]}]}},
+            weatherIcon : ''
+        }
+    },
     created() {
         this.init();
     },
     computed : {
+        ...mapState('weather',['weather']),
         'monthData' () {
             // 日期控件的计算属性，以yearSelectIndex和monthSelectIndex为基础发生改变
             let year = parseInt(yearArray[this.yearSelectIndex-1].value.split('年')[0]);
@@ -217,37 +252,8 @@ export default {
             this.updateNavIndex(this.swiper.activeIndex);
         });
     }, 
-    data () {
-        return {
-            showYearSelector : false,
-            showMonthSelector : false,
-            showDaySelector : false,
-            calendarType : 1, // 默认 0是阴历 1是阳历
-            yearArr : [],
-            yearSelect : "",
-            yearSelectIndex : 0,
-            monthArr : [],
-            monthSelect : "",
-            monthSelectIndex : 0,
-            dayArr : [],
-            daySelect : "",
-            daySelectIndex : 0,
-            calendarHeader : ['日','一','二','三','四','五','六'],
-            clickItem : {},
-            todayItem : {},
-            navList : ['吉日查询','农历查询','民俗节日'],
-            navIndex : 0,
-            swiperOption : { initialSlide: this.navIndex },
-            articleList : [
-                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉'],
-                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉'],
-                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉']
-            ],
-            moreInfo : {'yiji':{'yi':'','ji':''},'week':''},
-            todayMoreInfo : null
-        }
-    },
     methods : {
+        ...mapMutations ('weather',['updateWeather']),
         init : function () {
             // Arr为下拉的数据，select为下拉框的显示值，selectIndex为实际月份/天数减一
             // 年下拉selector数据初始化
@@ -262,6 +268,28 @@ export default {
             this.dayArr = solarDayArray;
             this.daySelect = currentDay + "日";
             this.daySelectIndex = currentDay - 1;
+            // 获取天气的数据
+            this.$http.post('/features/weath',null,null,null,this.getWeatherSussess,null);
+        },
+        getWeatherSussess : function (res) {
+            var app = global.APP_NAME;
+            
+            res.data.air = JSON.parse(res.data.air);
+            res.data.lifestyle = JSON.parse(res.data.lifestyle);
+            res.data.weather = JSON.parse(res.data.weather);
+            // this.weather = res.data;
+            this.updateWeather(res.data);
+
+            var now = new Date();
+            var hour = now.getHours();
+            var night;
+            if(hour >= 6 && hour <= 18 ) {
+                night = false;
+            }else {
+                night = true;
+            }
+            this.weatherIcon = night ? require('../assets/image/calendar-weather/' + global.WEATHER[this.weather.weather.HeWeather6[0].daily_forecast[0].cond_code_n] + '.png') : require('../assets/image/calendar-weather/' + global.WEATHER[this.weather.weather.HeWeather6[0].daily_forecast[0].cond_code_d] + '.png');
+            // console.log(this.weather.weather.HeWeather6[0].daily_forecast[0].cond_txt_d);
         },
         showSelector : function (target) {
             // 显示拉下框，并将下拉框中的滚轮滑动到对应地方
@@ -395,6 +423,7 @@ export default {
                 this.moreInfo = this.handleDateInfo(res.data.content);
                 if(this.clickItem.year === this.todayItem.year && this.clickItem.month === this.todayItem.month && this.clickItem.day === this.todayItem.day && this.todayMoreInfo === null) {
                     this.todayMoreInfo = this.moreInfo;
+                    this.weather.weekday = this.todayMoreInfo.week;
                 }
             }else {
                 this.moreInfo = null;
@@ -489,6 +518,12 @@ export default {
             }else {
                 return str.slice(str.indexOf(keyArr[0] + "  "),str.indexOf(" "+keyArr[1]+"  ")).trim().split("  ")[1];
             }
+        },
+        jumpWeather : function () {
+            this.$router.push({
+                name : 'weather'
+                // params : this.weather
+            })
         }
     }
 }
@@ -511,8 +546,8 @@ export default {
     & > i {
         display: inline-block;
         width: 22/75rem;
-        height: 22/75rem;
-        background: url('../assets/image/common/select@2x.png') no-repeat center center / 100% 100%;
+        height: 11/75rem;
+        background: url('../assets/image/calendar/select.png') no-repeat center center / 100% 100%;
     }
     .select-up{
         .rotate(-180deg);
@@ -549,12 +584,7 @@ export default {
     .flex-between();
     margin-top: 32/75rem;
 }
-i{
-    display: block;
-    width: 13/75rem;
-    height: 25/75rem;
-    background: url("../assets/image/common/more.png") no-repeat center center / 100% 100%;
-}
+
 
 .header-bg {
     width: 100%;
@@ -629,9 +659,12 @@ i{
                     .flex-end();
                     font-size: 26/75rem;
                     .weather {
-                        width: 38/75rem;
-                        height: 35/75rem;
-                        background: url('../assets/image/calendar/weather.png') no-repeat center center / 100% 100%;
+                        width: 50/75rem;
+                        height: 38/75rem;
+                        margin-right: 8/75rem;
+                        background-repeat: no-repeat;
+                        background-size: auto 50/75rem;
+                        background-position: center;
                     }
                 }
                 .under {
@@ -846,6 +879,12 @@ i{
         .article {
             width: 95%;
             margin : 0 auto;
+            i{
+                display: block;
+                width: 13/75rem;
+                height: 25/75rem;
+                background: url("../assets/image/common/more.png") no-repeat center center / 100% 100%;
+            }
             /deep/ .nav {
                 margin-right: 16/75rem;
                 margin-bottom: 0;

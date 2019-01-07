@@ -41,6 +41,81 @@ global.PWD_PLACEHOLDER = '请输入您的密码'
 global.CAPTCHA_PLACEHOLDER = '请输入验证码'
 global.TIME_COUNT = 60
 
+// weather data
+const WEATHER_STR = 'weather';
+global.WEATHER = {
+    '100' : WEATHER_STR + '-100',
+    '100-n' : WEATHER_STR + '-100-n',
+    '101' : WEATHER_STR + '-101',
+    '101-n' : WEATHER_STR + '-101-n',
+    '102' : WEATHER_STR + '-101',
+    '103' : WEATHER_STR + '-103',
+    '104' : WEATHER_STR + '-101',
+    '200' : WEATHER_STR + '-200',
+    '201' : WEATHER_STR + '-200',
+    '202' : WEATHER_STR + '-200',
+    '203' : WEATHER_STR + '-200',
+    '204' : WEATHER_STR + '-200',
+    '205' : WEATHER_STR + '-205',
+    '206' : WEATHER_STR + '-205',
+    '207' : WEATHER_STR + '-205',
+    '208' : WEATHER_STR + '-205',
+    '209' : WEATHER_STR + '-209',
+    '210' : WEATHER_STR + '-209',
+    '211' : WEATHER_STR + '-209',
+    '212' : WEATHER_STR + '-209',
+    '213' : WEATHER_STR + '-209',
+    '300' : WEATHER_STR + '-300',
+    '301' : WEATHER_STR + '-300',
+    '302' : WEATHER_STR + '-300',
+    '303' : WEATHER_STR + '-300',
+    '304' : WEATHER_STR + '-304',
+    '305' : WEATHER_STR + '-305',
+    '306' : WEATHER_STR + '-305',
+    '307' : WEATHER_STR + '-307',
+    '308' : WEATHER_STR + '-307',
+    '309' : WEATHER_STR + '-305',
+    '310' : WEATHER_STR + '-307',
+    '311' : WEATHER_STR + '-307',
+    '312' : WEATHER_STR + '-307',
+    '313' : WEATHER_STR + '-300',
+    '314' : WEATHER_STR + '-305',
+    '315' : WEATHER_STR + '-307',
+    '316' : WEATHER_STR + '-307',
+    '317' : WEATHER_STR + '-307',
+    '318' : WEATHER_STR + '-307',
+    '399' : WEATHER_STR + '-305',
+    '400' : WEATHER_STR + '-400',
+    '401' : WEATHER_STR + '-400',
+    '402' : WEATHER_STR + '-400',
+    '403' : WEATHER_STR + '-400',
+    '404' : WEATHER_STR + '-404',
+    '405' : WEATHER_STR + '-404',
+    '406' : WEATHER_STR + '-404',
+    '407' : WEATHER_STR + '-404',
+    '408' : WEATHER_STR + '-408',
+    '409' : WEATHER_STR + '-408',
+    '410' : WEATHER_STR + '-408',
+    '499' : WEATHER_STR + '-400',
+    '500' : WEATHER_STR + '-500',
+    '501' : WEATHER_STR + '-500',
+    '502' : WEATHER_STR + '-502',
+    '503' : WEATHER_STR + '-503',
+    '504' : WEATHER_STR + '-503',
+    '507' : WEATHER_STR + '-503',
+    '508' : WEATHER_STR + '-503',
+    '509' : WEATHER_STR + '-500',
+    '510' : WEATHER_STR + '-500',
+    '511' : WEATHER_STR + '-502',
+    '512' : WEATHER_STR + '-502',
+    '513' : WEATHER_STR + '-502',
+    '514' : WEATHER_STR + '-500',
+    '515' : WEATHER_STR + '-500',
+    '900' : WEATHER_STR + '-900',
+    '901' : WEATHER_STR + '-901',
+    '999' : WEATHER_STR + '-999',
+}
+
 // province data
 global.PROVINCE_LIST = [{
     "name" : "忽略",
@@ -160,14 +235,14 @@ global.CITY_LIST = {
     "110000": [
         {
             "province": "北京市", 
-            "name": "市辖区", 
+            "name": "北京市", 
             "id": "110100"
         }
     ], 
     "120000": [
         {
             "province": "天津市", 
-            "name": "市辖区", 
+            "name": "天津市", 
             "id": "120100"
         }
     ], 

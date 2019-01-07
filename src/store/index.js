@@ -11,6 +11,7 @@ import xiangshu from "./module/xiangshu"
 import zhougongHome from "./module/zhougong-Home"
 import nameHome from "./module/name-home"
 import familyNameInner from "./module/familyname-inner"
+import weather from "./module/weather"
 
 export default new vuex.Store ({
     state : {
@@ -26,6 +27,7 @@ export default new vuex.Store ({
         zhougongHome : zhougongHome,
         nameHome : nameHome,
         familyNameInner : familyNameInner,
+        weather : weather
     },
     mutations: {
         updateLoginAccount: function (state,value) {

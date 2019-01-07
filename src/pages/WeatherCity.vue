@@ -1,17 +1,15 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
         <v-title-header>
             选择城市
-            <div slot="icon"></div>
         </v-title-header>
         <div class="content-wrap">
              <v-title-nav>
-                <span slot="title">{{province.name}}</span>
-                <div slot="more"></div>
+                {{province.name}}
             </v-title-nav>
             <div class="content">
-                <div v-for="(item,index) in cityList" :key="index" class="item" :style="{marginLeft :(index === 0 || index % 5 === 0) ? '' : 60/75 + 'rem' , marginTop : index > 4 ? 37/75 + 'rem' : ''}">{{item.name}}</div>
+                <!-- <div v-for="(item,index) in cityList" :key="index" class="item" :style="{marginLeft :(index === 0 || index % 5 === 0) ? '' : 60/75 + 'rem' , marginTop : index > 4 ? 37/75 + 'rem' : ''}">{{item.name}}</div> -->
+                <div v-for="(item,index) in cityList" :key="index" class="item" >{{item.name}}</div>
             </div>
         </div>
     </div>
@@ -37,24 +35,28 @@ export default {
 </script>
 <style lang="less" scoped>
 .content-wrap {
-    padding: 15/75rem 40/75rem 40/75rem 32/75rem;
+    padding: 105/75rem 40/75rem 40/75rem 32/75rem;
+    /deep/ .title-nav {
+        padding-left: 0;
+    }
     /deep/ .title {
         font-size: 26/75rem !important;
     }
     .content {
-        margin-top: 10/75rem;
-        margin-left: 2/75rem;
         font-size: 26/75rem;
         .flex-start();
         flex-wrap : wrap;
         .item {
-            width:84/75rem;
+            padding: 0 10/75rem ;
+            margin-top: 20/75rem;
+            margin-right: 60/75rem;
+            // width:84/75rem;
             height:48/75rem;
             line-height: 48/75rem;
             text-align: center;
             background:#fff;
-            box-shadow:0px 3px 6px rgba(0,0,0,0.16);
-            .round(15/75rem);
+            box-shadow:0px 3px 6px rgba(0,0,0,0.10);
+            .round(10/75rem);
         }
     }
 }
