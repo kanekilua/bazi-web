@@ -16,7 +16,6 @@
                     <div class="btn-row">
                         <button class="fengshui-btn" @click="toList('301','风水摆设','风水摆设')">风水摆设</button>
                         <button class="fengshui-btn" @click="toList('302','商业风水')">商业风水</button>
-                        <!-- <button class="fengshui-btn">风水大师</button>暂时无风水大师数据 -->
                     </div>
                 </div>
             </div>
@@ -75,7 +74,7 @@ export default {
             this.updateNavIndex(this.swiper.activeIndex);
         });
     },
-     methods : {
+    methods : {
         ...mapMutations('peach',['updateNavIndex']),
         getData: function () {
             let sendData = {

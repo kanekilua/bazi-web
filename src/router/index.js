@@ -19,7 +19,6 @@ import Predict from '@/pages/Predict'
 import Mine from '@/pages/Mine'
 import Bazi from '@/pages/Bazi'
 import Ziwei from '@/pages/Ziwei'
-import ZiweiAnalyze from '@/pages/ZiweiAnalyze'
 import Fengshui from '@/pages/Fengshui'
 import FengshuiJiaju from '@/pages/FengshuiJiaju'
 import Love from '@/pages/Love'
@@ -38,8 +37,6 @@ import ShengxiaoFamous from '@/pages/ShengxiaoFamous'
 import ShengxiaoArtical from '@/pages/ShengxiaoArtical'
 import ShengxiaoKnowledge from '@/pages/ShengxiaoKnowledge'
 import Article from '@/pages/Article'
-import NameTest from '@/pages/NameTest'
-import NameTestInner from '@/pages/NameTestInner'
 import NameTestResult from '@/pages/NameTestResult'
 import FamilyName from '@/pages/FamilyName'
 import FamilyNameInner from '@/pages/FamilyNameInner'
@@ -146,12 +143,6 @@ export default new Router({
       component : Ziwei,
     },
     {
-      path: '/analyze',
-      name:'analyze',
-      component: ZiweiAnalyze,
-      component : Bazi
-    },
-    {
       path : '/baziBirth',
       name : 'baziBirth',
       component: BaziBirth
@@ -250,16 +241,6 @@ export default new Router({
       path : '/article',
       name : 'article',
       component : Article
-    },
-    {
-      path : '/nameTest',
-      name : 'nameTest',
-      component : NameTest 
-    },
-    {
-      path : '/nameTestInner',
-      name : 'nameTestInner',
-      component : NameTestInner
     },
     {
       path : '/nameTestResult',

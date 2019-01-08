@@ -79,7 +79,6 @@
                 </div>
             </div>
         </div>
-        <button class="save-btn">保存命盘</button>
     </div>
 </template>
 <script>
@@ -158,9 +157,9 @@ export default {
 
 <style lang="less">
 .wrap{
-    .mingpan-wrap{
-        padding-left: 25/75rem;   
+    .mingpan-wrap{  
         .item-key{
+            width: 14%;
             font-size: 26/75rem;
             font-weight: bold;
             opacity: 0.7;
@@ -194,7 +193,7 @@ export default {
             .bottom-part-item{
                 .flex-start-only();
                 .item-list{
-                    width: 88%;
+                    width: 92%;
                     margin-left: -12/75rem;
                     margin-bottom: 15/75rem;
                     .flex-around();

@@ -1,6 +1,5 @@
 <template>
     <div class="fortune-wrap">
-        <v-header></v-header>
         <v-title-header :backLink="backLink">
             八字排盘
             <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
@@ -98,7 +97,7 @@ export default {
         background: url('../assets/image/bazi/switchUser@2x.png') no-repeat center center / 100% 100%;
     }
     .content-wrap{
-        padding: 0 25/75rem;
+        padding: 90/75rem 25/75rem 0 25/75rem;
         .border-box();
         .swiper-top{
             width: 100%;
@@ -117,11 +116,6 @@ export default {
         }
         .content-box{
             width: 100%;
-            // position: absolute;
-            // top:280/75rem;
-            // bottom: 0px;
-            // left: 0px;
-            // overflow-y: scroll;
         }
     }
 }
