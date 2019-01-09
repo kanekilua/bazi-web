@@ -157,7 +157,9 @@ export default {
 
 <style lang="less">
 .wrap{
-    .mingpan-wrap{  
+    .mingpan-wrap{
+        padding: 0 25/75rem;
+        .border-box();  
         .item-key{
             width: 14%;
             font-size: 26/75rem;

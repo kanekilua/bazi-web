@@ -95,6 +95,7 @@ export default {
         return {
             backLink: '/nameHome',
             name: this.$route.query.name,
+            // 返回数据
             res:{
                     name1: {
                         bihua: "",

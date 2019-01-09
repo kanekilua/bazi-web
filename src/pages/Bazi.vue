@@ -38,8 +38,8 @@ export default {
     data () {
         return {
             backLink : '/main/home',
-            navList: ["命盘","感情","事业","财运","健康","亲子","十年大运"],
-            list: [BaziMingpan,BaziEmotion,BaziCareer,BaziFortune,BaziHealth,BaziKids,BaziDecade],
+            navList: ["命盘","感情","事业","财运","健康","亲子"],
+            list: [BaziMingpan,BaziEmotion,BaziCareer,BaziFortune,BaziHealth,BaziKids],
             swiperOption : { initialSlide: this.navIndex ,autoHeight : true},
             resData: {"data":{"career":'',"character":'',"d": '',"elements":'',"family":'',"finance":'',"h":'',"health":'',"id":'',"life":'',"love":'',"m":'',"remedy":'',"y":'',}},
         }
@@ -70,7 +70,6 @@ export default {
     methods : {
         ...mapMutations('bazi',['updateNavIndex']),
         getData: function () {
-            // console.log(this.baziUserInfo)
             let userInfo = {
                 cid : '93',
                 y : '1910',
@@ -82,9 +81,39 @@ export default {
         },
         success : function (res) {
             let str = JSON.stringify(res);
-            str = str.replace(/★/g,"<br>★");
-            str = str.replace(/◆/g,"<br>◆");
+            str = str.replace(/★/g,"卍<br>★");
+            str = str.replace(/◆/g,"卍<br>◆");
             this.resData = JSON.parse(str);
+            // 改变res为对象，添加可见文字区域和不可见区域两个属性            
+            this.resData.data.character = this.getEmotionData(this.resData.data.character);
+            this.resData.data.career = this.getEmotionData(this.resData.data.career);
+            this.resData.data.finance = this.getEmotionData(this.resData.data.finance);
+            this.resData.data.family = this.getEmotionData(this.resData.data.family);
+            this.resData.data.health = this.getEmotionData(this.resData.data.health);
+            this.resData.data.life = this.getEmotionData(this.resData.data.life)
+            this.resData.data.love = this.getEmotionData(this.resData.data.love)
+        },
+        // 处理内容函数
+        getEmotionData: function (artical) {
+            let content = this.$utils.Trim(artical); //去除空格
+            let visitableText = "";
+            let unvisitableText = "";
+             //截取前三段可见文字
+            let unvisitableArr = content.split(/卍/g,3);//截取前三段
+            for(let i of unvisitableArr){
+                visitableText += i;
+            }
+            //截取不可见文字
+            let visitableContent = content.split(/卍/g);
+            visitableContent.forEach((item,i) =>{
+                if(i>3){    //截取后三段
+                    unvisitableText += item;
+                }
+            })
+            artical = {},
+            artical.visitableText = visitableText;
+            artical.unvisitableText = unvisitableText;
+            return artical;
         }
     }
 }
@@ -97,17 +126,17 @@ export default {
         background: url('../assets/image/bazi/switchUser@2x.png') no-repeat center center / 100% 100%;
     }
     .content-wrap{
-        padding: 90/75rem 25/75rem 0 25/75rem;
+        padding-top: 90/75rem;
         .border-box();
-        .swiper-top{
-            width: 100%;
-            .flex-between();
-            .right{
-                width: 44/75rem;
-                height: 44/75rem;
-                background: url('../assets/image/bazi/right@2x.png') no-repeat center center / 100% 100%;
-            }
-        }
+        // .swiper-top{
+        //     width: 100%;
+        //     .flex-between();
+        //     .right{
+        //         width: 44/75rem;
+        //         height: 44/75rem;
+        //         background: url('../assets/image/bazi/right@2x.png') no-repeat center center / 100% 100%;
+        //     }
+        // }
         .swiper-container{
             margin-bottom: 32/75rem;
             .swiper-slide{
