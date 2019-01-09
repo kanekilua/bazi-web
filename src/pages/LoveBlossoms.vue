@@ -15,37 +15,34 @@
             </div>
             <input id="dateInput" type="text" class="name-input input-born" placeholder="请选择您的出生日期" @click="showDatePlugin" readonly="readonly" v-model="birthDate">
             <button class="begin-test" @click="beginTest">开始测算</button>
-            <div class="user-manage">
-                <div class="title-nav">
-                    <div class="nav-left">
-                        <div class="color-line"></div>
-                        <div class="title">用户管理</div>
+        </div>
+        <div class="user-manage" v-if="userList.length > 0">
+            <v-title-nav>
+                用户管理
+            </v-title-nav>
+            <div class="user-list">
+                <div class="user-item" v-for="(item,index) in userList" :key="index">
+                    <img :src="item.avantaUrl" class="avanta">
+                    <div class="user-message">
+                        <div class="name"><span class="title">姓名：</span>{{item.name}}</div>
+                        <div class="birthday"><span class="title">生辰：</span>{{item.dateArr[0]}}年{{item.dateArr[1]}}月{{item.dateArr[2]}}日 {{item.dateArr[3]}}点</div>
                     </div>
-                </div>
-                <div class="user-list">
-                    <div class="user-item" v-for="(item,index) in userList" :key="index">
-                        <img :src="item.avatarUrl" class="avatar">
-                        <div class="user-message">
-                            <div class="name"><span class="title">姓名：</span>{{item.name}}</div>
-                            <div class="birthday"><span class="title">生辰：</span>{{item.year}}年{{item.month}}月{{item.date}}日 {{item.hour}}点</div>
-                        </div>
-                        <button class="switch-btn">切换用户</button>
-                    </div>
+                    <button class="switch-btn" @click="selectUser(item,index)">开始测算</button>
                 </div>
             </div>
         </div>
         <div class="article">
-            <div class="nav">
-                <div class="color-line"></div>
-                <div class="title">桃花运文章</div>
-            </div>
-            <div class="hItem" v-for="(item,index) in article" :key="index">
-                <h2>{{item}}</h2><i></i>
+            <v-title-nav>
+                相关文章
+            </v-title-nav>
+            <div class="hItem" v-for="(item,index) in article" :key="index" @click="jumpArticle(item)">
+                <h2>{{item.title}}</h2><i></i>
             </div>
         </div>
     </div>
 </template>
 <script>
+import { dateFormat } from 'vux'
 export default {
     props : ['article'],
     data () {
@@ -56,54 +53,23 @@ export default {
             gender: "1",
             calendar: "1",
             dateArray : [],
-            userList: [
-                {
-                    avatarUrl: require('../assets/image/bazi/master-img@2x.png'),
-                    name: "杨海彬",
-                    year: 1996,
-                    month: 1,
-                    date: 6,
-                    hour: 10,
-                },
-                {
-                    avatarUrl: require('../assets/image/bazi/master-img@2x.png'),
-                    name: "杨海彬",
-                    year: 1996,
-                    month: 1,
-                    date: 6,
-                    hour: 10,
-                },
-                {
-                    avatarUrl: require('../assets/image/bazi/master-img@2x.png'),
-                    name: "杨海彬",
-                    year: 1996,
-                    month: 1,
-                    date: 6,
-                    hour: 10,
-                },
-                {
-                    avatarUrl: require('../assets/image/bazi/master-img@2x.png'),
-                    name: "杨海彬",
-                    year: 1996,
-                    month: 1,
-                    date: 6,
-                    hour: 10,
-                },
-            ]
+            userList: []
         }
     },
+    created() {
+        this.init();
+    },
     methods: {
+        init : function () {
+            let app_peach_data = localStorage.getItem(global.APP_PEACH_DATA);
+            if(app_peach_data != undefined) {
+                this.userList = JSON.parse(app_peach_data);
+            }
+        },
         showDatePlugin : function () {
             this.$vux.datetime.show({
-                cancelText: '取消',
-                confirmText: '确定',
-                format: 'YYYY-M-D-H',
-                yearRow : '{value}年',
-                monthRow : '{value}月',
-                dayRow : '{value}日',
-                hourRow : '{value}点',
-                minYear: '1890',
-                maxYear: '2090',
+                ...global.DATETIME_OPTION,
+                endDate :  dateFormat(new Date(), 'YYYY-MM-DD'),
                 onHide : (type) => {
                     if(type === 'cancel') {
                         this.birthDate = "";
@@ -116,7 +82,7 @@ export default {
                     for(let i=0;i<valArray.length ; ++i) {
                         this.dateArray[i] = parseInt(valArray[i]);
                     }
-                    this.birthDate = this.dateArray[0] + '年' + this.dateArray[1] + '月' + this.dateArray[2] + '日' + ' ' + this.dateArray[3] + '点';
+                    this.birthDate = this.dateArray[0] + '年' + this.dateArray[1] + '月' + this.dateArray[2] + '日' + ' ' + this.dateArray[3] + '点' + this.dateArray[4] + '分';
                 }
             });
         },
@@ -129,6 +95,23 @@ export default {
                 this.$vux.toast.text('请选择出生日期','top');
                 return;
             }
+            let peachData = {
+                'name' : this.userName,
+                'gender' : this.gender,
+                'dateArr' : this.dateArray,
+                'avantaUrl' : this.gender === '1' ? require('../assets/image/love/man.png') : require('../assets/image/love/woman.png')
+            }
+            let appPeachData = [];
+            // 判断localStorage中是否有global.APP_PEACH_DATA，有的话取出来
+            if(localStorage.hasOwnProperty(global.APP_PEACH_DATA)) {
+                appPeachData = JSON.parse(localStorage.getItem(global.APP_PEACH_DATA));
+            }
+            // 判断localStorage中的global.APP_PEACH_DATA的长度是否等于最大值，是的话删除最后一个元素
+            if(appPeachData.length === global.APP_BAZI_DATA_MAX){
+                appPeachData.splice(global.APP_BAZI_DATA_MAX-1,1);
+            }
+            appPeachData.unshift(peachData);
+            localStorage.setItem(global.APP_PEACH_DATA,JSON.stringify(appPeachData));
             this.$router.push({
                 name: 'peachBlossom',
                 query: {
@@ -144,33 +127,70 @@ export default {
                     // h : '14',
                 }
             })
+        },
+        selectUser : function (item,index) {
+            let app_peach_data = JSON.parse(localStorage.getItem(global.APP_PEACH_DATA));
+            // 删除掉点击的item，再在数组的首部添加item -> 将item移至首位的操作
+            app_peach_data.splice(index,1);
+            app_peach_data.unshift(item);
+            localStorage.setItem(global.APP_PEACH_DATA,JSON.stringify(app_peach_data));
+            this.$router.push({
+                name: 'peachBlossom',
+                query: {
+                    cid: '101',
+                    y : item.dateArr[0],
+                    m : item.dateArr[1],
+                    d : item.dateArr[2],
+                    h : item.dateArr[3],
+                }
+            })
+        },
+        jumpArticle : function (article) {
+            this.$router.push({
+                name : 'article',
+                query : {
+                    id : article.id
+                }
+            })
         }
     }
 }
 </script>
 <style lang="less" scoped>
 .content-wrap{
-    top: 169/75rem;
-    bottom: 0;
-    left: 0;
     width: 100%;
+    padding-bottom: 24/75rem;
+    .border-box();
     background: url('../assets/image/love/love-blossoms-bg@2x.png') no-repeat center center / 100% 100%;
     .title-img{
         display: block;
         margin: 35/75rem auto;
         width: 408/75rem;
         height: 168/75rem;
+        padding-right: 50/75rem;
     }
     .name-input{
         display: block;
-        width: 448/75rem;
+        width: 556/75rem;
         height: 80/75rem;
         margin: 0 auto;
-        border-radius: 20px;
+        .round(10/75rem);
         border: none;
         outline: none;
         padding-left: 32/75rem;
-        font-size: 26/75rem;
+        font-size: 30/75rem;
+    }
+    ::-webkit-input-placeholder { /* WebKit browsers */
+        color:    rgba(240,155,178,0.7);
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color:    rgba(240,155,178,0.7);
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color:    rgba(240,155,178,0.7);
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+        color:    rgba(240,155,178,0.7);
     }
     .check-box{
         width: 480/75rem;
@@ -197,53 +217,37 @@ export default {
         }
     }
     .begin-test{
-        width: 518/75rem;
-        height: 116/75rem;  
+        width: 368/75rem;
+        height: 90/75rem;  
         display: block;
         margin: 74/75rem auto 85/75rem auto;
-        .round(36/75rem);
+        .round(75/75rem);
         background:#EB87A8;
         color: #fff;
-        font-size: 28/75rem;
+        font-size: 34/75rem;
         border: none;
         outline: none;
         &:active{
             background: #eee;
         }
     }
-    .user-manage {
-        .title-nav{
-            margin-left: 38/75rem;
-        }
-        .title-nav{
+    
+}
+.user-manage {
+    .user-list{
+        width: 100%;
+        .user-item{
+            padding-top: 0;
+            padding: 32/75rem 42/75rem 27/75rem 38/75rem;
+            border-bottom: 1px solid rgba(241,241,241,1);
             .flex-between();
-            .nav-left{
-                padding: 18/75rem 0;
-                .flex-start();
-                .color-line{
-                    width: 9/75rem;
-                    height: 37/75rem;
-                    background: #EB87A8;
-                    .round(5/75rem);
-                    margin-right: 32/75rem;
-                }
-                .title{
-                    font-size: 28/75rem;
-                }
+            .avanta{
+                width: 100/75rem;
+                height: 100/75rem;
+                .round(50%);
             }
-        }
-        .user-list{
-            width: 100%;
-            .user-item{
-                padding-top: 0;
-                padding: 32/75rem 42/75rem 27/75rem 38/75rem;
-                border-bottom: 1px solid rgba(112,112,112,0.35);
-                .flex-between();
-                .avatar{
-                    width: 88/75rem;
-                    height: 88/75rem;
-                    .round(50%);
-                }
+            .user-message { 
+                margin-right: 100/75rem;
                 .name{
                     margin-bottom: 24/75rem;
                 }
@@ -251,54 +255,40 @@ export default {
                     font-weight: bold;
                     color: rgba(0,0,0,0.8)
                 }
-                .switch-btn{
-                    width: 122/75rem;
-                    height: 45/75rem;
-                    background: #fff;
-                    color: #000;
-                    border: none;
-                    .round(15/75rem;);
-                    outline: none;
-                    &:active{
-                        background: #EB87A8;
-                        color: #fff;
-                    }
+            }
+            .switch-btn{
+                width: 122/75rem;
+                height: 45/75rem;
+                background: #fff;
+                color: @baseBoldColor;
+                border: none;
+                .round(10/75rem);
+                .boxshadow(0,0,8/75rem,rgba(0,0,0,0.2));
+                outline: none;
+                &:active{
+                    background: @baseBoldColor;
+                    color: #fff;
                 }
             }
-        }  
-    }   
-}
+        }
+    }  
+}   
 .article {
-    margin-left : 21/75rem;
-    margin-right: 27/75rem;
-    & > .nav {
-        margin-top: 29/75rem;
-        margin-left: 16/75rem;
-        .flex-start();
-        & > .color-line {
-            width: 9/75rem;
-            height: 37/75rem;
-            background-color: @baseColor;
-            .round(5/75rem);
-            margin-right:24/75rem;
-        }
-        & > .title {
-            font-size: 28/75rem;
-        }
+    .hItem:nth-child(2) {
+        margin-top: 0;
     }
     .hItem{
-        margin-top: 30/75rem;
         .flex-between();
-        margin-bottom: 32/75rem;
+        margin: 30/75rem 42/75rem 32/75rem 32/75rem;
         & > h2{
             font-size: 28/75rem;
             font-weight: normal;
         }
         & > i{
             display: inline-block;
-            width: 44/75rem;
-            height: 44/75rem;
-            background: url("../assets/image/common/right@2x.png") no-repeat center center / 100% 100%;
+            width: 13/75rem;
+            height: 25/75rem;
+            background: url("../assets/image/common/more.png") no-repeat center center / 100% 100%;
         }
     }
 }

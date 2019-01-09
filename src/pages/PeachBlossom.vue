@@ -1,13 +1,11 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
         <v-title-header :backLink="backLink">
             桃花运
         </v-title-header>
         <div class="content-wrap">
-            <v-title-nav><h2 slot="title">命中桃花</h2><div slot="more"></div></v-title-nav>
+            <v-title-nav>命中桃花</v-title-nav>
             <div class="pink-bg">
-                <img class="big-flower" src="../assets/image/peachBlossom/bigFlower@2x.png">
                 <div class="pink-header">
                     <h2>命中带{{resData.totalNum}}朵桃花:</h2>
                     <img class="small-flower" src="../assets/image/peachBlossom/smallFlower@2x.png" v-for="(item,index) in resData.totalNum" :key="index">
@@ -15,14 +13,14 @@
                 <div class="pink-item" v-for="(item,index) in pinkList" :key="index">
                     <div class="row">
                         <h2>{{item.title}}{{item.num}}朵:</h2>
-                        <img class="small-flower" src="../assets/image/peachBlossom/smallFlower@2x.png" v-for="(item,index) in item.num" :key="index">
+                        <img class="small-flower" src="../assets/image/peachBlossom/smallFlower@2x.png" v-for="(flowerItem,flowerIndex) in parseInt(item.num)" :key="flowerIndex">
                     </div>
                     <div class="artical">
                         {{item.content}}
                     </div>
                 </div>
             </div>
-            <v-title-nav><h2 slot="title">命花命盘</h2><div slot="more"></div></v-title-nav>
+            <v-title-nav>命花命盘</v-title-nav>
             <div class="form">
                 <div class="form-header">
                     <div class="form-td" v-for="(item,index) in formHeader" :key="index">{{item.title}}</div>
@@ -37,15 +35,16 @@
                     <div class="form-td">{{item.flowerNum}}</div>
                 </div>
             </div>
-            <v-title-nav><h2 slot="title">桃花解释</h2><div slot="more"></div></v-title-nav>
+            <v-title-nav>桃花解释</v-title-nav>
             <div class="swiper-container">
                 <div class="swiper-top" ref="swiperTop">
                     <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
-                    <div class="right"></div>
                 </div>
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide v-for="(item,index) in pList" :key="index">
-                        <p>{{item}}</p>
+                        <p>{{item[0]}}</p>
+                        <p>{{item[1]}}</p>
+                        <p>{{item[2]}}</p>
                     </swiper-slide>
                 </swiper>
             </div>
@@ -174,7 +173,6 @@ export default {
             this.$http.post('/suan/apidata',this.$route.query,'cesuan',null,this.success,null)
         },
         success: function (res) {
-            console.log(res);
             this.resData = res.data;
             this.resData.totalNum = parseInt(this.resData.blossom.match(/\b\w*\d\b/g)[0]);
             let list = this.resData.huajs.split('卍');
@@ -192,38 +190,40 @@ export default {
                 listObj.push(item);
             }
             this.pinkList = listObj;
-            // console.log(listObj)
             let flowerArr = this.resData.quantity.split('卍');
             for(let i=0; i<this.formContent.length;i++){
                this.formContent[i].flowerNum = flowerArr[i];
             }
             //swiper解释文本
-            this.pList = res.data.thjs.split('卍');
+            let pArr = res.data.thjs.split('卍');
+            for(let p in pArr) {
+                let pStr = pArr[p];
+                let pTitle = pStr.substr(0,4);
+                let pStrArr = [];
+                pStrArr[0] = pStr.substring(0,pStr.indexOf('何时会走'+pTitle+'运'));
+                pStrArr[1] = pStr.substring(pStr.indexOf('何时会走'+pTitle+'运'),pStr.indexOf('你走'+pTitle+'运的年份有'));
+                pStrArr[2] = pStr.substring(pStr.indexOf('你走'+pTitle+'运的年份有'),pStr.length);
+                pArr[p] = pStrArr;
+            }
+            this.pList = pArr;
         },
     }
 }
 </script>
 <style lang="less" scoped>
 .wrap{
-    .switchUser{
-        width: 44/75rem;
-        height: 44/75rem;
-        background: url('../assets/image/bazi/switchUser@2x.png') no-repeat center center / 100% 100%;
+    /deep/ .title-nav {
+        padding-left: 0;
     }
     .content-wrap{
-        position: absolute;
-        top: 170/75rem;
-        bottom: 0;
-        left: 0;
         width: 100%;
-        box-sizing: border-box;
-        overflow-y: scroll;
-        padding: 0 32/75rem 32/75rem 32/75rem;
+        padding: 90/75rem 32/75rem 32/75rem 32/75rem;
+        .border-box();
         .pink-bg{
             position: relative;
             padding: 35/75rem 16/75rem;
-            .round(27/75rem);
-            background:#FFECEC;
+            .round(10/75rem);
+            background:#FFF8F1;
             .pink-header{
                 .flex-start();
             }
@@ -244,16 +244,10 @@ export default {
                 line-height:40/75rem;;
                 color:rgba(0,0,0,0.7);
             }
-            .big-flower{
-                position: absolute;
-                top: -97/75rem;
-                right: 29/75rem;
-                width: 175/75rem;
-                height: 167/75rem;
-            }
         }
         .form{
             width: 100%;
+            margin-top: 10/75rem;
             border-top: 1px solid rgba(112,112,112,0.3);
             border-left: 1px solid rgba(112,112,112,0.3);
             .form-header{
@@ -314,6 +308,9 @@ export default {
             }
             /deep/ .nav .nav-list .item{
                 height: 85/75rem;
+            }
+            p {
+                font-size: 26/75rem;
             }
         }
     }
