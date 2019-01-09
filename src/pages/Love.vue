@@ -1,15 +1,14 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
         <v-title-header :backLink="backLink">
             婚恋爱情
             <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
         </v-title-header>
-        <div class="swiper-top">
-            <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
-            <div class="right"></div>
-        </div>
         <div class="content-wrap">
+            <div class="swiper-top">
+                <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
+                <div class="right"></div>
+            </div>
             <div class="swiper-container">
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide v-for="(item,index) in list" :key="index">
@@ -52,6 +51,25 @@ import LoveBlossoms from './LoveBlossoms'
 import Hehun from './Hehun'
 
 export default {
+    data () {
+        return {
+            backLink: "/main/home",
+            navList: ["桃花运","八字合婚"],
+            swiperOption : { initialSlide: this.navIndex ,autoHeight : true},
+            list : [LoveBlossoms,Hehun],
+            articleList: [],
+            // 八字合婚的弹窗
+            showProvinceFlag : false,
+            provinceList : global.PROVINCE_LIST,
+            showMaleCityFlag : false,
+            showFemaleCityFlag : false,
+            maleProvince : '',
+            femaleProvince : '',
+        }
+    },
+    created () {
+      this.init();
+    },
     computed : {
         ...mapState('love',['navIndex','hehunInputFlag','showProvince','showMaleCity','showFemaleCity','maleCityList','femaleCityList']),
         swiper () {
@@ -60,6 +78,16 @@ export default {
     },
     components : {
         LoveBlossoms , Hehun
+    },
+    mounted () {
+        this.updateMaleCityList(global.CITY_LIST['0']);
+        this.updateFemaleCityList(global.CITY_LIST['0']);
+        if(this.navIndex != 0) { 
+            this.swiper.slideTo(this.navIndex, 0, false);
+        }
+        this.swiper.on('slideChange', () => {
+            this.updateNavIndex(this.swiper.activeIndex);
+        });
     },
     watch : {
         'navIndex' (val) {
@@ -104,39 +132,29 @@ export default {
             }
         },
     },
-    mounted () {
-        this.updateMaleCityList(global.CITY_LIST['0']);
-        this.updateFemaleCityList(global.CITY_LIST['0']);
-        if(this.navIndex != 0) { 
-            this.swiper.slideTo(this.navIndex, 0, false);
-        }
-        this.swiper.on('slideChange', () => {
-            this.updateNavIndex(this.swiper.activeIndex);
-        });
-    },
-    data () {
-        return {
-            backLink: "/main/home",
-            navList: ["桃花运","八字合婚"],
-            swiperOption : { initialSlide: this.navIndex ,autoHeight : true},
-            list : [LoveBlossoms,Hehun],
-            articleList: [["风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"],
-                ["风水三见三不见，应该知","客厅财位摆放什么招财","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何","卧室风水大学问论床如何"]],
-            // 八字合婚的弹窗
-            showProvinceFlag : false,
-            provinceList : global.PROVINCE_LIST,
-            showMaleCityFlag : false,
-            showFemaleCityFlag : false,
-            maleProvince : '',
-            femaleProvince : '',
-        }
-    },
      methods : {
         ...mapMutations('love',[
             'updateNavIndex','updateShowProvince','updateShowMaleCity','updateShowFemaleCity',
             'updateMaleCityList','updateFemaleCityList','updateMaleProvince','updateFemaleProvince',
             'updateMaleCity','updateFemaleCity'
         ]),
+        init : function () {
+            let sendData = {
+                cid : '96',
+                tid: '702',
+                limit : '0'
+            }
+            this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success,this.failure);
+            sendData = {
+                cid : '96',
+                tid: '702',
+                limit : '1'
+            }
+             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success,this.failure);
+        },
+        success : function (res) {
+            this.articleList.push(res.data);
+        },
         selectProvince : function (item) {
             if(this.hehunInputFlag === '1') {
                 this.updateMaleProvince(item.name);
@@ -160,20 +178,16 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.swiper-top{
-    padding: 0 40/75rem;
-    .border-box();
-    /deep/ .item{
-        margin-right: 40/75rem;
-    }
-}
 .content-wrap{
-    position: absolute;
-    top: 270/75rem;
-    bottom: 0;
-    left: 0;
+    padding-top: 90/75rem;
     width: 100%;
-    overflow: auto;
+    .swiper-top{
+        padding: 0 40/75rem;
+        .border-box();
+        /deep/ .item{
+            margin-right: 40/75rem;
+        }
+    }
     .swiper-container{
         width: 100%;
         margin: 0 auto;
