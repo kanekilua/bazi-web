@@ -195,7 +195,7 @@ export default {
         success: function (res) {
             this.res = res;
             console.log(res)
-        }
+        },
     }
 }
 </script>

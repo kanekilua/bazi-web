@@ -31,7 +31,6 @@ export default {
     },
     created() {
         this.getData();
-        // console.log(this.$route.params); 
     },
     methods: {
         getData () {
@@ -60,7 +59,6 @@ export default {
         success : function (res) {
             this.title = res. data[0].title;
             this.content = res.data[0].content;
-            console.log(res);
         }
     }
 }
