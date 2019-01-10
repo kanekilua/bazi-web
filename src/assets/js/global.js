@@ -37,9 +37,6 @@ global.REPEAT_CAPTCHA = '请勿重复获取验证码'
 global.CHECK_QQ = '请输入正确的QQ号码'
 
 // login page
-global.NAV_LIST = ['手机密码登入','手机验证码登入']
-global.PWD_PLACEHOLDER = '请输入您的密码'
-global.CAPTCHA_PLACEHOLDER = '请输入验证码'
 global.TIME_COUNT = 60
 
 // weather data

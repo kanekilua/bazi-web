@@ -2,7 +2,7 @@
     <div class="mine-wrap">
         <div class="mine-header">
                 <i class="message"></i>
-                <h2>我的</h2>
+                <h2 class="title">我的</h2>
                 <i class="setting"
                     @click="$jump('/main/mine/setting')"
                 >
@@ -11,13 +11,11 @@
         <div class="content-wrap">
             <div class="user-bg">
                 <div class="transition-bg">
-                    <div class="user-box">
+                    <div class="user-box" @click="$jump('/login')">
                         <div class="avatar-box">
                             <img  class= "avatar" src="../assets/image/mine/avatar.png">
-                            <img class="gender-ico" src="../assets/image/mine/male.png" v-if="gender===1">
-                            <img class="gender-ico" src="../assets/image/mine/female.png" v-if="gender===0">
                         </div>
-                        <div class="nick-name">ANKGLG</div>
+                        <div class="nick-name">未注册/登录</div>
                     </div>
                 </div>
             </div>
@@ -98,7 +96,10 @@ button{
             display: block;
             width: 43/75rem;
             height: 41/75rem;
-            background: url('../assets/image/mine/message.png') no-repeat center center / 100% 100%;
+            // background: url('../assets/image/mine/message.png') no-repeat center center / 100% 100%;
+        }
+        .title {
+            font-size: 38/75rem;
         }
         .setting{
             display: block;
@@ -122,17 +123,12 @@ button{
                 .user-box{
                         .avatar-box{
                             position: relative;
+                            text-align: center;
                             .avatar{
+                                display: inline-block;
                                 width: 125/75rem;
                                 height: 125/75rem;
                                 border-radius: 50%;
-                            }
-                            .gender-ico{
-                                position: absolute;
-                                bottom: 10/75rem;
-                                right: 20/75rem;
-                                width: 20/75rem;
-                                height: 20/75rem;
                             }
                         }
                         .nick-name{
