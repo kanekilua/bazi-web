@@ -11,7 +11,7 @@ export default {
     props : ['backLink'],
     methods : {
         back : function () {
-            if(this.backLink != null) {
+            if(this.backLink != null && this.backLink != undefined) {
                 this.$jump(this.backLink);
             }else {
                 this.$router.go(-1);

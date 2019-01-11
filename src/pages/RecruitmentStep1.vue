@@ -59,12 +59,12 @@
                 <div class="key">目前职业</div>
                 <div class="radio-list radio-list3">
                     <label for="full-time">
-                        <input type="radio" name="job" id="full-time" value="1" v-model="job">
+                        <input type="radio" name="job" id="full-time" value="0" v-model="job">
                         <i></i>
                         <div>全职</div>
                     </label>
                         <label for="part-time">
-                        <input type="radio" name="job" id="part-time"  value="0" v-model="job">
+                        <input type="radio" name="job" id="part-time"  value="1" v-model="job">
                         <i></i>
                         <div>兼职</div>
                     </label>
@@ -91,11 +91,12 @@
     </div>
 </template>
 <script>
+import {mapState,mapMutations} from 'vuex'
 export default {
     data () {
         return {
             gender: '1',
-            job: '1',
+            job: '0',
             province : "选择省",
             city : "选择市",
             showProvince : false,
@@ -108,7 +109,25 @@ export default {
             masterQQ: "",
         }
     },
+    computed: {
+        ...mapState('recruitment',['masterInfo'])
+    },
+    created () {
+        this.init();
+    },
     methods: {
+        ...mapMutations('recruitment',['updateMasterInfo']),
+        init : function () {
+            if(this.masterInfo) {
+                this.masterName = this.masterInfo.real_name;
+                this.masterPhone = this.masterInfo.phone;
+                this.masterQQ = this.masterInfo.qq;
+                this.gender = this.masterInfo.sex_data;
+                this.province = this.masterInfo.province_from;
+                this.city = this.masterInfo.city_from;
+                this.job = this.masterInfo.career_data;
+            }
+        },
         selectProvince : function (item) {
             this.province = item.name;
             this.cityList = global.CITY_LIST[item.id];
@@ -131,6 +150,18 @@ export default {
             if(!this.$utils.checkQQ(this.masterQQ,this)){
                 return;
             }
+            let masterInfoTmp = this.masterInfo;
+            if(masterInfoTmp === null) {
+                masterInfoTmp  = {};
+            }
+            masterInfoTmp.real_name = this.masterName;
+            masterInfoTmp.phone = this.masterPhone;
+            masterInfoTmp.qq = this.masterQQ;
+            masterInfoTmp.sex_data = this.gender;
+            masterInfoTmp.province_from = this.province;
+            masterInfoTmp.city_from = this.city;
+            masterInfoTmp.career_data = this.job;
+            this.updateMasterInfo(masterInfoTmp);
             this.$jump('/main/mine/recruitment/recruitmentStep2')
         }
     }

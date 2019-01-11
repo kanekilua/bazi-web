@@ -23,32 +23,32 @@
         <div class="form">
             <div class="form-item">
                 <div class="key">擅长术数</div>
-                <input type="text" placeholder="填写术数名称，示例：八字，六爻...">
+                <input type="text" placeholder="填写术数名称，示例：八字，六爻..." v-model="technique">
             </div>
             <div class="form-item">
                 <div class="key">个人头衔</div>
-                <input type="text" placeholder="非必填，限20字以内，示例：xx协会会长">
+                <input type="text" placeholder="非必填，限20字以内，示例：xx协会会长" v-model="honor">
             </div>
              <div class="form-item">
                 <div class="key">学习经历</div>
-                <textarea placeholder="请填写您的学习经历"></textarea>
+                <textarea placeholder="请填写您的学习经历" v-model="learning"></textarea>
             </div>
             <div class="form-item">
                 <div class="key">从业年限</div>
-                <input type="text" placeholder="请填写您的工作你年龄">
+                <input type="text" placeholder="请填写您的工作你年龄" v-model="working_years">
                 <div class="year">年</div>
             </div>
             <div class="form-item">
                 <div class="key">从业经验</div>
-                <input type="text" placeholder="填写预测实践中的经验">
+                <input type="text" placeholder="填写预测实践中的经验" v-model="working_exp">
             </div>
             <div class="form-item">
                 <div class="key">擅长领域</div>
-                <input type="text" placeholder="示例：短期内断事、男女合婚、起名、看风水等">
+                <input type="text" placeholder="示例：短期内断事、男女合婚、起名、看风水等" v-model="merit">
             </div>
             <div class="form-item">
                 <div class="key">收费情况</div>
-                <input type="text" placeholder="填写目前通过何种形式接单，收费情况">
+                <input type="text" placeholder="填写目前通过何种形式接单，收费情况" v-model="charges">
             </div>
             <div class="btn-list">
                 <button class="next-btn" @click="preStep">上一步</button>
@@ -58,19 +58,53 @@
     </div>
 </template>
 <script>
+import {mapState,mapMutations} from 'vuex'
 export default {
     data() {
         return{
-            data () {
-            }
+            technique : "",
+            honor : "",
+            learning : "",
+            working_years : "",
+            working_exp : "",
+            merit : "",
+            charges : ""
         }
     },
+    computed: {
+        ...mapState('recruitment',['masterInfo'])
+    },
+    created () {
+        this.init();
+    },
     methods: {
+        ...mapMutations('recruitment',['updateMasterInfo']),
+        init : function () {
+            if(this.masterInfo) {
+                this.technique = this.masterInfo.technique;
+                this.honor = this.masterInfo.honor;
+                this.learning = this.masterInfo.learning;
+                this.working_years = this.masterInfo.working_years;
+                this.working_exp = this.masterInfo.working_exp;
+                this.merit = this.masterInfo.merit;
+                this.charges = this.masterInfo.charges;
+            }
+        },
         preStep: function () {
             this.$jump('/main/mine/recruitment/recruitmentStep1')
         },
         nextStep: function () {
-            
+            let masterInfoTemp = {
+                ...this.masterInfo
+            }
+            masterInfoTemp.technique = this.technique;
+            masterInfoTemp.honor = this.honor;
+            masterInfoTemp.learning = this.learning;
+            masterInfoTemp.working_years = this.working_years;
+            masterInfoTemp.working_exp = this.working_exp;
+            masterInfoTemp.merit = this.merit;
+            masterInfoTemp.charges = this.charges;
+            this.updateMasterInfo(masterInfoTemp);
             this.$jump('/main/mine/recruitment/recruitmentStep3')
         }
     }
