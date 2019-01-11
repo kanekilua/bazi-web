@@ -80,22 +80,22 @@ export default {
         ...mapMutations('xiangshu',['updateNavIndex']),
         getData: function () {
             let sendData = {
-                cid : 96,
+                cid : '96',
                 tid: '501',
             }
             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success);
             let sendData1 = {
-                    cid : 96,
+                    cid : '96',
                     tid: '502',
                 }
             this.$http.post('/suan/apidata',sendData1,'cesuan',null,this.success1);
             let sendData2 = {
-                    cid : 96,
+                    cid : '96',
                     tid: '503',
                 }
             this.$http.post('/suan/apidata',sendData2,'cesuan',null,this.success2);
-             let sendData3 = {
-                    cid : 96,
+            let sendData3 = {
+                    cid : '96',
                     tid: '504',
                 }
             this.$http.post('/suan/apidata',sendData3,'cesuan',null,this.success3);
@@ -317,7 +317,7 @@ export default {
     }
     .content-wrap{
         position: absolute;
-        top: 285/75rem;
+        top: 200/75rem;
         bottom: 0;
         left: 0;
         width: 100%;
@@ -325,7 +325,7 @@ export default {
         .nav{
             width: 100%;
             position: fixed;
-            top: 169/75rem;
+            top: 90/75rem;
             left: 0;
             background: #fff;
             z-index: 100;
@@ -347,9 +347,9 @@ export default {
                 .flex-start-only();
                 margin-bottom: 32/75rem;
                 & > img{
-                    width: 258/75rem;
-                    height: 198/75rem;
-                    .round(27/75rem);
+                    width: 300/75rem;
+                    height: 180/75rem;
+                    .round(10/75rem);
                     margin-left: 14/75rem;
                 }
                 .right{
@@ -373,7 +373,7 @@ export default {
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
                         -webkit-box-orient: vertical;
-                        font-size: 26/75rem;
+                        font-size: 22/75rem;
                         line-height: 40/75rem;
                         & > strong {
                             display: none;

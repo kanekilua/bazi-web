@@ -14,20 +14,22 @@
            </div>
         </div>
         <div class="content">
-            <div class="content-top">
-                <img src="../assets/image/fortune/luck-goods.png">
-                <ul class="msg">
-                    <li><i></i><div v-html="slideList.jinri.num"></div></li>
-                    <li><i></i><div v-html="slideList.jinri.color"></div></li>
-                    <li><i></i><div v-html="slideList.jinri.jewelry"></div></li>
-                    <li><i></i><div v-html="slideList.jinri.elegant"></div></li>
-                    <li><i></i><div v-html="slideList.jinri.direction"></div></li>
-                </ul>
-            </div>
+            
             <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
+            
             <div class="scroll-box">
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide v-for="(value,key,index) in slideList" :key="index">
+                        <div class="content-top">
+                            <img src="../assets/image/fortune/luck-goods.png">
+                            <ul class="msg">
+                                <li><i></i><div v-html="slideList.jinri.num"></div></li>
+                                <li><i></i><div v-html="slideList.jinri.color"></div></li>
+                                <li><i></i><div v-html="slideList.jinri.jewelry"></div></li>
+                                <li><i></i><div v-html="slideList.jinri.elegant"></div></li>
+                                <li><i></i><div v-html="slideList.jinri.direction"></div></li>
+                            </ul>
+                        </div>
                         <div class="slide-content">
                             <div class="item">
                                 <div class="title">
@@ -284,13 +286,13 @@ export default {
             width: 96%;
             margin: 0 auto;
             position: absolute;
-            top: 680/75rem;
+            top: 400/75rem;
             bottom: 0;
             overflow: auto;
             background: #fff;
             .slide-content{
                 width: 100%;
-                padding-bottom: 120/75rem;
+                padding: 20/75rem 0 120/75rem 0;
                 .border-box();
                 .item{
                     .title{
@@ -314,7 +316,6 @@ export default {
                 }
             }
         }
-        
     }
 }
 </style>
