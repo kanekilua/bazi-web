@@ -12,6 +12,7 @@ import zhougongHome from "./module/zhougong-Home"
 import nameHome from "./module/name-home"
 import familyNameInner from "./module/familyname-inner"
 
+
 export default new vuex.Store ({
     state : {
         loginAccount : '',

@@ -7,7 +7,6 @@
         </v-title-header>
         <div class="content-wrap">
             <div class="pair">
-                <h2 class="title">生肖配对</h2>
                 <div class="form">
                     <div class="form-box">
                         <div class="form-left">
@@ -268,10 +267,6 @@ export default {
             })
         }
     },
-    beforeRouteLeave (to,form,next) {
-        to.meta.keepAlive = true;
-        next();
-    }
 }
 </script>
 <style lang="less" scoped>
@@ -293,16 +288,9 @@ export default {
             width: 100%;
             height: 440/75rem;
             overflow: hidden;
-            .title{
-                text-align: center;
-                font-size: 40/75rem;
-                color: @baseBoldColor;
-                font-weight: bold;
-                margin: 50/75rem auto 38/75rem auto;
-            }
             .form {
                 width: 86%;
-                margin : 42/75rem auto 0 auto;
+                margin : 150/75rem auto 0 auto;
                 .form-box{
                     .flex-between();
                     .male-input-box,
