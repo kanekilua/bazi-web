@@ -193,6 +193,7 @@ export default {
 .yellow{
         color: #EFCA89;
         font-weight: normal;
+        font-size: 28/75rem;
     }
 .fortune-wrap{
     width: 100%;
