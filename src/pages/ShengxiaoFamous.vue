@@ -67,7 +67,10 @@ export default {
     methods:  {
         toArtical(category){
             this.$router.push({
-                name: 'shengxiaoArtical',
+                name: 'article',
+                query : {
+                    cid : '98',
+                },
                 params: {
                     category: category,
                     name: this.name,

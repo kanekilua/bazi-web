@@ -35,7 +35,6 @@ import NameHome from '@/pages/NameHome'
 import Shengxiao from '@/pages/Shengxiao'
 import ShengxiaoDetail from '@/pages/ShengxiaoDetail'
 import ShengxiaoFamous from '@/pages/ShengxiaoFamous'
-import ShengxiaoArtical from '@/pages/ShengxiaoArtical'
 import ShengxiaoKnowledge from '@/pages/ShengxiaoKnowledge'
 import Article from '@/pages/Article'
 import NameTest from '@/pages/NameTest'
@@ -62,6 +61,7 @@ import FeedBack from '@/pages/FeedBack'
 import Weather from '@/pages/Weather'
 import WeatherProvince from '@/pages/WeatherProvince'
 import WeatherCity from '@/pages/WeatherCity'
+import About from '@/pages/About'
 
 
 
@@ -240,11 +240,6 @@ export default new Router({
       component : ShengxiaoFamous,
     },
     {
-      path : '/shengxiao/famous/artical',
-      name : 'shengxiaoArtical',
-      component : ShengxiaoArtical
-    },
-    {
       path : '/article',
       name : 'article',
       component : Article
@@ -380,6 +375,11 @@ export default new Router({
       path : '/main/calendar/weather/city',
       name : 'city',
       component :WeatherCity
+    },
+    {
+      path : '/main/mine/about',
+      name : 'about',
+      component : About
     }
   ]
 })

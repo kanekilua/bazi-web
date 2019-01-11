@@ -214,6 +214,7 @@ export default {
             this.$router.push({
                 name: "article",
                 query: {
+                    cid : '95',
                     id : article.id
                 }
             });

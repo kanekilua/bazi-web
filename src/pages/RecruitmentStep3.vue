@@ -95,19 +95,50 @@
     </div>
 </template>
 <script>
+import {mapState,mapMutations} from 'vuex'
 export default {
     data() {
         return{
-            way: [1],
+            way: ['1'],
             pay: "1",
         }
     },
+    computed: {
+        ...mapState('recruitment',['masterInfo'])
+    },
     methods: {
+        ...mapMutations('recruitment',['updateMasterInfo']),
         preStep: function () {
             this.$jump('/main/mine/recruitment/recruitmentStep2')
         },
         nextStep: function () {
-            // this.$jump('/main/mine/recruitment/recruitmentStep3')
+            let masterInfoTemp = {
+                ...this.masterInfo
+            }
+            let wayStr = "";
+            for(let wayItem of this.way) {
+                wayStr += wayItem + ',';
+            }
+            wayStr = wayStr.substring(0,wayStr.length-1);
+            masterInfoTemp.channel_data = wayStr;
+            masterInfoTemp.salary_data = this.pay;
+            this.$http.post('/features/mast',masterInfoTemp,null,null,this.success,this.failure);
+        },
+        success : function (res) {
+            if(res.code === 'success') {
+                this.$vux.toast.show({
+                    width : '15em',
+                    text: '提交成功',
+                    position : 'center',
+                    time : 1500,
+                    type : "success",
+                    isShowMask : true
+                });
+                setTimeout(() => {
+                    this.$jump('/main/mine');
+                },1500)
+                this.updateMasterInfo(null);
+            }
         }
     }
 }

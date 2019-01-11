@@ -119,6 +119,7 @@ export default {
             this.$router.push({
                 name: "article",
                 query: {
+                    cid : '95',
                     id : article.id
                 }
             });
@@ -240,9 +241,9 @@ export default {
                         position: absolute;
                         bottom: 0;
                         width: 100%;
-                        height: 60%;
+                        height: 100%;
                         .round(8/75rem);
-                        background: linear-gradient(to top, rgba(99, 99, 99, 0.8), rgba(255,255,255,0));
+                        background: linear-gradient(to top, rgba(88, 88, 88, 0.9), rgba(255,255,255,0));
                     }
                     .content {
                         position: absolute;

@@ -44,7 +44,7 @@
                 </div>
                 <i class="right"></i>
             </div>
-            <div class="about">
+            <div class="about" @click="$jump('/main/mine/about')">
                 <div class="left">
                     <i></i>
                     <div>关于我们</div>

@@ -7,50 +7,75 @@
             <v-title-nav>反馈类型</v-title-nav>
             <div class="check-list">
                 <label for="check1">
-                    <input type="checkbox" id="check1" value='1' v-model="checkList">
+                    <input type="checkbox" id="check1" value='0' v-model="checkList">
                     <div>服务态度差</div>
                 </label>
                 <label for="check2">
-                    <input type="checkbox" id="check2" value='2' v-model="checkList">
+                    <input type="checkbox" id="check2" value='1' v-model="checkList">
                     <div>回复慢</div>
                 </label>
                 <label for="check4">
-                    <input type="checkbox" id="check4" value='4' v-model="checkList">
+                    <input type="checkbox" id="check4" value='2' v-model="checkList">
                     <div>联系不上</div>
                 </label>
                 <label for="check5">
-                    <input type="checkbox" id="check5" value='5' v-model="checkList">
+                    <input type="checkbox" id="check5" value='3' v-model="checkList">
                     <div>性价比低</div>
                 </label>
                 <label for="check6">
-                    <input type="checkbox" id="check6" value='6' v-model="checkList">
+                    <input type="checkbox" id="check6" value='4' v-model="checkList">
                     <div>不够专业</div>
                 </label>
                 <label for="check7">
-                    <input type="checkbox" id="check7" value='7' v-model="checkList">
+                    <input type="checkbox" id="check7" value='5' v-model="checkList">
                     <div>其他</div>
                 </label>
             </div>
             <v-title-nav>提出建议</v-title-nav>
-            <textarea placeholder="简要描述你要反馈的问题和意见"></textarea>
-            <button class="conmit">确认提交</button>
+            <textarea placeholder="简要描述你要反馈的问题和意见" v-model="message"></textarea>
+            <button class="conmit" @click="submit">确认提交</button>
         </div>
     </div>
 </template>
 
 <script>
-import {XDialog,TransferDomDirective as TransferDom} from 'vux'
 export default {
-    directives: {
-        TransferDom
-    },
     data () {
         return {
-            checkList: [1],
+            checkList: ['0'],
+            message : ''
         }
     },
     methods: {
-        
+        submit : function () {
+            let checkStr = '';
+            for(let item of this.checkList) {
+                checkStr += item + ',';
+            }
+            checkStr = checkStr.substring(0,checkStr.length - 1);
+            let postData = {
+                type_data : checkStr,
+                info : this.message
+            }
+            let header = {
+                'Authorization' : localStorage.getItem(global.APP_TOKEN)
+            }
+            this.$http.post('/features/opin',postData,null,header,(res) => {
+                if(res.code === "success") {
+                    this.$vux.toast.show({
+                        width : '15em',
+                        text: '提交成功',
+                        position : 'center',
+                        time : 1500,
+                        type : "success",
+                        isShowMask : true
+                    });
+                    setTimeout(() => {
+                        this.$jump('/main/mine');
+                    },1500)
+                }
+            },this.failure);
+        }
     }
 }
 </script>
