@@ -130,7 +130,7 @@ export default {
             let userInfo;
             if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
                 // userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))[this.loginAccount];
-                userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))['13710466892'];
+                userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))['13798576143'];
             }
             // if(userInfo  === undefined) {
             //     this.$vux.toast.text('请先登录','top');
