@@ -1,6 +1,5 @@
 <template>
     <div class="xiangshu-wrap">
-        <v-header></v-header>
         <v-title-header>
             相术解析
         </v-title-header>
@@ -10,16 +9,16 @@
                     <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
                 </div>
                 <swiper :options="swiperOption" ref="mySwiper">
-                        <swiper-slide ref="slideone" v-for="(item,index) in list" :key="index">
-                            <div class="hItem" v-for="(innerItem,innerIndex) in item.data" :key="innerIndex" @click="toInner(innerItem.id)">
-                                <img :src="innerItem.img">
-                                <div class="right">
-                                    <h2>{{innerItem.title}}</h2>
-                                    <p v-html="innerItem.content"></p>
-                                </div>
+                    <swiper-slide ref="slideone" v-for="(item,index) in list" :key="index">
+                        <div class="hItem" v-for="(innerItem,innerIndex) in item.data" :key="innerIndex" @click="toInner(innerItem.id)">
+                            <img :src="innerItem.img">
+                            <div class="right">
+                                <h2>{{innerItem.title}}</h2>
+                                <p v-html="innerItem.content"></p>
                             </div>
-                            <load-more :tip="tip" :show-loading="showLoading" :class="showIco? 'show': 'hide'"></load-more>  
-                        </swiper-slide>
+                        </div>
+                        <load-more :tip="tip" :show-loading="showLoading" :class="showIco? 'show': 'hide'"></load-more>  
+                    </swiper-slide>
                 </swiper>
             </div>
         </div>

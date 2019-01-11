@@ -56,9 +56,7 @@ import RecruitmentStep3 from '@/pages/RecruitmentStep3'
 import MyCollection from '@/pages/MyCollection'
 import ContactService from '@/pages/ContactService'
 import FeedBack from '@/pages/FeedBack'
-
-
-
+import InterestingTest from "@/pages/InterestingTest"
 
 Vue.use(Router)
 
@@ -343,6 +341,11 @@ export default new Router({
       path : '/main/mine/feedBack',
       name : 'feedBack',
       component : FeedBack 
+    },
+    {
+      path : '/interestingTest',
+      name : 'interestingTest',
+      component : InterestingTest 
     }
     
   ]

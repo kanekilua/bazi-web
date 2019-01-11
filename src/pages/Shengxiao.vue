@@ -267,10 +267,6 @@ export default {
             })
         }
     },
-    beforeRouteLeave (to,form,next) {
-        to.meta.keepAlive = true;
-        next();
-    }
 }
 </script>
 <style lang="less" scoped>

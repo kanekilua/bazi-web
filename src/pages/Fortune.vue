@@ -21,7 +21,7 @@
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide v-for="(value,key,index) in slideList" :key="index">
                         <div class="content-top">
-                            <img src="../assets/image/fortune/luck-goods.png">
+                            <img :src="luckImg">
                             <ul class="msg">
                                 <li><i></i><div v-html="slideList.jinri.num"></div></li>
                                 <li><i></i><div v-html="slideList.jinri.color"></div></li>
@@ -80,9 +80,9 @@ import {mapState,mapMutations} from 'vuex'
 export default {
     data () {
         return {
-            avatar: require('../assets/image/common/avatar.png'),
-            userName: "大海",
-            birthday: "1887年11月9日凌晨1:00",
+            avatar: "",
+            userName: "",
+            birthday: "",
             navList: ["今日运程","明日运程","本周运势","本月运势"],
             slideList: {
                 jinri: {},
@@ -90,6 +90,7 @@ export default {
                 zhou: {},
                 yue: {},
             },
+            luckImg: "",
             swiperOption : { initialSlide: this.navIndex, autoHeight : true}
         }
     },
@@ -126,17 +127,19 @@ export default {
         ...mapMutations('fortune',['updateNavIndex']),
         ...mapMutations(['updateLoginAccount']),
         init: function() {
-            // let userInfo;
-            // if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
-            //     userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))[this.loginAccount];
-            // }
+            let userInfo;
+            if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
+                // userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))[this.loginAccount];
+                userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))['13710466892'];
+            }
             // if(userInfo  === undefined) {
             //     this.$vux.toast.text('请先登录','top');
             //     this.$router.push('/login');
             //     return ;
             // }
-            // this.userName = userInfo.realname;       
-            // this.birthday = userInfo.birthday;
+            this.userName = userInfo.realname;       
+            this.birthday = userInfo.birthday;
+            this.avatar = userInfo.avatar ? userInfo.avatar : require('../assets/image/common/avatar.png');
         },
         switchUser :function () {
             let token = localStorage.getItem(global.APP_TOKEN);
@@ -149,23 +152,37 @@ export default {
             this.$jump('/login');
         },
         getData: function () {
+            let birthdayArr = this.birthday.split('-');
+            let [ y,m,d ] = [birthdayArr[0],birthdayArr[1],birthdayArr[2]];
+            // m,d去0
+            m = this.formatMD(m);
+            d = this.formatMD(d);
             let params = {
                 cid: '103',
-                y : '1910',
-                m : '12',
-                d : '12',
+                y : y,
+                m : m,
+                d : d,
             }
             this.$http.post('/suan/apidata',params,'cesuan',null,this.success,null);
         },
+        formatMD: function (val) {
+            let [firstNum,secondNum] = val;
+            if (firstNum==='0'){
+                val = secondNum
+                return val;
+            }
+            else {
+                return val
+            }
+        },
         success: function (res) {
+            this.luckImg = res.img;
             let data = JSON.stringify(res.data);
-            console.log(res)
             // 匹配星星,目的是改变星星颜色
             let reg = /[★☆]{1,5}/g;
             for(let i of data.match(reg)){ //替换星星，拼接字符串
                 data = data.replace(/[★☆]{1,5}(?=")/,`<span class='yellow'>${i}</span>`)
             }
-            // console.log(data)
             data = JSON.parse(data);
             data.jinri.num = this.liFormat(data.jinri.num)
             data.jinri.color = this.liFormat(data.jinri.color)
