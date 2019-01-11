@@ -10,7 +10,7 @@
                     <div class="table-cell"
                         v-for="(item,index) in tableList"
                         :key="index"
-                        @click="selectItem(item)"
+                        @click="selectItem(item,index)"
                     >
                         <div class="table-cell-box">
                             <div class="table-cell-box">
@@ -23,6 +23,18 @@
                     </div>
                 </div>
             </div>
+            <div class="jj">
+                <h2 class="h2">【{{this.isSelect}}】</h2>
+                <div class="content" v-html="content.jj"></div>
+            </div>
+            <div class="characteristics">
+                <h2 class="h2">{{this.isSelect}}的特性</h2>
+                <div class="content" v-html="content.characteristics"></div>
+            </div>
+            <div class="analysis" v-show="content.analysis">
+                <h2 class="h2">{{this.isSelect}}位置解析</h2>
+                <div class="content" v-html="content.analysis"></div>
+            </div>
         </div>
     </div>
 </template>
@@ -32,97 +44,151 @@ export default {
     data () {
         return {
             isSelect: "命宫",
+            selectIndex: "0",
+            gong: "life",
+            content: "",
             tableList: [
                 {
                     img: require('../assets/image/ziwei/ico1.png'),
                     activeImg: require('../assets/image/ziwei/ico1-active.png'),
                     title: "命宫",
+                    gong: "life",
+                    isFirst: true,
+                    content: ""
                 },
                 {
                     img: require('../assets/image/ziwei/ico2.png'),
                     activeImg: require('../assets/image/ziwei/ico2-active.png'),
                     title: "迁移宫",
+                    gong : "migration",
+                    isFirst: true,
+                    content: ""
                 },
                 {
                     img: require('../assets/image/ziwei/ico3.png'),
                     activeImg: require('../assets/image/ziwei/ico3-active.png'),
                     title: "财帛宫",
+                    gong : "money",
+                    isFirst: true,
+                    content: ""
                 },
                 {
                     img: require('../assets/image/ziwei/ico4.png'),
                     activeImg: require('../assets/image/ziwei/ico4-active.png'),
                     title: "福德宫",
+                    gong : "ford",
+                    isFirst: true,
+                    content: ""
                 },
                 {
                     img: require('../assets/image/ziwei/ico5.png'),
                     activeImg: require('../assets/image/ziwei/ico5-active.png'),
                     title: "事业宫",
+                    gong : "career",
+                    isFirst: true,
+                    content: ""
                 },
                 {
                     img: require('../assets/image/ziwei/ico6.png'),
                     activeImg: require('../assets/image/ziwei/ico6-active.png'),
                     title: "夫妻宫",
+                    gong : "haw",
+                    isFirst: true,
+                    content: ""
                 },
                 {
                     img: require('../assets/image/ziwei/ico7.png'),
                     activeImg: require('../assets/image/ziwei/ico7-active.png'),
                     title: "田宅宫",
+                    gong : "tz",
+                    isFirst: true,
+                    content: ""
                 },
                 {
                     img: require('../assets/image/ziwei/ico8.png'),
                     activeImg: require('../assets/image/ziwei/ico8-active.png'),
                     title: "子女宫",
+                    gong : "children",
+                    isFirst: true,
+                    content: ""
                 },
                 {
                     img: require('../assets/image/ziwei/ico9.png'),
                     activeImg: require('../assets/image/ziwei/ico9-active.png'),
                     title: "疾厄宫",
+                    gong : "jie",
+                    isFirst: true,
+                    content: ""
                 },
                 {
                     img: require('../assets/image/ziwei/ico10.png'),
                     activeImg: require('../assets/image/ziwei/ico10-active.png'),
                     title: "父母宫",
+                    gong : "parent",
+                    isFirst: true,
+                    content: ""
                 },
                 {
                     img: require('../assets/image/ziwei/ico11.png'),
                     activeImg: require('../assets/image/ziwei/ico11-active.png'),
                     title: "兄弟宫",
+                    gong : "brother",
+                    isFirst: true,
+                    content: ""
                 },
                 {
                     img: require('../assets/image/ziwei/ico12.png'),
                     activeImg: require('../assets/image/ziwei/ico12-active.png'),
                     title: "朋友宫",
+                    gong : "friend",
+                    isFirst: true,
+                    content: ""
                 },
-            ]
+            ],
         }
     },
     created () {
-        // this.getData()
+        this.getData()
     },
     methods: {
-        // getData: function () {
-        //     let userData = {
-        //         'cid' : 53,
-        //         'name' : '张三',
-        //         'sex' : '0',
-        //         'DateType' : 1,
-        //         'year' : 1980,
-        //         'month' : 1,
-        //         'date' : 4,
-        //         'hour' : 5,
-        //         'minute' : 6,
-        //         'other' : 1,
-        //         'runfen' : 1,
-        //     } 
-        //     this.$http.post('/suan/apidata',userData,'cesuan',null,this.success,this.failure) 
-        // },  
-        selectItem: function (item) {
+        getData: function () {
+            let userData = {
+                cid : '106',
+                y : '2002',
+                m : '1',
+                d : '1',
+                h : '2',
+                gong : this.gong, 
+            } 
+            this.$http.post('/suan/apidata',userData,'cesuan',null,this.success,this.failure) 
+        },  
+        selectItem: function (item,index) {
             this.isSelect = item.title;
-        }      
-    }
+            this.gong = item.gong; 
+            this.selectIndex = index;
+            if(item.isFirst === true){  //第一次点击时发送请求
+                this.getData();
+                item.isFirst = false;
+            }else {  //若不是第一次点击渲染缓存的content
+                this.content = this.tableList[this.selectIndex].content
+            }
+        },
+        success: function (res) {
+            let content = res.data[0];
+            for(let i in content){
+                for(let j in content[i]){
+                    content[i][j] = content[i][j].replace(/(<\/?a.*?>)/g, ''); //去除a标签
+                    }
+                this.content = content[i];  //渲染
+                this.tableList[this.selectIndex].content = this.content; //缓存请求结果，避免重复点击时发送请求
+            }
+            
+
+        }
+    },
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .bg-white{
     background: #fff;
 }
@@ -130,13 +196,16 @@ export default {
     color: @baseBoldColor;
 }
 .ziwei-wrap{
-    background: #F1F1F1;
+    width: 100%;
+    height: 100%;
     .right-ico{
         width: 38/75rem;
         height: 38/75rem;
         background: url('../assets/image/common/switch.png')no-repeat center center / 100% 100%;
     }
     .content-wrap{
+        background: #f1f1f1;
+        overflow: hidden;
         padding-top: 90/75rem;
         .border-box();
         .top{
@@ -243,6 +312,33 @@ export default {
 
             }
         }
+        // 数据过滤
+        .characteristics, .jj, .analysis{
+            padding-bottom: 30/75rem;
+            background: #fff;
+            margin-top: 15/75rem;
+            overflow: hidden;
+            .grid_1, .grid_2, .grid_3, .news-quote, img, .palaceGuide, .dbRecord{
+                display: none;
+            }
+        }
+        .h2{
+            overflow: hidden;
+            padding: 30/75rem 40/75rem;
+            .border-box();
+            color: @baseBoldColor;
+            font-size: 36/75rem;
+            border-bottom: 1px solid #f1f1f1;
+        }
+        .content{
+            width: 94%;
+            margin: 30/75rem auto 0 auto;
+            padding: 30/75rem 35/75rem;
+            .border-box();
+            .boxshadow();
+            .round(10/75rem);
+            background: #FFFCF8;
+        }  
     }
 }
 

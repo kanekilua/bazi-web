@@ -46,11 +46,13 @@ export default {
             let reg = /src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/gi;  //匹配src="http://www.zhouyi.cc或者src="https://www.zhouyi.cc
             let srcArr = res.data.content.match(reg);
             let content = res.data.content;
-            for(let i=0; i<srcArr.length; i++){
-                content = content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
-                srcArr[i] ='src='+'"'+'https://mingli.szmonster.com'+Img[i];//拼接服务器图片地址
-                content = content.replace(/src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/,srcArr[i])//替换图片url
-            };
+            if(srcArr){
+                for(let i=0; i<srcArr.length; i++){
+                    content = content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
+                    srcArr[i] ='src='+'"'+'https://mingli.szmonster.com'+Img[i];//拼接服务器图片地址
+                    content = content.replace(/src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/,srcArr[i])//替换图片url
+                };
+            }
             this.article.data.content = content;
         },
     }

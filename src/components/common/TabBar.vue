@@ -39,12 +39,6 @@ export default {
                     name: "2019",
                     route: "/main/activity"
                 },
-                // {
-                //     icoUrl:  require("../../assets/image/tab-bar/predict-.png"),
-                //     icoUrlActive: require("../../assets/image/tab-bar/predict-active.png"),
-                //     name: "测算",
-                //     route: "/main/predict"
-                // },
                 {
                     icoUrl:  require("../../assets/image/tab-bar/calendar.png"),
                     icoUrlActive: require("../../assets/image/tab-bar/calendar-active.png"),
@@ -68,12 +62,12 @@ export default {
             return obj
         },
         jumpRoute(tab) {
-            if(tab.name === "运势" && this.loginAccount === "") {
-                this.$vux.toast.text('请先登录','top');
-                return ;
-            }else {
+            // if(tab.name === "运势" && this.loginAccount === "") {
+            //     this.$vux.toast.text('请先登录','top');
+            //     return ;
+            // }else {
                 this.$jump(tab.route);
-            }
+            // }
         }
     }
 }

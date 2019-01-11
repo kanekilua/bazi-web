@@ -1,6 +1,5 @@
 <template>
     <div class="jiaju-wrap">
-        <v-header></v-header>
         <v-title-header>{{title}}</v-title-header>
         <div class="content-wrap">
             <div class="jiaju-item" :key="index" v-for="(item,index) in itemList" @click="toInner(item.id)">
@@ -10,24 +9,29 @@
                     <p v-html="item.content"></p>
                 </div>
             </div>
+            <load-more :tip="tip" :show-loading="showLoading" :class="showIco ? 'show': 'hide'"></load-more>
         </div>
     </div>
 </template>
 <script>
+import { LoadMore } from 'vux'
 export default {
-    created(){
-        this.getData();
-    },
     data () {
         return {
             title: this.$route.query.navTitle,
-            itemList: [
-                {
-                    itemTitle:  "风水三见三不见，应该知道的事情",
-                    itemArtical: "许多人对风水的印象都还停留在江湖术士和风水先生的一些故弄玄虚的把戏上，觉得这事一种缺乏科学精神的封建产物。其实主要是这门学问历史悠久，文字又晦涩难懂，配合古代的一."
-                },
-            ]
+            itemList: [],
+            tip: "正在加载...",
+            showIco: false, //加载动画
+            showLoading: true,  //加载ico
+            loading: false, //加载状态
+            limit: 0,//下拉加载，++请求下10条数据
         }
+    },
+    created(){
+        this.getData();
+    },
+    mounted() {
+        this.pullDown();
     },
     methods: {
         getData: function () {
@@ -52,29 +56,65 @@ export default {
                 }
             })
         },
+        // 下拉加载更多
+        pullDown: function () {
+            window.addEventListener('scroll',()=>{
+           		let scrollTop = document.documentElement.scrollTop||document.body.scrollTop;      
+           		let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+           		let scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+               //滚动条到底部的条件
+               if(this.$route.name==="jiaju" && scrollTop+windowHeight===scrollHeight && this.loading===false){ //route.name确保监听的是当前页面,loading防止正在加载时发送多次请求
+                    this.showIco = true; //显示loading动画
+                    this.loading = true; 
+                    // 请求数据
+                    this.limit++;
+                    let params = this.$route.query;//接收参数
+                    params.cid = '96'
+                    params.limit = this.limit;
+                    this.$http.post('/suan/apidata',params,'cesuan',null,this.loadMoreSuccess,null);
+                    // console.log("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
+                }   
+            },false)
+        },
+        loadMoreSuccess: function (res) {
+            console.log(res);
+            if(res.data.length < 10){ //没有更多数据
+                this.showLoading = false;
+                this.tip = "没有更多数据！";
+                this.loading = true; 
+            } else {
+                for(let i of res.data){
+                    i.img = 'https://mingli.szmonster.com' + i.img; //拼接url
+                    i.content = i.content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
+                    this.itemList.push(i)
+                }
+                this.loading = false; 
+                this.showIco = false;
+            } 
+        },
         
-    }
+    },
+    // 移除监听事件
+    beforeDestroy() {
+        window.removeEventListener("scroll",null);
+    },
 }
 </script>
 <style lang="less">
 .jiaju-wrap{
     .content-wrap{
-        position: absolute;
-        top: 169/75rem;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        overflow: auto;
+        padding-top: 90/75rem;
+        .border-box();
         .jiaju-item{
             .flex-start();
             padding: 20/75rem 0 20/75rem 23/75rem;
             border-bottom: 1px solid rgba(0,0,0,0.1);
             .item-img{
                 display: inline-block;
-                width: 258/75rem;
-                height: 198/75rem;
+                width: 310/75rem;
+                height: 180/75rem;
                 margin-right: 24/75rem;
-                .round(27/75rem);
+                .round(10/75rem);
             }
             .item-message{
                 & > h2{

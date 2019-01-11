@@ -13,6 +13,7 @@ import nameHome from "./module/name-home"
 import familyNameInner from "./module/familyname-inner"
 import weather from "./module/weather"
 
+
 export default new vuex.Store ({
     state : {
         loginAccount : '',

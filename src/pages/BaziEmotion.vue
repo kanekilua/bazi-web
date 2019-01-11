@@ -1,20 +1,77 @@
 <template>
     <div class="wrap">
-        <p class="result-message" v-html="this.resData.data.character"></p>
-        <v-bazi-bottom></v-bazi-bottom>
+        <p class="result-message" v-html="this.resData.data.character.visitableText"></p>
+        <div class="unvisitableText">
+            <p 
+                v-html="this.resData.data.character.unvisitableText"
+                :class="hideText==true ? 'hide-text' : ''"
+            ></p>
+            <div :class="hideText==true ? 'mask' : 'hide'">
+                <div class="share-btn" @click="showText()">
+                    <i></i>
+                    <span>分享解锁</span>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 <script>
 export default {
     props : ['resData'],
+    data () {
+        return {
+            hideText: true,
+        }
+    },
+    methods: {
+        showText: function () {
+            this.hideText = false;
+        }
+    }
 }
 </script>
 <style lang="less" scoped>
+.hide{
+    display: none;
+}
 .wrap{
-    padding: 0 38/75rem;
-    .result-message{
-        font-size: 28/75rem;
+    p{
+        padding: 0 20/75rem;
+    }
+    font-size: 28/75rem; 
+    .unvisitableText{
+        position: relative;
+        .hide-text{
+           
+            color: transparent;
+            text-shadow: #111 0 0 5px;
+        }
+        .mask{
+            position: absolute;
+            top: 0;
+            left: 0;
+            .flex-center();
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.6);
+            .share-btn{
+                width: 230/75rem;
+                height: 80/75rem;
+                background: @baseLightColor;
+                .round(10/75rem);
+                color: #fff;
+                font-size: 32/75rem;
+                .flex-center();
+                i{
+                    display: inline-block;
+                    width: 44/75rem;
+                    height: 44/75rem;
+                    .round(50%);
+                    margin-right: 17/75rem;
+                    background: url('../assets/image/common/share-btn.png') no-repeat center center / 100% 100%;
+                }
+            }
+        }
     }
 }
-
 </style>

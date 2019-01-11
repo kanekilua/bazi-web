@@ -90,14 +90,12 @@ export default {
     },
     created () {
         this.getData();
-        // console.log(this.$route.params)
     },
     methods : {
         getData () {
             this.$http.post('/suan/apidata',this.$route.query,'cesuan',null,this.success);
         },
         success : function (res) {
-            // console.log(res)
             this.resData = res;
             this.params = this.$route.params;
         }
