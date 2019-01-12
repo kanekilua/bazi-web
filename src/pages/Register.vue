@@ -104,7 +104,7 @@ export default {
             }
             this.captchaFlag = true;
             let postData = {mobile : this.phone};
-            this.$http.post('/register',postData,'app',null,() => {
+            this.$http.post('/phoneRegister',postData,'app',null,() => {
                 this.show = false;
                 this.count = global.TIME_COUNT;
                 this.timer = setInterval(()=>{
@@ -143,10 +143,10 @@ export default {
         },
         registerSuccess : function () {
             let loginData = {
-                account : this.phone,
+                mobile : this.phone,
                 password : this.password
             }
-            this.$http.post('/login',loginData,'app',null,this.loginSuccess,null);
+            this.$http.post('/phoneLogin',loginData,'app',null,this.loginSuccess,null);
         },
         loginSuccess : function (result) {
             this.updateLoginAccount(this.phone);
