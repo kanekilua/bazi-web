@@ -145,10 +145,10 @@ export default {
                     return;
                 }
                 let loginData = {
-                    account : this.phone,
+                    mobile : this.phone,
                     password : this.password
                 };
-                this.$http.post('/login',loginData,'app',null,this.loginSuccess,null);
+                this.$http.post('/phoneLogin',loginData,'app',null,this.loginSuccess,null);
             }else {
                 if(!this.$utils.checkCaptcha(this.captcha,this)) {
                     return;

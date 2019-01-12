@@ -56,7 +56,7 @@ function apiAxios (method, url, params,type, headers, success, failure) {
         if (failure) {
           failure(res.data);
         }else {
-          Vue.$vux.toast.text(res.data.msg,'top');
+          Vue.$vux.toast.text(res.data.msg,'center');
           return;
         }
       }
@@ -73,7 +73,7 @@ function apiAxios (method, url, params,type, headers, success, failure) {
         return;
       }
     } 
-    Vue.$vux.toast.text('' + err,'top');
+    Vue.$vux.toast.text('' + err,'center');
     return;
   })
 }
