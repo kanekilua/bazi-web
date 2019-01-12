@@ -16,14 +16,14 @@
                 </div>
                 <div class="item">
                     <div class="left">
-                        <div>昵称</div>
+                        <div>姓名</div>
                     </div>
                     <div class="right">
                         <input type="text" class="right-item nick-input" v-model="nickName">
                         <i class="right-ico"></i>
                     </div>
                 </div>
-                <div class="item" @click="$jump('/baziBirth')">
+                <div class="item" @click="$jump('/birth')">
                     <div class="left">
                         <div>生辰八字</div>
                     </div>
@@ -32,7 +32,7 @@
                         <i class="right-ico"></i>
                     </div>
                 </div>
-                <div class="item" @click="showDialogStyle = true">
+                <!-- <div class="item" @click="showDialogStyle = true">
                     <div class="left">
                         <div>背景图片</div>
                     </div>
@@ -40,7 +40,7 @@
                         <div class="right-item"><img src="../assets/image/mine/transition-bg.png"></div>
                         <i class="right-ico"></i>
                     </div>
-                </div>
+                </div> -->
             </div>
             <!-- 弹窗 -->
             <div v-transfer-dom>
