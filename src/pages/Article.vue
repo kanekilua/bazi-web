@@ -90,6 +90,9 @@ export default {
             });
 
             this.article = res;
+            if(res.data.category === "八字合婚") {
+                res.data.content = res.data.content.replace('<strong>' + res.data.title +'</strong>','');
+            }
             let content = res.data.content;
             if(res.data.img !== null) {
                 let Img = res.data.img.split(' ');

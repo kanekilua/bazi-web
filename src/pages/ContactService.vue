@@ -7,7 +7,7 @@
             <div class="wechat-box">
                 <img class="wechat-code" src="../assets/image/common/wechat-code.png">
                 <div>扫码添加客服微信</div>
-                <div>或手动添加400121542</div>
+                <div>或手动添加Ken70007</div>
             </div>
             <v-title-nav>客户留言</v-title-nav>
             <textarea placeholder="请输入您的问题，客服将会尽快为你解答" v-model="message"></textarea>
