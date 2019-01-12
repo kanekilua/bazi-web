@@ -598,7 +598,7 @@ export default {
     & > nav {
         width: 100%;
         height:80/75rem;
-        background: url('../assets/image/common/nav.png') no-repeat center center / 100% 100%;
+        // background: url('../assets/image/common/nav.png') no-repeat center center / 100% 100%;
     }
 }
 .calendar-wrap {

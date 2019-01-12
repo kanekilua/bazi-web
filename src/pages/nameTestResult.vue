@@ -9,7 +9,7 @@
                 <v-title-nav>测试结果</v-title-nav>
                 <div class="name-box">
                     <div class="name">
-                        <div class="test-name">{{name}}</div>
+                        <div class="test-name">姓名：{{name}}</div>
                     </div>
                     <div class="score">{{res.xmdf}}</div>
                     <div class="bihua">
@@ -194,7 +194,6 @@ export default {
         },
         success: function (res) {
             this.res = res;
-            console.log(res)
         },
     }
 }
@@ -236,6 +235,9 @@ export default {
                 color: #fff;
                 .round(50%);
                 background: @baseBoldColor;
+            }
+            .bihua{
+                margin-right: 32/75rem;
             }
         }
         .title{
