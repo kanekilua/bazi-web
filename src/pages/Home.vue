@@ -75,14 +75,14 @@
                     趣味测试
                 </v-title-nav>
                 <div class="interst-test">
-                    <div class="img-box">
+                    <div class="img-box" @click="$jump('/interestingTest')">
                         <img src="../assets/image/home/test.png" alt="趣味测试">
                         <div class="mask">
                             <h3>总想找你聊天，还不是因为我在乎你！</h3>
                             <div><a href="#">免费揭晓答案 ></a></div>
                         </div>
                     </div>
-                    <div class="img-box">
+                    <div class="img-box" @click="$jump('/interestingTest')">
                         <img src="../assets/image/home/test.png" alt="趣味测试">
                         <div class="mask">
                             <h3>总想找你聊天，还不是因为我在乎你！</h3>
