@@ -97,7 +97,7 @@ export default {
                 let srcArr = res.data.content.match(reg);
                 for(let i=0; i<srcArr.length; i++){
                     content = content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
-                    srcArr[i] ='src='+'"'+'https://mingli.szmonster.com'+Img[i];//拼接服务器图片地址
+                    srcArr[i] ='src='+'"'+global.APP_DOMIAN+Img[i];//拼接服务器图片地址
                     content = content.replace(/src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/,srcArr[i])//替换图片url
                 };
             }

@@ -103,7 +103,7 @@ export default {
         pickFirstPicture: function (data) {
             for (let i of data){
                 i.img = i.img.split(' ')//取第一张照片
-                i.img = 'https://mingli.szmonster.com'+ i.img[0];
+                i.img = global.APP_DOMIAN+ i.img[0];
             }
         },
         success: function(res) {
@@ -224,7 +224,7 @@ export default {
         loadmore: function (res) {
             for (let i of res.data){
                 i.img = i.img.split(' ') //取第一张照片
-                i.img = 'https://mingli.szmonster.com'+ i.img[0];//替换url
+                i.img = global.APP_DOMIAN+ i.img[0];//替换url
                 this.list[0].data.push(i); //添加10条数据
             }
             if(res.data.length===10){
@@ -243,7 +243,7 @@ export default {
         loadmore1: function (res) {
             for (let i of res.data){
                 i.img = i.img.split(' ') //取第一张照片
-                i.img = 'https://mingli.szmonster.com'+ i.img[0];
+                i.img = global.APP_DOMIAN+ i.img[0];
                 this.list[1].data.push(i); //添加10条数据
             }
            if(res.data.length===10){
@@ -263,7 +263,7 @@ export default {
         loadmore2: function (res) {
             for (let i of res.data){
                 i.img = i.img.split(' ') //取第一张照片
-                i.img = 'https://mingli.szmonster.com'+ i.img[0];
+                i.img = global.APP_DOMIAN+ i.img[0];
                 this.list[2].data.push(i); //添加10条数据
             }
             if(res.data.length===10){
@@ -283,7 +283,7 @@ export default {
         loadmore3: function (res) {
             for (let i of res.data){
                 i.img = i.img.split(' ') //取第一张照片
-                i.img = 'https://mingli.szmonster.com'+ i.img[0];
+                i.img = global.APP_DOMIAN+ i.img[0];
                 this.list[3].data.push(i); //添加10条数据
             }
             if(res.data.length===10){

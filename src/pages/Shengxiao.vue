@@ -205,7 +205,7 @@ export default {
             // console.log(res);
             this.knowledges = res.data.splice(0,2);
             for( let i of this.knowledges){
-                i.img = 'https://mingli.szmonster.com' + i.img;
+                i.img = global.APP_DOMIAN + i.img;
             }
         },
         // 获取pairArticles
