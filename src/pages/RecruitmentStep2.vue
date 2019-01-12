@@ -35,12 +35,12 @@
             </div>
             <div class="form-item">
                 <div class="key">从业年限</div>
-                <input type="text" placeholder="请填写您的工作你年龄" v-model="working_years">
+                <input type="number" placeholder="请填写您的从业年限(阿拉伯数字)" v-model="working_years">
                 <div class="year">年</div>
             </div>
             <div class="form-item">
-                <div class="key">从业经验</div>
-                <input type="text" placeholder="填写预测实践中的经验" v-model="working_exp">
+                <div class="key">从业经历</div>
+                <input type="text" placeholder="填写您的从业经历" v-model="working_exp">
             </div>
             <div class="form-item">
                 <div class="key">擅长领域</div>
@@ -94,6 +94,31 @@ export default {
             this.$jump('/main/mine/recruitment/recruitmentStep1')
         },
         nextStep: function () {
+            if(this.$utils.Trim(this.technique)==''){
+                this.$vux.toast.text('请填写您所擅长的数术！','top');
+                return;
+            }
+            if(this.$utils.Trim(this.learning)==''){
+                this.$vux.toast.text('请填写您的学习经历！','top');
+                return;
+            }
+            if(this.$utils.Trim(this.working_years)==''){
+                this.$vux.toast.text('请填写您的从业年限！','top');
+                return;
+                if(typeof(this.$utils.Trim(this.working_years)=='')!=Number){
+                    this.$vux.toast.text('请填写阿拉伯数字！','top')
+                    return;
+                }
+                
+            }
+            if(this.$utils.Trim(this.merit)==''){
+                this.$vux.toast.text('请填写您的擅长领域！','top');
+                return;
+            }
+            if(this.$utils.Trim(this.charges)==''){
+                this.$vux.toast.text('请填写您的收费情况！','top');
+                return;
+            }
             let masterInfoTemp = {
                 ...this.masterInfo
             }
@@ -165,7 +190,7 @@ export default {
             .key{
                 font-size: 32/75rem;
             }
-            & >  input[type="text"]{
+            & >  input{
                width: 79%;
                margin-top: 17/75rem;
                padding-bottom: 17/75rem;

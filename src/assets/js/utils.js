@@ -71,6 +71,11 @@ export default {
     },
     //去除前后空格
     Trim: function (str){ 
-        return str.replace(/(^\s*)|(\s*$)/g, ""); 
+        if(str){
+            return str.replace(/(^\s*)|(\s*$)/g, ""); 
+        }
+        else {
+            return str;
+        }
     }
 }

@@ -6,10 +6,16 @@ import {mapState} from 'vuex';
 
 export default {
     name : 'welcome',
+    created() {
+        this.getBanner();
+    },
     mounted () {
         setTimeout (()=>{
             this.$jump('login');
         },3000);
+    },
+    methods: {
+        
     }
 }
 </script>

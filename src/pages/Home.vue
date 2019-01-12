@@ -1,11 +1,10 @@
-
 <template>
     <div class="home-wrap">
         <h1 class="header">每日一占</h1>
         <div class="content-wrap">
             <swiper class="swiper-box" :options="swiperOption">
                 <swiper-slide v-for="(imgItem,index) in imgList" :key="index">
-                    <img :src="imgItem.url" alt="swiper">
+                    <img :src="imgItem.image" alt="swiper">
                 </swiper-slide>
                 <div class="swiper-pagination"></div>
             </swiper>
@@ -103,11 +102,7 @@ export default {
     },
     data () {
         return {
-            imgList: [
-                {url: require('../assets/image/home/banner1.png')},
-                {url: require('../assets/image/home/banner1.png')},
-                {url: require('../assets/image/home/banner1.png')},               
-            ],
+            imgList: [],
             swiperOption: {
                 slidesPerView: 'auto',
                 direction:"horizontal",/*横向滑动*/ 
@@ -122,6 +117,9 @@ export default {
                 },
             }
         }
+    },
+    created () {
+        this.getBanner();
     },
     methods: {
         ...mapMutations('bazi',['updateBaziUserInfo']),
@@ -151,6 +149,12 @@ export default {
             };
             this.updateBaziUserInfo(baziPaiPanData);
             this.$jump('/bazi');
+        },
+        getBanner: function () {
+            this.$http.post('/features/carousel',null,null,null,this.success,this.failure);
+        },
+        success: function (res) {
+            this.imgList = res.data.index.children;
         }
     }
 }
@@ -182,11 +186,13 @@ export default {
     .swiper-slide{
         width: 100%;
         height: 350/75rem;
+        padding-bottom: 30/75rem;
         &> img{
             display: block;
             width: 96%;
             height: 100%;
             margin: 0 auto;
+            .round(10/75rem);
         }
     }
     .swiper-pagination{
