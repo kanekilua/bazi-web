@@ -1,6 +1,5 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
         <v-title-header>风水常识</v-title-header>
         <div class="content-wrap">
             <div class="content-box">
@@ -17,7 +16,6 @@
                     <div class="btn-row">
                         <button class="fengshui-btn" @click="toList('301','风水摆设','风水摆设')">风水摆设</button>
                         <button class="fengshui-btn" @click="toList('302','商业风水')">商业风水</button>
-                        <!-- <button class="fengshui-btn">风水大师</button>暂时无风水大师数据 -->
                     </div>
                 </div>
             </div>
@@ -76,7 +74,7 @@ export default {
             this.updateNavIndex(this.swiper.activeIndex);
         });
     },
-     methods : {
+    methods : {
         ...mapMutations('peach',['updateNavIndex']),
         getData: function () {
             let sendData = {
@@ -86,7 +84,6 @@ export default {
         },
         success: function(res) {
             this.list = res;
-            console.log(res);
         },
         // 跳转文章页面
         toInner: function (innerId) {
@@ -94,6 +91,7 @@ export default {
             this.$router.push({
                 name: 'article',
                 query: {
+                    cid : '95',
                     id : id
                 }
             })
@@ -123,13 +121,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .content-wrap{
-    position: absolute;
-    top: 169/75rem;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: auto;
-    padding: 40/75rem;
+    padding: 90/75rem 40/75rem 0 40/75rem;
     .border-box();
     .content-box{
         width: 670/75rem;
@@ -162,7 +154,7 @@ export default {
                 }
             }
             .select-btn{
-                background: @baseColor;
+                background: @baseBoldColor;
                 color: #fff;
             }
         }
@@ -197,9 +189,9 @@ export default {
             }
             & > i{
                 display: inline-block;
-                width: 44/75rem;
-                height: 44/75rem;
-                background: url("../assets/image/common/right@2x.png") no-repeat center center / 100% 100%;
+                width: 13/75rem;
+                height: 25/75rem;
+                background: url("../assets/image/common/more.png") no-repeat center center / 100% 100%;
             }
          }
     }

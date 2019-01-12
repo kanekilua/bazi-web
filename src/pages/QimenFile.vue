@@ -21,17 +21,18 @@
             <div class="dateType">
                 日期类型：
                 <div class="gregorian">
+                    <div class="date-txt">公历</div>
                     <input type="radio" id="gregorian" name='dateType' v-model="dateType" value="1">
                     <label for="gregorian"></label>
-                    <div class="date-txt">公历</div>
                 </div>
                 <div class="lunar">
+                    <div  class="date-txt">农历</div>
                     <input type="radio" id="lunar" name='dateType' v-model="dateType" value="0">
                     <label for="lunar"></label>
-                    <div  class="date-txt">农历</div>
                 </div>
             </div>
             <input id="dateInput" type="text" class="input-born" placeholder="请选择您的出生日期" @click="showDatePlugin" readonly="readonly" v-model="birthDate">
+            <h2 class="qiju-title">按公历起局</h2>
             <div class="qimenList">
                 <div class="qijuItem">
                     <input type="radio" id="gongli" name='qimenList' v-model="qimenList" value="zp">
@@ -44,19 +45,21 @@
                     <div  class="qiju-txt">飞盘奇门</div>
                 </div>
             </div>
-            <div class="feipanList" v-show="qimenList==='fg'">
-                <div class="qijuItem">
-                    <input type="radio" id="reverse" name='feipanList' v-model="feipanList" value="1">
-                    <label for="reverse"></label>
-                    <div  class="qiju-txt">阳顺阴逆</div>
-                </div>
-                <div class="qijuItem">
-                    <input type="radio" id="sort" name='feipanList' v-model="feipanList" value="0">
-                    <label for="sort"></label>
-                    <div  class="qiju-txt">全部顺排</div>
+            <div class="feipanList-box">
+                <div class="feipanList" v-show="qimenList==='fg'">
+                    <div class="qijuItem">
+                        <input type="radio" id="reverse" name='feipanList' v-model="feipanList" value="1">
+                        <label for="reverse"></label>
+                        <div  class="qiju-txt">阳顺阴逆</div>
+                    </div>
+                    <div class="qijuItem">
+                        <input type="radio" id="sort" name='feipanList' v-model="feipanList" value="0">
+                        <label for="sort"></label>
+                        <div  class="qiju-txt">全部顺排</div>
+                    </div>
                 </div>
             </div>
-            <x-button :gradients="[gradientStart, gradientEnd]" id="save-confirm" @click.native="saveData">确认保存</x-button>
+            <x-button  id="save-confirm" @click.native="saveData">开始起局</x-button>
         </div>
     </div>
 </template>
@@ -158,16 +161,17 @@ export default  {
 .bazi-birth-wrap {
     .birth-form{
         width: 640/75rem;
-        margin: 24/75rem auto 0 auto;
+        margin: 50/75rem auto 0 auto;
         box-sizing: border-box;
-        padding: 50/75rem;
-        .round(50/75rem);
+        padding: 20/75rem 50/75rem;
+        .round(15/75rem);
         background: #fff;
-        box-shadow: 0 10/75rem 10/75rem #eee;
+        box-shadow: 0 0 20/75rem #eee;
     }
     .form-title{
+        text-align: center;
         font-size: 32/75rem;
-        margin-bottom: 57/75rem;
+        margin: 30/75rem auto 30/75rem auto;
     }
     .input-name,.input-things,.input-born{
         width: 100%;
@@ -181,6 +185,7 @@ export default  {
         font-weight:400;
         color:rgba(0,0,0,1);
         outline: none;
+        text-align: center;
     }
     .input-things{
         margin-bottom: 43/75rem;
@@ -190,8 +195,8 @@ export default  {
     }
     .gender{
         .flex-between();
-        width: 80%;
-        margin: 40/75rem;
+        width: 60%;
+        margin: 40/75rem auto;
         font-size: 34/75rem;
         .male,.female{
             .flex-start();
@@ -204,19 +209,22 @@ export default  {
             height: 44/75rem;
             .round(50%);
             margin-right: 40/75rem;
-            border: 1px solid #eee;
+            & + div{
+                color:#555555;
+           }
+        }
+        input[id="male"]+ label{
+            background: url('../assets/image/common/male1.png') no-repeat center center / 100% 100%;
+        }
+        input[id="female"]+ label{
+            background: url('../assets/image/common/female1.png') no-repeat center center / 100% 100%;
         }
         input[id="male"]:checked  + label{
-           background: url('../assets/image/birth/man.png') no-repeat center center / 100% 80%;
-           & + div{
-                color:rgba(0,0,0,1);
-           }
+           background: url('../assets/image/common/male1-active.png') no-repeat center center / 100% 100%;
+           
         }
         input[id="female"]:checked  + label{
-           background: url('../assets/image/birth/woman.png') no-repeat center center / 40% 100%;
-           & + div{
-                color:rgba(0,0,0,1);
-           }
+           background: url('../assets/image/common/female1-active.png') no-repeat center center / 100% 100%;
         }
         .gender-txt{
             color:rgba(0,0,0,0.2);
@@ -246,14 +254,14 @@ export default  {
     .dateType{
         .flex-start();
         font-size: 34/75rem;
-        padding-left: 7.5/75rem;
+        padding-left: 12%;
         color:@inputColor;
         .gregorian,{
             .flex-start();
         }
         .lunar {
             .flex-start();
-            margin-left: 55/75rem;
+            margin-left: 20/75rem;
         }
         input[type="radio"]{
             display: none;
@@ -266,10 +274,13 @@ export default  {
             border: 1px solid #eee;
         }
         input[name="dateType"]:checked  + label{
-            background-color: @baseColor;
+            background-color: @baseBoldColor;
             & + div{
                 color:rgba(0,0,0,0.8);
            }
+        }
+        .date-txt{
+            margin-right: 15/75rem;
         }
     }
     .qimenList,.feipanList{
@@ -277,9 +288,9 @@ export default  {
         flex-wrap: wrap;
         .qijuItem{
             width: 48%;
-            margin-bottom: 28/75rem;
+            margin-bottom: 20/75rem;
             font-size: 34/75rem;
-            .flex-start();
+            .flex-end();
             & > input {
                 display: none;
             }
@@ -290,26 +301,49 @@ export default  {
                 margin-right: 26/75rem;
                 border: 1px solid #707070;
                 & + div{
-                    color:rgba(0,0,0,0.2);
+                    color:#555555;
                 }
             }
             
             input[type="radio"]:checked  + label{
-                background-color: @baseColor;
-                & + div{
-                    color:rgba(0,0,0,0.8);
+                background-color: @baseBoldColor;
+            }
+        }
+    }
+    .feipanList-box{
+        margin-bottom: 10/75rem;
+        .flex-end();
+        .feipanList{
+            width: 34.5%;
+            .flex-col();
+            .qijuItem{
+                .flex-start();
+                width: 100%;
+                margin-bottom: 10/75rem;
+                font-size: 24/75rem;
+                label{
+                    width: 16/75rem!important;
+                    height: 16/75rem!important;
                 }
             }
         }
+    }
+    .qiju-title{
+        text-align: center;
+        margin-bottom: 20/75rem;
+        font-size: 32/75rem;
     }
     #dateInput {
         margin-top: 28/75rem;
     }
     #save-confirm{
-        width: 504/75rem;
-        height: 90/75rem;
-        border-radius: 40/75rem;
+        width: 100%;
+        height: 80/75rem;
+        margin-bottom: 30/75rem;
+        border-radius: 50/75rem;
         font-size: 28/75rem;
+        background: @baseBoldColor;
+        color: #fff;
     }
 }
 </style>

@@ -1,185 +1,197 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
-        <v-title-header>
-            我的收藏
-        </v-title-header>
-        <div class="content-wrap">
-            <div class="collection-list">
-                <div class="collection-item" v-for="(item,index) in List" :key="index">
-                    <img :src="item.url">
-                    <div class="text">
-                        <h2>{{item.title}}</h2>
-                        <p>{{item.artical}}</p>
+        <v-title-header>我的收藏</v-title-header>
+        <div class="content-wrap" v-if="flag">
+            <v-title-nav>文章</v-title-nav>
+            <div class="article-list">
+                <div class="article" v-for="(item,index) in articleList" :key="index" @click="jumpArticle(item)">
+                    <div class="upper" :style="{backgroundImage : 'url(' + item.url + ')'}">
+                        <div class="overlay"></div>
+                        <div class="content">
+                            <div class="title">
+                                {{item.title}}
+                            </div>
+                            <div class="tip">
+                                <i></i>
+                                文章
+                            </div>
+                        </div>
                     </div>
-                    <i class="exit" @click="exit(index)"></i>
+                    <div class="under">
+                        <p>{{item.summary}}</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- 弹窗 -->
-        <div v-transfer-dom>
-            <x-dialog v-model="showDialogStyle" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '30%', 'background-color': 'transparent'}">
-                <div class="img-dialog">
-                    <img class="fan" src="../assets/image/mine/fan.png">
-                    <button class="ask">确定不再收藏此文章？</button>
-                    <div class="btn-list">
-                        <button class="cancel" @click="showDialogStyle = false">取消</button>
-                        <button class="confirm" @click="deleteItem()">确认</button>
-                    </div>
-                </div>
-            </x-dialog>
+        <div class="none-content-wrap" v-else>
+            <div class="none-tip">暂无收藏</div>
         </div>
     </div>
 </template>
 
 <script>
-import {XDialog,TransferDomDirective as TransferDom} from 'vux'
 export default {
-    directives: {
-        TransferDom
-    },
     data () {
         return {
             showDialogStyle: false,
-            List: [
-                {
-                    url: require('../assets/image/mine/collection.png'),
-                    title: '遇到难题你会请教同事吗',
-                    artical: '一个人不管做什么，都不可能一帆风顺，因为会有一个学习的过程，有一个适应环境的过程，还有一个搭建人脉的过程。这些过程不仅需要时间，还需要努力让自己变得更优秀。职场上的拼搏很辛苦，因为会遇到一些靠自己一个人难解决的问题。非常运势测试网认为找人帮忙确实能起到很好的作用，你遇到难题会请教同事吗?'
-                },
-                {
-                    url: require('../assets/image/mine/collection.png'),
-                    title: '222遇到难题你会请教同事吗',
-                    artical: '一个人不管做什么，都不可能一帆风顺，因为会有一个学习的过程，有一个适应环境的过程，还有一个搭建人脉的过程。这些过程不仅需要时间，还需要努力让自己变得更优秀。职场上的拼搏很辛苦，因为会遇到一些靠自己一个人难解决的问题。非常运势测试网认为找人帮忙确实能起到很好的作用，你遇到难题会请教同事吗?'
-                },
-                {
-                    url: require('../assets/image/mine/collection.png'),
-                    title: '333遇到难题你会请教同事吗',
-                    artical: '一个人不管做什么，都不可能一帆风顺，因为会有一个学习的过程，有一个适应环境的过程，还有一个搭建人脉的过程。这些过程不仅需要时间，还需要努力让自己变得更优秀。职场上的拼搏很辛苦，因为会遇到一些靠自己一个人难解决的问题。非常运势测试网认为找人帮忙确实能起到很好的作用，你遇到难题会请教同事吗?'
-                },
-                {
-                    url: require('../assets/image/mine/collection.png'),
-                    title: '444遇到难题你会请教同事吗',
-                    artical: '一个人不管做什么，都不可能一帆风顺，因为会有一个学习的过程，有一个适应环境的过程，还有一个搭建人脉的过程。这些过程不仅需要时间，还需要努力让自己变得更优秀。职场上的拼搏很辛苦，因为会遇到一些靠自己一个人难解决的问题。非常运势测试网认为找人帮忙确实能起到很好的作用，你遇到难题会请教同事吗?'
-                },
-            ],
-            Index: '0',
+            articleList : [],
+            flag : false
         }
     },
+    created() {
+        this.init();
+    },
     methods: {
-        // x键
-        exit: function(index) {
-            this.showDialogStyle = true;
-            this.Index=index;
+        init : function () {
+            let header = {
+                'Authorization' : localStorage.getItem(global.APP_TOKEN)
+            }
+            this.$http.post('/features/mycoll',null,null,header,this.success,null);
         },
-        //确认删除收藏
-        deleteItem: function() {
-            this.List.splice(this.Index,1);
-            this.showDialogStyle = false;
+        success : function (res) {
+            if(res.code === "success") {
+                if(res.data.rows.length === 0) {
+                    this.flag = false;
+                }else {
+                    this.flag = true;
+                    this.articleList = res.data.rows;
+                    for( let i of this.articleList){
+                        if(i.url === "") {
+                            i.url = require("../assets/image/activity/banner.png")
+                        }else {
+                            i.url = global.APP_DOMIAN + i.url;
+                        }
+                    }
+                }
+            }
         },
+        jumpArticle : function (article) {
+            console.log(article);
+            let paramArr = article.param.split('&');
+            let cid = "";
+            let articleId = "";
+            let category = "";
+            let name = "";
+            let imgUrl = "";
+            for(let param of paramArr) {
+                if(param.split('=')[0] === 'cid'){
+                    cid = param.split('=')[1];
+                }else if(param.split('=')[0] === 'id') {
+                    articleId = param.split('=')[1];
+                }else if(param.split('=')[0] === 'category') {
+                    category = param.split('=')[1];
+                }else if(param.split('=')[0] === 'name') {
+                    name = param.split('=')[1];
+                }else if(param.split('=')[0] === 'imgUrl') {
+                    imgUrl = param.split('=')[1];
+                }
+            }
+            if(cid === "95") {
+                this.$router.push({
+                    name: "article",
+                    query: {
+                        cid : cid,
+                        id : articleId
+                    },
+                    params : {
+                        coll_id : article.id
+                    }
+                });
+            }else if (cid === "98") {
+                this.$router.push({
+                    name: 'article',
+                    query : {
+                        cid : cid,
+                    },
+                    params: {
+                        category: category,
+                        name: name,
+                        img: imgUrl,
+                        coll_id : article.id
+                    }
+                })
+            }
+        }
     }
 }
 </script>
 <style lang="less" scoped>
 .content-wrap{
-    position: absolute;
-    top: 169/75rem;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: auto;
-    .collection-list{
-        width: 686/75rem;
-        margin: 40/75rem auto;
-        .collection-item{
-            position: relative;
-            .flex-between-only();
-            width: 100%;
-            padding: 34/75rem;
-            margin-bottom: 50/75rem;
+    padding-top: 90/75rem;
+    background-color: rgb(241, 241, 241);
+    .border-box();
+    /deep/ .title-nav {
+        background-color: #fff;
+    }
+    .article-list {
+        .article {
+            height: 510/75rem;
+            margin : 0 auto 10/75rem auto;
+            padding: 24/75rem 5%;
             .border-box();
-            .boxshadow(0,3/75rem,6/75rem,rgba(0,0,0,0.16));
-            .round(34/75rem);
-            & > img{
-                width: 178/75rem;
-                height: 138/75rem;
-            }
-            .text{
-                padding-left: 60/75rem;
-                .border-box();
-                & > h2{
-                    margin: 10/75rem 0;
-                    font-size: 28/75rem;
+            background-color: #fff;
+            .upper {
+                position: relative;
+                width: 100%;
+                height: 280/75rem;
+                .round(8/75rem);
+                background-repeat: no-repeat;
+                background-position: top;
+                background-size: cover;
+                .overlay {
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    height: 100%;
+                    .round(8/75rem);
+                    background: linear-gradient(to top, rgba(88, 88, 88, 0.9), rgba(255,255,255,0));
                 }
-                & > p{
-                    .ellipsis(2);
+                .content {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 15/75rem;
+                    width: 95%;
+                    margin : 0 auto;
+                    .flex-between();
+                    .title {
+                        font-size: 32/75rem;
+                        color: #fff;
+                        font-weight: bold;
+                    }
+                    .tip {
+                        color: #fff;
+                        font-size: 24/75rem;
+                        i {
+                            display: inline-block;
+                            width: 18/75rem;
+                            height: 19/75rem;
+                            background: url('../assets/image/activity/article-icon.png') no-repeat center center / 100% 100%;
+                        }
+                    }
                 }
+                
             }
-            .exit{
-                position: absolute;
-                right: 0;
-                top: -7/75rem;
-                display: inline-block;
-                width: 44/75rem;
-                height: 44/75rem;
-                background: url('../assets/image/common/exit.png') no-repeat center center / 100% 100%;
+            .under {
+                height: 160/75rem;
+                margin-top: 24/75rem;
+                overflow: hidden;
+                font-size: 28/75rem;
+                & > p {
+                    text-indent:2em;
+                }
             }
         }
     }
 }
-// 弹窗
-/deep/ .weui-dialog{
-    .flex-center();
-    .img-dialog{
-        position: relative;
-        width: 90%;
-        margin: 0 auto;
-        .flex-col();
-        & > button {
-            display: block;
-            width: 100%;
-            height: 105/75rem;
-            border: none;
-            outline: none;
-            &:active{
-                background: #eee;
-            }
-        }
-        .ask{
-            height: 154/75rem;
-            .round(45/75rem 45/75rem 0 0);
-            background: #fff;
-            font-size: 28/75rem;
-        }
-        .btn-list{
-            .flex-start();
-            width: 100%;
-            height: 87/75rem;
-            line-height: 87/75rem;
-            .round(0 0 45/75rem 45/75rem);
-            background: @baseColor;
-            & > button{
-                .my-button();
-                width: 50%;
-                height: 100%;
-                font-size: 28/75rem;
-            }
-            .cancel{
-                .round(0 0 0 45/75rem);
-                color: #000;
-            }
-            .confirm{
-                .round(0 0 45/75rem 0);
-                background: @baseColor;
-            }
-        }
-        .fan{
-            position: absolute;
-            right: 68/75rem;
-            top: -78/75rem;
-            width: 158/75rem;
-            height: 118/75rem;   
-        }
+.none-content-wrap {
+    padding-top: 90/75rem;
+    .border-box();
+    .none-tip {
+        margin-top: 300/75rem;
+        font-size: 40/75rem;
+        text-align: center;
+        color: rgba(0,0,0,0.3);
     }
 }
 </style>

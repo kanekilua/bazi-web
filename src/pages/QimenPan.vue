@@ -1,6 +1,5 @@
 <template>
     <div class="qmdj-wrap">
-        <v-header></v-header>
         <v-title-header>奇门遁甲资料</v-title-header>
         <div class="content-wrap">
             <div class="table-wrap">
@@ -23,7 +22,6 @@
                 <div>直符：{{zhifu}}</div>
                 <div>直使：{{zhishi}}</div>
             </div>
-            <input type="button" class="save-btn" value="保存命盘">
         </div>
     </div>
 </template>
@@ -59,12 +57,8 @@ export default {
 // 为了覆盖富文本样式去掉scoped属性
 .qmdj-wrap{
     .content-wrap{
-        width: 100%;
-        position:absolute;
-        top: 169/75rem;
-        left:0;
-        bottom :0;
-        overflow: auto;
+        padding-top: 90/75rem;
+        .border-box();
         .table-wrap{
             width: 100%;
             padding: 41/75rem;
@@ -127,17 +121,6 @@ export default {
         .bottom-msg{
             .flex-around();
             font-size: 34/75rem;
-        }
-        .save-btn{
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 100/75rem;
-            background: @baseColor;
-            border: none;
-            outline: none;
-            color: #fff;
-            font-size: 28/75rem;
         }
     }
 }

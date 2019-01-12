@@ -1,6 +1,5 @@
 <template>
     <div class="xiangshu-wrap">
-        <v-header></v-header>
         <v-title-header>
             相术解析
         </v-title-header>
@@ -10,16 +9,16 @@
                     <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
                 </div>
                 <swiper :options="swiperOption" ref="mySwiper">
-                        <swiper-slide ref="slideone" v-for="(item,index) in list" :key="index">
-                            <div class="hItem" v-for="(innerItem,innerIndex) in item.data" :key="innerIndex" @click="toInner(innerItem.id)">
-                                <img :src="innerItem.img">
-                                <div class="right">
-                                    <h2>{{innerItem.title}}</h2>
-                                    <p v-html="innerItem.content"></p>
-                                </div>
+                    <swiper-slide ref="slideone" v-for="(item,index) in list" :key="index">
+                        <div class="hItem" v-for="(innerItem,innerIndex) in item.data" :key="innerIndex" @click="toInner(innerItem.id)">
+                            <img :src="innerItem.img">
+                            <div class="right">
+                                <h2>{{innerItem.title}}</h2>
+                                <p v-html="innerItem.content"></p>
                             </div>
-                            <load-more :tip="tip" :show-loading="showLoading" :class="showIco? 'show': 'hide'"></load-more>  
-                        </swiper-slide>
+                        </div>
+                        <load-more :tip="tip" :show-loading="showLoading" :class="showIco? 'show': 'hide'"></load-more>  
+                    </swiper-slide>
                 </swiper>
             </div>
         </div>
@@ -80,22 +79,22 @@ export default {
         ...mapMutations('xiangshu',['updateNavIndex']),
         getData: function () {
             let sendData = {
-                cid : 96,
+                cid : '96',
                 tid: '501',
             }
             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success);
             let sendData1 = {
-                    cid : 96,
+                    cid : '96',
                     tid: '502',
                 }
             this.$http.post('/suan/apidata',sendData1,'cesuan',null,this.success1);
             let sendData2 = {
-                    cid : 96,
+                    cid : '96',
                     tid: '503',
                 }
             this.$http.post('/suan/apidata',sendData2,'cesuan',null,this.success2);
-             let sendData3 = {
-                    cid : 96,
+            let sendData3 = {
+                    cid : '96',
                     tid: '504',
                 }
             this.$http.post('/suan/apidata',sendData3,'cesuan',null,this.success3);
@@ -104,7 +103,7 @@ export default {
         pickFirstPicture: function (data) {
             for (let i of data){
                 i.img = i.img.split(' ')//取第一张照片
-                i.img = 'https://mingli.szmonster.com'+ i.img[0];
+                i.img = global.APP_DOMIAN+ i.img[0];
             }
         },
         success: function(res) {
@@ -127,6 +126,7 @@ export default {
             this.$router.push({
                 name: 'article',
                 query: {
+                    cid : '95',
                     id : id
                 }
             }) 
@@ -136,18 +136,18 @@ export default {
             this.nowIndex= this.navIndex;
             let content = this.$refs.content;
             content.addEventListener('scroll',() => {
-                console.log(content.scrollTop)
+                // console.log(content.scrollTop)
                 if(this.nowIndex===0){
                     if(this.list[0].switchBack===false){//首次切换时设置滚动条在顶部
                         content.scrollTop = 0;
                         this.list[0].switchBack=true
                     }
                     this.list[0].scrollPosition = content.scrollTop;
-                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[0].loading==false){ //触底且没有在发送状态
-                        console.log('到底了') //滚动条触底
+                    //滚动条触底且没有在发送状态时
+                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[0].loading===false){
                         this.tip="正在加载";
                         this.showLoading = true; //显示加载ico
-                        this.list[0].loading=true; //加载中停止发送更多请求
+                        this.list[0].loading = true; //加载中停止发送更多请求
                         this.list[0].limit++;//请求10条数据
                         let sendData = {
                             cid : 96,
@@ -164,11 +164,11 @@ export default {
                         this.list[1].switchBack=true
                     }
                     // content.scrollTop = this.list[1].scrollPosition;          
-                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[1].loading==false){ //触底且没有在发送状态
-                        console.log('到底了');
+                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[1].loading===false){ //触底且没有在发送状态
+                        // console.log('到底了');
                         this.tip="正在加载";
                         this.showLoading = true;
-                        this.list[1].loading=true; 
+                        this.list[1].loading = true; 
                         this.list[1].limit++;
                         let sendData = {
                             cid : 96,
@@ -185,11 +185,10 @@ export default {
                         this.list[2].switchBack=true
                     }
                     // this.list[2].scrollPosition = content.scrollTop;
-                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[2].loading==false){ //触底且没有在发送状态
-                        console.log('到底了') //滚动条触底
+                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[2].loading===false){ //触底且没有在发送状态
                         this.tip="正在加载";
                         this.showLoading = true;
-                        this.list[2].loading=true; //加载中停止发送更多请求
+                        this.list[2].loading = true; //加载中停止发送更多请求
                         this.list[2].limit++;//请求10条数据
                         let sendData = {
                             cid : 96,
@@ -206,11 +205,10 @@ export default {
                         this.list[3].switchBack=true
                     }
                     // this.list[2].scrollPosition = content.scrollTop;
-                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[3].loading==false){ //触底且没有在发送状态
-                        console.log('到底了') //滚动条触底
+                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[3].loading===false){ //触底且没有在发送状态
                         this.tip="正在加载";
                         this.showLoading = true;
-                        this.list[3].loading=true; //加载中停止发送更多请求
+                        this.list[3].loading = true; //加载中停止发送更多请求
                         this.list[3].limit++;//请求10条数据
                         let sendData = {
                             cid : 96,
@@ -224,14 +222,12 @@ export default {
             })  
         },
         loadmore: function (res) {
-            console.log(res)
             for (let i of res.data){
                 i.img = i.img.split(' ') //取第一张照片
-                i.img = 'https://mingli.szmonster.com'+ i.img[0];//替换url
+                i.img = global.APP_DOMIAN+ i.img[0];//替换url
                 this.list[0].data.push(i); //添加10条数据
             }
             if(res.data.length===10){
-                console.log(10)
                 //数据渲染完成后关闭加载动画
                 this.$nextTick(function () {
                     this.list[0].loading=false;
@@ -239,17 +235,15 @@ export default {
                 })  
             }
             if(res.data.length!=10 && this.nowIndex===0){
-                console.log("<10")
                 this.showIco = true;
                 this.tip="没有更多数据！";
                 this.showLoading = false;
             }   
         },
         loadmore1: function (res) {
-            console.log(res)
             for (let i of res.data){
                 i.img = i.img.split(' ') //取第一张照片
-                i.img = 'https://mingli.szmonster.com'+ i.img[0];
+                i.img = global.APP_DOMIAN+ i.img[0];
                 this.list[1].data.push(i); //添加10条数据
             }
            if(res.data.length===10){
@@ -267,10 +261,9 @@ export default {
                 
         },
         loadmore2: function (res) {
-            console.log(res)
             for (let i of res.data){
                 i.img = i.img.split(' ') //取第一张照片
-                i.img = 'https://mingli.szmonster.com'+ i.img[0];
+                i.img = global.APP_DOMIAN+ i.img[0];
                 this.list[2].data.push(i); //添加10条数据
             }
             if(res.data.length===10){
@@ -288,10 +281,9 @@ export default {
             }  
         },
         loadmore3: function (res) {
-            console.log(res)
             for (let i of res.data){
                 i.img = i.img.split(' ') //取第一张照片
-                i.img = 'https://mingli.szmonster.com'+ i.img[0];
+                i.img = global.APP_DOMIAN+ i.img[0];
                 this.list[3].data.push(i); //添加10条数据
             }
             if(res.data.length===10){
@@ -325,7 +317,7 @@ export default {
     }
     .content-wrap{
         position: absolute;
-        top: 285/75rem;
+        top: 200/75rem;
         bottom: 0;
         left: 0;
         width: 100%;
@@ -333,7 +325,7 @@ export default {
         .nav{
             width: 100%;
             position: fixed;
-            top: 169/75rem;
+            top: 90/75rem;
             left: 0;
             background: #fff;
             z-index: 100;
@@ -355,12 +347,13 @@ export default {
                 .flex-start-only();
                 margin-bottom: 32/75rem;
                 & > img{
-                    width: 258/75rem;
-                    height: 198/75rem;
-                    .round(27/75rem);
+                    width: 300/75rem;
+                    height: 180/75rem;
+                    .round(10/75rem);
                     margin-left: 14/75rem;
                 }
                 .right{
+                    flex: 1;
                     margin-left: 20/75rem;
                     & > h2{
                         width: 400/75rem;
@@ -380,7 +373,7 @@ export default {
                         display: -webkit-box;
                         -webkit-line-clamp: 3;
                         -webkit-box-orient: vertical;
-                        font-size: 26/75rem;
+                        font-size: 22/75rem;
                         line-height: 40/75rem;
                         & > strong {
                             display: none;

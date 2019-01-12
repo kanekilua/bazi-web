@@ -1,20 +1,25 @@
 <template>
-    <div class="wrap">
-        <div class="header-bg"><div></div><nav></nav></div>
-        <div class="header">
-            <div class="header-left">
-                <div>黄历</div>
-                <i class="today" @click="clickItem = todayItem"></i>
+    <div class="calendar-wrap">
+        <div class="calendar-header-wrap">
+            <div class="left">
+                <div class="title">黄历</div>
+                <div class="today" @click="clickItem = todayItem"></div>
             </div>
-            <div class="header-center">
-                <div class="solar-date">{{todayItem.year}}.{{todayItem.month}}.{{todayItem.day}}</div>
-                <div class="lunar-date">{{todayItem.lunarMonthName}}{{todayItem.lunarDayName}}    {{todayMoreInfo ? todayMoreInfo.week : ""}}</div>
+            <div class="center">
+                <div class="content">
+                    <div class="solar-date">{{todayItem.year}}.{{todayItem.month}}.{{todayItem.day}}</div>
+                    <div class="lunar-date">{{todayItem.lunarMonthName}}{{todayItem.lunarDayName}}    {{todayMoreInfo ? todayMoreInfo.week : ""}}</div>
+                </div>
             </div>
-            <div class="header-right" @click="$jump('/main/calendar/weather')">
-                <i class="weather"></i>
-                <div class="right">
-                    <div class="city">福田</div>
-                    <div class="temperature">21~26℃</div>
+            <div class="right" @click="jumpWeather">
+                <div class="content">
+                    <div class="upper">
+                        <i class="weather" :style="{backgroundImage: 'url(' + weatherIcon + ')'}"></i>
+                        <div class="city">{{weather.weather.HeWeather6[0].basic.location}}</div>
+                    </div>
+                    <div class="under">
+                        {{weather.weather.HeWeather6[0].daily_forecast[0].tmp_min}}~{{weather.weather.HeWeather6[0].daily_forecast[0].tmp_max}}℃
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,7 +70,10 @@
             </div>
             <div class="info" :class="{'info-without-more' : moreInfo === null}">
                 <div class="info-header">
-                    {{clickItem.lunarMonthName}}{{clickItem.lunarDayName}}  {{moreInfo ? moreInfo.week : ""}}
+                    <div class="info-title">{{clickItem.lunarMonthName}}{{clickItem.lunarDayName}}  {{moreInfo ? moreInfo.week : ""}}</div>
+                    <div class="more" @click="moreDetail">
+                        更多详情<i></i>
+                    </div>
                 </div>
                 <div class="info-gz">
                     <span>干支</span>  {{clickItem.GanZhiYear}} {{clickItem.GanZhiMonth}} {{clickItem.GanZhiDay}}
@@ -75,13 +83,8 @@
                     <div class="yiji">{{moreInfo.yiji.yi}}</div>
                 </div>
                 <div class="info-ji" v-if="moreInfo != null">
-                    <div class="left">
-                        <div class="title">忌</div>
-                        <div class="yiji">{{moreInfo.yiji.ji}}</div>
-                    </div>
-                    <div class="more" @click="moreDetail">
-                        <div>更多详情</div><i></i>
-                    </div>
+                    <div class="title">忌</div>
+                    <div class="yiji">{{moreInfo.yiji.ji}}</div>
                 </div>
                 <div class="info-more"></div>
             </div>
@@ -104,6 +107,7 @@
 
 <script>
 import lunarCalendar from "lunar-calendar"
+import {mapState,mapMutations} from 'vuex';
 
 const today = new Date();
 const currentYear = today.getFullYear();
@@ -142,10 +146,43 @@ var lunarDayArray = [
 ];
 
 export default {
+    data () {
+        return {
+            showYearSelector : false,
+            showMonthSelector : false,
+            showDaySelector : false,
+            calendarType : 1, // 默认 0是阴历 1是阳历
+            yearArr : [],
+            yearSelect : "",
+            yearSelectIndex : 0,
+            monthArr : [],
+            monthSelect : "",
+            monthSelectIndex : 0,
+            dayArr : [],
+            daySelect : "",
+            daySelectIndex : 0,
+            calendarHeader : ['日','一','二','三','四','五','六'],
+            clickItem : {},
+            todayItem : {},
+            navList : ['吉日查询','农历查询','民俗节日'],
+            navIndex : 0,
+            swiperOption : { initialSlide: this.navIndex },
+            articleList : [
+                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉'],
+                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉'],
+                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉']
+            ],
+            moreInfo : {'yiji':{'yi':'','ji':''},'week':''},
+            todayMoreInfo : null,
+            // weather : {'weather': {'HeWeather6' : [{'basic': { 'location' : ''} , 'daily_forecast' : [{'tmp_min' : ''}]}]}},
+            weatherIcon : ''
+        }
+    },
     created() {
         this.init();
     },
     computed : {
+        ...mapState('weather',['weather']),
         'monthData' () {
             // 日期控件的计算属性，以yearSelectIndex和monthSelectIndex为基础发生改变
             let year = parseInt(yearArray[this.yearSelectIndex-1].value.split('年')[0]);
@@ -215,37 +252,8 @@ export default {
             this.updateNavIndex(this.swiper.activeIndex);
         });
     }, 
-    data () {
-        return {
-            showYearSelector : false,
-            showMonthSelector : false,
-            showDaySelector : false,
-            calendarType : 1, // 默认 0是阴历 1是阳历
-            yearArr : [],
-            yearSelect : "",
-            yearSelectIndex : 0,
-            monthArr : [],
-            monthSelect : "",
-            monthSelectIndex : 0,
-            dayArr : [],
-            daySelect : "",
-            daySelectIndex : 0,
-            calendarHeader : ['日','一','二','三','四','五','六'],
-            clickItem : {},
-            todayItem : {},
-            navList : ['吉日查询','农历查询','民俗节日'],
-            navIndex : 0,
-            swiperOption : { initialSlide: this.navIndex },
-            articleList : [
-                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉'],
-                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉'],
-                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉']
-            ],
-            moreInfo : {'yiji':{'yi':'','ji':''},'week':''},
-            todayMoreInfo : null
-        }
-    },
     methods : {
+        ...mapMutations ('weather',['updateWeather']),
         init : function () {
             // Arr为下拉的数据，select为下拉框的显示值，selectIndex为实际月份/天数减一
             // 年下拉selector数据初始化
@@ -260,6 +268,28 @@ export default {
             this.dayArr = solarDayArray;
             this.daySelect = currentDay + "日";
             this.daySelectIndex = currentDay - 1;
+            // 获取天气的数据
+            this.$http.post('/features/weath',null,null,null,this.getWeatherSussess,null);
+        },
+        getWeatherSussess : function (res) {
+            var app = global.APP_NAME;
+            
+            res.data.air = JSON.parse(res.data.air);
+            res.data.hour_weather = JSON.parse(res.data.hour_weather);
+            res.data.weather = JSON.parse(res.data.weather);
+            
+            this.updateWeather(res.data);
+
+            var now = new Date();
+            var hour = now.getHours();
+            var night;
+            if(hour >= 6 && hour <= 18 ) {
+                night = false;
+            }else {
+                night = true;
+            }
+            this.weatherIcon = night ? require('../assets/image/calendar-weather/' + global.WEATHER[this.weather.weather.HeWeather6[0].daily_forecast[0].cond_code_n] + '.png') : require('../assets/image/calendar-weather/' + global.WEATHER[this.weather.weather.HeWeather6[0].daily_forecast[0].cond_code_d] + '.png');
+            // console.log(this.weather.weather.HeWeather6[0].daily_forecast[0].cond_txt_d);
         },
         showSelector : function (target) {
             // 显示拉下框，并将下拉框中的滚轮滑动到对应地方
@@ -393,6 +423,7 @@ export default {
                 this.moreInfo = this.handleDateInfo(res.data.content);
                 if(this.clickItem.year === this.todayItem.year && this.clickItem.month === this.todayItem.month && this.clickItem.day === this.todayItem.day && this.todayMoreInfo === null) {
                     this.todayMoreInfo = this.moreInfo;
+                    this.weather.weekday = this.todayMoreInfo.week;
                 }
             }else {
                 this.moreInfo = null;
@@ -487,13 +518,19 @@ export default {
             }else {
                 return str.slice(str.indexOf(keyArr[0] + "  "),str.indexOf(" "+keyArr[1]+"  ")).trim().split("  ")[1];
             }
+        },
+        jumpWeather : function () {
+            this.$router.push({
+                name : 'weather'
+                // params : this.weather
+            })
         }
     }
 }
 </script>
 <style lang="less" scoped>
 @lunarFestivalColor: #FDC52E;
-@solarFestivalColor: @baseColor;
+@solarFestivalColor: @baseBoldColor;
 
 .btn(@width:110) {
     width: @width/75rem;
@@ -501,7 +538,7 @@ export default {
     border: 0;
     box-shadow:0px 3px 6px rgba(0,0,0,0.16);
     background-color: #fff;
-    .round(14/75rem);
+    .round(10/75rem);
     font-size: 26/75rem;
 }
 .select{
@@ -509,8 +546,8 @@ export default {
     & > i {
         display: inline-block;
         width: 22/75rem;
-        height: 22/75rem;
-        background: url('../assets/image/common/select@2x.png') no-repeat center center / 100% 100%;
+        height: 11/75rem;
+        background: url('../assets/image/calendar/select.png') no-repeat center center / 100% 100%;
     }
     .select-up{
         .rotate(-180deg);
@@ -539,7 +576,7 @@ export default {
         border-bottom: 1px solid #eee;
     }
     .selected {
-        background-color: @baseColor;
+        background-color: @baseBoldColor;
         color: #fff;
     }
 }
@@ -547,12 +584,7 @@ export default {
     .flex-between();
     margin-top: 32/75rem;
 }
-i{
-    display: block;
-    width: 44/75rem;
-    height: 44/75rem;
-    background: url("../assets/image/common/right@2x.png") no-repeat center center / 100% 100%;
-}
+
 
 .header-bg {
     width: 100%;
@@ -561,91 +593,91 @@ i{
     z-index: 1;
     & > div {
         height:80/75rem;
-        background: @baseColor;
+        background: @baseBoldColor;
     }
     & > nav {
         width: 100%;
         height:80/75rem;
-        background: url('../assets/image/common/nav.png') no-repeat center center / 100% 100%;
+        // background: url('../assets/image/common/nav.png') no-repeat center center / 100% 100%;
     }
 }
-.wrap {
+.calendar-wrap {
     overflow: hidden;
-    .header {
+    .calendar-header-wrap {
         position: fixed;
-        width: 100%;
-        height: 160/75rem;
-        padding-top : 25/75rem;
-        top : 0;
         z-index: 999;
-        color: #fff;
-        .border-box();
-        .flex-start-only();
-        .header-left {
-            width: 30%;
-            .border-box();
-            padding-left: 43/75rem;
-            margin-top : 5/75rem;
-            .flex-start-only();
-            & > div {
-                height: 44/75rem;
-                font-size: 40/75rem;
-                font-weight: bold;
+        .flex-between();
+        width: 100%;
+        height: 125/75rem;
+        color: #2E2E2E;
+        background-color: #fff;
+        box-shadow:0px 2px 6px rgba(148,148,148,0.14);
+        .left {
+            width: 25%;
+            height: 100%;
+            font-size: 40/75rem;
+            .flex-start();
+            .title {
+                margin-left: 31/75rem;
             }
             .today {
-                margin-top: 8/75rem;
-                margin-left: 22/75rem;
-                width: 44/75rem;
-                height: 44/75rem;
+                width: 58/75rem;
+                height: 58/75rem;
+                margin-left: 8/75rem;
                 background: url('../assets/image/calendar/today.png') no-repeat center center / 100% 100%;
+                .round(50%);
             }
         }
-        .header-center {
-            width:40%;
-            & > div {
-                width: 100%;
-                text-align: center;
-            }
-            .solar-date {
-                font-size: 40/75rem;
-                font-weight: bold;   
-            }
-            .lunar-date {
-                font-size: 26/75rem;
-            }
-        }
-        .header-right {
-            .flex-end-only();
-            width:30%;
-            padding-right: 18/75rem;
-            margin-top : 5/75rem;
-            .border-box();
-            .weather {
-                width: 48/75rem;
-                height: 44/75rem;
-                background: url('../assets/image/calendar/weather.png') no-repeat center center / 100% 100%;
-                margin-right: 24/75rem;
-                margin-top: 8/75rem;
-            }
-            .right {
-                .city {
-                    font-size: 26/75rem;
+        .center {
+            width: 50%;
+            height: 100%;
+            .flex-center-only();
+            .content {
+                .solar-date {
+                    font-size: 40/75rem;
                     text-align: center;
                 }
-                .temperature {
-                    font-size: 24/75rem;
+                .lunar-date {
+                    font-size: 22/75rem;
+                    text-align: center;
+                }
+            }
+            
+        }
+        .right {
+            .flex-end();
+            width: 25%;
+            height: 100%;
+            .content {
+                height: 70/75rem;
+                margin-right: 30/75rem;
+                color : @baseBoldColor;
+                & > div  {
+                    height: 35/75rem;
+                }
+                .upper {
+                    .flex-end();
+                    font-size: 26/75rem;
+                    .weather {
+                        width: 50/75rem;
+                        height: 38/75rem;
+                        margin-right: 8/75rem;
+                        background-repeat: no-repeat;
+                        background-size: auto 50/75rem;
+                        background-position: center;
+                    }
+                }
+                .under {
+                    text-align: right;
+                    font-size: 27/75rem;
                 }
             }
         }
-        
     }
     .content-wrap {
-        position: absolute;
-        top: 169/75rem;
-        bottom: 110/75rem;
-        left: 0;
+        padding-top: 140/75rem;
+        .border-box();
         width: 100%;
-        overflow: auto;
         .border-box();
         h2 {
             font-size: 28/75rem;
@@ -654,7 +686,7 @@ i{
         .btn-list {
             .flex-around();
             .btn-seleced {
-                background-color: @baseColor !important;
+                background-color: @baseBoldColor !important;
                 color: #fff;
             }
             & > .btn {
@@ -713,7 +745,7 @@ i{
                         color:rgba(0,0,0,0.8);
                     }
                     .solar-today {
-                        background:@baseColor;
+                        background:@baseBoldColor;
                         box-shadow:0px 3px 6px rgba(0,0,0,0.16);
                         border-radius:50%;
                         color: #fff;
@@ -742,7 +774,7 @@ i{
                         // }
                     } 
                     .lunar-today {
-                        color : @baseColor;
+                        color : @baseBoldColor;
                         font-weight: bold;
                     }
                     .solar-festival {
@@ -781,8 +813,8 @@ i{
             margin : 25/75rem auto 0 auto;
             background:rgba(255,255,255,1);
             box-shadow:0px 3px 6px rgba(0,0,0,0.16);
-            border-radius:29/75rem;
-            padding : 0 24/75rem 24/75rem 24/75rem;
+            .round(10/75rem);
+            padding : 0 0 24/75rem 24/75rem;
             overflow: hidden;
             .border-box();
             & > div {
@@ -790,9 +822,31 @@ i{
                 font-size: 24/75rem;
             }
             .info-header {
-                color: @baseColor;
-                font-size: 28/75rem;
-                font-weight: bold;
+                .flex-between();
+                .info-title {
+                    color: @baseBoldColor;
+                    font-size: 28/75rem;
+                    font-weight: bold;
+                }
+                .more {
+                    width: 176/75rem;
+                    height: 54/75rem;
+                    padding-left: 15/75rem;
+                    .border-box();
+                    line-height: 54/75rem;
+                    font-size: 26/75rem;
+                    color: #fff;
+                    text-align: center;
+                    background-color: @baseBoldColor;
+                    .round(10/75rem 0 0 10/75rem);
+                    & > i {
+                        width: 11/75rem;
+                        height: 20/75rem;
+                        background: url('../assets/image/calendar/arrow-right.png') no-repeat center center / 100% 100%;
+                        display: inline-block;
+                        margin-left: 15/75rem;
+                    }
+                }
             }
             .info-gz {
                 & > span {
@@ -812,29 +866,25 @@ i{
                     color : @lunarFestivalColor;
                 }
                 .yiji {
-                    width: 400/75rem;
+                    width: 610/75rem;
                 }
             }
             .info-ji {
-                .flex-between();
-                .left {
-                    .info-yi();
-                    .title { 
-                        color : @baseColor;
-                    }
-                }
-                .more {
-                    .flex-end();
-                    & > div {
-                        margin-right : 16/75rem;
-                        font-size: 28/75rem;
-                        font-weight: bold;
-                        color: rgba(0, 0, 0, 0.5);
-                    }
+                .info-yi();
+                .title { 
+                    color : #D52E2D;
                 }
             }
         }
         .article {
+            width: 95%;
+            margin : 0 auto;
+            i{
+                display: block;
+                width: 13/75rem;
+                height: 25/75rem;
+                background: url("../assets/image/common/more.png") no-repeat center center / 100% 100%;
+            }
             /deep/ .nav {
                 margin-right: 16/75rem;
                 margin-bottom: 0;
@@ -843,7 +893,7 @@ i{
                 }
             }
             .swiper {
-                padding: 0 20/75rem 0 32/75rem;;
+                padding: 0 10/75rem 0 10/75rem;
             }
         }
     }

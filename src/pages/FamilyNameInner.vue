@@ -1,61 +1,14 @@
 <template>
      <div class="wrap">
-        <v-header></v-header>
         <v-title-header :backLink="backLink">
-            王
+            {{this.$route.query.xing}}
         </v-title-header>
         <div class="head">
-            <v-title-nav><h2 slot="title">百家姓</h2><div slot="more"></div></v-title-nav>
+            <v-title-nav>百家姓</v-title-nav>
             <div class="swiper-top">
                 <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
                 <div class="right"></div>
             </div>
-            <div class="fillter" @click="showDialogStyle = true">
-                <i></i>
-                <span>筛选</span>
-            </div>
-        </div>
-        <div v-transfer-dom>
-            <x-dialog v-model="showDialogStyle" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '50%', 'background-color': 'transparent'}">
-                <div class="fillter-dialog">
-                    <div class="exit" @click="showDialogStyle=false">X</div>
-                    <h2>单双名筛选</h2>
-                    <div class="name-num">
-                        <label for="double-name">
-                            <input type="radio" name="name-num" id="double-name" checked>
-                            <div class="name-btn">双名</div>
-                        </label>
-                        <label for="single-name">
-                            <input type="radio" name="name-num" id="single-name">
-                            <div class="name-btn">单名</div>
-                        </label>
-                    </div>
-                    <h2>名字笔画数量筛选</h2>
-                    <div class="pick-box">
-                        <div class="select" @click="ShowSelect">
-                            <div>{{selectNum}}</div>
-                            <i :class="showSelect ? 'select-up' :'select-down'"></i>
-                        </div>
-                        <picker :data='numArr' v-model='num' @on-change='changeNum' v-show="showSelect"></picker>
-                    </div>
-                    <h2>五行筛选</h2>
-                    <div class="checkbox-list">
-                        <input type="checkbox" id="jin" value="金" v-model="checkboxArr">
-                        <label for="jin">金</label>
-                        <input type="checkbox" id="mu" value="木" v-model="checkboxArr">
-                        <label for="mu">木</label>
-                        <input type="checkbox" id="shui" value="水" v-model="checkboxArr">
-                        <label for="shui">水</label>
-                        <input type="checkbox" id="huo" value="火" v-model="checkboxArr">
-                        <label for="huo">火</label>
-                        <input type="checkbox" id="tu" value="土" v-model="checkboxArr">
-                        <label for="tu">土</label>
-                    </div>
-                    <h2>自筛选</h2>
-                    <input type="text" placeholder="输入您命中要带的字" class="fillter-input">
-                    <input type="button" value="开始筛选" class="fillter-btn">
-                </div>
-            </x-dialog>
         </div>
         <div class="content-wrap">
             <div class="swiper-container">
@@ -63,8 +16,14 @@
                     <swiper-slide v-for="(outItem,outIndex) in list" :key="outIndex">
                         <div class="banxin">
                             <div class="name-list">
-                                <div class="name-item" v-for="(innerItem,innerIndex) in outItem.val" :key="innerIndex"  @click="$jump('/nameTestInner')">
-                                    {{innerItem}}
+                                <div class="name-item-box"
+                                    v-for="(innerItem,innerIndex) in outItem.val"
+                                    :key="innerIndex"  
+                                    @click="beginTest(innerItem)"
+                                >
+                                    <div class="name-item">
+                                        {{innerItem}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +35,6 @@
 </template>
 <script>
 import {mapState,mapMutations} from 'vuex'
-import {XDialog,TransferDomDirective as TransferDom,Picker} from 'vux'
 let numArr = [];
 for (var i = 1; i <= 50; i++) {
     numArr.push({
@@ -85,9 +43,6 @@ for (var i = 1; i <= 50; i++) {
     })
 }
 export default {
-    directives: {
-        TransferDom
-    },
     computed : {
         ...mapState('familyNameInner',['navIndex']),
         swiper () {
@@ -114,6 +69,9 @@ export default {
             }
         }
     },
+    created () {
+        this.getData();
+    },
     mounted () {
         if(this.navIndex != 0) { 
             this.swiper.slideTo(this.navIndex, 0, false);
@@ -125,12 +83,11 @@ export default {
     data () {
         return {
             backLink: '/familyName',
-            navList: ["姓名测试","起名大全","姓名大全"],
+            navList: ["男名","女名"],
             swiperOption : { initialSlide: this.navIndex ,autoHeight : true},
             list: [
-                {val: ["王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明",]},
-                {val: ["王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明",]},
-                {val: ["王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明","王小明",]},
+                {val: []},
+                {val: []},
             ],
             // 弹窗
             showDialogStyle: false,
@@ -153,49 +110,63 @@ export default {
                 this.showSelect = false;
             }
         },
+        getData: function () {
+            let params = {
+                cid : '105',
+                xing : this. $route.query.xing
+            }
+            this.$http.post('/suan/apidata',params,'cesuan',null,this.success,this.failure);
+        },
+        success: function (res) {
+            this.list[0].val = res.data[0].nan.split("卍");
+            this.list[0].val.pop();
+            this.list[1].val = res.data[0].nv.split("卍");
+            this.list[1].val.pop();
+        },
+        beginTest: function (item) {
+            this.$router.push({
+                path: '/nameTestResult',
+                query: {
+                    name : item,
+                }
+            })
+        }
     }
 }
 </script>
 <style lang="less" scoped>
 .head{
-    padding: 20/75rem 32/75rem 20/75rem 32/75rem;
+    padding: 90/75rem 32/75rem 20/75rem 32/75rem;
     /deep/ .nav .nav-list{
-        .flex-between();
+        .flex-around();
         .item{
             margin-top: 0;
         }
     }
-    .fillter{
-        margin-top: 50/75rem;
-        margin-bottom: 32/75rem;
-        .flex-start();
-        & > i{
-            display: inline-block;
-            width: 46/75rem;
-            height: 44/75rem;
-            margin-right: 33/75rem;
-            background: url('../assets/image/name/fillter@2x.png') no-repeat center center / 100% 100%;
-        }
-    }
 }
 .content-wrap{
-   position: absolute;
-    top: 470/75rem;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: auto;
     .banxin{
-        padding: 0 32/75rem;
+        padding: 0 20/75rem;
+        .border-box();
     }
     .name-list{
+        width: 100%;
         .flex-start();
         flex-wrap: wrap;
-        .name-item{
-            width: 100%/6;
-            text-align: center;
-            margin-bottom: 32/75rem;
-            font-size: 26/75rem;
+        .name-item-box{
+            .flex-center();
+            width: 25%;
+            height: 70/75rem;
+            margin-bottom: 42/75rem;
+            .name-item{
+                width: 80%;
+                height: 100%;
+                line-height: 70/75rem;
+                .boxshadow();
+                .round(10/75rem);
+                text-align: center;
+                font-size: 26/75rem;
+            }
         }
     }
 }

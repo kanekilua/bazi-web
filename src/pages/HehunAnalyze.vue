@@ -1,9 +1,6 @@
 <template>
      <div class="wrap">
-        <v-header></v-header>
-        <v-title-header>
-            命盘分析
-        </v-title-header>
+        <v-title-header>命盘分析</v-title-header>
         <div class="content-wrap">
             <div class="content-top">
                 <div class="score">66</div>
@@ -89,7 +86,7 @@
                 甲命对照乙命：天干。地支有子子甲月乙月半三合水局。<br>
                 乙命对照甲命：天干。地支有子子乙月甲月半三合水局
             </p>
-            <v-title-nav><h2 slot="title">男命八字信息</h2><div slot="more"></div></v-title-nav>
+            <v-title-nav>男命八字信息</v-title-nav>
             <p class="analyze-p">
                 性格特征：(测个人性情、先天禀赋、相貌、喜好等)<br>
                 ★辛金日主，其个性沉着坦直无私，待人接物，认真细致，脚踏实地，但温柔敦厚而寓涵固执，有些自信，劳碌奔波欢快。<br>
@@ -108,7 +105,7 @@
                 ◆天干透印为喜用，主人聪明。<br>
                 ◆日遇死绝之地，愚蠢而顽。<br>
             </p>
-             <v-title-nav><h2 slot="title">婚姻择偶</h2><div slot="more"></div></v-title-nav>
+             <v-title-nav>婚姻择偶</v-title-nav>
             <p class="analyze-p">
                 性格特征：(测个人性情、先天禀赋、相貌、喜好等)<br>
                 ★辛金日主，其个性沉着坦直无私，待人接物，认真细致，脚踏实地，但温柔敦厚而寓涵固执，有些自信，劳碌奔波欢快。<br>
@@ -127,7 +124,7 @@
                 ◆天干透印为喜用，主人聪明。<br>
                 ◆日遇死绝之地，愚蠢而顽。<br>
             </p>
-            <v-title-nav><h2 slot="title">女命八字信息</h2><div slot="more"></div></v-title-nav>
+            <v-title-nav>女命八字信息</v-title-nav>
             <p class="analyze-p">
                 性格特征：(测个人性情、先天禀赋、相貌、喜好等)<br>
                 ★辛金日主，其个性沉着坦直无私，待人接物，认真细致，脚踏实地，但温柔敦厚而寓涵固执，有些自信，劳碌奔波欢快。<br>
@@ -146,7 +143,7 @@
                 ◆天干透印为喜用，主人聪明。<br>
                 ◆日遇死绝之地，愚蠢而顽。<br>
             </p>
-            <v-title-nav><h2 slot="title">婚姻择偶</h2><div slot="more"></div></v-title-nav>
+            <v-title-nav>婚姻择偶</v-title-nav>
             <p class="analyze-p">
                 性格特征：(测个人性情、先天禀赋、相貌、喜好等)<br>
                 ★辛金日主，其个性沉着坦直无私，待人接物，认真细致，脚踏实地，但温柔敦厚而寓涵固执，有些自信，劳碌奔波欢快。<br>
@@ -166,23 +163,41 @@
                 ◆日遇死绝之地，愚蠢而顽。<br>
             </p>
         </div>
-        <button class="share-btn">立刻分享</button>
     </div>
 </template>
 <script>
 export default {
-    
+    created () {
+        this.init();
+    },
+    methods: {
+        init:function () {
+            let params = {
+                cid : '100',
+                year1 : this.$route.params.maleDateArr[0],
+                month1 : this.$route.params.maleDateArr[1],
+                date1 : this.$route.params.maleDateArr[2],
+                hour1 : this.$route.params.maleDateArr[3],
+                minute : this.$route.params.maleDateArr[4],
+                year2 : this.$route.params.femaleDateArr[0],
+                month2 : this.$route.params.femaleDateArr[1],
+                date2 : this.$route.params.femaleDateArr[2],
+                hour2 : this.$route.params.femaleDateArr[3],
+                minute2 : this.$route.params.femaleDateArr[4]
+            }
+            this.$http.post('/suan/apidata',params,'cesuan',null,this.success,this.failure);
+        },
+        success : function (res) {
+            console.log(res);
+        }
+    },
 }
 </script>
 <style lang="less" scoped>
 .content-wrap{
-    position: absolute;
-    top: 169/75rem;
-    bottom: 0;
-    left: 0;
     width: 100%;
-    padding-bottom: 80/75rem;
-    overflow-y: auto;
+    padding: 90/75rem 0 50/75rem 0;
+    .border-box();
     .content-top{
         width: 100%;
         background: url('../assets/image/love/hehunAnalyze-bg@2x.png') no-repeat center center / 100% 100%;
@@ -200,7 +215,7 @@ export default {
             background: #fff;
             font-size: 80/75rem;
             font-weight: 600;
-            color: #D52F2E;
+            color: @baseBoldColor;
         }
         .gender-title{
             width: 100%;
@@ -216,7 +231,7 @@ export default {
                     .round(40/75rem);
                     text-align: center;
                     font-size: 32/75rem;
-                    color: #AE251F;
+                    color: @baseBoldColor;
                     box-shadow:0px 3px 6px rgba(0,0,0,0.16);
                     background: #fff;
                     font-weight: 600;
@@ -271,7 +286,7 @@ export default {
         padding: 24/75rem;
         background: #FFF4F4;
         box-shadow: 0 8/75rem 10/75rem rgba(0,0,0,0.16);
-        .round(52/75rem);
+        .round(10/75rem);
         & > p{
             font-size: 26/75rem;
             line-height: 37/75rem;
@@ -292,16 +307,6 @@ export default {
         box-sizing: border-box;
         padding: 0 25/75rem;
     }
-}
-.share-btn{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    background: @baseColor;
-    width: 100%;
-    height: 84/75rem;
-    color: #fff;
-    border: none;
 }
 </style>
 

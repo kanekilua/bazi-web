@@ -1,48 +1,58 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
         <v-title-header>
             联系客服
         </v-title-header>
         <div class="content-wrap">
-            <div class="wechat">
-                <div class="wechat-key">客服微信</div>
-                <div>400121542</div>
+            <div class="wechat-box">
+                <img class="wechat-code" src="../assets/image/common/wechat-code.png">
+                <div>扫码添加客服微信</div>
+                <div>或手动添加Ken70007</div>
             </div>
-            <img class="wechat-code" src="../assets/image/common/wechat-code.png">
-            <div>扫码加客服</div>
-            <v-title-nav><h2 slot="title">客服留言</h2><div slot="more"></div></v-title-nav>
-            <textarea placeholder="请输入您的问题，客服将会尽快为你解答"></textarea>
-            <button class="conmit">确认提交</button>
+            <v-title-nav>客户留言</v-title-nav>
+            <textarea placeholder="请输入您的问题，客服将会尽快为你解答" v-model="message"></textarea>
+            <button class="conmit" @click="sendMessage">确认提交</button>
         </div>
     </div>
 </template>
 
 <script>
-import {XDialog,TransferDomDirective as TransferDom} from 'vux'
 export default {
-    directives: {
-        TransferDom
-    },
     data () {
         return {
-            
+            message : ""
         }
     },
     methods: {
-        
+        sendMessage : function () {
+            let header = {
+                'Authorization' : localStorage.getItem(global.APP_TOKEN)
+            }
+            let data = {
+                info : this.message
+            }
+            this.$http.post('/features/comm',data,null,header,(res) => {
+                if(res.code === "success") {
+                    this.$vux.toast.show({
+                        width : '15em',
+                        text: '提交成功',
+                        position : 'center',
+                        time : 1500,
+                        type : "success",
+                        isShowMask : true
+                    });
+                    setTimeout(() => {
+                        this.$jump('/main/mine');
+                    },1500)
+                }
+            },this.failure);
+        }
     }
 }
 </script>
 <style lang="less" scoped>
 .content-wrap{
-    position: absolute;
-    top: 169/75rem;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    overflow: auto;
-    padding: 38/75rem 32/75rem;
+    padding-top: 90/75rem;
     .border-box();
     .wechat{
         .flex-start();
@@ -56,37 +66,49 @@ export default {
             margin: 0 40/75rem;
         }
     }
-    .wechat-code{
-        display: block;
-        width: 205/75rem;
-        height: 205/75rem;
-        margin: 40/75rem auto 24/75rem auto; 
-        & + div{
-            text-align: center;
-            font-size: 26/75rem;
+    .wechat-box{
+        text-align: center;
+        .wechat-code{
+            display: block;
+            width: 205/75rem;
+            height: 205/75rem;
+            margin: 40/75rem auto 24/75rem auto; 
+            & + div{
+                text-align: center;
+                font-size: 26/75rem;
+            }
         }
     }
     textarea{
         overflow: hidden;
-        width: 686/75rem;
-        height: 285/75rem;
+        display: block;
+        width: 670/75rem;
+        height: 276/75rem;
+        margin: 17/75rem auto;
         .boxshadow(0,3/75rem,6/75rem,rgba(0,0,0,0.16));
         .round(26/75rem);
         resize: none;
         border: none;
-        margin-top: 17/75rem;
-        padding: 32/75rem;
+        padding: 20/75rem;
         .border-box();
         outline: none;
+        background: #f1f1f1;
+        font-size: 26/75rem;
     }
     .conmit{
-        width: 500/75rem;
-        height: 100/75rem;
-        .my-button();
-        background: @baseColor;
-        margin: 80/75rem auto;
-        .round(30/75rem);
-        font-size: 28/75rem;
+        width: 640/75rem;
+        height: 80/75rem;
+        display: block;
+        margin: 75/75rem auto;
+        background:@baseBoldColor;
+        .round(60/75rem);
+        border: none;
+        color: #fff;
+        font-size: 34/75rem;
+        outline: none;
+        &:active{
+            background: #eee;
+        }
     }
 }
 

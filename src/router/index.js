@@ -21,7 +21,6 @@ import Predict from '@/pages/Predict'
 import Mine from '@/pages/Mine'
 import Bazi from '@/pages/Bazi'
 import Ziwei from '@/pages/Ziwei'
-import ZiweiAnalyze from '@/pages/ZiweiAnalyze'
 import Fengshui from '@/pages/Fengshui'
 import FengshuiJiaju from '@/pages/FengshuiJiaju'
 import Love from '@/pages/Love'
@@ -36,9 +35,9 @@ import GiveName from '@/pages/GiveName'
 import NameHome from '@/pages/NameHome'
 import Shengxiao from '@/pages/Shengxiao'
 import ShengxiaoDetail from '@/pages/ShengxiaoDetail'
+import ShengxiaoFamous from '@/pages/ShengxiaoFamous'
+import ShengxiaoKnowledge from '@/pages/ShengxiaoKnowledge'
 import Article from '@/pages/Article'
-import NameTest from '@/pages/NameTest'
-import NameTestInner from '@/pages/NameTestInner'
 import NameTestResult from '@/pages/NameTestResult'
 import FamilyName from '@/pages/FamilyName'
 import FamilyNameInner from '@/pages/FamilyNameInner'
@@ -61,6 +60,9 @@ import FeedBack from '@/pages/FeedBack'
 import Weather from '@/pages/Weather'
 import WeatherProvince from '@/pages/WeatherProvince'
 import WeatherCity from '@/pages/WeatherCity'
+import InterestingTest from "@/pages/InterestingTest"
+import About from '@/pages/About'
+
 
 Vue.use(Router)
 
@@ -140,12 +142,6 @@ const router = new Router({
       component : Ziwei,
     },
     {
-      path: '/analyze',
-      name:'analyze',
-      component: ZiweiAnalyze,
-      component : Bazi
-    },
-    {
       path : '/baziBirth',
       name : 'baziBirth',
       component: BaziBirth
@@ -222,24 +218,26 @@ const router = new Router({
       path : '/shengxiao',
       name : 'shengxiao',
       component : Shengxiao
-    },{
+    },
+    {
+      path : '/shengxiao/knowledge',
+      name : 'shengxiaoKnowledge',
+      component : ShengxiaoKnowledge
+    },
+    {
       path : '/shengxiao/detail',
       name : 'shengxiaoDetail',
       component : ShengxiaoDetail
     },
     {
+      path : '/shengxiao/famous/:name/:imgUrl/:identify/:works/:experience',
+      name : 'shengxiaoFamous',
+      component : ShengxiaoFamous,
+    },
+    {
       path : '/article',
       name : 'article',
       component : Article
-    },{
-      path : '/nameTest',
-      name : 'nameTest',
-      component : NameTest 
-    },
-    {
-      path : '/nameTestInner',
-      name : 'nameTestInner',
-      component : NameTestInner
     },
     {
       path : '/nameTestResult',
@@ -317,11 +315,6 @@ const router = new Router({
       component: Recruitment,
       children : [
         {
-          path : '',
-          name : '',
-          component : RecruitmentStep1
-        },
-        {
           path : 'recruitmentStep1',
           name : 'recruitmentStep1',
           component : RecruitmentStep1
@@ -367,6 +360,16 @@ const router = new Router({
       path : '/main/calendar/weather/city',
       name : 'city',
       component :WeatherCity
+    },
+    {
+      path : '/interestingTest',
+      name : 'interestingTest',
+      component : InterestingTest 
+    },
+    {
+      path : '/main/mine/about',
+      name : 'about',
+      component : About
     }
   ]
 })

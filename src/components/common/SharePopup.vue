@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="itemList">
                     <div @click="wechatShare('0')">
-                        <img src="../../assets/image/login/wechat@3x.png" alt="微信好友">
+                        <img src="../../assets/image/login/wechat.png" alt="微信好友">
                         <span>微信好友</span> 
                     </div>
                     <div @click="wechatShare('1')">
@@ -12,7 +12,7 @@
                         <span>微信朋友圈</span> 
                     </div>
                     <div @click="QQShare('0')">
-                        <img src="../../assets/image/login/qq@3x.png" alt="QQ好友">
+                        <img src="../../assets/image/login/qq.png" alt="QQ好友">
                         <span>QQ好友</span> 
                     </div>
                     <div @click="QQShare('1')">

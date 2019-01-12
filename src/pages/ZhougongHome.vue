@@ -1,6 +1,5 @@
 <template>
     <div class="wrap">
-        <v-header></v-header>
         <v-title-header :backLink="backLink">周公解梦</v-title-header>
         <div class="content-wrap">
             <div class="content-box">
@@ -14,7 +13,7 @@
                 </div>
                 <ul class="result-box" v-show="showPannel">
                     <div v-if="result.length===0">未匹配到相关词条</div>
-                    <li v-for="(item,index) in result" :key="index" v-if="index<=10" @click="Result(item.id,item.title)">{{item.title}}</li>
+                    <li v-for="(item,index) in result" :key="index" v-show="index<=10" @click="Result(item.id,item.title)">{{item.title}}</li>
                 </ul>
             </div>
             <div class="swiper-container">
@@ -31,9 +30,9 @@
             </div>
             <!-- 数据来源易安居 -->
             <!-- <v-title-nav><h2 slot="title">解梦文化</h2><div slot="more"></div></v-title-nav> -->
-            <v-title-nav><h2 slot="title">孕妇的梦</h2><div slot="more"></div></v-title-nav>
+            <v-title-nav>孕妇的梦</v-title-nav>
             <div class="hList">
-            <div class="hItem" v-if="index<8" v-for="(item,index) in pregnantList" :key="index" @click="Result(item.id,item.title)">
+            <div class="hItem" v-show="index<8" v-for="(item,index) in pregnantList" :key="index" @click="Result(item.id,item.title)">
                 <h2>{{item.title}}</h2><i></i>
             </div>
             </div>
@@ -142,13 +141,7 @@ export default {
 <style lang="less" scoped>
 .wrap{
     .content-wrap{
-        position: absolute;
-        top: 169/75rem;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        overflow: scroll;
-        padding: 0 28/75rem;
+        padding: 90/75rem 28/75rem;
         .border-box();
         .content-box{
             position: relative;
@@ -213,8 +206,11 @@ export default {
                 }
             }
         }
+        .title-nav{
+            padding-left: 0;
+        }
         /deep/ .swiper-container{
-            height: 700/75rem;
+            height: 690/75rem;
             overflow: hidden;
             margin-bottom: 20/75rem;
             .nav-list{
@@ -244,9 +240,9 @@ export default {
             }
             & > i{
                 display: inline-block;
-                width: 44/75rem;
-                height: 44/75rem;
-                background: url("../assets/image/common/right@2x.png") no-repeat center center / 100% 100%;
+                width: 13/75rem;
+                height: 25/75rem;
+                background: url("../assets/image/common/more.png") no-repeat center center / 100% 100%;
             }
         }
     }
