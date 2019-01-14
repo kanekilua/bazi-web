@@ -29,7 +29,6 @@ export default {
 <style lang="less" scoped>
 .user-agreement-wrap {
     /deep/ .header  {
-        top : 20/75rem;
         border : 0;
         .boxshadow(0,0,0,0);
     }

@@ -13,6 +13,7 @@ global.APP_BAZI_DATA = APP_NAME + '_bazi_data';
 global.APP_PEACH_DATA = APP_NAME + '_peach_data';
 global.APP_BAZI_DATA_MAX = 5;
 global.APP_DOMIAN = 'https://mingli.szmonster.com'
+global.APP_DOWNLOAD_URL = 'http://www.szmonster.com'
 
 // plugins option
 global.DATETIME_OPTION = {

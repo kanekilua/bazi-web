@@ -129,17 +129,17 @@ export default {
         init: function() {
             let userInfo;
             if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
-                // userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))[this.loginAccount];
-                userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))['13798576143'];
+                userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))[this.loginAccount];
             }
-            // if(userInfo  === undefined) {
-            //     this.$vux.toast.text('请先登录','top');
-            //     this.$router.push('/login');
-            //     return ;
-            // }
-            this.userName = userInfo.realname;       
-            this.birthday = userInfo.birthday;
-            this.avatar = userInfo.avatar ? userInfo.avatar : require('../assets/image/common/avatar.png');
+            if(userInfo  === undefined) {
+                this.userName = '张大海';       
+                this.birthday = '1988-11-11 15:53:00';
+                this.avatar = userInfo.avatar ? userInfo.avatar : require('../assets/image/common/avatar.png');
+            } else {
+                this.userName = userInfo.realname;       
+                this.birthday = userInfo.birthday;
+                this.avatar = userInfo.avatar ? userInfo.avatar : require('../assets/image/common/avatar.png');
+            }
         },
         switchUser :function () {
             let token = localStorage.getItem(global.APP_TOKEN);
