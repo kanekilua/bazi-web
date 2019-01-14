@@ -59,7 +59,7 @@ export default {
                         if(i.url === "") {
                             i.url = require("../assets/image/activity/banner.png")
                         }else {
-                            i.url = 'https://mingli.szmonster.com' + i.url;
+                            i.url = global.APP_DOMIAN + i.url;
                         }
                     }
                 }

@@ -74,7 +74,7 @@ export default {
         success: function(res) {
             this.knowledges = res.data;
             for( let i of this.knowledges){
-                i.img = 'https://mingli.szmonster.com' + i.img;
+                i.img = global.APP_DOMIAN + i.img;
             }
         },
         // 下拉加载更多
@@ -105,7 +105,7 @@ export default {
                 this.tip = "没有更多数据！"
             } else {
                 for(let i of res.data){
-                    i.img = 'https://mingli.szmonster.com' + i.img; //拼接url
+                    i.img = global.APP_DOMIAN + i.img; //拼接url
                     i.content = i.content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
                     this.knowledges.push(i)
                 }

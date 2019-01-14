@@ -44,7 +44,7 @@ export default {
             this.itemList = res.data;
             for(let i of this.itemList){
                 let imgArr = i.img.split(' ');
-                i.img = 'https://mingli.szmonster.com' + imgArr[0];//拼接第一张img链接
+                i.img = global.APP_DOMIAN + imgArr[0];//拼接第一张img链接
             }
         },
         toInner: function (innerId) {
@@ -85,7 +85,7 @@ export default {
                 this.loading = true; 
             } else {
                 for(let i of res.data){
-                    i.img = 'https://mingli.szmonster.com' + i.img; //拼接url
+                    i.img = global.APP_DOMIAN + i.img; //拼接url
                     i.content = i.content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
                     this.itemList.push(i)
                 }

@@ -16,31 +16,14 @@
                 <div>空气{{weather.air}}</div>
             </div>
             <div class="weather-detail">
-                <div class="item">
-                    <div>下午1：00</div>
-                    <div class="center" :style="{backgroundImage: 'url(' + imgList[0] + ')'}"></div>
-                    <div>25℃</div>
+                <div class="item-list">
+                    <div class="item" v-for="(item,index) in weather.hour_weather" :key="index">
+                        <div>{{item.hour}}</div>
+                        <div class="center" :style="{backgroundImage: 'url(' + item.icon + ')'}"></div>
+                        <div>{{item.tmp}}℃</div>
+                    </div>
                 </div>
-                <div class="item">
-                    <div>下午2：00</div>
-                    <div class="center" :style="{backgroundImage: 'url(' + imgList[1] + ')'}"></div>
-                    <div>25℃</div>
-                </div>
-                <div class="item">
-                    <div>下午3：00</div>
-                    <div class="center" :style="{backgroundImage: 'url(' + imgList[2] + ')'}"></div>
-                    <div>24℃</div>
-                </div>
-                <div class="item">
-                    <div>下午4：00</div>
-                    <div class="center" :style="{backgroundImage: 'url(' + imgList[1] + ')'}"></div>
-                    <div>23℃</div>
-                </div>
-                <div class="item">
-                    <div>傍晚5：00</div>
-                    <div class="center" :style="{backgroundImage: 'url(' + imgList[1] + ')'}"></div>
-                    <div>23℃</div>
-                </div>
+                
             </div>
             <div class="weather-pre">
                 <div class="pre" v-for="(item,index) in weather.weather" :key="index" v-show="index > 0">
@@ -82,13 +65,13 @@ export default {
             }else {
                 night = true;
             }
-
             // this.weather = this.$store.state.weather.weather;
             var weatherData = {};
             weatherData.weekday = this.$store.state.weather.weather.weekday;
             weatherData.air = this.$store.state.weather.weather.air.HeWeather6[0].air_now_city.qlty;
             weatherData.city = this.$store.state.weather.weather.weather.HeWeather6[0].basic.location;
             weatherData.weather = this.$store.state.weather.weather.weather.HeWeather6[0].daily_forecast;
+            weatherData.hour_weather = this.$store.state.weather.weather.hour_weather.HeWeather6[0].hourly;
             // 修改weatherData里面为每天增加星期几
             const weekStrArray = ['星期一','星期二','星期三','星期四','星期五','星期六','星期日'];
             var todayWeek = -1;
@@ -104,7 +87,11 @@ export default {
                     weatherData.weather[i].date = dateArr[1] + '月' + dateArr[2] + '日';
                 }
 
-                weatherData.weather[i].icon = night ? require('../assets/image/calendar-weather/' + global.WEATHER[weatherData.weather[i].cond_code_n] + '.png') : require('../assets/image/calendar-weather/' + global.WEATHER[weatherData.weather[i].cond_code_d] + '.png');
+                weatherData.weather[i].icon = night ? 
+                    weatherData.weather[i].cond_code_n === 100 ||  weatherData.weather[i].cond_code_n === 101 ? 
+                    require('../assets/image/calendar-weather/' + global.WEATHER[weatherData.weather[i].cond_code_n + '-n'] + '.png') : 
+                    require('../assets/image/calendar-weather/' + global.WEATHER[weatherData.weather[i].cond_code_n] + '.png') : 
+                    require('../assets/image/calendar-weather/' + global.WEATHER[weatherData.weather[i].cond_code_d] + '.png');
 
                 weatherData.weather[i].weekday = weekStrArray[todayWeek];
                 if(todayWeek + 1 === 7) {
@@ -113,9 +100,18 @@ export default {
                     todayWeek++;
                 }
             }
+            for (let i = 0 ;i < weatherData.hour_weather.length ; ++i) {
+                let hourWeatherItem = weatherData.hour_weather[i];
+                hourWeatherItem.hour = hourWeatherItem.time.split(' ')[1];
+                let hourNum = hourWeatherItem.hour.split(':')[0];
+                hourWeatherItem.icon = !(parseInt(hourNum) >= 6 && parseInt(hourNum) <= 18) ? 
+                    (hourWeatherItem.cond_code === '100' ||  hourWeatherItem.cond_code === '101' ? 
+                    require('../assets/image/calendar-weather/' + global.WEATHER[hourWeatherItem.cond_code + '-n'] + '.png') : 
+                    require('../assets/image/calendar-weather/' + global.WEATHER[hourWeatherItem.cond_code] + '.png')) : 
+                    require('../assets/image/calendar-weather/' + global.WEATHER[hourWeatherItem.cond_code] + '.png');
+                weatherData.hour_weather[i] = hourWeatherItem;
+            }
             this.weather = weatherData;
-
-            
         }
     }
 }
@@ -175,13 +171,18 @@ export default {
             width: 100%;
             padding: 25/75rem 0;
             border-bottom: 1px solid #eee;
-            .flex-around();
-            .item {
-                width: 116/75rem;
-                height: 150/75rem;
-                font-size: 24/75rem;
-                text-align : center;
+            overflow-x: scroll;
+            .item-list {
+                width: 150%;
+                .flex-start();
+                .item {
+                    width: 300/75rem;
+                    height: 150/75rem;
+                    font-size: 24/75rem;
+                    text-align : center;
+                }
             }
+            
         }
         .weather-pre {
             padding: 0 15/75rem 0 15/75rem;

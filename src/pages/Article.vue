@@ -90,6 +90,9 @@ export default {
             });
 
             this.article = res;
+            if(res.data.category === "八字合婚") {
+                res.data.content = res.data.content.replace('<strong>' + res.data.title +'</strong>','');
+            }
             let content = res.data.content;
             if(res.data.img !== null) {
                 let Img = res.data.img.split(' ');
@@ -97,7 +100,7 @@ export default {
                 let srcArr = res.data.content.match(reg);
                 for(let i=0; i<srcArr.length; i++){
                     content = content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
-                    srcArr[i] ='src='+'"'+'https://mingli.szmonster.com'+Img[i];//拼接服务器图片地址
+                    srcArr[i] ='src='+'"'+global.APP_DOMIAN+Img[i];//拼接服务器图片地址
                     content = content.replace(/src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/,srcArr[i])//替换图片url
                 };
             }

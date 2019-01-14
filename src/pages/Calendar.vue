@@ -275,9 +275,9 @@ export default {
             var app = global.APP_NAME;
             
             res.data.air = JSON.parse(res.data.air);
-            res.data.lifestyle = JSON.parse(res.data.lifestyle);
+            res.data.hour_weather = JSON.parse(res.data.hour_weather);
             res.data.weather = JSON.parse(res.data.weather);
-            // this.weather = res.data;
+            
             this.updateWeather(res.data);
 
             var now = new Date();

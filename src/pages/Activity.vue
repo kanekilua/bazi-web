@@ -113,7 +113,7 @@ export default {
         success : function (res) {
             this.articleList = res.data;
             for( let i of this.articleList){
-                i.img = 'https://mingli.szmonster.com' + i.img;
+                i.img = global.APP_DOMIAN + i.img;
                 i.content = this.$utils.Trim(this.$utils.delHtmlTag(i.content));
             }
         },
