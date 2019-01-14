@@ -99,7 +99,7 @@ export default {
                 'name' : this.userName,
                 'gender' : this.gender,
                 'dateArr' : this.dateArray,
-                'avantaUrl' : this.gender === '1' ? require('../assets/image/love/man.png') : require('../assets/image/love/woman.png')
+                'avantaUrl' : this.gender === '1' ? require('../assets/image/common/man.png') : require('../assets/image/common/woman.png')
             }
             let appPeachData = [];
             // 判断localStorage中是否有global.APP_PEACH_DATA，有的话取出来
