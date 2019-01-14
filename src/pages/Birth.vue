@@ -32,8 +32,7 @@
                     </div>
                     <input type="text" class="input-born" placeholder="请选择您的出生日期" @click="showDatePlugin" readonly="readonly" v-model="birthDate">
                 </div>
-                <button class="save-confirm">保存</button>
-                <!-- <x-button :gradients="[gradientStart, gradientEnd]" id="save-confirm" @click.native="saveData">确认保存</x-button> -->
+                <button class="save-confirm" @click="saveData">保存</button>
             </div>
         </div>
     </div>
