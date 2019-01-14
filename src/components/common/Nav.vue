@@ -33,7 +33,7 @@ export default {
         width: 100%;
         height: 90/75rem;
         overflow: hidden;
-        .flex-start();
+        .flex-around();
         .border-box();
         border-bottom: 1px solid #F1F1F1;
         .item{

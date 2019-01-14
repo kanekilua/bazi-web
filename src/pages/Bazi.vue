@@ -1,8 +1,8 @@
 <template>
-    <div class="fortune-wrap">
+    <div class="bazi-wrap">
         <v-title-header :backLink="backLink">
             八字排盘
-            <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
+            <div slot="right-ico" class="switchUser" @click="$jump('/baziBirth')"></div>
         </v-title-header>
         <div class="content-wrap">
             <div class="swiper-top">
@@ -119,24 +119,16 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.fortune-wrap{
+.bazi-wrap{
+    background: #fff;
     .switchUser{
         width: 44/75rem;
         height: 44/75rem;
-        background: url('../assets/image/bazi/switchUser@2x.png') no-repeat center center / 100% 100%;
+        background: url('../assets/image/common/switch.png') no-repeat center center / 100% 100%;
     }
     .content-wrap{
         padding-top: 90/75rem;
         .border-box();
-        // .swiper-top{
-        //     width: 100%;
-        //     .flex-between();
-        //     .right{
-        //         width: 44/75rem;
-        //         height: 44/75rem;
-        //         background: url('../assets/image/bazi/right@2x.png') no-repeat center center / 100% 100%;
-        //     }
-        // }
         .swiper-container{
             margin-bottom: 32/75rem;
             .swiper-slide{

@@ -2,7 +2,6 @@
     <div class="wrap">
         <v-title-header :backLink="backLink">
             婚恋爱情
-            <div slot="icon" class="switchUser" @click="$jump('/baziBirth')"></div>
         </v-title-header>
         <div class="content-wrap">
             <div class="swiper-top">
