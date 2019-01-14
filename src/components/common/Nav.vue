@@ -3,7 +3,8 @@
         <ul class="nav-list">
             <li class="item" v-for="(item,index) in navList" :key="index" :class="{'active': nowIndex===index}" @click="tabClick(index)">
                 {{item}}
-                <div :class="{'point' : nowIndex===index}"></div>
+                <!-- <div :class="{'point' : nowIndex===index}"></div> -->
+                <div v-show="nowIndex===index" class="acttive-line"></div>
             </li>
         </ul>
     </div>
@@ -19,7 +20,12 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-
+.acttive-line{
+    width: 100%;
+    height: 6/75rem;
+    .round(3/75rem);
+    background: @baseBoldColor;
+}
 .nav{
     width: 100%;
     margin: 10/75rem 0;
@@ -27,7 +33,9 @@ export default {
         width: 100%;
         height: 90/75rem;
         overflow: hidden;
-        .flex-start();
+        .flex-around();
+        .border-box();
+        border-bottom: 1px solid #F1F1F1;
         .item{
             padding: 0 10/75rem;
             display: block;

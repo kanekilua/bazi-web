@@ -4,7 +4,7 @@
         <div class="content-wrap">
             <swiper class="swiper-box" :options="swiperOption">
                 <swiper-slide v-for="(imgItem,index) in imgList" :key="index">
-                    <img :src="imgItem.url" alt="swiper" >
+                    <img :src="imgItem.image" alt="swiper" >
                 </swiper-slide>
                 <div class="swiper-pagination"></div>
             </swiper>
@@ -88,12 +88,7 @@ export default {
                     delay: 3000
                 }
             },
-            imgList : [
-                {url: require('../assets/image/activity/banner.png')},
-                {url: require('../assets/image/activity/banner.png')},
-                {url: require('../assets/image/activity/banner.png')},
-                {url: require('../assets/image/activity/banner.png')}
-            ],
+            imgList : [],
             articleList : []
         }
     },
@@ -101,7 +96,14 @@ export default {
         this.init();
     },
     methods: {
+        getBanner: function () {
+            this.$http.post('/features/carousel',null,null,null,this.getBannerSuccess,this.failure);
+        },
+        getBannerSuccess: function (res) {
+            this.imgList = res.data.index.children;
+        },
         init : function () {
+            this.getBanner();
             let sendData = {
                 cid : '96',
                 tid: '2019',
@@ -150,12 +152,14 @@ export default {
         .swiper-box{
             width: 100%;
             position: relative;
+            background: #fff;
             .swiper-slide{
                 width: 100%;
                 height: 270/75rem;
                 &> img{
                     display: block;
                     width: 100%;
+                    .round(10/75rem);
                 }
             }
             .swiper-pagination{

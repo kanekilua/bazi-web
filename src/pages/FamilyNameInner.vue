@@ -139,9 +139,6 @@ export default {
     padding: 90/75rem 32/75rem 20/75rem 32/75rem;
     /deep/ .nav .nav-list{
         .flex-around();
-        .item{
-            margin-top: 0;
-        }
     }
 }
 .content-wrap{
