@@ -1,6 +1,6 @@
 <template>
     <div class="wrap" v-cloak>
-        <v-title-header :backLink="$store.state.deepLink ? '/main/home' : null">{{article.data.category}}>
+        <v-title-header :backLink="$store.state.deepLink ? '/main/home' : null">
             {{cid === '95' ? article.data.category : cid === '98' ? this.$route.params.name + '2019年生肖运势' : ''}}
             <div class="right-ico" slot="right-ico"></div>
         </v-title-header>
@@ -20,7 +20,6 @@
                 <div class="content">
                     <p v-html="article.data.content"></p>
                 </div>
-                <button @click="showShare = true" class="save-btn">立即分享</button>
             </div>
         </div>
         <v-share-popup :showShare='showShare' :shareData='shareData' @switchShowShare='switchShowShare'></v-share-popup>
@@ -36,7 +35,8 @@ export default {
                     category : "",
                     title : "",
                     content : "",
-                    id : ""
+                    id : "",
+                    img : ""
                 }
             },
             showShare : false,
@@ -100,7 +100,9 @@ export default {
                 ident_id : "95_" + res.data.id
             }
             this.$http.post('/features/isColl',params,null,header,(res) => {
-                this.isCollet = res.data.is_coll;
+                if(res.code === "success") {
+                    this.isCollet = res.data.is_coll;
+                }
             });
 
             this.article = res;
@@ -110,6 +112,7 @@ export default {
             let content = res.data.content;
             if(res.data.img !== null) {
                 let Img = res.data.img.split(' ');
+                this.article.data.img = Img[0];
                 let reg = /src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/gi;  //匹配src="http://www.zhouyi.cc或者src="https://www.zhouyi.cc
                 let srcArr = res.data.content.match(reg);
                 for(let i=0; i<srcArr.length; i++){
@@ -119,13 +122,7 @@ export default {
                 };
             }
             this.article.data.content = content;
-
-            this.shareData  =  {
-                icon : global.APP_MINGLI_URL + Img[0],
-                title : this.article.data.title,
-                text : this.$utils.delHtmlTag(this.article.data.content).slice(0,100),
-                url : global.APP_HTML_URL + '/article.html?id=' + this.article.data.id
-            }
+            this.setShareData();
         },
         switchShowShare : function (val) {
             this.showShare = val;
@@ -134,6 +131,8 @@ export default {
             this.article.data.title = res.data[0].title;
             this.article.data.content = res.data[0].content;
             this.article.data.id = res.data[0].id;
+            this.article.data.img = res.data[0].img;
+            this.setShareData();
 
             let header = {
                 'Authorization' : localStorage.getItem(global.APP_TOKEN)
@@ -142,8 +141,19 @@ export default {
                 ident_id : "98_" + res.data[0].id
             }
             this.$http.post('/features/isColl',params,null,header,(res) => {
-                this.isCollet = res.data.is_coll;
+                if(res.code === "success") {
+                    this.isCollet = res.data.is_coll;
+                }
             });
+        },
+        setShareData : function () {
+            this.shareData  =  {
+                icon : global.APP_MINGLI_URL + this.article.data.img,
+                title : this.article.data.title,
+                text : this.$utils.delHtmlTag(this.article.data.content).slice(0,100),
+                url : global.APP_HTML_URL + '/article.html?id=' + this.article.data.id
+            }
+            console.log(JSON.stringify(this.shareData));
         },
         collect : function ()  {
             if(this.isCollet) {

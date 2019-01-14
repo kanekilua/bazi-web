@@ -32,7 +32,9 @@ function apiAxios (method, url, params,type, headers, success, failure) {
   if (params) {
     params = filterNull(params);
   }
-  url = "/" + type + url;
+  if(type !== null) {
+    url = "/" + type + url;
+  }
   console.log('------------进入请求的方法了------------');
   console.log('------------完整的url是：' + root + url + '------------');
   console.log('------------参数是：' + JSON.stringify(params) + '------------');
