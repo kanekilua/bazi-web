@@ -60,6 +60,9 @@ import WeatherProvince from '@/pages/WeatherProvince'
 import WeatherCity from '@/pages/WeatherCity'
 import InterestingTest from "@/pages/InterestingTest"
 import About from '@/pages/About'
+import InterestingTestResult from '@/pages/InterestingTestResult'
+import InterestingInner from '@/pages/InterestingInner'
+
 
 
 
@@ -102,7 +105,7 @@ export default new Router({
       path :'/main',
       name : 'main',
       component : Main,
-      redirect: '/main/home',
+      redirect: '',
       children: [
         {
           path : '/main/home',
@@ -367,6 +370,16 @@ export default new Router({
       path : '/main/mine/about',
       name : 'about',
       component : About
+    },
+    {
+      path : '/interestingInner',
+      name : 'interestingInner',
+      component : InterestingInner
+    },
+    {
+      path : '/interestingTestResult',
+      name : 'interestingTestResult',
+      component : InterestingTestResult
     }
   ]
 })
