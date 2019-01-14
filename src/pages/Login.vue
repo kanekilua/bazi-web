@@ -36,8 +36,7 @@
                     </div>
                 </div>
                 <div class="reset-pwd">
-                    <div v-if="navIndex"  @click="$jump('/register')">现在注册</div>
-                    <div v-else></div>
+                    <div @click="$jump('/register')">现在注册</div>
                     <div @click="$jump('/resetPwd')">忘记密码></div>
                 </div>
                 <button class="login-btn" @click="login">登录</button>

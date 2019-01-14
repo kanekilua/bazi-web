@@ -16,6 +16,7 @@ global.APP_FIRST_OPEN = APP_NAME + '_first_open';
 global.APP_HTML_URL = 'http://www.szmonster.com:8089'
 global.APP_MINGLI_URL = 'https://mingli.szmonster.com'
 global.APP_DOMIAN = 'https://mingli.szmonster.com'
+global.APP_DOWNLOAD_URL = 'http://www.szmonster.com'
 
 // plugins option
 global.DATETIME_OPTION = {

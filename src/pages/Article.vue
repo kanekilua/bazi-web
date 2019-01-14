@@ -195,14 +195,14 @@ export default {
 [v-cloak] {
   display: none;
 }
+.right-ico{
+    width: 38/75rem;
+    height: 38/75rem;
+    background: url('../assets/image/common/share.png')no-repeat center center / 100% 100%;
+}
 .content-wrap{
     padding-top: 90/75rem;
     .border-box();
-    .right-ico{
-        width: 38/75rem;
-        height: 38/75rem;
-        background: url('../assets/image/common/share.png')no-repeat center center / 100% 100%;
-    }
     .article {
         .article-header {
             .border-box();
