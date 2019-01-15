@@ -45,7 +45,8 @@ export default {
         }
     },
     created() {
-        this.getData()         
+        this.init();
+        this.getData();
     },
     computed : {
         ...mapState ('bazi',['navIndex']),
@@ -68,7 +69,24 @@ export default {
         });
     },  
     methods : {
-        ...mapMutations('bazi',['updateNavIndex']),
+        ...mapMutations('bazi',['updateNavIndex','updateHideText']),
+        init : function () {
+            let app_bazi_share_str = localStorage.getItem(global.APP_BAZI_SHARE);
+            if(app_bazi_share_str === null) {
+                return ;
+            }
+            for(let shareData of JSON.parse(app_bazi_share_str)) {
+                if(shareData.name === this.baziUserInfo.name &&
+                    shareData.year === this.baziUserInfo.year &&
+                    shareData.month === this.baziUserInfo.month &&
+                    shareData.date === this.baziUserInfo.date &&
+                    shareData.hour === this.baziUserInfo.hour) {
+                        this.updateHideText(false);
+                        return ;
+                    }
+            }
+            this.updateHideText(true);
+        },
         getData: function () {
             let userInfo = {
                 cid : '93',

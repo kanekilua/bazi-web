@@ -262,7 +262,7 @@ export default {
             overflow: hidden;
             img{
                 width: 100%;
-                height: 223/75rem;
+                height: auto;
                 .round(10/75rem);
             }
             .mask{
