@@ -3,65 +3,44 @@
         <v-title-header>生辰八字</v-title-header>
         <div class="content-wrap">
             <div class="birth-form">
-                <input type="text" class="input-name" placeholder="请输入您的姓名" v-model="name">
-                <div class="gender">
-                    <div class="male">
-                        <input type="radio" id="male" name='gender' v-model="gender" value="1">
-                        <label for="male"></label>
-                        <div class="gender-txt">男</div>
+                <div class="input-group">
+                    <input type="text" class="input-name" placeholder="请输入您的姓名" v-model="name">
+                    <div class="gender">
+                        <div class="male">
+                            <input type="radio" id="male" name='gender' v-model="gender" value="1">
+                            <label for="male"></label>
+                            <div class="gender-txt-m">男</div>
+                        </div>
+                        <div class="female">
+                            <input type="radio" id="female" name='gender' v-model="gender" value="0">
+                            <label for="female"></label>
+                            <div class="gender-txt-f">女</div>
+                        </div>
                     </div>
-                    <div class="female">
-                        <input type="radio" id="female" name='gender' v-model="gender" value="0">
-                        <label for="female"></label>
-                        <div  class="gender-txt">女</div>
+                    <div class="dateType">
+                        日期类型：
+                        <div class="gregorian">
+                            <div class="date-txt">公历</div>
+                            <input type="radio" id="gregorian" name='dateType' v-model="dateType" value="1">
+                            <label for="gregorian"></label>
+                        </div>
+                        <div class="lunar">
+                            <div  class="date-txt">农历</div>
+                            <input type="radio" id="lunar" name='dateType' v-model="dateType" value="0">
+                            <label for="lunar"></label>
+                        </div>
                     </div>
+                    <input type="text" class="input-born" placeholder="请选择您的出生日期" @click="showDatePlugin" readonly="readonly" v-model="birthDate">
                 </div>
-                <div class="birthPlace">
-                    出生地点：
-                    <span @click="showProvince=true"><span id="province">{{province}}</span><i></i></span>
-                    <span @click="showCity=true"><span id="city">{{city}}</span><i></i></span>
-                </div>
-                <div class="dateType">
-                    日期类型：
-                    <div class="gregorian">
-                        <input type="radio" id="gregorian" name='dateType' v-model="dateType" value="1">
-                        <label for="gregorian"></label>
-                        <div class="date-txt">公历</div>
-                    </div>
-                    <div class="lunar">
-                        <input type="radio" id="lunar" name='dateType' v-model="dateType" value="0">
-                        <label for="lunar"></label>
-                        <div  class="date-txt">农历</div>
-                    </div>
-                </div>
-                <input id="dateInput" type="text" class="input-born" placeholder="请选择您的出生日期" @click="showDatePlugin" readonly="readonly" v-model="birthDate">
-                <x-button :gradients="[gradientStart, gradientEnd]" id="save-confirm" @click.native="saveData">确认保存</x-button>
-
-                <!-- 选择省份的弹出框 -->
-                <div transfer-dom>
-                    <popup v-model="showProvince" position="bottom" height="50%">
-                        <group>
-                            <cell v-for="(item,index) in provinceList" :key="index" :title="item.name" @click.native="selectProvince(item)"></cell>
-                        </group>
-                    </popup>
-                </div>
-                <!-- 选择城市的弹出框 -->
-                <div transfer-dom>
-                    <popup v-model="showCity" position="bottom" height="50%">
-                        <group>
-                            <cell v-for="(item,index) in cityList" :key="index" :title="item.name" @click.native="selectCity(item)"></cell>
-                        </group>
-                    </popup>
-                </div>
+                <button class="save-confirm" @click="saveData">保存</button>
             </div>
-            <div class="user-manage" v-if="paipanDataList.length > 1" >
-                <v-title-nav>
-                    <span slot="title" class="navTitle">用户管理</span>
-                    <span slot='more'></span>
-                </v-title-nav>
+            <v-title-nav>
+                用户管理
+            </v-title-nav>
+            <div class="user-manage" v-if="paipanDataList.length > 0" >
                 <div>
                     <div v-for="(item,index) in paipanDataList" :key="index" class="user-item">
-                        <div class="avanda"></div>
+                        <img class="avata" :src="item.avanta">
                         <div class="content">
                             <div><span class="title">姓名：</span><span>{{item.name}}</span></div>
                             <div><span class="title">生辰：</span><span>{{item.year}}年{{item.month}}月{{item.date}}日 {{item.hour}}点</span></div>
@@ -79,18 +58,9 @@
 import solarLunar from 'solarLunar'
 import { dateFormat } from 'vux'
 import {mapMutations} from 'vuex'
-
 export default  {
-    created() {
-        let app_paipan_data = localStorage.getItem(global.APP_BAZI_DATA);
-        if(app_paipan_data != undefined) {
-            this.paipanDataList = JSON.parse(app_paipan_data);
-        }
-    },
     data () {
         return  {
-            gradientStart : global.GRADIENT_START,
-            gradientEnd : global.GRADIENT_END,
             name : "",
             gender: "1",
             province : "忽略",
@@ -106,8 +76,26 @@ export default  {
             touchIndex : -1
         }
     },
+    created() {
+        this.init();
+    },
     methods : {
-        ...mapMutations('baziMingPan',['updateBaziUserInfo']),
+        ...mapMutations('bazi',['updateBaziUserInfo']),
+        init : function () {
+            let app_paipan_data_str = localStorage.getItem(global.APP_BAZI_DATA);
+            if(app_paipan_data_str === undefined) {
+                return ;
+            }
+            let app_paipan_data = JSON.parse(app_paipan_data_str);
+            for(let item of app_paipan_data) {
+                if(item.sex === "1") {
+                    item.avanta = require('../assets/image/common/man.png');
+                }else {
+                    item.avanta = require('../assets/image/common/woman.png');
+                }
+            }
+            this.paipanDataList = app_paipan_data;
+        },
         btnStyleChange : function (index) {
             this.touchIndex = index;
         },
@@ -179,7 +167,7 @@ export default  {
             app_paipan_data.unshift(paipanData);
             localStorage.setItem(global.APP_BAZI_DATA,JSON.stringify(app_paipan_data));
             this.updateBaziUserInfo(paipanData);
-            this.$jump('/bazi');
+            this.$router.go(-1);
         },
         selectUser : function (item,index) {
             let app_paipan_data = JSON.parse(localStorage.getItem(global.APP_BAZI_DATA));
@@ -188,7 +176,7 @@ export default  {
             app_paipan_data.unshift(item);
             localStorage.setItem(global.APP_BAZI_DATA,JSON.stringify(app_paipan_data));
             this.updateBaziUserInfo(item);
-            this.$jump('/bazi');
+            this.$router.go(-1);
         }
     }
 }
@@ -198,129 +186,117 @@ export default  {
     .content-wrap{
         padding-top: 90/75rem;
         .birth-form{
-            width: 640/75rem;
-            height: 847/75rem;
-            margin: 24/75rem auto 0 auto;
-            box-sizing: border-box;
-            padding: 50/75rem;
-            .round(50/75rem);
+            width: 636/75rem;
+            height: 786/75rem;
+            margin: 56/75rem auto 0 auto;
+            padding: 60/75rem;
+            .border-box();
+            .round(15/75rem);
             background: #fff;
-            box-shadow: 0 10/75rem 10/75rem #eee;
-        }
-        .input-name, .input-born{
-            width: 100%;
-            height: 65/75rem;
-            line-height: 65/75rem;
-            padding-left: 15/75rem;
-            border: none;
-            border-bottom: 1px solid #eee; 
-            font-weight: 400;
-            font-size: 34/75rem;
-            font-weight:400;
-            color:rgba(0,0,0,1);
-            outline: none;
-            text-align: center;
-        }
-        .input-born{
-            margin-bottom: 80/75rem;
-        }
-        .gender{
-            .flex-between();
-            width: 80%;
-            margin: 40/75rem;
-            font-size: 34/75rem;
-            .male,.female{
-                .flex-start();
-            }
-            input[type="radio"]{
-                display: none;
-            }
-            input[type="radio"] + label{
-                width: 44/75rem;
-                height: 44/75rem;
-                .round(50%);
-                margin-right: 40/75rem;
-                border: 1px solid #eee;
-            }
-            input[id="male"]:checked  + label{
-            background: url('../assets/image/birth/man.png') no-repeat center center / 100% 80%;
-            & + div{
+            .boxshadow(0,0,20/75rem,#ddd);
+            .input-group {
+                padding: 15/75rem;
+                .border-box();
+                .input-born{
+                    margin-bottom: 80/75rem;
+                }
+                .input-name, .input-born{
+                    width: 100%;
+                    height: 65/75rem;
+                    line-height: 65/75rem;
+                    padding-left: 15/75rem;
+                    border: none;
+                    border-bottom: 1px solid #eee; 
+                    font-weight: 400;
+                    font-size: 34/75rem;
+                    font-weight:400;
                     color:rgba(0,0,0,1);
-                    opacity:0.8;
+                    outline: none;
+                    text-align: center;
+                }
+                .gender{
+                    .flex-between();
+                    width: 70%;
+                    margin: 40/75rem auto 40/75rem auto;
+                    font-size: 30/75rem;
+                    .male,.female{
+                        .flex-start();
+                        color: #555;
+                    }
+                    input[type="radio"]{
+                        display: none;
+                    }
+                    input[type="radio"] + label{
+                        width: 55/75rem;
+                        height: 55/75rem;
+                        .round(50%);
+                        margin-right: 22/75rem;
+                        border: 1px solid #eee;
+                    }
+                    input[id="male"]  + label{
+                        background: url('../assets/image/common/male1.png') no-repeat center center / 100% 100%;
+                    }
+                    input[id="female"]  + label{
+                        background: url('../assets/image/common/female1.png') no-repeat center center / 100% 100%;
+                    }
+                    input[id="male"]:checked  + label{
+                        background: url('../assets/image/common/male1-active.png') no-repeat center center / 100% 100%;
+                    }
+                    input[id="female"]:checked  + label{
+                        background: url('../assets/image/common/female1-active.png') no-repeat center center / 100% 100%;
+                    }
+                    input[id="male"]:checked +  div {
+                        color: #555;
+                    }
+                }
+                .dateType {
+                    .flex-start();
+                    margin-top: 28/75rem;
+                    font-size: 34/75rem;
+                    padding-left: 7.5/75rem;
+                    color:#555;
+                    margin-bottom: 40/75rem;
+                    .gregorian{
+                        .flex-start();
+                    }
+                    .lunar {
+                        .flex-start();
+                        margin-left: 55/75rem;
+                    }
+                    input[type="radio"]{
+                        display: none;
+                    }
+                    input[type="radio"] + label{
+                        width: 22/75rem;
+                        height: 22/75rem;
+                        .round(50%);
+                        margin: 0 15/75rem;
+                        border: 1px solid #eee;
+                    }
+                    input[name="dateType"]:checked  + label{
+                        background-color: @baseBoldColor;
+                        & + div{
+                                color:rgba(0,0,0,1);
+                                opacity:0.8;
+                        }
+                    }
+                }
+                
             }
-            }
-            input[id="female"]:checked  + label{
-            background: url('../assets/image/birth/woman.png') no-repeat center center / 40% 100%;
-            & + div{
-                    color:rgba(0,0,0,1);
-                    opacity:0.8;
-            }
-            }
-            .gender-txt{
-                color:rgba(0,0,0,1);
-                    opacity:0.2;
+            .save-confirm{
+                .my-button();
+                width: 100%;
+                height: 90/75rem;
+                margin : 80/75rem auto 0 auto;
+                .round(50/75rem);
+                font-size: 34/75rem;
+                color: #fff;
+                background-color: @baseBoldColor;
             }
         }
-        .birthPlace {
-            font-size: 34/75rem;
-            padding-left: 7.5/75rem;
-            color:@inputColor;
-            #city {
-                margin-left: 30/75rem;
-            }
-            & > span > i {
-                display: inline-block;
-                width: 22/75rem;
-                height: 22/75rem;
-                margin-left: 24/75rem;
-                background: url('../assets/image/bazi-birth/unfold.png') no-repeat center center / 100% 100%;
-            }
-        }
-        .birthType {
-            margin-top: 28/75rem;
-            font-size: 34/75rem;
-            padding-left: 7.5/75rem;
-            color:@inputColor;
-        }
-        .dateType {
-            .flex-start();
-            margin-top: 28/75rem;
-            font-size: 34/75rem;
-            padding-left: 7.5/75rem;
-            color:@inputColor;
-            .gregorian{
-                .flex-start();
-            }
-            .lunar {
-                .flex-start();
-                margin-left: 55/75rem;
-            }
-            input[type="radio"]{
-                display: none;
-            }
-            input[type="radio"] + label{
-                width: 22/75rem;
-                height: 22/75rem;
-                .round(50%);
-                margin-right: 26/75rem;
-                border: 1px solid #eee;
-            }
-            input[name="dateType"]:checked  + label{
-                background-color: @baseColor;
-            & + div{
-                    color:rgba(0,0,0,1);
-                    opacity:0.8;
-            }
-            }
-        }
-        #dateInput {
-            margin-top: 28/75rem;
-        }
-        #save-confirm{
-            width: 504/75rem;
-            height: 90/75rem;
-            border-radius: 40/75rem;
-            font-size: 28/75rem;
+        /deep/ .title-nav {
+            width: 640/75rem;
+            margin: 0 auto;
         }
         .user-manage {
             width: 640/75rem;
@@ -332,43 +308,40 @@ export default  {
             }
             .user-item:nth-child(1) {
                 padding: 10/75rem 0 27/75rem 0;
+                .switch-btn{
+                    button{
+                        background: @baseBoldColor;
+                        color: #fff;
+                    }
+                }
             }
             .user-item {
+                .flex-between();
                 padding: 32/75rem 0 27/75rem 0;
                 border-bottom:1px solid rgba(200,200,200,0.35);
                 .flex-between();
-                .avanda {
-                    width: 88/75rem;
-                    height: 88/75rem;
-                    background-color: @baseColor;
+                .avata {
+                    width: 100/75rem;
+                    height: 100/75rem;
                     .round(50%);
                 }
                 .content {
-                    margin: 0 60/75rem 0 41/75rem;
-                    font-size: 24/75rem;
-                    width: 308/75rem;
+                    font-size: 28/75rem;
                     .title {
                         font-weight: bold;
                         color : rgba(0,0,0,0.8);
-                    }
-                    div:nth-child(1){
-                        margin-bottom: 20/75rem;
                     }
                 }
                 .switch-btn {
                     & > button {
                         width: 130/75rem;
-                        height: 50/75rem;
+                        height: 45/75rem;
                         background-color: #fff;
                         border: 1px solid #eee;
-                        color: #000;
-                        font-size: 26/75rem;
-                        .round(18/75rem);
-                        .boxshadow(0,0,8/75rem,rgba(0,0,0,0.13));
-                        &.active {
-                            background-color: @baseColor;
-                            color: #fff;
-                        }
+                        color: @baseBoldColor;
+                        font-size: 20/75rem;
+                        .round(10/75rem);
+                        .boxshadow(0,2/75rem,6/75rem,rgba(225,225,225,1));
                     }
                 }
             }

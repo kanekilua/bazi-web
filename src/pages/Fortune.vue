@@ -197,7 +197,6 @@ export default {
             this.slideList.mingri = data.mingri;
             this.slideList.zhou = data.zhou;
             this.slideList.yue = data.yue;
-
         },
         liFormat: function (str) {
             let key = str.substring(0,5);

@@ -22,10 +22,10 @@
             </v-title-nav>
             <div class="user-list">
                 <div class="user-item" v-for="(item,index) in userList" :key="index">
-                    <img :src="item.avantaUrl" class="avanta">
+                    <img :src="item.avanta" class="avanta">
                     <div class="user-message">
                         <div class="name"><span class="title">姓名：</span>{{item.name}}</div>
-                        <div class="birthday"><span class="title">生辰：</span>{{item.dateArr[0]}}年{{item.dateArr[1]}}月{{item.dateArr[2]}}日 {{item.dateArr[3]}}点</div>
+                        <div class="birthday"><span class="title">生辰：</span>{{item.year}}年{{item.month}}月{{item.date}}日 {{item.hour}}点</div>
                     </div>
                     <button class="switch-btn" @click="selectUser(item,index)">开始测算</button>
                 </div>
@@ -61,10 +61,19 @@ export default {
     },
     methods: {
         init : function () {
-            let app_peach_data = localStorage.getItem(global.APP_PEACH_DATA);
-            if(app_peach_data != undefined) {
-                this.userList = JSON.parse(app_peach_data);
+            let app_peach_data_str = localStorage.getItem(global.APP_PEACH_DATA);
+            if(app_peach_data_str === undefined) {
+                return ;
+            }   
+            let app_peach_data = JSON.parse(app_peach_data_str);
+            for(let item of app_peach_data) {
+                if(item.sex === "1") {
+                    item.avanta = require('../assets/image/common/man.png');
+                }else {
+                    item.avanta = require('../assets/image/common/woman.png');
+                }
             }
+            this.userList = app_peach_data;
         },
         showDatePlugin : function () {
             this.$vux.datetime.show({
@@ -100,9 +109,12 @@ export default {
 
             let peachData = {
                 'name' : this.userName,
-                'gender' : this.gender,
-                'dateArr' : this.dateArray,
-                'avantaUrl' : this.gender === '1' ? require('../assets/image/common/man.png') : require('../assets/image/common/woman.png')
+                'sex' : this.gender,
+                'year' : this.dateArray[0],
+                'month' : this.dateArray[1],
+                'date' : this.dateArray[2],
+                'hour' : this.dateArray[3],
+                'minute' : this.dateArray[4]
             }
             let appPeachData = [];
             // 判断localStorage中是否有global.APP_PEACH_DATA，有的话取出来
@@ -141,10 +153,10 @@ export default {
                 name: 'peachBlossom',
                 query: {
                     cid: '101',
-                    y : item.dateArr[0],
-                    m : item.dateArr[1],
-                    d : item.dateArr[2],
-                    h : item.dateArr[3],
+                    y : item.year,
+                    m : item.month,
+                    d : item.date,
+                    h : item.hour,
                 }
             })
         },
@@ -251,7 +263,7 @@ export default {
                 .round(50%);
             }
             .user-message { 
-                margin-right: 100/75rem;
+                margin-right: 60/75rem;
                 .name{
                     margin-bottom: 24/75rem;
                 }

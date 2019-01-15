@@ -45,7 +45,8 @@ export default {
         }
     },
     created() {
-        this.getData()         
+        this.init();
+        this.getData();
     },
     computed : {
         ...mapState ('bazi',['navIndex']),
@@ -68,14 +69,35 @@ export default {
         });
     },  
     methods : {
-        ...mapMutations('bazi',['updateNavIndex']),
+        ...mapMutations('bazi',['updateNavIndex','updateHideText']),
+        init : function () {
+            let app_bazi_share_str = localStorage.getItem(global.APP_BAZI_SHARE);
+            if(app_bazi_share_str === null) {
+                return ;
+            }
+            for(let shareData of JSON.parse(app_bazi_share_str)) {
+                if(shareData.name === this.baziUserInfo.name &&
+                    shareData.year === this.baziUserInfo.year &&
+                    shareData.month === this.baziUserInfo.month &&
+                    shareData.date === this.baziUserInfo.date &&
+                    shareData.hour === this.baziUserInfo.hour) {
+                        this.updateHideText(false);
+                        return ;
+                    }
+            }
+            this.updateHideText(true);
+        },
         getData: function () {
             let userInfo = {
                 cid : '93',
                 y : '1910',
                 m : '1',
                 d : '1',
-                h : '1',
+                // h : '1',
+                // y : this.baziUserInfo.year,
+                // m : this.baziUserInfo.month[0] === '0' ? this.baziUserInfo.month[1] : this.baziUserInfo.month,
+                // d : this.baziUserInfo.date[0] === '0' ? this.baziUserInfo.date[1] : this.baziUserInfo.date,
+                // h : this.baziUserInfo.hour[0] === '0' ? this.baziUserInfo.hour[1] : this.baziUserInfo.hour, 
             };
             this.$http.post('/suan/apidata',userInfo,'cesuan',null,this.success,this.failure) ;
         },

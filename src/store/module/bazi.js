@@ -2,7 +2,8 @@ export default {
     namespaced: true,
     state: {
         navIndex : 0,
-        baziUserInfo : {}
+        baziUserInfo : {},
+        hideText : true
     },
     mutations :{
         updateNavIndex (state,value) {
@@ -10,6 +11,9 @@ export default {
         },
         updateBaziUserInfo (state,value) {
             state.baziUserInfo = value;
+        },
+        updateHideText (state,value) {
+            state.hideText = value;
         }
     }
 }
