@@ -39,7 +39,6 @@ export default {
     data () {
         return {
             backLink: "/shengxiao",
-
             // 接收router数据
             name: this.$route.params.name,
             imgUrl: this.$route.params.imgUrl,

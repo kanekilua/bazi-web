@@ -18,8 +18,8 @@
                     <div class="left">
                         <div>姓名</div>
                     </div>
-                    <div class="right">
-                        <input type="text" class="right-item nick-input" v-model="name">
+                    <div class="right" @click="changName()">
+                        <input type="text" class="right-item nick-input" v-model="name" readonly>
                         <i class="right-ico"></i>
                     </div>
                 </div>
@@ -32,22 +32,27 @@
                         <i class="right-ico"></i>
                     </div>
                 </div>
-                <!-- <div class="item" @click="showDialogStyle = true">
-                    <div class="left">
-                        <div>背景图片</div>
-                    </div>
-                    <div class="right">
-                        <div class="right-item"><img src="../assets/image/mine/transition-bg.png"></div>
-                        <i class="right-ico"></i>
-                    </div>
-                </div> -->
             </div>
-            <!-- 弹窗 -->
+            <!-- 头像弹窗 -->
             <div v-transfer-dom>
-                <x-dialog v-model="showDialogStyle" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '30%', 'background-color': 'transparent'}">
+                <x-dialog v-model="showDialogStyle" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '20%', 'background-color': 'transparent'}">
                     <div class="img-dialog">
                         <button class="takePhoto">拍照</button>
                         <button class="camera">从相册中选择</button>
+                    </div>
+                </x-dialog>
+            </div>
+            <!-- 姓名弹窗 -->
+            <div v-transfer-dom>
+                <x-dialog v-model="nameDialog" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '20%', 'background-color': 'transparent'}">
+                    <div class="name-dialog">
+                        <div class="top">
+                            <input type="text" placeholder="请输入您的姓名">
+                        </div>
+                        <div class="bottom">
+                            <button>取消</button>
+                            <button>确定</button>
+                        </div>
                     </div>
                 </x-dialog>
             </div>
@@ -55,6 +60,7 @@
     </div>
 </template>
 <script>
+import {mapState } from 'vuex'
 import {XDialog,TransferDomDirective as TransferDom,Picker} from 'vux'
 export default {
     directives: {
@@ -78,7 +84,10 @@ export default {
             }else {
                 this.$jump('/login');
             }         
-        }
+        },
+        changName: function () {
+            this.nameDialog = true;
+        }  
     },
 }
 </script>
@@ -158,6 +167,50 @@ export default {
             .round(0 0 10/75rem 10/75rem);
             background: @baseBoldColor;
             color: #fff;
+        }
+    }
+    .name-dialog{
+        width: 440/75rem;
+        .top{
+            .flex-center();
+            width: 100%;
+            height: 86/75rem;
+            text-align: center;
+            background: #fff;
+            .round(20/75rem 20/75rem 0 0);
+            input{
+                .my-input();
+                height: 60/75rem;
+                width: 70%; 
+                text-align: center;
+                font-size: 34/75rem;
+                border-bottom: 1px solid rgba(221,221,221,1);           
+            }
+        }
+        .bottom{
+            .flex-start();
+            width: 100%;
+            border-top: 1px solid @baseBoldColor;
+            .border-box();
+            button{
+                .my-button();
+                width: 50%;
+                height: 86/75rem;
+                background: #fff;
+                font-size: 34/75rem;
+                color: @baseBoldColor;
+
+            }
+            button:nth-child(1){
+                .round( 0 0 0 20/75rem);
+            }
+            button:nth-child(2){
+                .my-button();
+                background: @baseBoldColor;
+                color: #fff;
+                .round( 0 0 20/75rem 0);
+                font-size: 34/75rem;
+            }
         }
     }
 }
