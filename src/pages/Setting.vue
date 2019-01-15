@@ -5,7 +5,7 @@
         </v-title-header>
         <div class="content-wrap">
             <div class="list">
-                <div class="item" v-for="(item,index) in List" :key="index" @click="$jump(item.route)">
+                <div class="item" v-for="(item,index) in List" :key="index" @click="jump(item.route)">
                     <div class="left">
                         <img :src="item.img">
                         <div>{{item.title}}</div>
@@ -45,7 +45,15 @@ export default {
                 {title: "检测更新", img: require('../assets/image/mine/update.png'), route: "/main/mine/setting"},
             ],
         }
-    }
+    },
+    methods: {
+        jump : function (path) {
+            if((path === "/main/mine/setting/userFile" || path === "/main/mine/setting/security") && this.$store.state.loginAccount === '') {
+                path = "/login";
+            }
+            this.$jump(path);
+        }
+    },
 }
 </script>
 <style lang="less" scoped>

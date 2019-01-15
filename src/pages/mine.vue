@@ -11,11 +11,11 @@
         <div class="content-wrap">
             <div class="user-bg">
                 <div class="transition-bg">
-                    <div class="user-box" @click="$jump('/login')">
+                    <div class="user-box" @click="loginFlag ? '' : $jump('/login')">
                         <div class="avatar-box">
-                            <img  class= "avatar" src="../assets/image/mine/avatar.png">
+                            <img  class= "avatar" :src="avanta">
                         </div>
-                        <div class="nick-name">未注册/登录</div>
+                        <div class="nick-name">{{name}}</div>
                     </div>
                 </div>
             </div>
@@ -60,13 +60,39 @@
 export default {
     data () {
         return {
+            loginFlag : false,
             showTrans: false,
-            gender: 1,
+            avanta : require('../assets/image/mine/avatar.png'),
+            name : '未注册/登录'
         }
+    },
+    created() {
+        this.init();
     },
     mounted() {
         this.showTrans=true;
-    }
+    },
+    methods: {
+        init :function () {
+            let login_account = this.$store.state.loginAccount;
+            if(login_account === '') {
+                return ;
+            }
+            let account_info_str = localStorage.getItem(global.APP_ACCOUNT_INFO);
+            if(account_info_str === null) {
+                return ;
+            }
+            let account_info_arr = JSON.parse(account_info_str);
+            let account_info = account_info_arr[login_account];
+            if(account_info.avatar === "") {
+                account_info.avatar = account_info.gender ? require('../assets/image/common/man.png') : require('../assets/image/common/woman.png');
+            }
+            this.avanta = account_info.avatar ;
+            this.name = account_info.realname;
+            this.$store.commit('updateLoginAccountInfo',account_info);
+            this.loginFlag = true;
+        }
+    },
 }
 </script>
 <style lang="less" scoped>

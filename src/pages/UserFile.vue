@@ -10,7 +10,7 @@
                         <div>头像</div>
                     </div>
                     <div class="right">
-                        <div class="right-item"><img src="../assets/image/mine/avatar.png"></div>
+                        <div class="right-item"><img :src="avanta"></div>
                         <i class="right-ico"></i>
                     </div>
                 </div>
@@ -19,7 +19,7 @@
                         <div>姓名</div>
                     </div>
                     <div class="right">
-                        <input type="text" class="right-item nick-input" v-model="nickName">
+                        <input type="text" class="right-item nick-input" v-model="name">
                         <i class="right-ico"></i>
                     </div>
                 </div>
@@ -63,9 +63,23 @@ export default {
     data () {
         return {
             showDialogStyle: false,//弹窗显示
-            nickName: "天道酬勤",
+            name: "",
+            avanta : require("../assets/image/mine/avatar.png"),
         }
-    }
+    },
+    created () {
+        this.init();
+    },
+    methods: {
+        init : function () {
+            if(this.$store.state.loginAccountInfo !== null ) {
+                this.name = this.$store.state.loginAccountInfo.realname;
+                this.avanta = this.$store.state.loginAccountInfo.avatar;
+            }else {
+                this.$jump('/login');
+            }         
+        }
+    },
 }
 </script>
 <style lang="less" scoped>
