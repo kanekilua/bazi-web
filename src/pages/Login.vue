@@ -342,12 +342,12 @@ export default {
                 .boxshadow();
             }
             .third-login {
-                position: absolute;
+                position: fixed;
                 left: 0;
                 right: 0;
                 bottom: 36/75rem;
                 margin: 0 auto;
-                width: 185/75rem;
+                width: 200/75rem;
                 & > div {
                     font-size: 26/75rem;
                     color: #666;

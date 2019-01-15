@@ -14,7 +14,7 @@
                     今日测算
                 </v-title-nav>
                 <div class="table-list">           
-                    <div class="table-item" @click="jumpBazi">
+                    <div class="table-item" @click="jump('/bazi')">
                         <div class="item-box">
                             <img src="../assets/image/home/bazi.png">
                             <div class="item-txt">八字排盘</div>
@@ -38,7 +38,7 @@
                             <div class="item-txt">十二生肖</div>
                         </div>
                     </div>
-                    <div class="table-item" @click="$jump('/ziwei')">
+                    <div class="table-item" @click="jump('/ziwei')">
                         <div class="item-box">
                             <img src="../assets/image/home/ziwei.png">
                             <div class="item-txt">紫微斗数</div>
@@ -123,7 +123,7 @@ export default {
     },
     methods: {
         ...mapMutations('bazi',['updateBaziUserInfo']),
-        jumpBazi : function () {
+        jump : function (path) {
             let userInfo;
             if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
                 userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))[this.loginAccount];
@@ -148,7 +148,7 @@ export default {
                 'yezis' : 10
             };
             this.updateBaziUserInfo(baziPaiPanData);
-            this.$jump('/bazi');
+            this.$jump(path);
         },
         getBanner: function () {
             this.$http.post('/features/carousel',null,null,null,this.success,this.failure);
