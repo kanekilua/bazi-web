@@ -62,6 +62,8 @@ import InterestingTest from "@/pages/InterestingTest"
 import About from '@/pages/About'
 import InterestingTestResult from '@/pages/InterestingTestResult'
 import InterestingInner from '@/pages/InterestingInner'
+import InterestingMore from '@/pages/InterestingMore'
+
 
 
 
@@ -362,24 +364,30 @@ export default new Router({
       component :WeatherCity
     },
     {
+      path : '/interestingInner',
+      name : 'interestingInner',
+      component : InterestingInner
+    },
+    {
       path : '/interestingTest',
       name : 'interestingTest',
       component : InterestingTest 
+    },
+    {
+      path : '/interestingTestResult',
+      name : 'interestingTestResult',
+      component : InterestingTestResult
+    },
+    {
+      path : '/interestingMore',
+      name : 'interestingMore',
+      component : InterestingMore
     },
     {
       path : '/main/mine/about',
       name : 'about',
       component : About
     },
-    {
-      path : '/interestingInner',
-      name : 'interestingInner',
-      component : InterestingInner
-    },
-    {
-      path : '/interestingTestResult',
-      name : 'interestingTestResult',
-      component : InterestingTestResult
-    }
+    
   ]
 })

@@ -70,9 +70,10 @@
                     </div>
                 </div>
                 <div class="cell"></div>
-                <v-title-nav>
-                    趣味测试
-                </v-title-nav>
+                <v-title-nav-more>
+                    <div slot="title">趣味测试</div>
+                    <div slot="more" @click="$jump('/interestingMore')">更多</div>
+                </v-title-nav-more>
                 <div class="interst-test">
                     <div class="img-box"
                         @click="toTest(item.id)"
@@ -168,10 +169,14 @@ export default {
             console.log(res);
         },
         toTest: function (id) {
+            let testList = this.testList[id-1]; 
             this.$router.push({
                 name: 'interestingInner',
-                params: {
-                    testList: this.testList[id-1], 
+                query: {
+                    id : testList.id,
+                    img : testList.img,
+                    title : testList.title,
+                    shorttext : testList.shorttext,
                 }
             })
         }
