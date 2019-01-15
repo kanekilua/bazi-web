@@ -74,17 +74,15 @@
                     趣味测试
                 </v-title-nav>
                 <div class="interst-test">
-                    <div class="img-box" @click="$jump('/interestingTest')">
-                        <img src="../assets/image/home/test.png" alt="趣味测试">
+                    <div class="img-box"
+                        @click="toTest(item.id)"
+                        v-for = "(item,index) in testList"
+                        :key = "index"
+                        v-show = "index < 2"
+                    >
+                        <img :src="item.img" alt="趣味测试">
                         <div class="mask">
-                            <h3>总想找你聊天，还不是因为我在乎你！</h3>
-                            <div><a href="#">免费揭晓答案 ></a></div>
-                        </div>
-                    </div>
-                    <div class="img-box" @click="$jump('/interestingTest')">
-                        <img src="../assets/image/home/test.png" alt="趣味测试">
-                        <div class="mask">
-                            <h3>总想找你聊天，还不是因为我在乎你！</h3>
+                            <h4>{{item.title}}</h4>
                             <div><a href="#">免费揭晓答案 ></a></div>
                         </div>
                     </div>
@@ -115,11 +113,13 @@ export default {
                 autoplay:{
                     delay: 3000
                 },
-            }
+            },
+            testList: [],
         }
     },
     created () {
         this.getBanner();
+        this.getInterestingTest();
     },
     methods: {
         ...mapMutations('bazi',['updateBaziUserInfo']),
@@ -155,6 +155,25 @@ export default {
         },
         success: function (res) {
             this.imgList = res.data.index.children;
+        },
+        getInterestingTest : function () {
+            let params = {
+                cid : '107',
+                limit : '0'
+            }
+            this.$http.post('/suan/apidata',params,'cesuan',null,this.testSuccess,this.failure);
+        },
+        testSuccess: function (res) {
+            this.testList = res.data;
+            console.log(res);
+        },
+        toTest: function (id) {
+            this.$router.push({
+                name: 'interestingInner',
+                params: {
+                    testList: this.testList[id-1], 
+                }
+            })
         }
     }
 }
@@ -234,31 +253,34 @@ export default {
     }
     .interst-test{
         padding-bottom: 13/75rem;
+        overflow: hidden;
         .img-box{
             position: relative;
             width: 90%;
-            margin: 0 auto;
+            height: 223/75rem;
+            margin: 20/75rem auto;
+            overflow: hidden;
             img{
                 width: 100%;
-                height: auto;
+                height: 223/75rem;
+                .round(10/75rem);
             }
             .mask{
                 position: absolute;
-                bottom: 18/75rem;
+                bottom: 0;
                 left: 0;
                 right: 0;
                 margin: auto;
-                width: 98%;
+                width: 100%;
                 height: 86/75rem;
                 text-align: left;
                 background: rgba(0,0,0,0.2);
-                color: #fff;
-                border-bottom-right-radius: 30/75rem;
-                border-bottom-left-radius: 30/75rem;
-                &> h3{
+                .round(0 0 10/75rem 10/75rem);
+                &> h4{
                     font-size: 28/75rem;
                     padding: 8/75rem 0 0 13/75rem;
                     .border-box();
+                    color: rgba(255,255,255,1);
                 }
                 & > div{
                     margin-right:10/75rem; 
