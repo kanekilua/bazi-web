@@ -50,8 +50,6 @@ export default {
     },
     data () {
         return {
-            gradientStart : global.GRADIENT_START,
-            gradientEnd : global.GRADIENT_END,
             name : "",
             gender : "1",
             birthDate: "",
@@ -59,7 +57,24 @@ export default {
             dateType : "1"
         }
     },
+    created() {
+        this.init();
+    },
     methods : {
+        init : function () {
+            if(this.$route.query.pre === undefined) {
+                return ;
+            }
+            if(this.$route.query.pre === 'userFile') {
+                let loginAccountInfo = this.$store.state.loginAccountInfo;
+                this.name = loginAccountInfo.realname;
+                this.gender = loginAccountInfo.gender + '';
+                this.birthDate = loginAccountInfo.birthday;
+                let birthDateSplit = this.birthDate.split('-');
+                let timeSplit = birthDateSplit[2].split(' ')[1].split(':');
+                this.dateArray = [birthDateSplit[0],birthDateSplit[1],birthDateSplit[2].split(' ')[0],timeSplit[0],timeSplit[1]];
+            }
+        },
         showDatePlugin : function () {
             this.$vux.datetime.show({
                 ...global.DATETIME_OPTION,
@@ -81,6 +96,12 @@ export default {
             });
         },
         saveData : function () {
+            if(this.$route.query.pre === 'userFile') {
+                let loginAccountInfo = this.$store.state.loginAccountInfo;
+                if(this.name === loginAccountInfo.realname && this.gender === loginAccountInfo.gender + '' && this.birthDate === loginAccountInfo.birthday) {
+                    return ;
+                }
+            }
             if(!this.$utils.checkName(this.name,this)) {
                 return;
             }
@@ -103,7 +124,12 @@ export default {
             }
             let token = localStorage.getItem(global.APP_TOKEN);
             let header = {'Authorization':token};
-            this.$http.post('/scbazi',postData,'app',header,this.saveSuccess,null);
+            if(this.$route.query.pre === 'userFile') {
+                this.$http.post('/userInfo',postData,'app',header,this.userFileSuccess,this.failure);
+            }else {
+                this.$http.post('/scbazi',postData,'app',header,this.saveSuccess,null);
+            }
+            
         },
         saveSuccess : function (result) {
             // 保存生辰八字成功的话保存在本地一份然后就跳转到fortune
@@ -118,6 +144,15 @@ export default {
             }
             localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
             this.$jump('main/fortune');
+        },
+        userFileSuccess : function (result) {
+            let loginAccountInfo = this.$store.state.loginAccountInfo;
+            loginAccountInfo.realname = this.name;
+            loginAccountInfo.gender = this.gender;
+            loginAccountInfo.birthday = this.dateArray[0] + '-' + this.dateArray[1] + '-' + this.dateArray[2] + ' ' + this.dateArray[3] + ':' + this.dateArray[4] + ':00';
+            this.$store.commit('updateLoginAccountInfo',loginAccountInfo);
+
+            this.$router.go(-1);
         }
     }
 }

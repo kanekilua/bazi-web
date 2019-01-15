@@ -22,7 +22,7 @@
                     <button class="ask">确定退出登陆？</button>
                     <div class="btn-list">
                         <button class="cancel" @click="showDialogStyle = false">取消</button>
-                        <button class="confirm" @click="showDialogStyle = false">确认</button>
+                        <button class="confirm" @click="logout">确认</button>
                     </div>
                 </div>
             </x-dialog>
@@ -52,7 +52,19 @@ export default {
                 path = "/login";
             }
             this.$jump(path);
-        }
+        },
+        logout :function () {
+            let token = localStorage.getItem(global.APP_TOKEN);
+            let header = {'Authorization':token};
+            this.$http.get('/logout',null,'app',header,this.logoutSuccess,null);
+            
+            this.showDialogStyle = false;
+        },
+        logoutSuccess : function (result) {
+            this.$store.commit("updateLoginAccount",'');
+            localStorage.setItem(global.APP_TOKEN,result.data.token);
+            this.$jump('/login');
+        },
     },
 }
 </script>
