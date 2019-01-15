@@ -2,7 +2,7 @@
     <div class="test-wrap">
         <v-title-header>趣味测试</v-title-header>
         <div class="content-wrap">
-            <h2 class="title">{{this.$route.params.title}}</h2>
+            <h2 class="title">{{this.$route.query.title}}</h2>
             <div class="content">
                 <div class="item"
                     v-for="(item,index) in questionList"
@@ -41,6 +41,7 @@ export default {
             showIndex: this.$route.query.id - 1,
             id: this.$route.query.id,
             userChoiceList: [], 
+            resultNum: "", 
         }
     },
     created () {
@@ -58,41 +59,35 @@ export default {
             this.questionList = res.data;
         },
         pre: function () {
-            if(this.showIndex == 0) {
-                this.$jump('/main/home');
-            }else {
+            if(this.showIndex == 0) { //返回上一页
+                this.$router.go(-1);
+            }else { //上一题
                 this.showIndex--;
             }
         },
         next: function() {
-           
-            if(this.userChoiceList.length == parseInt(this.showIndex) + 1) {
-                if(this.showIndex == this.questionList.length-1) {
-                    // 答完题后显示答案
+            if(this.userChoiceList.length == parseInt(this.showIndex) + 1) { //用户已选择当前题目的答案
+                if(this.showIndex == this.questionList.length-1) { //用户已答完所有题目
                     for(let i of this.userChoiceList){
                         parseInt(i);
                     }
-                    let sum = this.userChoiceList.reduce((a,b)=> parseInt(a)+parseInt(b));
-                    let params = {
-                        cid : '109',
-                        tid : this.id,
-                        num : sum, 
-                    }
-                    this.$http.post('/suan/apidata',params,'cesuan',null,this.showAnswer,this.failure);
-                    
-                }else {
+                    this.resultNum = this.userChoiceList.reduce((a,b)=> parseInt(a)+parseInt(b)); //保存累加结果数
+                    console.log(this.resultNum,this.id)
+                    this.$router.push({
+                        path: '/interestingTestResult',
+                        query: {
+                            id: this.id,
+                            resultNum: this.resultNum,
+                        }
+                    })
+                }else { //未答完题目，下一题。
                     this.showIndex++;
-                    let sum = this.userChoiceList.reduce((a,b)=> parseInt(a)+parseInt(b));
-                    console.log(sum)
                 } 
-            }else {
-
+            }else { //用户未选择当前题目的答案
+                this.$vux.toast.text('请选择您的答案！','top');
             }
             
         },
-        showAnswer: function (res) {
-            console.log(res);
-        }
     }
 }
 </script>

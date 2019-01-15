@@ -1,14 +1,14 @@
 <template>
     <div class="interes-inner-wrap">
-         <v-title-header>
+        <v-title-header>
             趣味测试
             <div class="right-ico" slot="right-ico"></div>
         </v-title-header>
         <div class="banner">
-            <img :src="data.img" alt="">
-            <h2>{{data.title}}</h2>
+            <img :src="img" alt="">
+            <h2>{{title}}</h2>
         </div>
-        <p class="shortText">{{data.shorttext}}</p>
+        <p class="shortText">{{shorttext}}</p>
         <button class="begin-test" @click="beginTest">开始测算</button>
         <div class="tips">(本测试共15道题，有4个答案，系统自动跳转。仅供娱乐，非专业心理指导)</div>
     </div>
@@ -17,21 +17,20 @@
 export default {
     data () {
         return {
-            data: this.$route.params.testList
+            // data: this.$route.query.testList,
+            id: this.$route.query.id,
+            img : this.$route.query.img,
+            title : this.$route.query.title,
+            shorttext : this.$route.query.shorttext,
         }
-    },
-    mounted(){
-        console.log(this.data)
     },
     methods: {
         beginTest: function () {
             this.$router.push({
                 name: 'interestingTest',
                 query: {
-                    id: this.data.id,
-                },
-                params: {
-                    title: this.data.title,
+                    id: this.id,
+                    title: this.title,
                 }
             })
         }
