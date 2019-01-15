@@ -38,7 +38,7 @@ export default {
     data () {
         return {
             questionList: [],
-            showIndex: this.$route.query.id - 1,
+            showIndex: 0,
             id: this.$route.query.id,
             userChoiceList: [], 
             resultNum: "", 
@@ -56,6 +56,7 @@ export default {
             this.$http.post('/suan/apidata',params,'cesuan',null,this.success,this.failure);
         },
         success: function (res) {
+            console.log(res)
             this.questionList = res.data;
         },
         pre: function () {
