@@ -61,7 +61,6 @@ export default {
         },
         testSuccess: function(res) {
             this.testArr = res.data;
-            console.log(this.testArr)
         },
         toTest: function (id) {
             let testArr = this.testArr[id-1]; 
@@ -98,7 +97,6 @@ export default {
             },false)
         },
         loadMoreSuccess: function (res) {
-            console.log(res);
             if(res.data.length < 10){ //没有更多数据
                 for(let i of res.data){
                     this.testArr.push(i)

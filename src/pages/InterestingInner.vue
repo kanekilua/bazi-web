@@ -17,7 +17,6 @@
 export default {
     data () {
         return {
-            // data: this.$route.query.testList,
             id: this.$route.query.id,
             img : this.$route.query.img,
             title : this.$route.query.title,

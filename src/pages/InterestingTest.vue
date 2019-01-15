@@ -56,7 +56,6 @@ export default {
             this.$http.post('/suan/apidata',params,'cesuan',null,this.success,this.failure);
         },
         success: function (res) {
-            console.log(res)
             this.questionList = res.data;
         },
         pre: function () {
@@ -72,8 +71,7 @@ export default {
                     for(let i of this.userChoiceList){
                         parseInt(i);
                     }
-                    this.resultNum = this.userChoiceList.reduce((a,b)=> parseInt(a)+parseInt(b)); //保存累加结果数
-                    console.log(this.resultNum,this.id)
+                    this.resultNum = this.userChoiceList.reduce((a,b) => parseInt(a)+parseInt(b)); //保存累加结果数
                     this.$router.push({
                         path: '/interestingTestResult',
                         query: {
