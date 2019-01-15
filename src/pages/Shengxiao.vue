@@ -259,7 +259,7 @@ export default {
         toInner: function (index) {
             this.$router.push({
                 name: 'shengxiaoFamous',
-                    params: {
+                params: {
                     name: this.famousPersonList[index].name,
                     imgUrl: this.famousPersonList[index].imgUrl,
                     identify: this.famousPersonList[index].identify,

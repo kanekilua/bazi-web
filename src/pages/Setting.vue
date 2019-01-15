@@ -5,7 +5,7 @@
         </v-title-header>
         <div class="content-wrap">
             <div class="list">
-                <div class="item" v-for="(item,index) in List" :key="index" @click="$jump(item.route)">
+                <div class="item" v-for="(item,index) in List" :key="index" @click="jump(item.route)">
                     <div class="left">
                         <img :src="item.img">
                         <div>{{item.title}}</div>
@@ -22,7 +22,7 @@
                     <button class="ask">确定退出登陆？</button>
                     <div class="btn-list">
                         <button class="cancel" @click="showDialogStyle = false">取消</button>
-                        <button class="confirm" @click="showDialogStyle = false">确认</button>
+                        <button class="confirm" @click="logout">确认</button>
                     </div>
                 </div>
             </x-dialog>
@@ -45,7 +45,27 @@ export default {
                 {title: "检测更新", img: require('../assets/image/mine/update.png'), route: "/main/mine/setting"},
             ],
         }
-    }
+    },
+    methods: {
+        jump : function (path) {
+            if((path === "/main/mine/setting/userFile" || path === "/main/mine/setting/security") && this.$store.state.loginAccount === '') {
+                path = "/login";
+            }
+            this.$jump(path);
+        },
+        logout :function () {
+            let token = localStorage.getItem(global.APP_TOKEN);
+            let header = {'Authorization':token};
+            this.$http.get('/logout',null,'app',header,this.logoutSuccess,null);
+            
+            this.showDialogStyle = false;
+        },
+        logoutSuccess : function (result) {
+            this.$store.commit("updateLoginAccount",'');
+            localStorage.setItem(global.APP_TOKEN,result.data.token);
+            this.$jump('/login');
+        },
+    },
 }
 </script>
 <style lang="less" scoped>

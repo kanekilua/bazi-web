@@ -138,7 +138,7 @@ export default {
             } else {
                 this.userName = userInfo.realname;       
                 this.birthday = userInfo.birthday;
-                this.avatar = userInfo.gender ? require('../assets/image/common/man.png') : require('../assets/image/common/woman.png');
+                this.avatar = userInfo.gender + '' === '1' ? require('../assets/image/common/man.png') : require('../assets/image/common/woman.png');
             }
         },
         switchUser :function () {

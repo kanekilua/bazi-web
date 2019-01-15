@@ -10,7 +10,7 @@
                         <div>头像</div>
                     </div>
                     <div class="right">
-                        <div class="right-item"><img :src="avatar"></div>
+                        <div class="right-item"><img :src="avanta"></div>
                         <i class="right-ico"></i>
                     </div>
                 </div>
@@ -18,12 +18,12 @@
                     <div class="left">
                         <div>姓名</div>
                     </div>
-                    <div class="right">
-                        <input type="text" class="right-item nick-input" v-model="nickName">
+                    <div class="right" @click="nameDialog = true">
+                        <input type="text" class="right-item nick-input" readonly v-model="name">
                         <i class="right-ico"></i>
                     </div>
                 </div>
-                <div class="item" @click="$jump('/birth')">
+                <div class="item" @click="toBirth">
                     <div class="left">
                         <div>生辰八字</div>
                     </div>
@@ -32,22 +32,27 @@
                         <i class="right-ico"></i>
                     </div>
                 </div>
-                <!-- <div class="item" @click="showDialogStyle = true">
-                    <div class="left">
-                        <div>背景图片</div>
-                    </div>
-                    <div class="right">
-                        <div class="right-item"><img src="../assets/image/mine/transition-bg.png"></div>
-                        <i class="right-ico"></i>
-                    </div>
-                </div> -->
             </div>
-            <!-- 弹窗 -->
+            <!-- 头像弹窗 -->
             <div v-transfer-dom>
-                <x-dialog v-model="showDialogStyle" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '30%', 'background-color': 'transparent'}">
+                <x-dialog v-model="showDialogStyle" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '20%', 'background-color': 'transparent'}">
                     <div class="img-dialog">
                         <button class="takePhoto">拍照</button>
                         <button class="camera">从相册中选择</button>
+                    </div>
+                </x-dialog>
+            </div>
+            <!-- 姓名弹窗 -->
+            <div v-transfer-dom>
+                <x-dialog v-model="nameDialog" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '20%', 'background-color': 'transparent'}">
+                    <div class="name-dialog">
+                        <div class="top">
+                            <input type="text" placeholder="请输入您的姓名" v-model="newName">
+                        </div>
+                        <div class="bottom">
+                            <button @click="nameDialog = false">取消</button>
+                            <button @click="changeName">确定</button>
+                        </div>
                     </div>
                 </x-dialog>
             </div>
@@ -55,6 +60,7 @@
     </div>
 </template>
 <script>
+import {mapState } from 'vuex'
 import {XDialog,TransferDomDirective as TransferDom,Picker} from 'vux'
 export default {
     directives: {
@@ -63,12 +69,53 @@ export default {
     data () {
         return {
             showDialogStyle: false,//弹窗显示
-            nickName: "天道酬勤",
-            image : null,
-            avatar : require('../assets/image/mine/avatar.png')
+            nameDialog : false,
+            name: "",
+            newName : "",
+            avanta : require("../assets/image/mine/avatar.png"),
+            image : null
         }
     },
+    created () {
+        this.init();
+    },
     methods: {
+        init : function () {
+            if(this.$store.state.loginAccountInfo !== null ) {
+                console.log(this.$store.state.loginAccountInfo);
+                this.name = this.$store.state.loginAccountInfo.realname;
+                this.avanta = this.$store.state.loginAccountInfo.gender === '1' ? require("../assets/image/common/man.png") : require("../assets/image/common/woman.png") ;
+            }else {
+                this.$jump('/login');
+            }         
+        },
+        changeName: function () {
+            let header = {
+                'Authorization' : localStorage.getItem(global.APP_TOKEN)
+            }
+            let params = {
+                'realname' : this.newName
+            }
+            this.$http.post('/userInfo',params,'app',header,(res) => {
+                if(res.code === 'success') {
+                    this.name = this.newName;
+                    this.nameDialog = false;
+                    this.newName = "";
+
+                    let loginAccountInfo = this.$store.state.loginAccountInfo;
+                    loginAccountInfo.realname = this.name;
+                    this.$store.commit('updateLoginAccountInfo',loginAccountInfo);
+                }
+            },this.failure);
+        },
+        toBirth : function () {
+            this.$router.push({
+                name : 'birth',
+                query : {
+                    pre : 'userFile'
+                }
+            })
+        },
         camera : function () {
             this.showDialogStyle = false;
             var cameraOptions={
@@ -175,6 +222,50 @@ export default {
             .round(0 0 10/75rem 10/75rem);
             background: @baseBoldColor;
             color: #fff;
+        }
+    }
+    .name-dialog{
+        width: 440/75rem;
+        .top{
+            .flex-center();
+            width: 100%;
+            height: 86/75rem;
+            text-align: center;
+            background: #fff;
+            .round(20/75rem 20/75rem 0 0);
+            input{
+                .my-input();
+                height: 60/75rem;
+                width: 70%; 
+                text-align: center;
+                font-size: 34/75rem;
+                border-bottom: 1px solid rgba(221,221,221,1);           
+            }
+        }
+        .bottom{
+            .flex-start();
+            width: 100%;
+            border-top: 1px solid @baseBoldColor;
+            .border-box();
+            button{
+                .my-button();
+                width: 50%;
+                height: 86/75rem;
+                background: #fff;
+                font-size: 34/75rem;
+                color: @baseBoldColor;
+
+            }
+            button:nth-child(1){
+                .round( 0 0 0 20/75rem);
+            }
+            button:nth-child(2){
+                .my-button();
+                background: @baseBoldColor;
+                color: #fff;
+                .round( 0 0 20/75rem 0);
+                font-size: 34/75rem;
+            }
         }
     }
 }

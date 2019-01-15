@@ -3,24 +3,21 @@
         <v-title-header
             :backLink="backLink"
         >
-            十二生肖
+            趣味测试
         </v-title-header>
         <div class="content-wrap">
-            <v-title-nav>
-                生肖知识
-            </v-title-nav>
             <div class="knowledge">
                 <div class="knowledge-cells">
                     <div class="knowledge-cell"
                         ref="content"
-                        v-for="(item,index) in knowledges"
+                        v-for="(item,index) in testArr"
                         :key="index"
-                        @click="showArticle(item)"
+                        @click="toTest(item.id)"
                     >
                         <img :src="item.img" alt="image">
                         <div>
                             <h2>{{item.title}}</h2>
-                            <p v-html="item.content"></p>
+                            <p v-html="item.shorttext"></p>
                         </div>
                     </div>
                     <load-more :tip="tip" :show-loading="showLoading" :class="showIco ? 'show': 'hide'"></load-more>
@@ -38,8 +35,8 @@ export default {
     },
     data () {
         return {
-            backLink: '/shengxiao',
-            knowledges: [],
+            backLink: '/main/home',
+            testArr: [],
             tip: "正在加载...",
             showIco: false, //加载动画
             showLoading: true,  //加载ico
@@ -54,28 +51,28 @@ export default {
         this.pullDown();
     },
     methods: {
-        showArticle : function (article) {
-            console.log(article);
-            this.$router.push({
-                name: "article",
-                query : {
-                    cid : '95',
-                    id : article.id
-                }
-            });
-        },
+        
         getData: function () {
-            let sendData = {
-                cid : '96',
-                tid: '404',
+            let params = {
+                cid : '107',
+                limit : '0'
             }
-            this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success,this.failure);
+            this.$http.post('/suan/apidata',params,'cesuan',null,this.testSuccess,this.failure);
         },
-        success: function(res) {
-            this.knowledges = res.data;
-            for( let i of this.knowledges){
-                i.img = global.APP_DOMIAN + i.img;
-            }
+        testSuccess: function(res) {
+            this.testArr = res.data;
+        },
+        toTest: function (id) {
+            let testArr = this.testArr[id-1]; 
+            this.$router.push({
+                name: 'interestingInner',
+                query: {
+                    id : testArr.id,
+                    img : testArr.img,
+                    title : testArr.title,
+                    shorttext : testArr.shorttext,
+                }
+            })
         },
         // 下拉加载更多
         pullDown: function () {
@@ -90,7 +87,7 @@ export default {
                 // 请求数据
                 this.limit++;
                 let params = {
-                    cid : '96',
+                    cid : '107',
                     tid: '404',
                     limit: this.limit
                 }
@@ -102,15 +99,13 @@ export default {
         loadMoreSuccess: function (res) {
             if(res.data.length < 10){ //没有更多数据
                 for(let i of res.data){
-                    this.knowledges.push(i)
+                    this.testArr.push(i)
                 }
                 this.showLoading = false;
                 this.tip = "没有更多数据！"
             } else {
                 for(let i of res.data){
-                    i.img = global.APP_DOMIAN + i.img; //拼接url
-                    i.content = i.content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
-                    this.knowledges.push(i)
+                    this.testArr.push(i)
                 }
                 this.loading = false; 
                 this.showIco = false;
@@ -130,7 +125,7 @@ export default {
 }
 .knowledge-wrap{
     .content-wrap{
-        padding-top: 90/75rem;
+        padding-top: 100/75rem;
         .border-box();
         .knowledge {
             margin: 10/75rem 32/75rem 0 32/75rem;
