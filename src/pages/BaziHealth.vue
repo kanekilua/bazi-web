@@ -7,19 +7,29 @@
                 :class="this.$store.state.bazi.hideText ? 'hide-text' : ''"
             ></p>
             <div :class="this.$store.state.bazi.hideText ? 'mask' : 'hide'">
-                <div class="share-btn" @click="showText()">
+                <div class="share-btn" @click="showShare = true">
                     <i></i>
                     <span>分享解锁</span>
                 </div>
             </div>
         </div>
+        <v-share-popup :showShare='showShare' :shareData='shareData' @switchShowShare='switchShowShare' @shareSuccess='shareSuccess'></v-share-popup>
     </div>
 </template>
 <script>
 export default {
     props : ['resData'],
+    data() {
+        return {
+            showShare : false,
+            shareData : global.APP_SHARE_APP
+        }
+    },
     methods: {
-        showText: function () {
+        switchShowShare : function (val) {
+            this.showShare = val;
+        },
+        shareSuccess : function () {
             let baziUserInfo = this.$store.state.bazi.baziUserInfo;
             let shareList = localStorage.getItem(global.APP_BAZI_SHARE) === null ? [] : JSON.parse(localStorage.getItem(global.APP_BAZI_SHARE));
             shareList.push(baziUserInfo);

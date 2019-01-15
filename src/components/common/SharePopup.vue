@@ -67,6 +67,7 @@ export default {
                 },
                 scene: sceneType  // share to Timeline
             }, (res) => {
+                this.$emit('shareSuccess');
             }, (reason) => {
             });
             this.show = false;
@@ -86,6 +87,7 @@ export default {
             args.description = this.shareData.text;
             args.image = this.shareData.icon;
             QQSDK.shareNews( () => {
+                this.$emit('shareSuccess');
             }, (failReason) => {
             }, args);
             this.show = false;
