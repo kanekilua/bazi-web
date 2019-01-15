@@ -2,8 +2,8 @@
     <div class="first-guider">
         <swiper :options="swiperOption" ref="mySwiper">
             <swiper-slide v-for="(item,index) in list" :key="index">
-                <div :style="{background: 'url('+item + ') no-repeat center center / 100% 100%'}" class="background">
-                    <x-button v-if="index === 3" :gradients="[gradientStart, gradientEnd]" @click.native="$jump('/main/home')">开始体验</x-button>
+                <div :style="{background: 'url('+item + ') no-repeat center center / auto 100%'}" class="background">
+                    <div v-if="index === 2" class="start" @click="$jump('/main/home')"></div>
                 </div>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
@@ -14,13 +14,10 @@
 export default {
     data () {
         return  {
-            gradientStart : global.GRADIENT_START,
-            gradientEnd : global.GRADIENT_END,
             list : [
-                require('../assets/image/first-guider/mine-1.png'),
-                require('../assets/image/first-guider/animal-2.png'),
-                require('../assets/image/first-guider/ziwei-3.png'),
-                require('../assets/image/first-guider/peach-4.png')
+                require('../assets/image/first-guider/page1.png'),
+                require('../assets/image/first-guider/page2.png'),
+                require('../assets/image/first-guider/page3.png')
             ],
             swiperOption : {
                 pagination: {
@@ -45,16 +42,15 @@ export default {
     .background {
         width: 100%;
         height: 100%;
-        & /deep/ .weui-btn {
-            .round(25px);
-            font-size: 28/75rem;
-            height: 90/75rem;
-            width: 300/75rem;
+        .start {
+            height: 84/75rem;
+            width: 453/75rem;
             position: absolute;
             left: 0;
             right: 0;
             bottom: 150/75rem;
             margin :0 auto;
+            background: url('../assets/image/first-guider/button.png') no-repeat center center / 100% 100%;
         }
     }
 }
