@@ -49,26 +49,30 @@ export default {
             this.show = false;
         },
         wechatShare : function (type) {
-            let sceneType;
-            if(type === "0"){
-                sceneType = Wechat.Scene.SESSION;
-            }else if(type === "1") {
-                sceneType = Wechat.Scene.TIMELINE;
-            }
-            Wechat.share({
-                message: {
-                    title : this.shareData.title,
-                    description : this.shareData.text,
-                    thumb : this.shareData.icon,
-                    media: {
-                        type: Wechat.Type.WEBPAGE,
-                        webpageUrl: this.shareData.url
-                    }
-                },
-                scene: sceneType  // share to Timeline
-            }, (res) => {
-                this.$emit('shareSuccess');
+            Wechat.isInstalled((installed) => {
+                let sceneType;
+                if(type === "0"){
+                    sceneType = Wechat.Scene.SESSION;
+                }else if(type === "1") {
+                    sceneType = Wechat.Scene.TIMELINE;
+                }
+                Wechat.share({
+                    message: {
+                        title : this.shareData.title,
+                        description : this.shareData.text,
+                        thumb : this.shareData.icon,
+                        media: {
+                            type: Wechat.Type.WEBPAGE,
+                            webpageUrl: this.shareData.url
+                        }
+                    },
+                    scene: sceneType  // share to Timeline
+                }, (res) => {
+                    this.$emit('shareSuccess');
+                }, (reason) => {
+                });
             }, (reason) => {
+                this.$emit('shareFail','系统尚未安装微信');
             });
             this.show = false;
         },
@@ -86,11 +90,15 @@ export default {
             args.title = this.shareData.title;
             args.description = this.shareData.text;
             args.image = this.shareData.icon;
-            QQSDK.shareNews( () => {
-                this.$emit('shareSuccess');
-            }, (failReason) => {
+            args.client = QQSDK.ClientType.QQ;
+            QQSDK.checkClientInstalled(() => {
+                QQSDK.shareNews( () => {
+                    this.$emit('shareSuccess');
+                }, (failReason) => {
+                }, args);
+            }, () => {
+                this.$emit('shareFail','系统尚未安装QQ');
             }, args);
-            this.show = false;
         }
     }
 }

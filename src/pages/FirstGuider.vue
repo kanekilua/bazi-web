@@ -50,7 +50,7 @@ export default {
             right: 0;
             bottom: 150/75rem;
             margin :0 auto;
-            background: url('../assets/image/first-guider/button.png') no-repeat center center / auto 100%;
+            background: url('../assets/image/first-guider/button.png') no-repeat center center / 100% auto;
         }
     }
 }

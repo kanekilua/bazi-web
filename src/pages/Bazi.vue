@@ -12,12 +12,13 @@
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide v-for="(item,index) in list" :key="index">
                         <keep-alive>
-                            <component :is="item" :resData='resData'></component>
+                            <component :is="item" :resData='resData' @switchShowShare='switchShowShare'></component>
                         </keep-alive>
                     </swiper-slide>
                 </swiper>
             </div>
         </div>
+        <v-share-popup :showShare='showShare' :shareData='shareData' @switchShowShare='switchShowShare' @shareSuccess='shareSuccess' @shareFail='shareFail'></v-share-popup>
     </div>    
 </template>
 <script>
@@ -42,6 +43,8 @@ export default {
             list: [BaziMingpan,BaziEmotion,BaziCareer,BaziFortune,BaziHealth,BaziKids],
             swiperOption : { initialSlide: this.navIndex ,autoHeight : true},
             resData: {"data":{"career":'',"character":'',"d": '',"elements":'',"family":'',"finance":'',"h":'',"health":'',"id":'',"life":'',"love":'',"m":'',"remedy":'',"y":'',}},
+            showShare : false,
+            shareData : global.APP_SHARE_APP
         }
     },
     created() {
@@ -136,6 +139,21 @@ export default {
             artical.visitableText = visitableText;
             artical.unvisitableText = unvisitableText;
             return artical;
+        },
+        switchShowShare : function (val) {
+            this.showShare = val;
+        },
+        shareSuccess : function () {
+            this.showShare = false;
+            this.updateHideText(false);
+            
+            let baziUserInfo = this.$store.state.bazi.baziUserInfo;
+            let shareList = localStorage.getItem(global.APP_BAZI_SHARE) === null ? [] : JSON.parse(localStorage.getItem(global.APP_BAZI_SHARE));
+            shareList.push(baziUserInfo);
+            localStorage.setItem(global.APP_BAZI_SHARE,JSON.stringify(shareList));
+        },
+        shareFail : function (msg) {
+            this.$vux.toast.text(msg,"center");
         }
     }
 }
