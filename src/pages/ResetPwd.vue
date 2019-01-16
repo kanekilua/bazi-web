@@ -1,6 +1,6 @@
 <template>
     <div class="resetpwd-wrap">
-        <v-title-header>忘记密码</v-title-header>
+        <v-title-header>修改密码</v-title-header>
         <div class="content-wrap">
             <div class="form-wrap">
                 <div class="form">
@@ -36,7 +36,7 @@
                             <i></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input :type="pwdConfirmType" placeholder="请再次输入密码" v-model="password">
+                            <input :type="pwdConfirmType" placeholder="请再次输入密码" v-model="passwordComfirm">
                             <i :class="pwdComfirmVisible ? 'visible' : 'unvisible'" @click="pwdComfirmVisible = !pwdComfirmVisible"></i>
                         </div>
                     </div>

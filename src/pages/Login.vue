@@ -67,7 +67,7 @@
                     <img src="../assets/image/login/qq@3x.png" alt="qq">
                     <img src="../assets/image/login/sina@3x.png" alt="sina">
                     <img src="../assets/image/login/wechat@3x.png" alt="wechat">
-                </div> -->
+                </div> --> 
             </div>
         </div>
     </div>
@@ -180,6 +180,7 @@ export default {
         },
         getUserInfoSuccess : function(result) {
             let accountInfo;
+            result.data.phone = this.phone;
             if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
                 accountInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
                 accountInfo[this.phone] = result.data;
