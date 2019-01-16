@@ -13,9 +13,7 @@ import Calendar from '@/pages/Calendar'
 // 主路由页面
 import Main from '@/pages/Main'
 import Home from '@/pages/Home'
-import Master from '@/pages/Master'
 import Fortune from '@/pages/Fortune'
-import Predict from '@/pages/Predict'
 import Mine from '@/pages/Mine'
 import Bazi from '@/pages/Bazi'
 import Ziwei from '@/pages/Ziwei'
@@ -115,25 +113,25 @@ export default new Router({
           component: Home
         },
         {
-          path : '/main/master',
-          name : 'master',
-          component: Master
-        },
-        {
           path : '/main/fortune',
           name : 'fortune',
           component: Fortune
         },
         {
-          path : '/main/predict',
-          name : 'predict',
-          component: Predict
-        },
-        {
           path : '/main/activity',
           name : 'activity',
           component : Activity
-        }
+        },
+        {
+          path : '/main/calendar',
+          name : 'calendar',
+          component : Calendar
+        },
+        {
+          path : '/main/mine',
+          name : 'mine',
+          component: Mine
+        },
       ]
     },
     {
@@ -272,19 +270,9 @@ export default new Router({
       component : QimenPan
     },
     {
-      path : '/main/calendar',
-      name : 'calendar',
-      component : Calendar
-    },
-    {
       path : '/main/calendar/detail',
       name : 'calendarDetail',
       component : CalendarDetail
-    },
-    {
-      path : '/main/mine',
-      name : 'mine',
-      component: Mine
     },
     {
       path : '/main/mine/setting',

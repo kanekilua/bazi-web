@@ -1,6 +1,8 @@
 <template>
     <div class="main">
-        <router-view></router-view>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
         <v-tab-bar></v-tab-bar>
     </div>
 </template>
