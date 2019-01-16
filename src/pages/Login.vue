@@ -89,8 +89,12 @@ export default {
             count : '',
             timer : null,
             show : true,
-            showThird : true
+            showThird : true,
+            enterLink : ""
         }
+    },
+    created() {
+        this.init();
     },
     computed: {
         'pwdType' () {
@@ -103,6 +107,11 @@ export default {
     },
     methods : {
         ...mapMutations (['updateLoginAccount']),
+        init : function () {
+            if(this.$route.params.enterLink !== null && this.$route.params.enterLink !== undefined) {
+                this.enterLink = this.$route.params.enterLink;
+            }
+        },
         updateNavIndex : function (value) {
             this.navIndex = value;
             this.password = "";
@@ -224,7 +233,11 @@ export default {
                 }
                 localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
                 setTimeout(() => {
-                    this.$jump('main/fortune');
+                    if(this.enterLink !== "") {
+                        this.$jump(this.enterLink);
+                    }else {
+                        this.$jump('main/home');
+                    }
                 },400);
             }else {
                 this.$jump('/birth');

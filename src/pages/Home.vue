@@ -130,8 +130,18 @@ export default {
                 userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))[this.loginAccount];
             }
             if(userInfo  === undefined) {
+                if('/bazi' === path) {
+                    MobclickAgent.onEvent('home_bazi');
+                }else if('/love' === path) {
+                    MobclickAgent.onEvent('home_love');
+                }
                 this.$vux.toast.text('请先登录','top');
-                this.jumpPage('/login');
+                this.$router.push({
+                    name : 'login',
+                    params : {
+                        enterLink : path
+                    }
+                });
                 return ;
             }
             let birthArray = userInfo.birthday.split(' ');
