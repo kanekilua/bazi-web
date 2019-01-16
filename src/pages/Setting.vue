@@ -13,13 +13,13 @@
                     <i class="right"></i>
                 </div>
             </div>
-            <button class="exit-btn" @click="showDialogStyle = true">退出登陆</button>
+            <button class="exit-btn" @click="loginFlag ? showDialogStyle = true : $jump('/login')">{{loginFlag ? '退出登录' : '登录'}}</button>
         </div>
         <!-- 弹窗 -->
         <div v-transfer-dom>
             <x-dialog :show="showDialogStyle" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '30%', 'background-color': 'transparent'}">
                 <div class="img-dialog">
-                    <button class="ask">确定退出登陆？</button>
+                    <button class="ask">确定退出登录？</button>
                     <div class="btn-list">
                         <button class="cancel" @click="showDialogStyle = false">取消</button>
                         <button class="confirm" @click="logout">确认</button>
@@ -44,11 +44,20 @@ export default {
                 {title: "用户协议", img: require('../assets/image/mine/agreement.png'), route: "/userAgreement"},
                 {title: "检测更新", img: require('../assets/image/mine/update.png'), route: "/main/mine/setting"},
             ],
+            loginFlag : true,
         }
     },
+    created () {
+        this.init();
+    },
     methods: {
+        init : function () {
+            if(this.$store.state.loginAccount === '') {
+                this.loginFlag = false
+            }
+        },
         jump : function (path) {
-            if((path === "/main/mine/setting/userFile" || path === "/main/mine/setting/security") && this.$store.state.loginAccount === '') {
+            if((path === "/main/mine/setting/userFile" || path === "/main/mine/setting/security") && !this.loginFlag) {
                 path = "/login";
             }
             this.$jump(path);

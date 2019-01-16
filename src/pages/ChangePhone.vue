@@ -7,12 +7,12 @@
         <div class="content-wrap">
             <div class="phone-box">
                <div>+86</div>
-               <input type="number" placeholder="请输入手机号码" v-model="newPhone">
+               <input type="number" placeholder="请输入手机号码" v-model="phone">
                <div>中国大陆</div>
             </div>
             <div class="verification">
                 <input type="number" placeholder="请输入验证码">
-               <div class="verification-txt">获取验证码</div>
+               <div class="verification-txt" @click="getCaptcha">获取验证码</div>
             </div>
             <button class="confirm" @click="showDialogStyle=true">确定绑定</button>
         </div>
@@ -21,10 +21,10 @@
             <x-dialog v-model="showDialogStyle" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '20%', 'background-color': 'transparent'}">
                 <div class="confirm-dialog">
                     <h2>确定换绑到下方手机号？</h2>
-                    <div class="middle-text">手机号：{{newPhone}}</div>
+                    <div class="middle-text">手机号：{{phone}}</div>
                     <div class="btn-list">
-                        <button class="takePhoto">取消</button>
-                        <button class="camera">确定</button>
+                        <button class="takePhoto" @click="showDialogStyle = false">取消</button>
+                        <button class="camera" @click="bind">确定</button>
                     </div>
                 </div>
             </x-dialog>
@@ -40,14 +40,66 @@ export default {
     data () {
         return {
             showDialogStyle: false,//弹窗显示
-            userPhone: "1371234555",
-            newPhone: "",
+            phone: "",
+            show : true,
+            count : '',
+            timer : null,
         }
     },
-    created() {
-    },
     methods: {
+        getCaptcha : function () {
+            if(!this.show) {
+                return;
+            }
+            if(!this.$utils.checkPhone(this.phone,this)) {
+                return;
+            }
+            if(this.captchaFlag) {
+                this.$vux.toast.text(global.REPEAT_CAPTCHA,'top');
+                return;
+            }
+            this.captchaFlag = true;
+            let header = {
+                'Authorization' : localStorage.getItem(global.APP_TOKEN)
+            }
+            let postData = {mobile : this.phone};
+            this.$http.post('/bindingPhone',postData,'app',header,() =>{
+                this.show = false;
+                this.count = global.TIME_COUNT;
+                this.timer = setInterval(()=>{
+                    if(this.count > 0 && this.count <= global.TIME_COUNT) {
+                        this.count -- ;
+                    }else {
+                        this.show = true;
+                        clearInterval(this.timer);
+                        this.time = null;
+                    }
+                },1000);
+            },null);
+            this.captchaFlag = false;
+        },
+        bind : function () {
+            if(!this.$utils.checkPhone(this.phone,this)) {
+                return;
+            }
+            if(!this.$utils.checkCaptcha(this.captcha,this)) {
+                return;
+            }
+            let params = {
+                mobile : this.phone,
+                captcha : this.captcha,
+                event : 'bindingphone'
+            };
+            this.$http.post('/submit',params,'app',null,(res) => {
+                if(res.code === "success") {
+                    let loginAccountInfo = this.$store.state.loginAccountInfo;
+                    loginAccountInfo.phone = this.phone;
+                    this.$store.commit('updateLoginAccountInfo',loginAccountInfo);
 
+                    this.$router.go(-1);
+                }
+            },null);
+        }
     }
 }
 </script>

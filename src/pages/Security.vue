@@ -5,12 +5,12 @@
         </v-title-header>
         <div class="content-wrap">
             <div class="list">
-                <div class="item" @click="$jump('/main/mine/setting/security/changePhone')">
+                <div class="item" @click="$jump('/main/mine/setting/security/changePhone') ">
                     <div class="left">
-                        <div>手机号</div>
+                        <div>绑定手机号</div>
                     </div>
                     <div class="right">
-                        <div class="right-item">{{userPhone}}</div>
+                        <div class="right-item">{{bindFlag ? userPhone + '(已绑定)' : ''}}</div>
                         <i class="right-ico"></i>
                     </div>
                 </div>
@@ -31,9 +31,21 @@
 export default {
     data () {
         return {
-            userPhone: "1371234555"
+            userPhone: "",
+            bindFlag : false
         }
-    }
+    },
+    created() {
+        this.init();
+    },
+    methods: {
+        init : function () {
+            this.userPhone = this.$store.state.loginAccountInfo.phone;
+            if(this.userPhone !== "") {
+                this.bindFlag = true
+            }
+        }
+    },
 }
 </script>
 <style lang="less" scoped>
