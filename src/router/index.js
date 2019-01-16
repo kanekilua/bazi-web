@@ -152,7 +152,7 @@ const router = new Router({
           name : 'calendar',
           component : Calendar,
           meta: {
-            keepAlive: true
+            keepAlive: false
           }
         },
         {

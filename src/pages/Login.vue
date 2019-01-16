@@ -12,7 +12,7 @@
                             <i></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input type="text" placeholder="请输入手机号码" v-model="phone">
+                            <input type="text" placeholder="请输入手机号码" v-model="phone" @focus="showThird = false" @blur="showThird = true">
                         </div>
                     </div>
                     <div class="capcha-input" v-if="!navIndex">
@@ -20,7 +20,7 @@
                             <i></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input type="text" placeholder="请输入验证码" v-model="captcha">
+                            <input type="text" placeholder="请输入验证码" v-model="captcha" @focus="showThird = false" @blur="showThird = true">
                             <span v-show="show" @click="getCaptcha">获取验证码</span>
                             <span v-show="!show">{{count}} s</span>
                         </div>
@@ -30,7 +30,7 @@
                             <i></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input :type="pwdType" placeholder="请输入密码" v-model="password">
+                            <input :type="pwdType" placeholder="请输入密码" v-model="password" @focus="showThird = false" @blur="showThird = true">
                             <i :class="pwdVisible ? 'visible' : 'unvisible'" @click="pwdVisible = !pwdVisible"></i>
                         </div>
                     </div>
@@ -40,7 +40,7 @@
                     <div @click="$jump('/resetPwd')">忘记密码></div>
                 </div>
                 <button class="login-btn" @click="login">登录</button>
-                <div class="third-login">
+                <div class="third-login" v-show="showThird">
                     <div>| 合作账号登录 |</div>
                     <div>
                         <img src="../assets/image/login/qq.png" alt="QQ" @click="qqLogin">
@@ -88,7 +88,8 @@ export default {
             navIndex : 0,
             count : '',
             timer : null,
-            show : true
+            show : true,
+            showThird : true
         }
     },
     computed: {
