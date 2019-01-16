@@ -26,8 +26,8 @@
                     </label>
                 </div>
                 <div class="bottom">
-                    <button class="pre" @click="pre"></button>
-                    <button class="next" @click="next"></button>
+                    <button class="pre" @click="pre">上一题</button>
+                    <button class="next" @click="next">下一题</button>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@ export default {
             }
         },
         next: function() {
-            if(this.userChoiceList.length == parseInt(this.showIndex) + 1) { //用户已选择当前题目的答案
+            if(this.userChoiceList[this.showIndex]) { //用户已选择当前题目的答案
                 if(this.showIndex == this.questionList.length-1) { //用户已答完所有题目
                     for(let i of this.userChoiceList){
                         parseInt(i);
@@ -84,8 +84,7 @@ export default {
                 } 
             }else { //用户未选择当前题目的答案
                 this.$vux.toast.text('请选择您的答案！','top');
-            }
-            
+            }  
         },
     }
 }
@@ -138,21 +137,19 @@ export default {
                 right: 0;
                 width: 90%;
                 margin: 0 auto;
-                .flex-between();
+                .flex-center();
                 .pre,
                 .next{
                     .my-button();
-                    width: 50/75rem;
-                    height: 40/75rem;
-                    &:active{
-                        background: none;
-                    }
+                    width: 300/75rem;
+                    .round(10/75rem);
+                    .boxshadow();
+                    height: 70/75rem;
+                    color: @baseBoldColor;
+                    background: #fff;
                 }
                 .pre{
-                    background: url('../assets/image/common/pre.png') no-repeat center center / 100% 100%;
-                }
-                .next{
-                    background: url('../assets/image/common/next.png') no-repeat center center / 100% 100%;
+                    margin-right: 10/75rem;
                 }
             }
         }
