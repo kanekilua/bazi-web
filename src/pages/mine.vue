@@ -20,9 +20,9 @@
                 </div>
             </div>
             <div class="table">
-                <div class="table-cell recommend">
+                <div class="table-cell recommend" @click="showShare = true">
                     <i></i>
-                    <div @click="showShare = true">推荐好友</div>
+                    <div>推荐好友</div>
                 </div>
                 <div class="table-cell recruitment" @click="$jump('/main/mine/recruitment/recruitmentStep1')">
                     <i></i>
