@@ -10,7 +10,7 @@
                         <div>头像</div>
                     </div>
                     <div class="right">
-                        <div class="right-item"><img src="../assets/image/mine/avatar.png"></div>
+                        <div class="right-item"><img :src="avanta"></div>
                         <i class="right-ico"></i>
                     </div>
                 </div>
@@ -18,15 +18,12 @@
                     <div class="left">
                         <div>姓名</div>
                     </div>
-                    <div class="right" @click="changName()">
-                        <input type="text" class="right-item nick-input" 
-                            readonly
-                            v-model="nickName"
-                        >
+                    <div class="right" @click="nameDialog = true">
+                        <input type="text" class="right-item nick-input" readonly v-model="name">
                         <i class="right-ico"></i>
                     </div>
                 </div>
-                <div class="item" @click="$jump('/birth')">
+                <div class="item" @click="toBirth">
                     <div class="left">
                         <div>生辰八字</div>
                     </div>
@@ -50,11 +47,11 @@
                 <x-dialog v-model="nameDialog" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '20%', 'background-color': 'transparent'}">
                     <div class="name-dialog">
                         <div class="top">
-                            <input type="text" placeholder="请输入您的姓名">
+                            <input type="text" placeholder="请输入您的姓名" v-model="newName">
                         </div>
                         <div class="bottom">
-                            <button>取消</button>
-                            <button>确定</button>
+                            <button @click="nameDialog = false">取消</button>
+                            <button @click="changeName">确定</button>
                         </div>
                     </div>
                 </x-dialog>
@@ -72,18 +69,53 @@ export default {
     data () {
         return {
             showDialogStyle: false,//弹窗显示
-            nickName: localStorage.getItem(global.APP_ACCOUNT_INFO),
-            nameDialog: false,
+            nameDialog : false,
+            name: "",
+            newName : "",
+            avanta : require("../assets/image/mine/avatar.png"),
         }
     },
-    computed: {
-        ...mapState(['loginAccount'])
+    created () {
+        this.init();
     },
     methods: {
-        changName: function () {
-            this.nameDialog = true;
-        }  
-    }
+        init : function () {
+            if(this.$store.state.loginAccountInfo !== null ) {
+                console.log(this.$store.state.loginAccountInfo);
+                this.name = this.$store.state.loginAccountInfo.realname;
+                this.avanta = this.$store.state.loginAccountInfo.gender === '1' ? require("../assets/image/common/man.png") : require("../assets/image/common/woman.png") ;
+            }else {
+                this.$jump('/login');
+            }         
+        },
+        changeName: function () {
+            let header = {
+                'Authorization' : localStorage.getItem(global.APP_TOKEN)
+            }
+            let params = {
+                'realname' : this.newName
+            }
+            this.$http.post('/userInfo',params,'app',header,(res) => {
+                if(res.code === 'success') {
+                    this.name = this.newName;
+                    this.nameDialog = false;
+                    this.newName = "";
+
+                    let loginAccountInfo = this.$store.state.loginAccountInfo;
+                    loginAccountInfo.realname = this.name;
+                    this.$store.commit('updateLoginAccountInfo',loginAccountInfo);
+                }
+            },this.failure);
+        },
+        toBirth : function () {
+            this.$router.push({
+                name : 'birth',
+                query : {
+                    pre : 'userFile'
+                }
+            })
+        }
+    },
 }
 </script>
 <style lang="less" scoped>

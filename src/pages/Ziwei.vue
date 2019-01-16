@@ -2,7 +2,7 @@
     <div class="ziwei-wrap">
         <v-title-header>
             一生运程分析
-            <div class="right-ico" slot="right-ico"></div>
+            <div class="right-ico" slot="right-ico" @click="$jump('/baziBirth')"></div>
         </v-title-header>
         <div class="content-wrap">
             <div class="top">
@@ -39,7 +39,7 @@
     </div>
 </template>
 <script>
-
+import {mapState} from 'vuex'
 export default {
     data () {
         return {
@@ -147,17 +147,25 @@ export default {
             ],
         }
     },
+    computed : {
+        ...mapState ('bazi',['baziUserInfo'])
+    },
     created () {
-        this.getData()
+        this.init()
     },
     methods: {
-        getData: function () {
+        init: function () {
+            console.log(this.baziUserInfo);
             let userData = {
                 cid : '106',
                 y : '2002',
                 m : '1',
                 d : '1',
                 h : '2',
+                // y : this.baziUserInfo.year,
+                // m : this.baziUserInfo.month,
+                // d : this.baziUserInfo.date,
+                // h : this.baziUserInfo.hour,
                 gong : this.gong, 
             } 
             this.$http.post('/suan/apidata',userData,'cesuan',null,this.success,this.failure) 

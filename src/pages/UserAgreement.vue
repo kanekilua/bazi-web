@@ -29,7 +29,6 @@ export default {
 <style lang="less" scoped>
 .user-agreement-wrap {
     /deep/ .header  {
-        top : 20/75rem;
         border : 0;
         .boxshadow(0,0,0,0);
     }
@@ -40,7 +39,7 @@ export default {
         .content {
             text-align: left;
             margin: 24/75rem auto;
-            width: 604/75rem;
+            width: 624/75rem;
             p {
                 text-indent: 2em;
                 font-size: 32/75rem;

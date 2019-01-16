@@ -129,17 +129,17 @@ export default {
         init: function() {
             let userInfo;
             if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
-                // userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))[this.loginAccount];
-                userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))['13798576143'];
+                userInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO))[this.loginAccount];
             }
-            // if(userInfo  === undefined) {
-            //     this.$vux.toast.text('请先登录','top');
-            //     this.$router.push('/login');
-            //     return ;
-            // }
-            this.userName = userInfo.realname;       
-            this.birthday = userInfo.birthday;
-            this.avatar = userInfo.avatar ? userInfo.avatar : require('../assets/image/common/avatar.png');
+            if(userInfo  === undefined) {
+                this.userName = '张大海';       
+                this.birthday = '1988-11-11 15:53:00';
+                this.avatar = require('../assets/image/common/man.png');
+            } else {
+                this.userName = userInfo.realname;       
+                this.birthday = userInfo.birthday;
+                this.avatar = userInfo.gender + '' === '1' ? require('../assets/image/common/man.png') : require('../assets/image/common/woman.png');
+            }
         },
         switchUser :function () {
             let token = localStorage.getItem(global.APP_TOKEN);
@@ -153,7 +153,7 @@ export default {
         },
         getData: function () {
             let birthdayArr = this.birthday.split('-');
-            let [ y,m,d ] = [birthdayArr[0],birthdayArr[1],birthdayArr[2]];
+            let [ y,m,d ] = [birthdayArr[0],birthdayArr[1],birthdayArr[2].split(' ')[0]];
             // m,d去0
             m = this.formatMD(m);
             d = this.formatMD(d);

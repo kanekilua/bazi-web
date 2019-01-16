@@ -189,7 +189,7 @@ export default {
                         }
                         .text {
                             font-size: 23/75rem;
-                            width: 150/75rem;
+                            width: 170/75rem;
                         }
                     }
                     .right {

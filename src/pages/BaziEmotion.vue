@@ -4,9 +4,9 @@
         <div class="unvisitableText">
             <p 
                 v-html="this.resData.data.character.unvisitableText"
-                :class="hideText==true ? 'hide-text' : ''"
+                :class="this.$store.state.bazi.hideText ? 'hide-text' : ''"
             ></p>
-            <div :class="hideText==true ? 'mask' : 'hide'">
+            <div :class="this.$store.state.bazi.hideText ? 'mask' : 'hide'">
                 <div class="share-btn" @click="showText()">
                     <i></i>
                     <span>分享解锁</span>
@@ -18,14 +18,13 @@
 <script>
 export default {
     props : ['resData'],
-    data () {
-        return {
-            hideText: true,
-        }
-    },
     methods: {
         showText: function () {
-            this.hideText = false;
+            let baziUserInfo = this.$store.state.bazi.baziUserInfo;
+            let shareList = localStorage.getItem(global.APP_BAZI_SHARE) === null ? [] : JSON.parse(localStorage.getItem(global.APP_BAZI_SHARE));
+            shareList.push(baziUserInfo);
+            localStorage.setItem(global.APP_BAZI_SHARE,JSON.stringify(shareList));
+            this.$store.commit('bazi/updateHideText',false);
         }
     }
 }

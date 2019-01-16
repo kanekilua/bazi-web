@@ -37,10 +37,10 @@
             <v-title-nav>
                 用户管理
             </v-title-nav>
-            <div class="user-manage" v-if="paipanDataList.length > 1" >
+            <div class="user-manage" v-if="paipanDataList.length > 0" >
                 <div>
                     <div v-for="(item,index) in paipanDataList" :key="index" class="user-item">
-                        <img class="avata">
+                        <img class="avata" :src="item.avanta">
                         <div class="content">
                             <div><span class="title">姓名：</span><span>{{item.name}}</span></div>
                             <div><span class="title">生辰：</span><span>{{item.year}}年{{item.month}}月{{item.date}}日 {{item.hour}}点</span></div>
@@ -59,16 +59,8 @@ import solarLunar from 'solarLunar'
 import { dateFormat } from 'vux'
 import {mapMutations} from 'vuex'
 export default  {
-    created() {
-        let app_paipan_data = localStorage.getItem(global.APP_BAZI_DATA);
-        if(app_paipan_data != undefined) {
-            this.paipanDataList = JSON.parse(app_paipan_data);
-        }
-    },
     data () {
         return  {
-            gradientStart : global.GRADIENT_START,
-            gradientEnd : global.GRADIENT_END,
             name : "",
             gender: "1",
             province : "忽略",
@@ -84,8 +76,26 @@ export default  {
             touchIndex : -1
         }
     },
+    created() {
+        this.init();
+    },
     methods : {
         ...mapMutations('bazi',['updateBaziUserInfo']),
+        init : function () {
+            let app_paipan_data_str = localStorage.getItem(global.APP_BAZI_DATA);
+            if(app_paipan_data_str === undefined) {
+                return ;
+            }
+            let app_paipan_data = JSON.parse(app_paipan_data_str);
+            for(let item of app_paipan_data) {
+                if(item.sex === "1") {
+                    item.avanta = require('../assets/image/common/man.png');
+                }else {
+                    item.avanta = require('../assets/image/common/woman.png');
+                }
+            }
+            this.paipanDataList = app_paipan_data;
+        },
         btnStyleChange : function (index) {
             this.touchIndex = index;
         },
@@ -157,7 +167,7 @@ export default  {
             app_paipan_data.unshift(paipanData);
             localStorage.setItem(global.APP_BAZI_DATA,JSON.stringify(app_paipan_data));
             this.updateBaziUserInfo(paipanData);
-            this.$jump('/bazi');
+            this.$router.go(-1);
         },
         selectUser : function (item,index) {
             let app_paipan_data = JSON.parse(localStorage.getItem(global.APP_BAZI_DATA));
@@ -166,7 +176,7 @@ export default  {
             app_paipan_data.unshift(item);
             localStorage.setItem(global.APP_BAZI_DATA,JSON.stringify(app_paipan_data));
             this.updateBaziUserInfo(item);
-            this.$jump('/bazi');
+            this.$router.go(-1);
         }
     }
 }
@@ -284,6 +294,10 @@ export default  {
                 background-color: @baseBoldColor;
             }
         }
+        /deep/ .title-nav {
+            width: 640/75rem;
+            margin: 0 auto;
+        }
         .user-manage {
             width: 640/75rem;
             margin: 0 auto 0 auto;
@@ -307,8 +321,8 @@ export default  {
                 border-bottom:1px solid rgba(200,200,200,0.35);
                 .flex-between();
                 .avata {
-                    width: 88/75rem;
-                    height: 88/75rem;
+                    width: 100/75rem;
+                    height: 100/75rem;
                     .round(50%);
                 }
                 .content {

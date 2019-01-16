@@ -18,6 +18,7 @@ import recruitment from "./module/recruitment"
 export default new vuex.Store ({
     state : {
         loginAccount : '',
+        loginAccountInfo : null
     },
     modules : {
         fortune: fortune,
@@ -35,6 +36,13 @@ export default new vuex.Store ({
     mutations: {
         updateLoginAccount: function (state,value) {
             state.loginAccount = value;
+        },
+        updateLoginAccountInfo : function (state,value) {
+            state.loginAccountInfo = value;
+            
+            let appAccountInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
+            appAccountInfo[state.loginAccount] = value;
+            localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(appAccountInfo));
         }
     },
     actions : {

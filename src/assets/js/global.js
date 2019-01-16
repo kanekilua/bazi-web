@@ -9,10 +9,13 @@ global.GRADIENT_END = BASECOLOR;
 global.APP_NAME = 'bazi';
 global.APP_TOKEN = APP_NAME + '_token';
 global.APP_ACCOUNT_INFO = APP_NAME + '_account_info';
-global.APP_BAZI_DATA = APP_NAME + '_bazi_data';
-global.APP_PEACH_DATA = APP_NAME + '_peach_data';
+global.APP_CESUAN_DATA = APP_NAME + '_cesuan_data';
+global.APP_BAZI_DATA = APP_CESUAN_DATA;
+global.APP_PEACH_DATA = APP_CESUAN_DATA;
 global.APP_BAZI_DATA_MAX = 5;
 global.APP_DOMIAN = 'https://mingli.szmonster.com'
+global.APP_DOWNLOAD_URL = 'http://www.szmonster.com'
+global.APP_BAZI_SHARE = APP_NAME + '_bazi_share';
 
 // plugins option
 global.DATETIME_OPTION = {

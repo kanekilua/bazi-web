@@ -86,7 +86,9 @@ export default {
                 ident_id : "95_" + res.data.id
             }
             this.$http.post('/features/isColl',params,null,header,(res) => {
-                this.isCollet = res.data.is_coll;
+                if(res.code === "success") {
+                    this.isCollet = res.data.is_coll;
+                }
             });
 
             this.article = res;
@@ -118,7 +120,9 @@ export default {
                 ident_id : "98_" + res.data[0].id
             }
             this.$http.post('/features/isColl',params,null,header,(res) => {
-                this.isCollet = res.data.is_coll;
+                if(res.code === "success") {
+                    this.isCollet = res.data.is_coll;
+                }
             });
         },
         collect : function ()  {
@@ -161,14 +165,14 @@ export default {
 [v-cloak] {
   display: none;
 }
+.right-ico{
+    width: 38/75rem;
+    height: 38/75rem;
+    background: url('../assets/image/common/share.png')no-repeat center center / 100% 100%;
+}
 .content-wrap{
     padding-top: 90/75rem;
     .border-box();
-    .right-ico{
-        width: 38/75rem;
-        height: 38/75rem;
-        background: url('../assets/image/common/share.png')no-repeat center center / 100% 100%;
-    }
     .article {
         .article-header {
             .border-box();
