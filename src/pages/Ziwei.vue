@@ -175,7 +175,7 @@ export default {
             this.gong = item.gong; 
             this.selectIndex = index;
             if(item.isFirst === true){  //第一次点击时发送请求
-                this.getData();
+                this.init();
                 item.isFirst = false;
             }else {  //若不是第一次点击渲染缓存的content
                 this.content = this.tableList[this.selectIndex].content

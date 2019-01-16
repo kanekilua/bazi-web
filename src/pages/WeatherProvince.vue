@@ -1,10 +1,11 @@
 <template>
     <div class="province-wrap">
         <v-title-header>
-            <div class="search-wrap">
+            <!-- <div class="search-wrap">
                 <input class="search" type="text" placeholder="输入城市名">
                 <i class="search-btn"></i>
-            </div>
+            </div> -->
+            选择城市
         </v-title-header>
         <div class="content-wrap">
             <div class="tuijian">
@@ -85,7 +86,7 @@ export default {
         },
         getWeatherSussess : function (res)  {
             res.data.air = JSON.parse(res.data.air);
-            res.data.lifestyle = JSON.parse(res.data.lifestyle);
+            res.data.hour_weather = JSON.parse(res.data.hour_weather);
             res.data.weather = JSON.parse(res.data.weather);
             // this.weather = res.data;
             this.updateWeather(res.data);
@@ -100,10 +101,10 @@ export default {
         padding-left: 0;
         font-size: 32/75rem;
     }
-    /deep/ .header .title {
-        color :#333 !important;
-        font-weight: normal;
-    }
+    // /deep/ .header .title {
+    //     color :#333 !important;
+    //     font-weight: normal;
+    // }
     .search-wrap {
         width: 571/75rem;
         height: 50/75rem;
@@ -132,11 +133,11 @@ export default {
         width: 0;
         height: 0;
     }
-    /deep/ .title {
-        font-size: 26/75rem !important;
-    }
     .content-wrap {
         padding-top: 90/75rem;
+        /deep/ .title {
+            font-size: 26/75rem !important;
+        }
         .tuijian {
             padding: 15/75rem 40/75rem 40/75rem 32/75rem;
             border-bottom: 1px solid #eee;

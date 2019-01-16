@@ -27,7 +27,6 @@ import Xiangshu from '@/pages/Xiangshu'
 import ZhougongHome from '@/pages/zhougongHome'
 import ZhougongAnalyze from '@/pages/ZhougongAnalyze'
 import Empty from '@/pages/Empty'
-import GiveName from '@/pages/GiveName'
 import NameHome from '@/pages/NameHome'
 import Shengxiao from '@/pages/Shengxiao'
 import ShengxiaoDetail from '@/pages/ShengxiaoDetail'
@@ -75,7 +74,7 @@ export default new Router({
       name : 'welcome',
       component : Welcome,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -83,7 +82,7 @@ export default new Router({
       name : 'login',
       component : Login,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -91,7 +90,7 @@ export default new Router({
       name : 'register',
       component : Register,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -99,7 +98,7 @@ export default new Router({
       name : 'resetPwd',
       component : ResetPwd,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -107,7 +106,7 @@ export default new Router({
       name : 'userAgreement',
       component : UserAgreement,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -115,7 +114,7 @@ export default new Router({
       name : 'birth',
       component : Birth,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -153,7 +152,7 @@ export default new Router({
           name : 'calendar',
           component : Calendar,
           meta: {
-            keepAlive: true
+            keepAlive: false
           }
         },
         {
@@ -187,7 +186,7 @@ export default new Router({
       name : 'baziBirth',
       component: BaziBirth,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -235,7 +234,7 @@ export default new Router({
       name : 'hehun',
       component: Hehun,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -251,7 +250,7 @@ export default new Router({
       name : 'xiangshu',
       component: Xiangshu,
       meta: {
-        keepAlive: false
+        keepAlive: true
       }
     },
     {
@@ -259,7 +258,7 @@ export default new Router({
       name : 'zhougongHome',
       component : ZhougongHome,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -275,15 +274,7 @@ export default new Router({
       name : 'empty',
       component : Empty,
       meta: {
-        keepAlive: true
-      }
-    },
-    {
-      path : '/giveName',
-      name : 'giveName',
-      component : GiveName,
-      meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -291,7 +282,7 @@ export default new Router({
       name : 'nameHome',
       component : NameHome,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -299,7 +290,7 @@ export default new Router({
       name : 'shengxiao',
       component : Shengxiao,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -323,7 +314,7 @@ export default new Router({
       name : 'shengxiaoFamous',
       component : ShengxiaoFamous,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -347,7 +338,7 @@ export default new Router({
       name : 'familyName',
       component : FamilyName,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -371,7 +362,7 @@ export default new Router({
       name : 'qimenFile',
       component : QimenFile,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -469,7 +460,7 @@ export default new Router({
       name : 'contactService',
       component : ContactService,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -477,7 +468,7 @@ export default new Router({
       name : 'feedBack',
       component : FeedBack ,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
@@ -493,7 +484,7 @@ export default new Router({
       name : 'province',
       component :WeatherProvince,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
