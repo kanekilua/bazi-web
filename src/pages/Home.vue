@@ -105,15 +105,18 @@ export default {
             swiperOption: {
                 slidesPerView: 'auto',
                 direction:"horizontal",/*横向滑动*/ 
-                loop: true,
-                pagination:{
-                    el: '.swiper-pagination',
-                    bulletClass : 'my-bullet',
-                    bulletActiveClass: 'my-bullet-active',
+                // loop: true,
+                // pagination:{
+                //     el: '.swiper-pagination',
+                //     bulletClass : 'my-bullet',
+                //     bulletActiveClass: 'my-bullet-active',
+                // },
+                autoplay: {
+                    delay: 3000,
+                    // stopOnLastSlide: false,
+                    // disableOnInteraction: true,
                 },
-                autoplay:{
-                    delay: 3000
-                },
+
             },
             testList: [],
         }
@@ -166,7 +169,6 @@ export default {
         },
         testSuccess: function (res) {
             this.testList = res.data;
-            console.log(res);
         },
         toTest: function (id) {
             let testList = this.testList[id-1]; 
