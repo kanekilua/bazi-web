@@ -4,7 +4,7 @@
         <div class="content-wrap">
             <swiper class="swiper-box" :options="swiperOption">
                 <swiper-slide v-for="(imgItem,index) in imgList" :key="index">
-                    <img :src="imgItem.image" alt="swiper">
+                    <img :src="imgItem.image" alt="swiper" @click="clickBannerImg(imgItem.link)">
                 </swiper-slide>
                 <div class="swiper-pagination"></div>
             </swiper>
@@ -113,9 +113,8 @@ export default {
                 // },
                 autoplay: {
                     delay: 3000,
-                    // stopOnLastSlide: false,
-                    // disableOnInteraction: true,
-                },
+                    disableOnInteraction: false,
+                }
 
             },
             testList: [],
@@ -159,6 +158,13 @@ export default {
         },
         success: function (res) {
             this.imgList = res.data.index.children;
+        },
+        clickBannerImg: function (path) {
+            if(path=='/bazi'){
+                this.jump('/bazi')
+            }else {
+                this.$jump(path);
+            }
         },
         getInterestingTest : function () {
             let params = {
@@ -208,17 +214,14 @@ export default {
 .swiper-box{
     width: 100%;
     position: relative;
-    margin-top: 24/75rem;
     .swiper-slide{
         width: 100%;
         height: 350/75rem;
-        padding-bottom: 30/75rem;
         &> img{
             display: block;
-            width: 96%;
+            width: 100%;
             height: 100%;
             margin: 0 auto;
-            .round(10/75rem);
         }
     }
     .swiper-pagination{

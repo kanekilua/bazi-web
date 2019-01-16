@@ -100,7 +100,8 @@ export default {
             this.$http.post('/features/carousel',null,null,null,this.getBannerSuccess,this.failure);
         },
         getBannerSuccess: function (res) {
-            this.imgList = res.data.index.children;
+            console.log(res)
+            this.imgList = res.data.activity.children;
         },
         init : function () {
             this.getBanner();
