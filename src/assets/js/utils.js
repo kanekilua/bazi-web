@@ -12,7 +12,7 @@ export default {
     },
     checkPassword : function (password, vue) {
         let result = true;
-        if(password.length < 8 || password.length > 18) {
+        if(password.length < 6 || password.length > 20) {
             result = false;
         }
         if(!result) {

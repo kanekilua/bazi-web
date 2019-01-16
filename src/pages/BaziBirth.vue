@@ -83,7 +83,7 @@ export default  {
         ...mapMutations('bazi',['updateBaziUserInfo']),
         init : function () {
             let app_paipan_data_str = localStorage.getItem(global.APP_BAZI_DATA);
-            if(app_paipan_data_str === undefined) {
+            if(app_paipan_data_str === undefined || app_paipan_data_str === null) {
                 return ;
             }
             let app_paipan_data = JSON.parse(app_paipan_data_str);
@@ -95,6 +95,7 @@ export default  {
                 }
             }
             this.paipanDataList = app_paipan_data;
+            console.log(this.paipanDataList);
         },
         btnStyleChange : function (index) {
             this.touchIndex = index;
