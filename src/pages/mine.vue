@@ -22,7 +22,7 @@
             <div class="table">
                 <div class="table-cell recommend">
                     <i></i>
-                    <div>推荐好友</div>
+                    <div @click="showShare = true">推荐好友</div>
                 </div>
                 <div class="table-cell recruitment" @click="$jump('/main/mine/recruitment/recruitmentStep1')">
                     <i></i>
@@ -53,6 +53,7 @@
             </div>
         </div>
         <v-tab-bar></v-tab-bar>
+        <v-share-popup :showShare='showShare' :shareData='shareData' @switchShowShare='switchShowShare'></v-share-popup>
     </div>
 </template>
 
@@ -63,7 +64,9 @@ export default {
             loginFlag : false,
             showTrans: false,
             avanta : require('../assets/image/mine/avatar.png'),
-            name : '未注册/登录'
+            name : '未注册/登录',
+            showShare : false,
+            shareData : global.APP_SHARE_APP ,
         }
     },
     created() {
@@ -89,6 +92,9 @@ export default {
             this.name = account_info.realname;
             this.$store.commit('updateLoginAccountInfo',account_info);
             this.loginFlag = true;
+        },
+        switchShowShare : function (val) {
+            this.showShare = val;
         }
     },
 }

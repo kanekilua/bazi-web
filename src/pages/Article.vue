@@ -2,7 +2,7 @@
     <div class="wrap" v-cloak>
         <v-title-header :backLink="$store.state.deepLink ? '/main/home' : null">
             {{cid === '95' ? article.data.category : cid === '98' ? this.$route.params.name + '2019年生肖运势' : ''}}
-            <div class="right-ico" slot="right-ico"></div>
+            <div @click="showShare = true" class="right-ico" slot="right-ico"></div>
         </v-title-header>
         <div class="content-wrap">
             <div class="article">
