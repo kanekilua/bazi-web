@@ -187,7 +187,7 @@ export default new Router({
       name : 'baziBirth',
       component: BaziBirth,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
