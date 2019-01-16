@@ -45,7 +45,6 @@ import Setting from '@/pages/Setting'
 import UserFile from '@/pages/UserFile'
 import Security from '@/pages/Security'
 import ChangePhone from '@/pages/ChangePhone'
-import UserMessage from '@/pages/UserMessage'
 import Recruitment from '@/pages/Recruitment'
 import RecruitmentStep1 from '@/pages/RecruitmentStep1'
 import RecruitmentStep2 from '@/pages/RecruitmentStep2'
@@ -74,32 +73,50 @@ export default new Router({
     {
       path : '/',
       name : 'welcome',
-      component : Welcome
+      component : Welcome,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/login',
       name : 'login',
-      component : Login
+      component : Login,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/register',
       name : 'register',
-      component : Register
+      component : Register,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/resetPwd',
       name : 'resetPwd',
-      component : ResetPwd
+      component : ResetPwd,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/userAgreement',
       name : 'userAgreement',
-      component : UserAgreement
+      component : UserAgreement,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/birth',
       name : 'birth',
-      component : Birth
+      component : Birth,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path :'/main',
@@ -110,27 +127,42 @@ export default new Router({
         {
           path : '/main/home',
           name : 'home',
-          component: Home
+          component: Home,
+          meta: {
+            keepAlive: true
+          }
         },
         {
           path : '/main/fortune',
           name : 'fortune',
-          component: Fortune
+          component: Fortune,
+          meta: {
+            keepAlive: false
+          }
         },
         {
           path : '/main/activity',
           name : 'activity',
-          component : Activity
+          component : Activity,
+          meta: {
+            keepAlive: true
+          }
         },
         {
           path : '/main/calendar',
           name : 'calendar',
-          component : Calendar
+          component : Calendar,
+          meta: {
+            keepAlive: true
+          }
         },
         {
           path : '/main/mine',
           name : 'mine',
-          component: Mine
+          component: Mine,
+          meta: {
+            keepAlive: false
+          }
         },
       ]
     },
@@ -138,243 +170,379 @@ export default new Router({
       path : '/bazi',
       name : 'bazi',
       component : Bazi,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/ziwei',
       name : 'ziwei',
       component : Ziwei,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/baziBirth',
       name : 'baziBirth',
-      component: BaziBirth
+      component: BaziBirth,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/fengshui',
       name:'fengshui',
-      component: Fengshui
+      component: Fengshui,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/jiaju',
       name:'jiaju',
-      component: FengshuiJiaju
+      component: FengshuiJiaju,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path: '/love',
       name:'love',
-      component: Love
+      component: Love,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path: '/loveBlossoms',
       name:'loveBlossoms',
-      component: LoveBlossoms
+      component: LoveBlossoms,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/peachBlossom',
       name : 'peachBlossom',
-      component: PeachBlossom
+      component: PeachBlossom,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/hehun',
       name : 'hehun',
-      component: Hehun
+      component: Hehun,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/hehunAnalyze',
       name : 'hehunAnalyze',
-      component: HehunAnalyze
+      component: HehunAnalyze,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/xiangshu',
       name : 'xiangshu',
-      component: Xiangshu
+      component: Xiangshu,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/zhougongHome',
       name : 'zhougongHome',
-      component : ZhougongHome
+      component : ZhougongHome,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/zhougongAnalyze',
       name : 'zhougongAnalyze',
-      component : ZhougongAnalyze
+      component : ZhougongAnalyze,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/empty',
       name : 'empty',
-      component : Empty
+      component : Empty,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/giveName',
       name : 'giveName',
-      component : GiveName 
+      component : GiveName,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/nameHome',
       name : 'nameHome',
-      component : NameHome
+      component : NameHome,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/shengxiao',
       name : 'shengxiao',
-      component : Shengxiao
+      component : Shengxiao,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/shengxiao/knowledge',
       name : 'shengxiaoKnowledge',
-      component : ShengxiaoKnowledge
+      component : ShengxiaoKnowledge,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/shengxiao/detail',
       name : 'shengxiaoDetail',
-      component : ShengxiaoDetail
+      component : ShengxiaoDetail,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/shengxiao/famous/:name/:imgUrl/:identify/:works/:experience',
       name : 'shengxiaoFamous',
       component : ShengxiaoFamous,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/article',
       name : 'article',
-      component : Article
+      component : Article,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/nameTestResult',
       name : 'nameTestResult',
-      component : NameTestResult
+      component : NameTestResult,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/familyName',
       name : 'familyName',
-      component : FamilyName
+      component : FamilyName,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/familyNameInner',
       name : 'amilyNameInner',
-      component : FamilyNameInner
+      component : FamilyNameInner,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/namedResult',
       name : 'namedResult',
-      component : NamedResult
+      component : NamedResult,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/qimenFile',
       name : 'qimenFile',
-      component : QimenFile
+      component : QimenFile,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/qimenPan',
       name : 'qimenPan',
-      component : QimenPan
+      component : QimenPan,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/main/calendar/detail',
       name : 'calendarDetail',
-      component : CalendarDetail
+      component : CalendarDetail,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/main/mine/setting',
       name : 'setting',
-      component: Setting
+      component: Setting,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/main/mine/setting/userFile',
       name : 'userFile',
-      component: UserFile
+      component: UserFile,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/main/mine/setting/security',
       name : 'security',
-      component: Security
+      component: Security,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/main/mine/setting/security/changePhone',
       name : 'changePhone',
-      component: ChangePhone
-    },
-    {
-      path : '/main/mine/userMessage',
-      name : 'userMessage',
-      component: UserMessage
+      component: ChangePhone,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/main/mine/recruitment',
       name : 'recruitment',
       component: Recruitment,
+      meta: {
+        keepAlive: false
+      },
       children : [
         {
           path : 'recruitmentStep1',
           name : 'recruitmentStep1',
-          component : RecruitmentStep1
+          component : RecruitmentStep1,
+          meta: {
+            keepAlive: false
+          }
         },
         {
           path : 'recruitmentStep2',
           name : 'recruitmentStep2',
-          component : RecruitmentStep2
+          component : RecruitmentStep2,
+          meta: {
+            keepAlive: false
+          }
         },
         {
           path : 'recruitmentStep3',
           name : 'recruitmentStep3',
-          component : RecruitmentStep3
+          component : RecruitmentStep3,
+          meta: {
+            keepAlive: false
+          }
         },
       ]
     },
     {
       path : '/main/mine/myCollection',
       name : 'myCollection',
-      component: MyCollection
+      component: MyCollection,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/main/mine/contactService',
       name : 'contactService',
-      component : ContactService
+      component : ContactService,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/main/mine/feedBack',
       name : 'feedBack',
-      component : FeedBack 
+      component : FeedBack ,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/main/calendar/weather',
       name : 'weather',
-      component :Weather
+      component :Weather,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/main/calendar/weather/province',
       name : 'province',
-      component :WeatherProvince
+      component :WeatherProvince,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path : '/main/calendar/weather/city',
       name : 'city',
-      component :WeatherCity
+      component :WeatherCity,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/interestingInner',
       name : 'interestingInner',
-      component : InterestingInner
+      component : InterestingInner,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/interestingTest',
       name : 'interestingTest',
-      component : InterestingTest 
+      component : InterestingTest ,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/interestingTestResult',
       name : 'interestingTestResult',
-      component : InterestingTestResult
+      component : InterestingTestResult,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/interestingMore',
       name : 'interestingMore',
-      component : InterestingMore
+      component : InterestingMore,
+      meta: {
+        keepAlive: false
+      }
     },
     {
       path : '/main/mine/about',
       name : 'about',
-      component : About
+      component : About,
+      meta: {
+        keepAlive: true
+      }
     },
     
   ]
