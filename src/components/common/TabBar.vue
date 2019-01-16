@@ -62,15 +62,17 @@ export default {
             return obj
         },
         jumpRoute(tab,index) {
-            if(tab.name === "运势" && this.loginAccount === "") {
-                this.$vux.toast.text('请先登录','top');
-                this.$jump('/login');
-                return ;
-            }else {
-                const umengEventId = ['tab_home','tab_fortune','tab_activity','tab_calendar','tab_mine'];
-                MobclickAgent.onEvent(umengEventId[index]);
-                this.$jump(tab.route);
-            }
+            // if(tab.name === "运势" && this.loginAccount === "") {
+            //     this.$vux.toast.text('请先登录','top');
+            //     this.$jump('/login');
+            //     return ;
+            // }else {
+
+            const umengEventId = ['tab_home','tab_fortune','tab_activity','tab_calendar','tab_mine'];
+            MobclickAgent.onEvent(umengEventId[index]);
+            this.$jump(tab.route);
+
+            // }
         }
     }
 }
