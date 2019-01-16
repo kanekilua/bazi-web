@@ -12,7 +12,11 @@ export default {
     },
     checkPassword : function (password, vue) {
         let result = true;
-        if(password.length < 6 || password.length > 20) {
+        if(password.length <= 6 || password.length >= 16) {
+            result = false;
+        }
+        var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>《》/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]");
+        if(pattern.test(password)){
             result = false;
         }
         if(!result) {
