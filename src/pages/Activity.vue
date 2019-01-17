@@ -37,7 +37,7 @@
                         </div>
                         <div class="right"></div>
                     </div>
-                    <div class="menu4" @click="$jump('/nameTest')">
+                    <div class="menu4" @click="$jump('/nameHome')">
                         <div class="left">
                             <div class="title">姓名测试</div>
                             <div class="text">
