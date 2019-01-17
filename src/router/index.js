@@ -68,6 +68,15 @@ import InterestingMore from '@/pages/InterestingMore'
 Vue.use(Router)
 
 export default new Router({
+  // 记录页面的滚动位置
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+    // return 期望滚动到哪个的位置
+  },
   routes: [
     {
       path : '/',

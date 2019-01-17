@@ -88,6 +88,7 @@
 <script>
 import solarLunar from 'solarLunar'
 import { dateFormat } from 'vux'
+
 export default {
     data () {
         return {
@@ -152,6 +153,7 @@ export default {
     },
     created() {
         this.getData();
+        
     }, 
     methods : {
         showDatePlugin : function (genderType) {

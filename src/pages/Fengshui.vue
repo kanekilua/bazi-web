@@ -5,17 +5,17 @@
             <div class="content-box">
                 <div class="content">
                     <div class="btn-row">
-                        <button class="fengshui-btn select-btn" @click="toList('301','家居风水')">家居风水</button>
-                        <button class="fengshui-btn" @click="toList('302','办公室风水','办公室风水')">办公风水</button>
-                        <button class="fengshui-btn" @click="toList('301','感情风水','感情风水')">感情风水</button>
+                        <button class="fengshui-btn " :class="activeBtn=='家居风水' ? 'select-btn' : '' " @click="toList('301','家居风水')">家居风水</button>
+                        <button class="fengshui-btn" :class="activeBtn=='办公室风水' ? 'select-btn' : ''" @click="toList('302','办公室风水','办公室风水')">办公风水</button>
+                        <button class="fengshui-btn" :class="activeBtn=='感情风水' ? 'select-btn' : ''" @click="toList('301','感情风水','感情风水')">感情风水</button>
                     </div>
                     <div class="btn-row">
-                        <button class="fengshui-btn" @click="toList('303','房屋风水')">房屋风水</button>
-                        <button class="fengshui-btn" @click="toList('301','招财风水','招财风水')">招财风水</button>
+                        <button class="fengshui-btn" :class="activeBtn=='房屋风水' ? 'select-btn' : ''" @click="toList('303','房屋风水')">房屋风水</button>
+                        <button class="fengshui-btn" :class="activeBtn=='招财风水' ? 'select-btn' : ''" @click="toList('301','招财风水','招财风水')">招财风水</button>
                     </div>
                     <div class="btn-row">
-                        <button class="fengshui-btn" @click="toList('301','风水摆设','风水摆设')">风水摆设</button>
-                        <button class="fengshui-btn" @click="toList('302','商业风水')">商业风水</button>
+                        <button class="fengshui-btn" :class="activeBtn=='风水摆设' ? 'select-btn' : ''"  @click="toList('301','风水摆设','风水摆设')">风水摆设</button>
+                        <button class="fengshui-btn" :class="activeBtn=='商业风水' ? 'select-btn' : ''"  @click="toList('302','商业风水')">商业风水</button>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@ import {mapState,mapMutations} from 'vuex'
 
 export default {
     computed : {
-        ...mapState('peach',['navIndex']),
+        ...mapState('fengshuiKnowledge',['navIndex','activeBtn']),
         swiper () {
             return this.$refs.mySwiper.swiper;
         },
@@ -75,7 +75,8 @@ export default {
         });
     },
     methods : {
-        ...mapMutations('peach',['updateNavIndex']),
+        ...mapMutations('fengshuiKnowledge',['updateNavIndex']),
+        ...mapMutations('fengshuiKnowledge',['updateActiveBtn']),
         getData: function () {
             let sendData = {
                 cid: '99',
@@ -97,6 +98,7 @@ export default {
             })
         },
         toList : function(tid,navTitle,category) {
+            this.updateActiveBtn(navTitle);//激活用户选择的按钮
             if(!arguments[2]){
                 this.$router.push({
                     path : '/jiaju',
@@ -105,7 +107,7 @@ export default {
                         navTitle: navTitle,
                     }
                 })
-            }else{
+            }else {
                 this.$router.push({
                     path : '/jiaju',
                     query : {
@@ -146,7 +148,7 @@ export default {
                 box-shadow: 0 3/75rem 6/75rem rgba(0,0,0,0.16);
                 outline: none;
                 &:active{
-                    background: #eee;
+                    background: @baseBoldColor;
                 }
                 @media screen  and (max-width: 320px) {
                     width: 130/75rem;

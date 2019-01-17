@@ -1,7 +1,6 @@
 <template>
     <div class="famous-wrap">
         <v-title-header
-            :backLink="backLink"
         >{{name}}</v-title-header>
         <div class="content-wrap">
             <div class="person-box">
@@ -38,7 +37,6 @@
 export default {
     data () {
         return {
-            backLink: "/shengxiao",
             // 接收router数据
             name: this.$route.params.name,
             imgUrl: this.$route.params.imgUrl,
