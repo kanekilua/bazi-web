@@ -141,6 +141,22 @@ export default {
             }
         },
         jumpTest : function () {
+            if(!this.$utils.checkName(this.maleName,this)) {
+                this.$vux.toast.text('请填写男方的正确姓名','top');
+                return;
+            }
+            if(!this.maleBirthDate){
+                this.$vux.toast.text('请选择男方的出生日期','top');
+                return;
+            }
+            if(!this.$utils.checkName(this.femaleName,this)) {
+                this.$vux.toast.text('请填写女方的正确姓名','top');
+                return;
+            }
+            if(!this.femaleBirthDate){
+                this.$vux.toast.text('请选择女方的出生日期','top');
+                return;
+            }
             this.$router.push({
                 name : 'hehunAnalyze',
                 params : {
@@ -212,7 +228,7 @@ export default {
             font-size: 30/75rem;
             background: #fff;
             box-shadow:0px 3px 6px rgba(0,0,0,0.16);
-            padding: 0 30/75rem;
+            // padding: 0 30/75rem;
             box-sizing: border-box;
             div:nth-child(2) {
                 width: 1px;
@@ -221,13 +237,22 @@ export default {
             }
             & > div {
                 width: 50%;
+                height: 100%;
                 text-align: center;
+                .flex-start();
+                & > span {
+                    display: block;
+                    width: 80%;
+                    height: 100%;
+                    overflow: hidden;
+                    text-overflow:ellipsis;
+                    white-space: nowrap
+                }
             }
             & > div > i {
                 display: inline-block;
                 width: 22/75rem;
                 height: 22/75rem;
-                margin-left: 24/75rem;
                 background: url('../assets/image/bazi-birth/unfold.png') no-repeat center center / 100% 100%;
             }
         }
