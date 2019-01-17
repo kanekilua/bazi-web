@@ -21,11 +21,10 @@ export default {
                     let header = {'Authorization':localStorage.getItem(global.APP_TOKEN)};
                     this.$http.post('/checkToken',null,'app',header,(res) =>{
                         if(res.data.status) {
-                            this.$http.post('/scbazi',null,'app',header,()=> {
+                            this.$http.post('/scbazi',null,'app',header,(result)=> {
                                 // 成功通过token获取到了accountInfo后，看看是否有填写sc八字的信息，没有的话直接跳游客登录
                                 if(result.data.sctype === 1) {
-                                    this.$vux.toast.text('已经登录lalala','top');
-                                    this.$store.commit('updateLoginAccount',res.data.id + "");
+                                    this.$store.commit('updateLoginAccount',result.data.id + "");
                                 }
                             },() => {});
                         }
