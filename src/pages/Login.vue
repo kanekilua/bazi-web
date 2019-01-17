@@ -9,7 +9,7 @@
                 <div class="form">
                     <div class="phone-input">
                         <div class="start">
-                            <i @click="test"></i><i></i>
+                            <i></i><i></i>
                         </div>
                         <div class="input-wrap">
                             <input type="text" placeholder="请输入手机号码" v-model="phone">
@@ -205,9 +205,6 @@ export default {
                 }
             }
             localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
-        },
-        test : function () {
-            console.log(this.fullHeight);
         }
     }
 }
