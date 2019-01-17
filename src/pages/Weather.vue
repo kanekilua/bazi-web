@@ -67,7 +67,7 @@ export default {
             }
             // this.weather = this.$store.state.weather.weather;
             var weatherData = {};
-            weatherData.weekday = this.$store.state.weather.weather.weekday;
+            weatherData.weekday = this.$store.state.weather.weekday;
             weatherData.air = this.$store.state.weather.weather.air.HeWeather6[0].air_now_city.qlty;
             weatherData.city = this.$store.state.weather.weather.weather.HeWeather6[0].basic.location;
             weatherData.weather = this.$store.state.weather.weather.weather.HeWeather6[0].daily_forecast;
