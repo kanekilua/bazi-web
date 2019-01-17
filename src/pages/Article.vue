@@ -116,14 +116,11 @@ export default {
             });
 
             this.article = res;
-            if(res.data.category === "八字合婚") {
-                res.data.content = res.data.content.replace('<strong>' + res.data.title +'</strong>','');
-            }
             let content = res.data.content;
-            if(res.data.img !== null) {
-                let Img = res.data.img.split(' ');
-                content = content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
+            if(res.data.category === "八字合婚") {
+                content = content.replace('<strong>' + res.data.title +'</strong>','');
             }
+            content = content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
             this.article.data.content = content;
             this.setShareData();
         },
