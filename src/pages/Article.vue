@@ -60,7 +60,7 @@ export default {
     },
     methods: {
         init : function () {
-            if($store.state.deepLink) {
+            if(this.$store.state.deepLink !== '') {
                 this.article.data.id = this.$route.query.id;
                 let params = {
                     cid : '95',
