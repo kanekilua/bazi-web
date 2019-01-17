@@ -152,6 +152,7 @@ export default {
     },
     created() {
         this.getData();
+        
     }, 
     methods : {
         showDatePlugin : function (genderType) {
@@ -365,18 +366,33 @@ export default {
                         .round(10/75rem);
                     }
                     & > div {
-                        flex: 1;
+                        width: 52%;
                         margin-left: 16/75rem;
                         & > h2 {
+                            width: 100%;
                             margin: 0 0 20/75rem 20/75rem;
                             font-weight: bold;
                             color : rgba(3,3,3,0.8);
                             font-size: 28/75rem;
-                            .ellipsis(1);
+                            overflow: hidden;
+                            text-overflow:ellipsis;
+                            white-space: nowrap;
+                            .border-box();
                         }
                         & > p {
-                            .ellipsis();
+                            position: relative;
+                            width: 100%;
+                            line-height: 30/75rem;
+                            height: 90/75rem;
                             font-size: 22/75rem;
+                            overflow: hidden;
+                        }
+                        & > p::after {
+                            position: absolute;
+                            content: "...";
+                            bottom: 0;
+                            right: 0;
+                            font-weight: bolder;
                         }
                     }
                 }
@@ -386,6 +402,7 @@ export default {
             padding: 20/75rem;
             .border-box();
             .famous-person-list{
+                width: 100%;
                 .famous-person-item{
                     overflow: hidden;
                     .flex-start();
@@ -430,9 +447,21 @@ export default {
                         }
                         .introduction{
                             & > p{
-                                .ellipsis(3);
-                                width: 94%;
+                                position: relative;
+                                width: 96%;
+                                line-height: 33/75rem;
+                                height: 100/75rem;
+                                font-size: 22/75rem;
+                                overflow: hidden;
                                 font-size: 1em;
+                                padding-right: 10/75rem;
+                            }
+                            & > p::after {
+                                position: absolute;
+                                content: "...";
+                                bottom: 0;
+                                right: 0;
+                                font-weight: bolder;
                             }
                         }
                     }

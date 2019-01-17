@@ -40,7 +40,7 @@ export default {
             backLink : '/main/home',
             navList: ["命盘","感情","事业","财运","健康","亲子"],
             list: [BaziMingpan,BaziEmotion,BaziCareer,BaziFortune,BaziHealth,BaziKids],
-            swiperOption : { initialSlide: this.navIndex ,autoHeight : true},
+            swiperOption : { initialSlide: this.navIndex, height : window.innerHeight,},
             resData: {"data":{"career":'',"character":'',"d": '',"elements":'',"family":'',"finance":'',"h":'',"health":'',"id":'',"life":'',"love":'',"m":'',"remedy":'',"y":'',}},
         }
     },
