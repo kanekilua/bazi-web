@@ -367,6 +367,7 @@ export default {
                 & > div {
                     font-size: 26/75rem;
                     color: #666;
+                    text-align: center;
                 }
                 div:nth-child(2) {
                     .flex-between();

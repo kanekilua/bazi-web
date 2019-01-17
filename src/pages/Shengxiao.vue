@@ -1,8 +1,6 @@
 <template>
     <div class="shengxiao-wrap">
-        <v-title-header
-            :backLink="backLink"
-        >
+        <v-title-header>
             十二生肖
         </v-title-header>
         <div class="content-wrap">
@@ -91,7 +89,6 @@ import { dateFormat } from 'vux'
 export default {
     data () {
         return {
-            backLink: '/main/home',
             knowledges : [],
             maleName : "",
             maleBirth : "",
