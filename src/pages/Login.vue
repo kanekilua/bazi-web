@@ -12,7 +12,7 @@
                             <i></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input type="text" placeholder="请输入手机号码" v-model="phone" @focus="showThird = false" @blur="showThird = true">
+                            <input type="text" placeholder="请输入手机号码" v-model="phone">
                         </div>
                     </div>
                     <div class="capcha-input" v-if="!navIndex">
@@ -20,7 +20,7 @@
                             <i></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input type="text" placeholder="请输入验证码" v-model="captcha" @focus="showThird = false" @blur="showThird = true">
+                            <input type="text" placeholder="请输入验证码" v-model="captcha">
                             <span v-show="show" @click="getCaptcha">获取验证码</span>
                             <span v-show="!show">{{count}} s</span>
                         </div>
@@ -30,7 +30,7 @@
                             <i></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input :type="pwdType" placeholder="请输入密码" v-model="password" @focus="showThird = false" @blur="showThird = true">
+                            <input :type="pwdType" placeholder="请输入密码" v-model="password">
                             <i :class="pwdVisible ? 'visible' : 'unvisible'" @click="pwdVisible = !pwdVisible"></i>
                         </div>
                     </div>
@@ -90,7 +90,9 @@ export default {
             timer : null,
             show : true,
             showThird : true,
-            enterLink : ""
+            enterLink : "",
+            windowHeight : document.documentElement.clientHeight,
+            fullHeight: document.documentElement.clientHeight
         }
     },
     created() {
@@ -103,6 +105,18 @@ export default {
             }else {
                 return 'password';  
             }
+        }
+    },
+    mounted () {
+        window.onresize = () => {
+            return (() => {
+                this.fullHeight = document.documentElement.clientHeight
+                if(this.fullHeight < this.windowHeight) {
+                    this.showThird = false;
+                }else {
+                    this.showThird = true;
+                }
+            })()
         }
     },
     methods : {
@@ -324,7 +338,7 @@ export default {
                         }
                         span {
                             width: 170/75rem;
-                            font-size: 34/75rem;
+                            font-size: 32/75rem;
                             color : @baseBoldColor;
                             text-align: center;
                         }
