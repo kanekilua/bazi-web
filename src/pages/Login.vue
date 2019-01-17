@@ -278,7 +278,7 @@ export default {
                         }
                         span {
                             width: 170/75rem;
-                            font-size: 34/75rem;
+                            font-size: 32/75rem;
                             color : @baseBoldColor;
                             text-align: center;
                         }
