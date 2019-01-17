@@ -9,10 +9,10 @@
                 <div class="form">
                     <div class="phone-input">
                         <div class="start">
-                            <i></i><i></i>
+                            <i @click="test"></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input type="text" placeholder="请输入手机号码" v-model="phone" @focus="showThird = false" @blur="showThird = true">
+                            <input type="text" placeholder="请输入手机号码" v-model="phone">
                         </div>
                     </div>
                     <div class="capcha-input" v-if="!navIndex">
@@ -20,7 +20,7 @@
                             <i></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input type="text" placeholder="请输入验证码" v-model="captcha" @focus="showThird = false" @blur="showThird = true">
+                            <input type="text" placeholder="请输入验证码" v-model="captcha">
                             <span v-show="show" @click="getCaptcha">获取验证码</span>
                             <span v-show="!show">{{count}} s</span>
                         </div>
@@ -30,7 +30,7 @@
                             <i></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input :type="pwdType" placeholder="请输入密码" v-model="password" @focus="showThird = false" @blur="showThird = true">
+                            <input :type="pwdType" placeholder="请输入密码" v-model="password">
                             <i :class="pwdVisible ? 'visible' : 'unvisible'" @click="pwdVisible = !pwdVisible"></i>
                         </div>
                     </div>
@@ -89,7 +89,9 @@ export default {
             count : '',
             timer : null,
             show : true,
-            showThird : true
+            showThird : true,
+            windowHeight : document.documentElement.clientHeight,
+            fullHeight: document.documentElement.clientHeight
         }
     },
     computed: {
@@ -99,6 +101,18 @@ export default {
             }else {
                 return 'password';  
             }
+        }
+    },
+    mounted () {
+        window.onresize = () => {
+            return (() => {
+                this.fullHeight = document.documentElement.clientHeight
+                if(this.fullHeight < this.windowHeight) {
+                    this.showThird = false;
+                }else {
+                    this.showThird = true;
+                }
+            })()
         }
     },
     methods : {
@@ -191,6 +205,9 @@ export default {
                 }
             }
             localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
+        },
+        test : function () {
+            console.log(this.fullHeight);
         }
     }
 }
