@@ -98,7 +98,7 @@ export default {
             })
         },
         toList : function(tid,navTitle,category) {
-            this.updateActiveBtn(navTitle);//激活用户选择的按钮
+            this.updateActiveBtn(navTitle);//激活用户选择的按钮~
             if(!arguments[2]){
                 this.$router.push({
                     path : '/jiaju',

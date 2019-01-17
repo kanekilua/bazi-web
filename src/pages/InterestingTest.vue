@@ -117,13 +117,15 @@ export default {
                     display: none;
                 }
                 i{
-                    display: inline-block;
+                    display: block;
                     width: 22/75rem;
                     height: 22/75rem;
                     .round(50%);
-                    margin-right: 44/75rem;
                     border: 1px solid #707070;
                     .border-box();
+                }
+                i + div{
+                    margin-left: 44/75rem;
                 }
                 input:checked + i{
                     background: @baseBoldColor;
