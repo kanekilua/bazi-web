@@ -60,39 +60,47 @@ export default {
     },
     methods: {
         init : function () {
-            this.cid = this.$route.query.cid;
-            this.coll_id = this.$route.params.coll_id;
-            if(this.$route.query.cid === '95') {
-               this.article.data.id = this.$route.query.id;
+            if($store.state.deepLink) {
+                this.article.data.id = this.$route.query.id;
                 let params = {
                     cid : '95',
                     id : this.$route.query.id
                 }
                 this.$http.post('/suan/apidata',params,'cesuan',null,this.success);
-            }else if(this.$route.query.cid === '98'){
-                let tid = "";
-                switch(this.$route.params.name){
-                    case "麦玲玲":
-                        tid = '407';
-                        break;
-                    case "苏民峰":
-                        tid = '410';
-                        break;
-                    case "李居明":
-                        tid = '408';
-                        break;
-                    case "宋韶光":
-                        tid = '409';
-                        break;
+            }else  {
+                this.cid = this.$route.query.cid;
+                this.coll_id = this.$route.params.coll_id;
+                if(this.$route.query.cid === '95') {
+                    this.article.data.id = this.$route.query.id;
+                    let params = {
+                        cid : '95',
+                        id : this.$route.query.id
+                    }
+                    this.$http.post('/suan/apidata',params,'cesuan',null,this.success);
+                }else if(this.$route.query.cid === '98'){
+                    let tid = "";
+                    switch(this.$route.params.name){
+                        case "麦玲玲":
+                            tid = '407';
+                            break;
+                        case "苏民峰":
+                            tid = '410';
+                            break;
+                        case "李居明":
+                            tid = '408';
+                            break;
+                        case "宋韶光":
+                            tid = '409';
+                            break;
+                    }
+                    let params = {
+                        cid: '98',
+                        tid : tid,
+                        category : this.$route.params.category,
+                    }
+                    this.$http.post('/suan/apidata',params,'cesuan',null,this.shengxiaoSuccess);
                 }
-                let params = {
-                    cid: '98',
-                    tid : tid,
-                    category : this.$route.params.category,
-                }
-                this.$http.post('/suan/apidata',params,'cesuan',null,this.shengxiaoSuccess);
             }
-            
         },
         success: function (res) {
             let header = {
