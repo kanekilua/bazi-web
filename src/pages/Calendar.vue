@@ -11,7 +11,7 @@
                     <div class="lunar-date">{{todayItem.lunarMonthName}}{{todayItem.lunarDayName}}    {{todayMoreInfo ? todayMoreInfo.week : ""}}</div>
                 </div>
             </div>
-            <div class="right" @click="$jump('/main/calendar/weather')">
+            <div class="right" @click="jumpWeather">
                 <div class="content">
                     <div class="upper">
                         <i class="weather" :style="{backgroundImage: 'url(' + weatherIcon + ')'}"></i>
@@ -308,7 +308,6 @@ export default {
                 night = true;
             }
             this.weatherIcon = night ? require('../assets/image/calendar-weather/' + global.WEATHER[this.weather.weather.HeWeather6[0].daily_forecast[0].cond_code_n] + '.png') : require('../assets/image/calendar-weather/' + global.WEATHER[this.weather.weather.HeWeather6[0].daily_forecast[0].cond_code_d] + '.png');
-            // console.log(this.weather.weather.HeWeather6[0].daily_forecast[0].cond_txt_d);
         },
         showSelector : function (target) {
             // 显示拉下框，并将下拉框中的滚轮滑动到对应地方
@@ -442,7 +441,9 @@ export default {
                 this.moreInfo = this.handleDateInfo(res.data.content);
                 if(this.clickItem.year === this.todayItem.year && this.clickItem.month === this.todayItem.month && this.clickItem.day === this.todayItem.day && this.todayMoreInfo === null) {
                     this.todayMoreInfo = this.moreInfo;
-                    this.weather.weekday = this.todayMoreInfo.week;
+                    if(this.$store.state.weather.weekday === '' && this.todayMoreInfo.week !== undefined && this.todayMoreInfo.week !== null && this.todayMoreInfo.week !== '') {
+                        this.$store.commit('weather/updateWeekday',this.todayMoreInfo.week);
+                    }
                 }
             }else {
                 this.moreInfo = null;
@@ -536,6 +537,11 @@ export default {
                 return str.slice(str.indexOf(keyArr[0] + "  ") + 4,str.indexOf(" " + keyArr[1] + "  ")).trim().split(keyArr[2]);
             }else {
                 return str.slice(str.indexOf(keyArr[0] + "  "),str.indexOf(" "+keyArr[1]+"  ")).trim().split("  ")[1];
+            }
+        },
+        jumpWeather : function () {
+            if(this.$store.state.weather.weekday !== null && this.$store.state.weather.weekday !== undefined && this.$store.state.weather.weekday !== '') {
+                this.$jump('/main/calendar/weather');
             }
         },
         jumpArticle : function (article) {

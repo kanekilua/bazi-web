@@ -28,16 +28,16 @@
                     <i></i>
                     <div>大师招募</div>
                 </div>
-                <div class="table-cell attention" @click="$jump('/main/mine/myCollection')">
+                <div class="table-cell attention" @click="jump('/main/mine/myCollection')">
                     <i></i>
                     <div>我的收藏</div>
                 </div>
-                <div class="table-cell service" @click="$jump('/main/mine/contactService')">
+                <div class="table-cell service" @click="jump('/main/mine/contactService')">
                     <i></i>
                     <div>联系客服</div>
                 </div>
             </div>
-            <div class="feedback" @click="$jump('/main/mine/feedback')">
+            <div class="feedback" @click="jump('/main/mine/feedback')">
                 <div class="left">
                     <i></i>
                     <div>意见反馈</div>
@@ -62,7 +62,6 @@ export default {
     data () {
         return {
             loginFlag : false,
-            showTrans: false,
             avanta : require('../assets/image/mine/avatar.png'),
             name : '未注册/登录',
             showShare : false,
@@ -71,9 +70,6 @@ export default {
     },
     created() {
         this.init();
-    },
-    mounted() {
-        this.showTrans=true;
     },
     methods: {
         init :function () {
@@ -97,6 +93,13 @@ export default {
         },
         switchShowShare : function (val) {
             this.showShare = val;
+        },
+        jump : function (path) {
+            if(this.loginFlag) {
+                this.$jump(path);
+            }else {
+                this.$jump('/login');
+            }
         }
     },
 }
