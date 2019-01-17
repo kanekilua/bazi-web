@@ -2,7 +2,6 @@
     <div class="wrap">
         <v-title-header>
             生肖配对
-            <div class="right-ico" slot="right-ico"></div>
         </v-title-header>
         <div class="content-wrap">
             <v-title-nav>
@@ -131,11 +130,6 @@ export default {
     }
 }
 .wrap {
-    .right-ico{
-        width: 38/75rem;
-        height: 38/75rem;
-        background: url('../assets/image/common/share.png')no-repeat center center / 100% 100%;
-    }
     .male-profile , .female-profile {
         width: 94%;
         margin: 20/75rem auto;

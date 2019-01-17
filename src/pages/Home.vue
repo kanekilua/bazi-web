@@ -4,7 +4,7 @@
         <div class="content-wrap">
             <swiper class="swiper-box" :options="swiperOption">
                 <swiper-slide v-for="(imgItem,index) in imgList" :key="index">
-                    <img :src="imgItem.image" alt="swiper">
+                    <img :src="imgItem.image" alt="swiper" @click="clickBannerImg(imgItem.link)">
                 </swiper-slide>
                 <div class="swiper-pagination"></div>
             </swiper>
@@ -105,15 +105,17 @@ export default {
             swiperOption: {
                 slidesPerView: 'auto',
                 direction:"horizontal",/*横向滑动*/ 
-                loop: true,
-                pagination:{
-                    el: '.swiper-pagination',
-                    bulletClass : 'my-bullet',
-                    bulletActiveClass: 'my-bullet-active',
-                },
-                autoplay:{
-                    delay: 3000
-                },
+                // loop: true,
+                // pagination:{
+                //     el: '.swiper-pagination',
+                //     bulletClass : 'my-bullet',
+                //     bulletActiveClass: 'my-bullet-active',
+                // },
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                }
+
             },
             testList: [],
         }
@@ -182,6 +184,13 @@ export default {
         success: function (res) {
             this.imgList = res.data.index.children;
         },
+        clickBannerImg: function (path) {
+            if(path=='/bazi'){
+                this.jump('/bazi')
+            }else {
+                this.$jump(path);
+            }
+        },
         getInterestingTest : function () {
             let params = {
                 cid : '107',
@@ -191,7 +200,6 @@ export default {
         },
         testSuccess: function (res) {
             this.testList = res.data;
-            console.log(res);
         },
         toTest: function (id) {
             let testList = this.testList[id-1]; 
@@ -231,17 +239,14 @@ export default {
 .swiper-box{
     width: 100%;
     position: relative;
-    margin-top: 24/75rem;
     .swiper-slide{
         width: 100%;
         height: 350/75rem;
-        padding-bottom: 30/75rem;
         &> img{
             display: block;
-            width: 96%;
+            width: 100%;
             height: 100%;
             margin: 0 auto;
-            .round(10/75rem);
         }
     }
     .swiper-pagination{

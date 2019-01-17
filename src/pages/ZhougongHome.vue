@@ -11,8 +11,8 @@
                         </div>
                     </div>
                 </div>
-                <ul class="result-box" v-show="showPannel">
-                    <div v-if="result.length===0">未匹配到相关词条</div>
+                <ul class="result-box" v-show="showPannel && keyWord!==''">
+                    <div v-if="!result.length">未匹配到相关词条</div>
                     <li v-for="(item,index) in result" :key="index" v-show="index<=10" @click="Result(item.id,item.title)">{{item.title}}</li>
                 </ul>
             </div>
@@ -130,10 +130,13 @@ export default {
         },
         // 搜索结果
         fetchSuccess (res){
-            let resData = JSON.stringify(res).replace(/&#8203;/g,'');
-            resData = JSON.parse(resData);
-            this.result = resData.list;
-            // console.log(res)
+            if(res){
+                let resData = JSON.stringify(res).replace(/&#8203;/g,'');
+                resData = JSON.parse(resData);
+                this.result = resData.list;
+            }else {
+                return;
+            }
         }
     }
 }
