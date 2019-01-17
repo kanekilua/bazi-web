@@ -70,6 +70,7 @@ export default {
                 }, (res) => {
                     this.$emit('shareSuccess');
                 }, (reason) => {
+                    this.$emit(reason,'系统尚未安装微信');
                 });
             }, (reason) => {
                 this.$emit('shareFail','系统尚未安装微信');
@@ -95,10 +96,12 @@ export default {
                 QQSDK.shareNews( () => {
                     this.$emit('shareSuccess');
                 }, (failReason) => {
+                    this.$emit(failReason,'系统尚未安装QQ');
                 }, args);
             }, () => {
                 this.$emit('shareFail','系统尚未安装QQ');
             }, args);
+            this.show = false;
         }
     }
 }

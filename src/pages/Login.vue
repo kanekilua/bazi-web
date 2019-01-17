@@ -187,7 +187,11 @@ export default {
         loginSuccess : function(result) {
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             let header = {'Authorization':result.data.token};
-            this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,null);
+            this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,(res)=> {
+                if(res.code === "error" && res.data.id !== undefined && res.data.id !== null) {
+                    this.getUserInfoSuccess(res);
+                }
+            });
         },
         wechatLogin : function () {
             Wechat.isInstalled((installed) => {
@@ -223,6 +227,7 @@ export default {
                         access_token : result.access_token,
                         expires_in : result.expires_time.substring(0,result.expires_time.length - 3)
                     }
+
                     this.$http.post('/thirdlogin',loginData,'app',null,this.thirdLogin,null);
                 }, (failReason) => {
                     this.$vux.toast.text(failReason,"top");
@@ -267,7 +272,11 @@ export default {
             }
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             let header = {'Authorization':result.data.token};
-            this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,null);
+            this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,(res)=> {
+                if(res.code === "error" && res.data.id !== undefined && res.data.id !== null) {
+                    this.getUserInfoSuccess(res);
+                }
+            });
         }
     }
 }

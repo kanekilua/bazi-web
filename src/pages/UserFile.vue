@@ -83,7 +83,7 @@ export default {
         init : function () {
             if(this.$store.state.loginAccountInfo !== null ) {
                 this.name = this.$store.state.loginAccountInfo.realname;
-                this.avanta = this.$store.state.loginAccountInfo.gender + '' === '1' ? require("../assets/image/common/man.png") : require("../assets/image/common/woman.png") ;
+                this.avanta = this.$store.state.loginAccountInfo.avatar === "" ? this.$store.state.loginAccountInfo.gender + '' === '1' ? require("../assets/image/common/man.png") : require("../assets/image/common/woman.png") :  this.$store.state.loginAccountInfo.avatar;
             }else {
                 this.$jump('/login');
             }         

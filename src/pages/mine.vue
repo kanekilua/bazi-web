@@ -87,7 +87,9 @@ export default {
             }
             let account_info_arr = JSON.parse(account_info_str);
             let account_info = account_info_arr[login_account];
-            account_info.avatar = account_info.gender + '' === '1' ? require('../assets/image/common/man.png') : require('../assets/image/common/woman.png');
+            if(account_info.avatar === "") {
+                account_info.avatar = account_info.gender + '' === '1' ? require('../assets/image/common/man.png') : require('../assets/image/common/woman.png');
+            }
             this.avanta = account_info.avatar ;
             this.name = account_info.realname;
             this.$store.commit('updateLoginAccountInfo',account_info);
