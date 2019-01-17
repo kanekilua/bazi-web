@@ -11,7 +11,7 @@ export default {
     },
     mounted () {
         setTimeout (()=>{
-            this.$jump('login');
+            this.$jump('/main/home');
         },3000);
     },
     methods: {
