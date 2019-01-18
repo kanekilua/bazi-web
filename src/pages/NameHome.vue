@@ -14,7 +14,10 @@
                     <swiper-slide v-for="(outItem,outIndex) in list" :key="outIndex">
                         <img v-show="outIndex===1" :src="outItem.imgUrl" class="item-img" @click="$jump(outItem.route)">
                         <div class="name-test-bg" v-show="outIndex===0">
-                            <input type="text" class="name-input" v-model="inputName" placeholder="请输入您的姓名">
+                            <input type="text" class="name-input" placeholder="请输入您的姓名"
+                                v-model="inputName"
+                                @keyup="listenKey"
+                            >
                             <input type="button" class="begin-test" value="开始测试" @click="beginTest">
                         </div>
                         <div class="h-list">
@@ -122,6 +125,12 @@ export default {
                         name : this.inputName,
                     }
                 })
+            }
+        },
+        listenKey: function (e) {
+            let keyCode = e.keyCode;
+            if(keyCode === 13) {
+                this.beginTest();
             }
         }
     }
