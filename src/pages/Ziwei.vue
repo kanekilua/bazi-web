@@ -190,8 +190,6 @@ export default {
                 this.content = content[i];  //渲染
                 this.tableList[this.selectIndex].content = this.content; //缓存请求结果，避免重复点击时发送请求
             }
-            
-
         }
     },
 }
