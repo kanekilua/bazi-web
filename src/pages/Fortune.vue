@@ -2,7 +2,6 @@
     <div class="fortune-wrap">
         <v-title-header>
             运势
-            <div class="right-ico" slot="right-ico" @click="switchUser"></div>
         </v-title-header>
         <div class="user-message-box">
            <img :src="avatar" alt="用户头像" class="avatar">
@@ -221,11 +220,6 @@ export default {
     padding-top: 90/75rem;
     .border-box();
     background: #f1f1f1;
-    .right-ico{
-        width: 38/75rem;
-        height: 38/75rem;
-        background: url('../assets/image/common/switch.png')no-repeat center center / 100% 100%;
-    }
     /deep/ .header{
         .back{
             visibility: hidden;
