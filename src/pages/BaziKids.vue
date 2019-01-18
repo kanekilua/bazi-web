@@ -6,12 +6,12 @@
                 v-html="this.resData.data.family.unvisitableText"
                 :class="this.$store.state.bazi.hideText ? 'hide-text' : ''"
             ></p>
-            <div :class="this.$store.state.bazi.hideText ? 'mask' : 'hide'">
-            </div>
         </div>
-        <div class="share-btn" @click="$emit('switchShowShare',true)">
-            <i></i>
-            <span>分享解锁</span>
+        <div :class="this.$store.state.bazi.hideText ? 'mask' : 'hide'">
+            <div class="share-btn" @click="$emit('switchShowShare',true)">
+                <i></i>
+                <span>分享解锁</span>
+            </div>
         </div>
     </div>
 </template>
