@@ -3,7 +3,7 @@
         <v-title-header>
             相术解析
         </v-title-header>
-        <div class="content-wrap" ref="content">
+        <div class="content-wrap-xs" ref="content">
             <div class="swiper-container">
                 <div class="swiper-top">
                     <v-nav :navList="navList" :nowIndex="navIndex" @updateNavIndex="updateNavIndex"></v-nav>
@@ -72,7 +72,6 @@ export default {
         this.swiper.on('slideChange', () => {
             this.updateNavIndex(this.swiper.activeIndex);
         });
-        // console.log(this.nowIndex)
         this.pullDown();
     },
     methods : {
@@ -135,91 +134,81 @@ export default {
         pullDown: function () {
             this.nowIndex= this.navIndex;
             let content = this.$refs.content;
-            content.addEventListener('scroll',() => {
-                // console.log(content.scrollTop)
-                if(this.nowIndex===0){
-                    if(this.list[0].switchBack===false){//首次切换时设置滚动条在顶部
-                        content.scrollTop = 0;
-                        this.list[0].switchBack=true
+            content.scrollTop = this.list[this.navIndex].scrollPosition;
+            content.removeEventListener('scroll',this.hendleFun,true);
+            content.addEventListener('scroll',this.hendleFun,true); 
+        },
+        hendleFun: function () {
+            let content = this.$refs.content;
+            console.log(this.list[this.navIndex].scrollPosition)
+            let position = content.scrollTop; //复制滚动条位置
+            if(this.nowIndex===0){
+                this.list[0].scrollPosition = position; //保存个体的位移滚动条位置
+                //滚动条触底且没有在发送状态时
+                console.log(this.list[0].scrollPosition)
+                if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[0].loading===false){
+                    this.tip="正在加载";
+                    this.showLoading = true; //显示加载ico
+                    this.list[0].loading = true; //加载中停止发送更多请求
+                    this.list[0].limit++;//请求10条数据
+                    let sendData = {
+                        cid : 96,
+                        tid: '501',
+                        limit: this.list[0].limit,
                     }
-                    this.list[0].scrollPosition = content.scrollTop;
-                    //滚动条触底且没有在发送状态时
-                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[0].loading===false){
-                        this.tip="正在加载";
-                        this.showLoading = true; //显示加载ico
-                        this.list[0].loading = true; //加载中停止发送更多请求
-                        this.list[0].limit++;//请求10条数据
-                        let sendData = {
-                            cid : 96,
-                            tid: '501',
-                            limit: this.list[0].limit,
-                        }
-                        this.$http.post('/suan/apidata',sendData,'cesuan',null,this.loadmore,null);
-                        this.showIco = true;//显示加载更多动画
-                    }
+                    this.$http.post('/suan/apidata',sendData,'cesuan',null,this.loadmore,null);
+                    this.showIco = true;//显示加载更多动画
                 }
-                if(this.nowIndex===1){
-                    if(this.list[1].switchBack===false){
-                        content.scrollTop = 0;
-                        this.list[1].switchBack=true
+            }
+            if(this.nowIndex===1){
+                this.list[1].scrollPosition = position;         
+                if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[1].loading===false){ //触底且没有在发送状态
+                    // console.log('到底了');
+                    this.tip="正在加载";
+                    this.showLoading = true;
+                    this.list[1].loading = true; 
+                    this.list[1].limit++;
+                    let sendData = {
+                        cid : 96,
+                        tid: '502',
+                        limit: this.list[1].limit,
                     }
-                    // content.scrollTop = this.list[1].scrollPosition;          
-                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[1].loading===false){ //触底且没有在发送状态
-                        // console.log('到底了');
-                        this.tip="正在加载";
-                        this.showLoading = true;
-                        this.list[1].loading = true; 
-                        this.list[1].limit++;
-                        let sendData = {
-                            cid : 96,
-                            tid: '502',
-                            limit: this.list[1].limit,
-                        }
-                        this.$http.post('/suan/apidata',sendData,'cesuan',null,this.loadmore1,null);
-                        this.showIco = true;//显示加载更多动画
-                    }
+                    this.$http.post('/suan/apidata',sendData,'cesuan',null,this.loadmore1,null);
+                    this.showIco = true;//显示加载更多动画
                 }
-                if(this.nowIndex===2){ 
-                    if(this.list[2].switchBack===false){
-                        content.scrollTop = 0;
-                        this.list[2].switchBack=true
+            }
+            if(this.nowIndex===2){ 
+                this.list[2].scrollPosition = position;
+                if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[2].loading===false){ //触底且没有在发送状态
+                    this.tip="正在加载";
+                    this.showLoading = true;
+                    this.list[2].loading = true; //加载中停止发送更多请求
+                    this.list[2].limit++;//请求10条数据
+                    let sendData = {
+                        cid : 96,
+                        tid: '503',
+                        limit: this.list[2].limit,
                     }
-                    // this.list[2].scrollPosition = content.scrollTop;
-                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[2].loading===false){ //触底且没有在发送状态
-                        this.tip="正在加载";
-                        this.showLoading = true;
-                        this.list[2].loading = true; //加载中停止发送更多请求
-                        this.list[2].limit++;//请求10条数据
-                        let sendData = {
-                            cid : 96,
-                            tid: '503',
-                            limit: this.list[2].limit,
-                        }
-                        this.$http.post('/suan/apidata',sendData,'cesuan',null,this.loadmore2,null);
-                        this.showIco = true;//显示加载更多动画
-                    }
+                    this.$http.post('/suan/apidata',sendData,'cesuan',null,this.loadmore2,null);
+                    this.showIco = true;//显示加载更多动画
                 }
-                if(this.nowIndex===3){ 
-                    if(this.list[3].switchBack===false){
-                        content.scrollTop = 0;
-                        this.list[3].switchBack=true
+            }
+            if(this.nowIndex===3){ 
+                this.list[3].scrollPosition = position;
+                if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[3].loading===false){ //触底且没有在发送状态
+                    this.tip="正在加载";
+                    this.showLoading = true;
+                    this.list[3].loading = true; //加载中停止发送更多请求
+                    this.list[3].limit++;//请求10条数据
+                    let sendData = {
+                        cid : 96,
+                        tid: '504',
+                        limit: this.list[3].limit,
                     }
-                    // this.list[2].scrollPosition = content.scrollTop;
-                    if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[3].loading===false){ //触底且没有在发送状态
-                        this.tip="正在加载";
-                        this.showLoading = true;
-                        this.list[3].loading = true; //加载中停止发送更多请求
-                        this.list[3].limit++;//请求10条数据
-                        let sendData = {
-                            cid : 96,
-                            tid: '504',
-                            limit: this.list[3].limit,
-                        }
-                        this.$http.post('/suan/apidata',sendData,'cesuan',null,this.loadmore3,null);
-                        this.showIco = true;//显示加载更多动画
-                    }
-                }            
-            })  
+                    this.$http.post('/suan/apidata',sendData,'cesuan',null,this.loadmore3,null);
+                    this.showIco = true;//显示加载更多动画
+                }
+            }            
         },
         loadmore: function (res) {
             for (let i of res.data){
@@ -315,7 +304,7 @@ export default {
     .hide{
         display: none;
     }
-    .content-wrap{
+    .content-wrap-xs{
         position: absolute;
         top: 200/75rem;
         bottom: 0;
