@@ -183,6 +183,7 @@ export default {
     },
     created() {
         this.getData();
+        
     },
     methods: {
         getData: function () {
