@@ -366,7 +366,7 @@ export default {
                         .round(10/75rem);
                     }
                     & > div {
-                        width: 52%;
+                        width: 54%;
                         margin-left: 16/75rem;
                         & > h2 {
                             width: 100%;
@@ -381,8 +381,9 @@ export default {
                         }
                         & > p {
                             width: 100%;
-                            font-size: 22/75rem;
-                            .ellipsis(3);
+                            height: 90/75rem;
+                            overflow: hidden;
+                            line-height: 30/75rem;
                         }
                     }
                 }
@@ -437,11 +438,12 @@ export default {
                         }
                         .introduction{
                             & > p{
-                                position: relative;
                                 width: 94%;
+                                height: 100/75rem;
+                                overflow: hidden;
                                 line-height: 33/75rem;
                                 padding-right: 10/75rem;
-                                .ellipsis(3);
+                                font-size: 22/75rem;
                             }
                         }
                     }
