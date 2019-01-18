@@ -37,8 +37,8 @@
             <div v-transfer-dom>
                 <x-dialog v-model="showDialogStyle" hide-on-blur :dialog-style="{'max-width': '100%', width: '100%', height: '20%', 'background-color': 'transparent'}">
                     <div class="img-dialog">
-                        <button class="takePhoto">拍照</button>
-                        <button class="camera">从相册中选择</button>
+                        <button class="takePhoto" @click="camera">拍照</button>
+                        <button class="camera" @click="photo">从相册中选择</button>
                     </div>
                 </x-dialog>
             </div>
@@ -137,7 +137,17 @@ export default {
             navigator.camera.getPicture(this.cameraSuccess, this.cameraError, cameraOptions);
         },
         cameraSuccess : function (imageData) {
-            return this.avatar = 'data:image/jpeg;base64,' + imageData;
+            this.$vux.toast.text('照片的类型: ' + typeof(imageData),'top');
+            // let header = {'Authorization':localStorage.getItem(global.APP_TOKEN)};
+            // let postData = {
+            //     file : imageData
+            // }
+            // this.$http.post('/features/avatar',postData,null,header,(res) => {
+            //     if(res.code === "success") {
+            //         this.avatar = res.data.upload_url;
+            //     }
+            // },null);
+            // return this.avatar = 'data:image/jpeg;base64,' + imageData;
         },
         cameraError : function (message) {
             // console.log(message);
