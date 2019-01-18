@@ -170,21 +170,13 @@ export default {
                             .ellipsis(1);
                         }
                         & > p {
-                            position: relative;
                             width: 100%;
-                            line-height: 30/75rem;
-                            height: 90/75rem;
-                            font-size: 22/75rem;
+                            height: 100/75rem;
                             padding-right: 11/75rem;
                             .border-box();
                             overflow: hidden;
-                        }
-                        & > p::after {
-                            position: absolute;
-                            content: "...";
-                            bottom: 0;
-                            right: 10/75rem;
-                            font-weight: bolder;
+                            line-height: 33/75rem;
+                            font-size: 22/75rem;
                         }
                     }
                 }

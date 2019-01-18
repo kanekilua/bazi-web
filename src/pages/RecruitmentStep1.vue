@@ -150,11 +150,6 @@ export default {
             if(!this.$utils.checkQQ(this.masterQQ,this)){
                 return;
             }
-            // 检查城市
-            if(this.city=='选择市'||this.city=='忽略'){
-                this.$vux.toast.text('请选择您所在城市','top');
-                return;
-            }
             let masterInfoTmp = this.masterInfo;
             if(masterInfoTmp === null) {
                 masterInfoTmp  = {};

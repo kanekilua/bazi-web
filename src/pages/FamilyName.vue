@@ -5,7 +5,10 @@
         </v-title-header>
         <div class="content-wrap">
             <div class="search-box">
-                <input type="text" placeholder="搜索姓氏" v-model="firstName">
+                <input type="text" placeholder="搜索姓氏" 
+                    v-model="firstName"
+                    @keyup="listenKey"
+                >
                 <button @click="search()">搜索</button>
             </div>
             <div class="table">
@@ -61,10 +64,20 @@ export default {
             }
         },
         search: function () {
-            if(this.nameList.toString().includes(this.firstName)){ //百家姓里是否存在输入的字符串。
-               this.toInner(this.firstName);
-            }else {
-               this.showDialogStyle = true;
+            if(this.firstName){
+                if(this.nameList.toString().includes(this.firstName)){ //百家姓里是否存在输入的字符串。
+                this.toInner(this.firstName);
+                }else {
+                this.showDialogStyle = true;
+                }
+            } else {
+                this.$vux.toast.text('请输入姓氏！','top');
+            }  
+        },
+        listenKey: function (e) { 
+            let keyCode = e.keyCode;
+            if(keyCode === 13){ //监听enter
+                this.search();
             }
         },
         toInner: function (item) {
