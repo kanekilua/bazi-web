@@ -116,7 +116,6 @@ export default {
                 return;
             }
             else {
-                this.inputName = "";
                 this.$router.push({
                     path: '/nameTestResult',
                     query: {
