@@ -1,7 +1,7 @@
 <template>
     <div class="name-home-wrap">
         <v-header></v-header>
-        <v-title-header >
+        <v-title-header :backLink="$route.params.backLink ? $route.params.backLink : this.backLink">
             姓名大全
         </v-title-header>
         <div class="swiper-top">
@@ -51,6 +51,7 @@ export default {
     },
     data () {
         return {
+            backLink : '/main/home',
             navList: ["姓名测试","姓名大全"],
             swiperOption : { initialSlide: this.navIndex ,autoHeight : true },
             list : [
@@ -115,7 +116,6 @@ export default {
                 return;
             }
             else {
-                this.inputName = "";
                 this.$router.push({
                     path: '/nameTestResult',
                     query: {
