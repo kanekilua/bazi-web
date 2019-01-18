@@ -137,9 +137,10 @@ export default {
             navigator.camera.getPicture(this.cameraSuccess, this.cameraError, cameraOptions);
         },
         cameraSuccess : function (imageData) {
+            this.$vux.toast.text(imageData,'top');
             let header = {'Authorization':localStorage.getItem(global.APP_TOKEN)};
             let postData = {
-                'file' : imageData
+                'file' : 'data:image/jpeg;base64,' + imageData
             }
             this.$http.post('/features/avatar',postData,null,header,(res) => {
                 if(res.code === "success") {
