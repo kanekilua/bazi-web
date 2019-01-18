@@ -10,14 +10,14 @@
             </swiper>
             <div class="menu">
                 <div class="menu-wrap">
-                    <div class="menu1" @click="jump('love')">
+                    <div class="menu1" @click="()=>{jump('love');$store.commit('love/updateNavIndex',1);}">
                         <div class="left">
                             <div class="title">八字合婚</div>
                             <div class="text">八字鉴定你们<br>爱情合拍指数</div>
                         </div>
                         <div class="right"></div>
                     </div>
-                    <div class="menu2" @click="jump('love')">
+                    <div class="menu2" @click="()=>{jump('love');$store.commit('love/updateNavIndex',0);}">
                         <div class="left">
                             <div class="title">桃花运</div>
                             <div class="text">
