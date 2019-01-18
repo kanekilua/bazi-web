@@ -137,16 +137,15 @@ export default {
             navigator.camera.getPicture(this.cameraSuccess, this.cameraError, cameraOptions);
         },
         cameraSuccess : function (imageData) {
-            this.$vux.toast.text('照片的类型: ' + typeof(imageData),'top');
-            // let header = {'Authorization':localStorage.getItem(global.APP_TOKEN)};
-            // let postData = {
-            //     file : imageData
-            // }
-            // this.$http.post('/features/avatar',postData,null,header,(res) => {
-            //     if(res.code === "success") {
-            //         this.avatar = res.data.upload_url;
-            //     }
-            // },null);
+            let header = {'Authorization':localStorage.getItem(global.APP_TOKEN)};
+            let postData = {
+                'file' : imageData
+            }
+            this.$http.post('/features/avatar',postData,null,header,(res) => {
+                if(res.code === "success") {
+                    this.avatar = res.data.upload_url;
+                }
+            },null);
             // return this.avatar = 'data:image/jpeg;base64,' + imageData;
         },
         cameraError : function (message) {
