@@ -118,9 +118,11 @@ export default {
         camera : function () {
             this.showDialogStyle = false;
             var cameraOptions={
-                quality: 30,
+                quality: 100,
                 sourceType:1,
                 allowEdit: true,
+                targetWidth : 200,
+                targetHeight : 200,
                 saveToPhotoAlbum : true,
                 destinationType: Camera.DestinationType.DATA_URL, 
             };
@@ -129,28 +131,44 @@ export default {
         photo : function () {
             this.showDialogStyle = false;
             var cameraOptions={
-                quality: 30,
+                quality: 100,
                 sourceType:0,
+                targetWidth : 200,
+                targetHeight : 200,
                 allowEdit: true,
                 destinationType:  Camera.DestinationType.DATA_URL, 
             };
             navigator.camera.getPicture(this.cameraSuccess, this.cameraError, cameraOptions);
         },
         cameraSuccess : function (imageData) {
-            this.$vux.toast.text(imageData,'top');
-            let header = {'Authorization':localStorage.getItem(global.APP_TOKEN)};
-            let postData = {
-                'file' : 'data:image/jpeg;base64,' + imageData
-            }
-            this.$http.post('/features/avatar',postData,null,header,(res) => {
+            let imageName = 'avatar' + this.$store.state.loginAccount + '.jpg';
+            let imageFile = this.dataURLtoFile('data:image/jpeg;base64,' + imageData,imageName);
+            let param = new FormData();
+            param.append('file',imageFile,imageName);
+            let header = {
+                'Authorization':localStorage.getItem(global.APP_TOKEN),
+                'Content-Type' : 'multipart/form-data'
+            };
+            this.$http.post('/features/avatar',param,null,header,(res) => {
                 if(res.code === "success") {
-                    this.avatar = res.data.upload_url;
+                    this.avanta = res.data.upload_url;
+
+                    let loginAccountInfo = this.$store.state.loginAccountInfo;
+                    loginAccountInfo.avatar = this.avanta;
+                    this.$store.commit('updateLoginAccountInfo',loginAccountInfo);
                 }
             },null);
-            // return this.avatar = 'data:image/jpeg;base64,' + imageData;
         },
         cameraError : function (message) {
             // console.log(message);
+        },
+        dataURLtoFile : function (dataurl, filename) {//将base64转换为文件
+            var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],
+            bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+            while(n--){
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            return new File([u8arr], filename, {type:'image/png'});
         }
     },
 }
