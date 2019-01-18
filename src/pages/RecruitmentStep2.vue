@@ -27,7 +27,7 @@
             </div>
             <div class="form-item">
                 <div class="key">个人头衔</div>
-                <input type="text" placeholder="非必填，限20字以内，示例：xx协会会长" v-model="honor">
+                <input type="text" placeholder="非必填，限20字以内，示例：xx协会会长" v-model="honor" maxlength="20">
             </div>
              <div class="form-item">
                 <div class="key">学习经历</div>
