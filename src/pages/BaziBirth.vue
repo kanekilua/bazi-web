@@ -34,10 +34,10 @@
                 </div>
                 <button class="save-confirm" @click="saveData">保存</button>
             </div>
-            <v-title-nav>
-                用户管理
-            </v-title-nav>
             <div class="user-manage" v-if="paipanDataList.length > 0" >
+                <v-title-nav>
+                    用户管理
+                </v-title-nav>
                 <div>
                     <div v-for="(item,index) in paipanDataList" :key="index" class="user-item">
                         <img class="avata" :src="item.avanta">
@@ -145,16 +145,13 @@ export default  {
                 this.dateArray[2] =solar.cDay;
             }
             let paipanData = {
-                'cid' : 48,
                 'name' : this.name,
-                'area' : this.province === "忽略" ? null : this.province,
                 'sex' : this.gender,
                 'year' : this.dateArray[0],
                 'month' : this.dateArray[1],
                 'date' : this.dateArray[2],
                 'hour' : this.dateArray[3],
-                'minute' : this.dateArray[4],
-                'yezis' : 1
+                'minute' : this.dateArray[4]
             }
             let app_paipan_data = [];
             // 判断localStorage中是否有global.APP_BAZI_DATA，有的话取出来
@@ -295,13 +292,12 @@ export default  {
                 background-color: @baseBoldColor;
             }
         }
-        /deep/ .title-nav {
-            width: 640/75rem;
-            margin: 0 auto;
-        }
         .user-manage {
             width: 640/75rem;
             margin: 0 auto 0 auto;
+            /deep/ .title-nav {
+                padding-left: 0;
+            }
             .navTitle {
                 font-size:28/75rem;
                 color:rgba(0,0,0,1);
