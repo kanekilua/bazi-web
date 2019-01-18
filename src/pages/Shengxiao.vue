@@ -380,19 +380,9 @@ export default {
                             .border-box();
                         }
                         & > p {
-                            position: relative;
                             width: 100%;
-                            line-height: 30/75rem;
-                            height: 90/75rem;
                             font-size: 22/75rem;
-                            overflow: hidden;
-                        }
-                        & > p::after {
-                            position: absolute;
-                            content: "...";
-                            bottom: 0;
-                            right: 0;
-                            font-weight: bolder;
+                            .ellipsis(3);
                         }
                     }
                 }
@@ -448,20 +438,10 @@ export default {
                         .introduction{
                             & > p{
                                 position: relative;
-                                width: 96%;
+                                width: 94%;
                                 line-height: 33/75rem;
-                                height: 100/75rem;
-                                font-size: 22/75rem;
-                                overflow: hidden;
-                                font-size: 1em;
                                 padding-right: 10/75rem;
-                            }
-                            & > p::after {
-                                position: absolute;
-                                content: "...";
-                                bottom: 0;
-                                right: 0;
-                                font-weight: bolder;
+                                .ellipsis(3);
                             }
                         }
                     }
