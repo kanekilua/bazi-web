@@ -41,9 +41,6 @@ export default {
                         type : "success",
                         isShowMask : true
                     });
-                    setTimeout(() => {
-                        this.$jump('/main/mine');
-                    },1500)
                 }
             },this.failure);
         }
