@@ -40,12 +40,14 @@ export default {
                     id : ""
                 }
             },
-            isCollet : null
+            isCollet : null,
+            coll_id : ''
         }
     },
     methods: {
         init : function () {
             this.cid = this.$route.query.cid;
+            this.coll_id = this.$route.params.coll_id;
             if(this.$route.query.cid === '95') {
                this.article.data.id = this.$route.query.id;
                 let params = {
@@ -92,20 +94,11 @@ export default {
             });
 
             this.article = res;
-            if(res.data.category === "八字合婚") {
-                res.data.content = res.data.content.replace('<strong>' + res.data.title +'</strong>','');
-            }
             let content = res.data.content;
-            if(res.data.img !== null) {
-                let Img = res.data.img.split(' ');
-                let reg = /src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/gi;  //匹配src="http://www.zhouyi.cc或者src="https://www.zhouyi.cc
-                let srcArr = res.data.content.match(reg);
-                for(let i=0; i<srcArr.length; i++){
-                    content = content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
-                    srcArr[i] ='src='+'"'+global.APP_DOMIAN+Img[i];//拼接服务器图片地址
-                    content = content.replace(/src="http:\/\/www([^"]+)|src="https:\/\/www([^"]+)/,srcArr[i])//替换图片url
-                };
+            if(res.data.category === "八字合婚") {
+                content = content.replace('<strong>' + res.data.title +'</strong>','');
             }
+            content = content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
             this.article.data.content = content;
         },
         shengxiaoSuccess : function(res) {
@@ -128,7 +121,7 @@ export default {
         collect : function ()  {
             if(this.isCollet) {
                 let params = {
-                    coll_id : this.$route.params.coll_id
+                    coll_id : this.coll_id
                 }
                 let header = {
                     'Authorization' : localStorage.getItem(global.APP_TOKEN)
@@ -155,7 +148,7 @@ export default {
         collectSuccess : function (res) {
             if(res.code === "success") {
                 this.isCollet = true;
-                console.log('123');
+                this.coll_id = res.data.coll_id;
             }
         }
     }

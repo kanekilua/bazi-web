@@ -93,8 +93,8 @@
                 <div class="swiper">
                     <swiper :options="swiperOption" ref="mySwiper">
                         <swiper-slide v-for="(item,index) in articleList" :key="index">
-                            <div class="article-cell" v-for="(articleItem,articleIndex) in item" :key="articleIndex">
-                                <h2>{{articleItem}}</h2><i></i>
+                            <div class="article-cell" v-for="(articleItem,articleIndex) in item" :key="articleIndex" @click="jumpArticle(articleItem)">
+                                <h2>{{articleItem.title}}</h2><i></i>
                             </div>
                         </swiper-slide>
                     </swiper>
@@ -167,11 +167,7 @@ export default {
             navList : ['吉日查询','农历查询','民俗节日'],
             navIndex : 0,
             swiperOption : { initialSlide: this.navIndex },
-            articleList : [
-                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉'],
-                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉'],
-                ['女人哪个月出生富贵','女人最富贵的出生日','2019年几月结婚最好','2019年哪天搬家最好','2017年12月出行的黄道','2017年11月出行的黄道','2017年10月出行的黄道','2017年9月出行的黄道吉','2017年8月出行的黄道吉日查询','2017年7月出行的黄道吉','2017年6月出行的黄道吉']
-            ],
+            articleList : [[],[],[]],
             moreInfo : {'yiji':{'yi':'','ji':''},'week':''},
             todayMoreInfo : null,
             // weather : {'weather': {'HeWeather6' : [{'basic': { 'location' : ''} , 'daily_forecast' : [{'tmp_min' : ''}]}]}},
@@ -270,6 +266,29 @@ export default {
             this.daySelectIndex = currentDay - 1;
             // 获取天气的数据
             this.$http.post('/features/weath',null,null,null,this.getWeatherSussess,null);
+            // 获取文章的数据
+            let tids = ['801','802','803'];
+            for(let tid of tids) {
+                let params = {
+                    cid : '96',
+                    tid : tid
+                }
+                this.$http.post('/suan/apidata',params,'cesuan',null,(res) => {
+                    switch (tid) {
+                        case '801':
+                            this.articleList[0] = res.data;
+                            break;
+                        case '802' :
+                            this.articleList[1] = res.data;
+                            break;
+                        case '803' :
+                            this.articleList[2] = res.data;
+                            break;
+                        default:
+                            break;
+                    }
+                });
+            }
         },
         getWeatherSussess : function (res) {
             var app = global.APP_NAME;
@@ -289,7 +308,6 @@ export default {
                 night = true;
             }
             this.weatherIcon = night ? require('../assets/image/calendar-weather/' + global.WEATHER[this.weather.weather.HeWeather6[0].daily_forecast[0].cond_code_n] + '.png') : require('../assets/image/calendar-weather/' + global.WEATHER[this.weather.weather.HeWeather6[0].daily_forecast[0].cond_code_d] + '.png');
-            // console.log(this.weather.weather.HeWeather6[0].daily_forecast[0].cond_txt_d);
         },
         showSelector : function (target) {
             // 显示拉下框，并将下拉框中的滚轮滑动到对应地方
@@ -423,7 +441,9 @@ export default {
                 this.moreInfo = this.handleDateInfo(res.data.content);
                 if(this.clickItem.year === this.todayItem.year && this.clickItem.month === this.todayItem.month && this.clickItem.day === this.todayItem.day && this.todayMoreInfo === null) {
                     this.todayMoreInfo = this.moreInfo;
-                    this.weather.weekday = this.todayMoreInfo.week;
+                    if(this.$store.state.weather.weekday === '' && this.todayMoreInfo.week !== undefined && this.todayMoreInfo.week !== null && this.todayMoreInfo.week !== '') {
+                        this.$store.commit('weather/updateWeekday',this.todayMoreInfo.week);
+                    }
                 }
             }else {
                 this.moreInfo = null;
@@ -520,10 +540,18 @@ export default {
             }
         },
         jumpWeather : function () {
+            if(this.$store.state.weather.weekday !== null && this.$store.state.weather.weekday !== undefined && this.$store.state.weather.weekday !== '') {
+                this.$jump('/main/calendar/weather');
+            }
+        },
+        jumpArticle : function (article) {
             this.$router.push({
-                name : 'weather'
-                // params : this.weather
-            })
+                name: "article",
+                query: {
+                    cid : '95',
+                    id : article.id
+                }
+            });
         }
     }
 }

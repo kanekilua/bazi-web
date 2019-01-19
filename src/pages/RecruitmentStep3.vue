@@ -125,7 +125,6 @@ export default {
             this.$http.post('/features/mast',masterInfoTemp,null,null,this.success,this.failure);
         },
         success : function (res) {
-            console.log(res);
             if(res.code === 'success') {
                 this.$vux.toast.show({
                     width : '15em',
@@ -135,9 +134,6 @@ export default {
                     type : "success",
                     isShowMask : true
                 });
-                setTimeout(() => {
-                    this.$jump('/main/mine');
-                },1500)
                 this.updateMasterInfo(null);
             }
         }

@@ -98,7 +98,12 @@ export default {
     },
     methods : {
         getData: function () {
-            this.$http.post('/suan/apidata',this.baziUserInfo,'cesuan',null,this.success,this.failure) ;
+            let params = {
+                ...this.baziUserInfo,
+                cid: '48',
+                yezis : '1'
+            }
+            this.$http.post('/suan/apidata',params,'cesuan',null,this.success,this.failure) ;
         },     
         success: function (res) {
             this.info = res;

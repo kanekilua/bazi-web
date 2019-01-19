@@ -1,6 +1,6 @@
 <template>
     <div class="wrap">
-        <v-title-header :backLink="backLink">
+        <v-title-header :backLink="$route.params.backLink ? $route.params.backLink : this.backLink">
             婚恋爱情
         </v-title-header>
         <div class="content-wrap">
@@ -52,7 +52,7 @@ import Hehun from './Hehun'
 export default {
     data () {
         return {
-            backLink: "/main/home",
+            backLink : '/main/home',
             navList: ["桃花运","八字合婚"],
             swiperOption : { initialSlide: this.navIndex ,autoHeight : true},
             list : [LoveBlossoms,Hehun],

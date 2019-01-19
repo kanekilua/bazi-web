@@ -66,8 +66,9 @@ export default {
                 night = true;
             }
             // this.weather = this.$store.state.weather.weather;
+            console.log(this.$store.state.weather);
             var weatherData = {};
-            weatherData.weekday = this.$store.state.weather.weather.weekday;
+            weatherData.weekday = this.$store.state.weather.weekday;
             weatherData.air = this.$store.state.weather.weather.air.HeWeather6[0].air_now_city.qlty;
             weatherData.city = this.$store.state.weather.weather.weather.HeWeather6[0].basic.location;
             weatherData.weather = this.$store.state.weather.weather.weather.HeWeather6[0].daily_forecast;
@@ -173,7 +174,7 @@ export default {
             border-bottom: 1px solid #eee;
             overflow-x: scroll;
             .item-list {
-                width: 150%;
+                width: 400%;
                 .flex-start();
                 .item {
                     width: 300/75rem;
