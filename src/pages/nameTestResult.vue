@@ -2,7 +2,6 @@
      <div class="wrap">
         <v-title-header :backLink="backLink">
             姓名大全
-            <div class="right-ico" slot="right-ico"></div>
         </v-title-header>
         <div class="content-wrap">
             <div class="banxin">
@@ -200,11 +199,6 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-.right-ico{
-    width: 38/75rem;
-    height: 38/75rem;
-    background: url('../assets/image/common/share.png')no-repeat center center / 100% 100%;
-}
 .content-wrap{
     padding-top: 90/75rem;
     .border-box();

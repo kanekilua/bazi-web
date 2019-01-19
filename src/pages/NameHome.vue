@@ -115,7 +115,12 @@ export default {
             })
         },
         beginTest: function () {
-            if(!this.$utils.checkName(this.inputName,this)){
+            if(!/^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,5}$/.test(this.inputName)){ //匹配2-5个中文
+                this.$vux.toast.text('请输入正确的姓名','top');
+                return;
+            }
+            if(!global.familyName.includes(this.inputName.charAt(0))){ //姓名第一位匹配百家姓
+                this.$vux.toast.text('请输入正确的姓名','top');
                 return;
             }
             else {
@@ -129,7 +134,7 @@ export default {
         },
         listenKey: function (e) {
             let keyCode = e.keyCode;
-            if(keyCode === 13) {
+            if(keyCode === 13) { //监听enter键
                 this.beginTest();
             }
         }
