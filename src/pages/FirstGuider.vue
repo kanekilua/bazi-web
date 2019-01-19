@@ -2,7 +2,7 @@
     <div class="first-guider">
         <swiper :options="swiperOption" ref="mySwiper">
             <swiper-slide v-for="(item,index) in list" :key="index">
-                <div :style="{background: 'url('+item + ') no-repeat center center / auto 100%'}" class="background">
+                <div :style="{background: 'url('+item + ') no-repeat center center / 100% auto'}" class="background">
                     <div v-if="index === 2" class="start" @click="$jump('/main/home')"></div>
                 </div>
             </swiper-slide>
