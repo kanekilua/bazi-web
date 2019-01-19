@@ -151,15 +151,13 @@ export default {
             let hour = birthArray[1].split(':')[0];
             let minute = birthArray[1].split(':')[1];
             let baziPaiPanData = {
-                'cid' : 48,
                 'name' : userInfo.realname,
                 'sex' : userInfo.gender,
                 'year' : dateArray[0],
                 'month' : dateArray[1],
                 'date' : dateArray[2],
                 'hour' : hour,
-                'minute' : minute,
-                'yezis' : 10
+                'minute' : minute
             };
             this.updateBaziUserInfo(baziPaiPanData);
             this.jumpPage(path);
