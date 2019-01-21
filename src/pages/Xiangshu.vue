@@ -98,28 +98,17 @@ export default {
                 }
             this.$http.post('/suan/apidata',sendData3,'cesuan',null,this.success3);
         },
-        // 取第一张照片
-        pickFirstPicture: function (data) {
-            for (let i of data){
-                i.img = i.img.split(' ')//取第一张照片
-                i.img = global.APP_DOMIAN+ i.img[0];
-            }
-        },
         success: function(res) {
             this.list[0].data = res.data;
-            this.pickFirstPicture(res.data)
         },
         success1: function(res) {
             this.list[1].data = res.data;
-            this.pickFirstPicture(res.data)
         },
         success2: function(res) {
             this.list[2].data = res.data;
-            this.pickFirstPicture(res.data)
         },
         success3: function(res) {
             this.list[3].data = res.data;
-            this.pickFirstPicture(res.data)
         },
         toInner: function (id) {
             this.$router.push({
@@ -140,12 +129,10 @@ export default {
         },
         hendleFun: function () {
             let content = this.$refs.content;
-            console.log(this.list[this.navIndex].scrollPosition)
             let position = content.scrollTop; //复制滚动条位置
             if(this.nowIndex===0){
                 this.list[0].scrollPosition = position; //保存个体的位移滚动条位置
                 //滚动条触底且没有在发送状态时
-                console.log(this.list[0].scrollPosition)
                 if(content.scrollTop+content.offsetHeight>=content.scrollHeight*0.99 && this.list[0].loading===false){
                     this.tip="正在加载";
                     this.showLoading = true; //显示加载ico
@@ -212,8 +199,6 @@ export default {
         },
         loadmore: function (res) {
             for (let i of res.data){
-                i.img = i.img.split(' ') //取第一张照片
-                i.img = global.APP_DOMIAN+ i.img[0];//替换url
                 this.list[0].data.push(i); //添加10条数据
             }
             if(res.data.length===10){
@@ -231,8 +216,6 @@ export default {
         },
         loadmore1: function (res) {
             for (let i of res.data){
-                i.img = i.img.split(' ') //取第一张照片
-                i.img = global.APP_DOMIAN+ i.img[0];
                 this.list[1].data.push(i); //添加10条数据
             }
            if(res.data.length===10){
@@ -251,8 +234,6 @@ export default {
         },
         loadmore2: function (res) {
             for (let i of res.data){
-                i.img = i.img.split(' ') //取第一张照片
-                i.img = global.APP_DOMIAN+ i.img[0];
                 this.list[2].data.push(i); //添加10条数据
             }
             if(res.data.length===10){
@@ -271,8 +252,6 @@ export default {
         },
         loadmore3: function (res) {
             for (let i of res.data){
-                i.img = i.img.split(' ') //取第一张照片
-                i.img = global.APP_DOMIAN+ i.img[0];
                 this.list[3].data.push(i); //添加10条数据
             }
             if(res.data.length===10){

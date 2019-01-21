@@ -51,11 +51,10 @@ export default {
         this.getData();
     },
     mounted () {
-        this.pullDown();
+        window.addEventListener('scroll',this.pullDown);
     },
     methods: {
         showArticle : function (article) {
-            console.log(article);
             this.$router.push({
                 name: "article",
                 query : {
@@ -73,18 +72,14 @@ export default {
         },
         success: function(res) {
             this.knowledges = res.data;
-            for( let i of this.knowledges){
-                i.img = global.APP_DOMIAN + i.img;
-            }
         },
         // 下拉加载更多
         pullDown: function () {
-            window.addEventListener('scroll',()=>{
-           		let scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
-           		let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
-           		let scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+       		let scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+       		let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+       		let scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
                //滚动条到底部的条件
-               if(scrollTop+windowHeight===scrollHeight && this.loading===false){ //loading防止正在加载时发送多次请求
+            if(scrollTop+windowHeight===scrollHeight && this.loading===false){ //loading防止正在加载时发送多次请求
                 this.showIco = true; //显示loading动画
                 this.loading = true; 
                 // 请求数据
@@ -96,8 +91,7 @@ export default {
                 }
                 this.$http.post('/suan/apidata',params,'cesuan',null,this.loadMoreSuccess,null);
                 // console.log("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
-                }   
-            },false)
+            }   
         },
         loadMoreSuccess: function (res) {
             if(res.data.length < 10){ //没有更多数据
@@ -108,7 +102,6 @@ export default {
                 this.tip = "没有更多数据！"
             } else {
                 for(let i of res.data){
-                    i.img = global.APP_DOMIAN + i.img; //拼接url
                     i.content = i.content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
                     this.knowledges.push(i)
                 }
@@ -119,7 +112,7 @@ export default {
     },
    // 移除监听事件
     beforeDestroy() {
-        window.removeEventListener("scroll",null);
+        window.removeEventListener("scroll",this.pullDown);
     },
 
 }
