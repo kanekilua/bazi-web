@@ -69,19 +69,11 @@ Vue.use(Router)
 
 export default new Router({
   // 记录页面的滚动位置
-  mode: 'history',
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {
       return { x: 0, y: 0 }
-    }
-  },
-  scrollBehavior (to, from, savedPosition) {
-    if(to.hash){
-      return{
-        selector: to.hash
-      }
     }
   },
   routes: [
