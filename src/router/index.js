@@ -210,7 +210,7 @@ export default new Router({
       name:'fengshui',
       component: Fengshui,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {
