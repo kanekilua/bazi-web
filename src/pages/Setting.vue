@@ -13,7 +13,10 @@
                     <i class="right"></i>
                 </div>
             </div>
-            <button class="exit-btn" @click="loginFlag ? showDialogStyle = true : $jump('/login')">{{loginFlag ? '退出登录' : '登录'}}</button>
+            <div class="logout" @click="showDialogStyle = true" v-show="loginFlag">
+                退出登录
+            </div>
+            <!-- <button class="exit-btn" @click="loginFlag ? showDialogStyle = true : $jump('/login')">{{loginFlag ? '退出登录' : '登录'}}</button> -->
         </div>
         <!-- 弹窗 -->
         <div v-transfer-dom>
@@ -42,7 +45,7 @@ export default {
                 {title: "个人资料", img: require('../assets/image/mine/person-file.png'), route: "/main/mine/setting/userFile"},
                 {title: "账户与安全", img: require('../assets/image/mine/save.png'), route: "/main/mine/setting/security"},
                 {title: "用户协议", img: require('../assets/image/mine/agreement.png'), route: "/userAgreement"},
-                {title: "检测更新", img: require('../assets/image/mine/update.png'), route: "/main/mine/setting"},
+                {title: "检测更新", img: require('../assets/image/mine/update.png'), route: "/main/mine/setting"}
             ],
             loginFlag : true,
         }
@@ -94,6 +97,7 @@ export default {
             .border-box();
             .boxshadow(0,3/75rem,6/75rem,rgba(5, 0, 0, 0.16));
             width: 100%;
+            height: 100/75rem;
             margin: 0 auto 10/75rem auto;
             font-size: 30/75rem;
             background: #fff;
@@ -134,21 +138,31 @@ export default {
             } 
         }
     }
-    .exit-btn{
-        width: 640/75rem;
-        height: 80/75rem;
-        display: block;
-        margin: 175/75rem auto;
-        background:@baseBoldColor;
-        .round(60/75rem);
-        border: none;
-        color: #fff;
-        font-size: 34/75rem;
-        outline: none;
-        &:active{
-            background: #eee;
-        }
+    .logout {
+        margin-top: 10/75rem;
+        width: 100%;
+        height: 100/75rem;
+        background: #fff;
+        .boxshadow(0,3/75rem,6/75rem,rgba(5, 0, 0, 0.16));
+        font-size: 30/75rem;
+        line-height: 100/75rem;
+        text-align: center;
     }
+    // .exit-btn{
+    //     width: 640/75rem;
+    //     height: 80/75rem;
+    //     display: block;
+    //     margin: 175/75rem auto;
+    //     background:@baseBoldColor;
+    //     .round(60/75rem);
+    //     border: none;
+    //     color: #fff;
+    //     font-size: 34/75rem;
+    //     outline: none;
+    //     &:active{
+    //         background: #eee;
+    //     }
+    // }
 }
 // 弹窗
 /deep/ .weui-dialog{

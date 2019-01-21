@@ -12,7 +12,7 @@ export default {
     mounted () {
         setTimeout (()=>{
             this.$jump('/main/home');
-        },3000);
+        },2000);
     },
     methods: {
         init : function () {

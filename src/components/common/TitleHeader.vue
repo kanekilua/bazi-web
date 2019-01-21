@@ -35,14 +35,18 @@ export default {
     background: #fff;
     .boxshadow(0,2/75rem,6/75rem,rgba(48,148,148,0.14));
     .back {
-        width: 22/75rem;
+        width: 40/75rem;
         height: 40/75rem;
-        background: url('../../assets/image/common/back.png') no-repeat center center / 100% 100%;
+        background: url('../../assets/image/common/back.png') no-repeat left center / auto 100%;
     }
     .title {
         font-weight: bold;
         font-size: 34/75rem;
         color : @baseBoldColor;
+    }
+    .right {
+        width: 40/75rem;
+        height: 40/75rem;   
     }
 }
 </style>
