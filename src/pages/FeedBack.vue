@@ -98,7 +98,7 @@ export default {
                 text-align: center;
                 .round(40/75rem);
                 font-size: 24/75rem;
-                .boxshadow(0,3/75rem,6/75rem,rgba(0,0,0,0.6));
+                .boxshadow(0,3/75rem,6/75rem,rgba(0,0,0,0.16));
             }
             & > input:checked + div{
                 background: @baseBoldColor;

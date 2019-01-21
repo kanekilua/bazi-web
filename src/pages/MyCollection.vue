@@ -124,6 +124,9 @@ export default {
         background-color: #fff;
     }
     .article-list {
+        .article:nth-child(1){
+            padding-top: 0;
+        }
         .article {
             height: 510/75rem;
             margin : 0 auto 10/75rem auto;
