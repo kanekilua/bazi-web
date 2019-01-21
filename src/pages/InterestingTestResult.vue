@@ -2,7 +2,7 @@
     <div class="interes-result-wrap">
         <v-title-header>
             测试结果
-            <div class="right-ico" slot="right-ico"></div>
+            <div class="right-ico" slot="right-ico" @click="showShare = true"></div>
         </v-title-header>
         <div class="content-wrap">
             <div class="img-box">
@@ -15,13 +15,16 @@
                 <button @click="$jump('/interestingMore')">更多测试</button>
             </div>
         </div>
+        <v-share-popup :showShare='showShare' :shareData='shareData' @switchShowShare='switchShowShare' @shareSuccess='showShare = false' @shareFail='showShare = false'></v-share-popup>
     </div>
 </template>
 <script>
 export default {
     data () {
         return {
-            resData: {}
+            resData: {},
+            showShare : false,
+            shareData : global.APP_SHARE_APP
         }
     },
     created() {
@@ -38,6 +41,9 @@ export default {
         },
         showAnswer: function (res) {
             this.resData = res.data[0];
+        },
+        switchShowShare : function (val) {
+            this.showShare = val;
         }
     }
 }

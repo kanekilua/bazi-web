@@ -2,7 +2,7 @@
     <div class="interes-inner-wrap">
         <v-title-header>
             趣味测试
-            <div class="right-ico" slot="right-ico"></div>
+            <div class="right-ico" slot="right-ico" @click="showShare = true"></div>
         </v-title-header>
         <div class="banner">
             <img :src="img" alt="">
@@ -11,6 +11,7 @@
         <p class="shortText">{{shorttext}}</p>
         <button class="begin-test" @click="beginTest">开始测算</button>
         <div class="tips">(本测试共15道题，有4个答案，系统自动跳转。仅供娱乐，非专业心理指导)</div>
+        <v-share-popup :showShare='showShare' :shareData='shareData' @switchShowShare='switchShowShare' @shareSuccess='showShare = false' @shareFail='showShare = false'></v-share-popup>
     </div>
 </template>
 <script>
@@ -21,6 +22,8 @@ export default {
             img : this.$route.query.img,
             title : this.$route.query.title,
             shorttext : this.$route.query.shorttext,
+            showShare : false,
+            shareData : global.APP_SHARE_APP
         }
     },
     methods: {
@@ -32,6 +35,9 @@ export default {
                     title: this.title,
                 }
             })
+        },
+        switchShowShare : function (val) {
+            this.showShare = val;
         }
     }
 }

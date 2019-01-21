@@ -133,8 +133,8 @@ export default {
             if(userInfo  === undefined) {
                 if('/bazi' === path) {
                     MobclickAgent.onEvent('home_bazi');
-                }else if('/love' === path) {
-                    MobclickAgent.onEvent('home_love');
+                }else if('/ziwei' === path) {
+                    MobclickAgent.onEvent('home_ziwei');
                 }
                 this.$vux.toast.text('请先登录','top');
                 this.$router.push({

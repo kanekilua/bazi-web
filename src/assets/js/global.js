@@ -20,9 +20,9 @@ global.APP_DOMIAN = 'https://mingli.szmonster.com'
 global.APP_DOWNLOAD_URL = 'http://www.szmonster.com'
 global.APP_BAZI_SHARE = APP_NAME + '_bazi_share';
 global.APP_SHARE_APP = {
-    icon : 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1547545147130&di=5d95195fb17e9a7ccad342f0b734c135&imgtype=0&src=http%3A%2F%2Fi1.shouyou.itc.cn%2Fapp%2Fuploads%2F2018%2F02%2F15180842627258.png',
+    icon : 'http://gameleyuan.oss-cn-hangzhou.aliyuncs.com/uploads/logo/icon.png',
     title : '每日一占',
-    text : '伴你生活，为你解惑',
+    text : '为您解惑，伴你生活！',
     url : 'http://www.szmonster.com'
 }
 
