@@ -69,13 +69,20 @@ Vue.use(Router)
 
 const router = new Router({
   // 记录页面的滚动位置
+  mode: 'history',
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition
     } else {
       return { x: 0, y: 0 }
     }
-    // return 期望滚动到哪个的位置
+  },
+  scrollBehavior (to, from, savedPosition) {
+    if(to.hash){
+      return{
+        selector: to.hash
+      }
+    }
   },
   routes: [
     {
@@ -203,7 +210,7 @@ const router = new Router({
       name:'fengshui',
       component: Fengshui,
       meta: {
-        keepAlive: true
+        keepAlive: false
       }
     },
     {

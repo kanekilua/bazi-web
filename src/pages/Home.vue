@@ -2,7 +2,7 @@
     <div class="home-wrap">
         <h1 class="header">每日一占</h1>
         <div class="content-wrap">
-            <swiper class="swiper-box" :options="swiperOption">
+            <swiper v-if="imgList.length>1" class="swiper-box" :options="swiperOption">
                 <swiper-slide v-for="(imgItem,index) in imgList" :key="index">
                     <img :src="imgItem.image" alt="swiper" @click="clickBannerImg(imgItem.link)">
                 </swiper-slide>
@@ -102,18 +102,17 @@ export default {
     data () {
         return {
             imgList: [],
-            swiperOption: {
-                slidesPerView: 'auto',
-                direction:"horizontal",/*横向滑动*/ 
-                // loop: true,
-                // pagination:{
-                //     el: '.swiper-pagination',
-                //     bulletClass : 'my-bullet',
-                //     bulletActiveClass: 'my-bullet-active',
-                // },
+            swiperOption: { 
+                loop: true,
+                pagination:{
+                    el: '.swiper-pagination',
+                    type: 'bullets',
+                    // bulletClass : 'my-bullet',
+                    // bulletActiveClass: 'my-bullet-active',
+                },
                 autoplay: {
                     delay: 3000,
-                    disableOnInteraction: false,
+                    // disableOnInteraction: false,
                 }
 
             },
@@ -239,11 +238,10 @@ export default {
     position: relative;
     .swiper-slide{
         width: 100%;
-        height: 350/75rem;
         &> img{
             display: block;
             width: 100%;
-            height: 100%;
+            height: 280/75rem;
             margin: 0 auto;
         }
     }
@@ -307,7 +305,7 @@ export default {
                 width: 100%;
                 height: 86/75rem;
                 text-align: left;
-                background: rgba(0,0,0,0.2);
+                background: rgba(0,0,0,0.5);
                 .round(0 0 10/75rem 10/75rem);
                 &> h4{
                     font-size: 28/75rem;

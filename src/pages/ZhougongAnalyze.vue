@@ -28,7 +28,6 @@ export default {
     data () {
         return {
             backLink: '/zhougongHome',
-            imgSrc: require('../assets/image/fengshui/jiaju1@2x.png'),
             itemTitle:  "",
             itemArtical: "",
             objList: [],

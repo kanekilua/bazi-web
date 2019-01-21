@@ -21,20 +21,22 @@ export default {
 <style lang="less" scoped>
 .title-nav{
     width: 100%;
-    padding: 18/75rem 30/75rem;
+    padding: 18/75rem 20/75rem;
     .border-box();
     .flex-between();
     .nav-left{
-        .flex-start();
+        height: 35/75rem;
+        line-height: 35/75rem;
+        .flex-center();
         .color-line{
             width: 6/75rem;
-            height: 26/75rem;
+            height: 30/75rem;
             background: url('../../assets/image/common/line.png') no-repeat center center /100% 100%;
             margin-right: 10/75rem;
         }
         .title{
             font-size: 32/75rem;
-            color: @baseBoldColor;
+            color: #121212;
             font-weight: bold;
         }
     }
@@ -49,7 +51,7 @@ export default {
             display: block;
             width: 11/75rem;
             height: 20/75rem;
-            margin: 5/75rem 0 0 10/75rem;
+            margin: 0 0 0 10/75rem;
             background: url('../../assets/image/common/more.png') no-repeat center center /100% 100%;
         }
     }
