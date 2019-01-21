@@ -287,9 +287,15 @@ export default {
                     height: 160/75rem;
                     margin-top: 24/75rem;
                     overflow: hidden;
-                    font-size: 28/75rem;
+                    font-size: 0;
                     & > p {
+                        width: 100%;
+                        padding: 13/75rem;
+                        .border-box();
+                        .border-box();
                         text-indent:2em;
+                        font-size: 28/75rem;
+                        text-align: justify;
                     }
                 }
             }

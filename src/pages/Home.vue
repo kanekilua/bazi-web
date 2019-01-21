@@ -282,7 +282,7 @@ export default {
                 width: 100%;
                 height: 86/75rem;
                 text-align: left;
-                background: rgba(0,0,0,0.2);
+                background: rgba(0,0,0,0.5);
                 .round(0 0 10/75rem 10/75rem);
                 &> h4{
                     font-size: 28/75rem;

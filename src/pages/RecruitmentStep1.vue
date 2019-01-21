@@ -31,7 +31,7 @@
             </div>
             <div class="form-item">
                 <div class="key">QQ号码</div>
-                <input type="text" class="form-input" v-model="masterQQ" placeholder="1945192493">
+                <input type="text" class="form-input" v-model="masterQQ" placeholder="请输入您的QQ号码">
             </div>
             <div class="radio-box">
                 <div class="key">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</div>
@@ -181,9 +181,9 @@ export default {
         }
         & > div{
             & > div{
-                width: 28/75rem;
-                height: 28/75rem;
-                line-height: 28/75rem;
+                width: 14px;
+                height: 14px;
+                line-height: 14px;
                 .round(50%);
                 text-align: center;
             }
@@ -247,8 +247,8 @@ export default {
                     margin-right: 58/75rem;
                     & > i{
                         display: block;
-                        width: 20/75rem;
-                        height: 20/75rem;
+                        width: 10px;
+                        height: 10px;
                         margin-right: 32/75rem;
                         line-height: 20/75rem;
                         text-align: center;
