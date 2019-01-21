@@ -151,17 +151,13 @@ export default {
     
 }
 .name-home-wrap{
+    /deep/ .nav {
+        margin-bottom: 0;
+    }
     .content-wrap{
         .swiper-container{
             width: 100%;
             margin: 0 auto;
-            /deep/ .nav .nav-list{
-                padding: 0 40/75rem;
-                .border-box();
-                .item{
-                    margin-right: 80/75rem;
-                }
-            }
             /deep/ .swiper-slide{
                 width: 100%;
             }
