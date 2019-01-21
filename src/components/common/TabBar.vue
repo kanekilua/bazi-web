@@ -84,10 +84,11 @@ export default {
     left: 0;
     z-index: 10;
     background: #fff;
-    border-top: 1px solid rgba(112,112,112,0.1);
+    border-top: 1px solid rgba(221, 221, 221, 0.35);
     .tab-bar-list{
         width: 100%;
-        height: 110/75rem;
+        height:98/75rem;
+        padding-top: 10/75rem;
         .flex-around();
         .tab-bar-item{
             .flex(1);
