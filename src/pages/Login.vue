@@ -20,7 +20,7 @@
                             <i></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input type="text" placeholder="请输入验证码" v-model="captcha">
+                            <input type="text" placeholder="请输入验证码" v-model="captcha" @keyup="listenKey">
                             <span v-show="show" @click="getCaptcha">获取验证码</span>
                             <span v-show="!show">{{count}} s</span>
                         </div>
@@ -30,7 +30,7 @@
                             <i></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input :type="pwdType" placeholder="请输入密码" v-model="password">
+                            <input :type="pwdType" placeholder="请输入密码" v-model="password" @keyup="listenKey">
                             <i :class="pwdVisible ? 'visible' : 'unvisible'" @click="pwdVisible = !pwdVisible"></i>
                         </div>
                     </div>
@@ -205,6 +205,12 @@ export default {
                 }
             }
             localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
+        },
+        listenKey: function (e) {
+            let keyCode = e.keyCode;
+            if(keyCode === 13) { //监听enter键
+                this.login();
+            }
         }
     }
 }
