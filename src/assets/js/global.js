@@ -22,7 +22,7 @@ global.APP_BAZI_SHARE = APP_NAME + '_bazi_share';
 global.APP_SHARE_APP = {
     icon : 'http://gameleyuan.oss-cn-hangzhou.aliyuncs.com/uploads/logo/icon.png',
     title : '每日一占',
-    text : '为您解惑，伴你生活！',
+    text : '为您解惑，伴您生活！',
     url : 'http://www.szmonster.com'
 }
 
