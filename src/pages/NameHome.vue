@@ -28,6 +28,7 @@
                                 <h2>{{innerItem.title}}</h2><i></i>
                             </div>
                         </div>
+                        <load-more :tip="tip" :show-loading="showLoading" :class="showIco ? 'show': 'hide'"></load-more>
                     </swiper-slide>
                 </swiper>
             </div>
@@ -46,6 +47,8 @@ export default {
     watch : {
         'navIndex' (val) {
             this.swiper.slideTo(val, 0, false);
+
+            document.documentElement.scrollTop  = this.list[this.navIndex].position;
         }
     },
     created() {
@@ -60,15 +63,25 @@ export default {
             list : [
                 {
                     route: '/nameTest',
-                    val:[]
+                    val:[],
+                    tid : '601',
+                    limit : 0,
+                    position : 0
                 },
                 {
                     route: '/familyName',
                     imgUrl: require("../assets/image/name/banner3@2x.png"),
-                    val:[]
+                    val:[],
+                    tid : '602',
+                    limit : 0,
+                    position : 0
                 },
             ],
             inputName: "",
+            loading : false,
+            tip: "正在加载...",
+            showIco: false, //加载动画
+            showLoading: true,  //加载ico,
         }
     },
     mounted () {
@@ -78,6 +91,10 @@ export default {
         this.swiper.on('slideChange', () => {
             this.updateNavIndex(this.swiper.activeIndex);
         });
+        window.addEventListener('scroll',this.scrollListener);
+    },
+    beforeDestroy() {
+        window.removeEventListener("scroll",this.scrollListener);
     },
     methods: {
         ...mapMutations('nameHome',['updateNavIndex']),
@@ -94,6 +111,12 @@ export default {
                 tid : '602',
             }
             this.$http.post('/suan/apidata',params,'cesuan',null,this.success1,this.failure);
+            params = {
+                cid : '96',
+                tid : '602',
+                limit : '1'
+            }
+            this.$http.post('/suan/apidata',params,'cesuan',null,this.success1,this.failure);
         },
         success: function (res) {
             for(let i of res.data){
@@ -104,6 +127,45 @@ export default {
             for(let i of res.data){
                 this.list[1].val.push(i);
             }
+        },
+        scrollListener : function () {
+            let scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
+       		let windowHeight = document.documentElement.clientHeight || document.body.clientHeight;
+       		let scrollHeight = document.documentElement.scrollHeight||document.body.scrollHeight;
+            // console.log("距顶部"+scrollTop+"可视区高度"+windowHeight+"滚动条总高度"+scrollHeight);
+            this.list[this.navIndex].position = scrollTop;
+            //滚动条到底部的条件
+            if(scrollTop !==0 && scrollTop+windowHeight===scrollHeight && this.loading===false){ //loading防止正在加载时发送多次请求
+                this.showIco = true; //显示loading动画
+                this.loading = true; 
+                // 请求数据
+                this.list[this.navIndex].limit += 1;
+                let params = {
+                    cid : '96',
+                    tid : this.list[this.navIndex].tid,
+                    limit: this.list[this.navIndex].limit
+                };
+                this.$http.post('/suan/apidata',params,'cesuan',null,this.loadMoreSuccess,null);
+            }else {
+                this.showIco = this.showIco ? !this.showIco : this.showIco;
+            }
+        },
+        loadMoreSuccess: function (res) {
+            if(res.data.length < 10){ //没有更多数据
+                for(let i of res.data){
+                    this.list[this.navIndex].val.push(i)
+                }
+                this.showLoading = false;
+                this.tip = "没有更多数据！"
+            } else {
+                for(let i of res.data){
+                    // i.content = i.content.replace(/(<\/?a.*?>)|(<\/?span.*?>)/g, '');//过滤a标签
+                    this.list[this.navIndex].val.push(i)
+                }
+                this.loading = false; 
+                this.showIco = false;
+            } 
+            
         },
         toArtical: function (id) {
             this.$router.push({

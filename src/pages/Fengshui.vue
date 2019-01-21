@@ -166,7 +166,7 @@ export default {
         loadMoreSuccess: function (res) {
             if(res.data.length < 10){ //没有更多数据
                 for(let i of res.data){
-                    this.knowledges.push(i)
+                    this.list[this.navIndex].push(i)
                 }
                 this.showLoading = false;
                 this.tip = "没有更多数据！"
