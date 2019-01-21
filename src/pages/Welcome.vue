@@ -36,7 +36,7 @@ export default {
                     jumpTo = "";
                 }
                 this.$jump(jumpTo);
-            },1500);
+            },2000);
         }
     }
 }

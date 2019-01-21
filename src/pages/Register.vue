@@ -27,7 +27,7 @@
                             <i></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input :type="pwdType" placeholder="请输入密码" v-model="password">
+                            <input :type="pwdType" placeholder="请输入密码" v-model="password" @keyup="listenKey">
                             <i :class="pwdVisible ? 'visible' : 'unvisible'" @click="pwdVisible = !pwdVisible"></i>
                         </div>
                     </div>
@@ -151,6 +151,12 @@ export default {
         loginSuccess : function (result) {
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             this.$jump('birth');
+        },
+        listenKey: function (e) {
+            let keyCode = e.keyCode;
+            if(keyCode === 13) { //监听enter键
+                this.register();
+            }
         }
     }
 }

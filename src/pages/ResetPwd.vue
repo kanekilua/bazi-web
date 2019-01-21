@@ -36,7 +36,7 @@
                             <i></i><i></i>
                         </div>
                         <div class="input-wrap">
-                            <input :type="pwdConfirmType" placeholder="请再次输入密码" v-model="passwordComfirm">
+                            <input :type="pwdConfirmType" placeholder="请再次输入密码" v-model="passwordComfirm" @keyup="listenKey">
                             <i :class="pwdComfirmVisible ? 'visible' : 'unvisible'" @click="pwdComfirmVisible = !pwdComfirmVisible"></i>
                         </div>
                     </div>
@@ -148,6 +148,12 @@ export default {
         resetPwdSuccess : function (result) {
             this.$vux.toast.text(result.msg,'top');
             this.$jump('login');
+        },
+        listenKey: function (e) {
+            let keyCode = e.keyCode;
+            if(keyCode === 13) { //监听enter键
+                this.resetPwd();
+            }
         }
     }
 }

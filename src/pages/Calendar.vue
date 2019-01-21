@@ -595,12 +595,13 @@ export default {
     background: #fff;
     .round(14/75rem);
     width: @width/75rem;
-    height: 210/75rem;
+    height: 310/75rem;
     overflow: scroll;
     & > div {
-        font-size: 24/75rem;
+        font-size: 26/75rem;
         text-align: center;
-        height: 40/75rem;
+        height: 60/75rem;
+        line-height: 60/75rem;
         border-bottom: 1px solid #eee;
     }
     .selected {
