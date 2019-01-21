@@ -3,36 +3,51 @@
         <div class="content-wrap">
             <div class="content">
                 <div class="banxin">
-                    <h2 class="male-msg">男方信息</h2>
-                    <input type="text" class="name-input" placeholder="请输入您的姓名" placeholder-align="left" v-model="maleName">
-                    <div class="birthPlace">
-                        <div @click="showProvinceFunc('1')"><span id="province">{{maleProvince}}</span><i></i></div>
-                        <div class="saparator"></div>
-                        <div @click="showCityFunc('1')"><span id="city">{{maleCity}}</span><i></i></div>
+                    <div class="form">
+                        <div class="gender-box">
+                            <img src="../assets/image/love/male.png">
+                            <div class="right-box">
+                                <div class="input-box">
+                                    <div class="input-left">男方</div>
+                                    <input type="text" class="name-input" placeholder="请输入您的姓名" placeholder-align="left" v-model="maleName">
+                                </div>
+                                <div class="input-box">
+                                    <div class="input-left">
+                                        <popup-picker :placeholder="title1" :data="list1" @on-change="onChange"></popup-picker>
+                                        <i></i>
+                                    </div>
+                                    <input id="dateInput" type="text" class="name-input input-born" placeholder="请选择出生日期" @click="showDatePlugin('1')" readonly="readonly" v-model="maleBirthDate">                                    
+                                </div>
+                            </div>
+                            <!-- <div class="birthPlace">
+                                <div @click="showProvinceFunc('1')"><span id="province">{{maleProvince}}</span><i></i></div>
+                                <div class="saparator"></div>
+                                <div @click="showCityFunc('1')"><span id="city">{{maleCity}}</span><i></i></div>
+                            </div> -->
+                        </div>
+                        <!-- 女方 -->
+                        <div class="gender-box">
+                            <img src="../assets/image/love/female.png">
+                            <div class="right-box">
+                                <div class="input-box">
+                                    <div class="input-left">女方</div>
+                                    <input type="text" class="name-input" placeholder="请输入您的姓名" placeholder-align="left" v-model="femaleName">
+                                </div>
+                                <div class="input-box">
+                                    <div class="input-left">
+                                        <popup-picker :placeholder="title2" :data="list2" @on-change="onChange2"></popup-picker>
+                                        <i class="female-select"></i></div>
+                                    <input id="dateInput" type="text" class="name-input input-born" placeholder="请选择出生日期" @click="showDatePlugin('0')" readonly="readonly" v-model="femaleBirthDate">
+                                </div>
+                            </div>
+                        </div>                        
+                        <!-- <div class="gender-box">
+                            <img src="../assets/image/love/female.png">
+                            <input type="text" class="name-input" placeholder="请输入您的姓名" placeholder-align="left" v-model="femaleName">
+                            <input id="dateInput" type="text" class="name-input input-born" placeholder="请选择出生日期" @click="showDatePlugin('0')" readonly="readonly" v-model="femaleBirthDate">
+                        </div> -->
                     </div>
-                    <div class="check-box">
-                        <input type="radio" id="male-gongli" name="male-date" v-model="maleDateType" value="1">
-                        <label for="male-gongli">公历</label>
-                        <input type="radio" id="male-nongli" name="male-date" v-model="maleDateType" value="0">
-                        <label for="male-nongli">农历</label>
-                    </div>
-                    <input id="dateInput" type="text" class="name-input input-born" placeholder="请选择出生日期" @click="showDatePlugin('1')" readonly="readonly" v-model="maleBirthDate">
-                    <!-- 女方 -->
-                    <h2 class="female-msg">女方信息</h2>
-                    <input type="text" class="name-input" placeholder="请输入您的姓名" placeholder-align="left" v-model="femaleName">
-                    <div class="birthPlace">
-                        <div @click="showProvinceFunc('0')"><span id="province">{{femaleProvince}}</span><i></i></div>
-                        <div class="saparator"></div>
-                        <div @click="showCityFunc('0')"><span id="city">{{femaleCity}}</span><i></i></div>
-                    </div>
-                    <div class="female-check-box">
-                        <input type="radio" id="female-gongli" name="female-date" v-model="femaleDateType" value="1">
-                        <label for="female-gongli">公历</label>
-                        <input type="radio" id="female-nongli" name="female-date" v-model="femaleDateType" value="0">
-                        <label for="female-nongli">农历</label>
-                    </div>
-                    <input id="dateInput" type="text" class="name-input input-born" placeholder="请选择出生日期" @click="showDatePlugin('0')" readonly="readonly" v-model="femaleBirthDate">
-                    <button class="begin-test" @click="jumpTest">开始测算</button>
+                    <button class="begin-test" @click="jumpTest"></button>
                 </div>
             </div>
         </div>
@@ -60,17 +75,22 @@ export default {
             backLink: "/love",
             // male info
             maleName : "",
-            maleDateType : "1",
+            // maleDateType : "1",
             maleBirthDate : "",
             maleDateArray : [],
             showMaleCity : false,
 
             // female info
             femaleName : "",
-            femaleDateType : "1",
+            // femaleDateType : "1",
             femaleBirthDate : "",
             femaleDateArray : [],
-            showFemaleCity : false
+            showFemaleCity : false,
+
+            title1: '公历',
+            list1: [['公历', '农历']],
+            title2: '公历',
+            list2: [['公历', '农历']],
         }
     },
     methods: {
@@ -109,38 +129,50 @@ export default {
                 }
             });
         },
-        selectProvince : function (item) {
-            if(this.hehunInputFlag === '1') {
-                this.maleProvince = item.name;
-                this.maleCityList = global.CITY_LIST[item.id];
-            }else if (this.hehunInputFlag === '0') {
-                this.femaleProvince = item.name;
-                this.femaleCityList = global.CITY_LIST[item.id];
-            }
-            this.showProvince = false;
-        },
-        selectCity : function (item) {
-            if(this.hehunInputFlag === '1') {
-                 this.maleCity = item.name;
-                 this.showMaleCity = false;
-            }else if (this.hehunInputFlag === '0') {
-                 this.femaleCity = item.name;
-                 this.showFemaleCity = false;
-            }
-        },
-        showProvinceFunc : function (flag) { 
-            this.updateHehunInputFlag(flag);
-            this.updateShowProvince(true);
-        },
-        showCityFunc :function (flag) {
-            this.updateHehunInputFlag(flag);
-            if(this.hehunInputFlag === '1') {
-                this.updateShowMaleCity(true);
-            }else if (this.hehunInputFlag === '0') {
-                this.updateShowFemaleCity(true);
-            }
-        },
+        // selectProvince : function (item) {
+        //     if(this.hehunInputFlag === '1') {
+        //         this.maleProvince = item.name;
+        //         this.maleCityList = global.CITY_LIST[item.id];
+        //     }else if (this.hehunInputFlag === '0') {
+        //         this.femaleProvince = item.name;
+        //         this.femaleCityList = global.CITY_LIST[item.id];
+        //     }
+        //     this.showProvince = false;
+        // },
+        // selectCity : function (item) {
+        //     if(this.hehunInputFlag === '1') {
+        //          this.maleCity = item.name;
+        //          this.showMaleCity = false;
+        //     }else if (this.hehunInputFlag === '0') {
+        //          this.femaleCity = item.name;
+        //          this.showFemaleCity = false;
+        //     }
+        // },
+        // showProvinceFunc : function (flag) { 
+        //     this.updateHehunInputFlag(flag);
+        //     this.updateShowProvince(true);
+        // },
+        // showCityFunc :function (flag) {
+        //     this.updateHehunInputFlag(flag);
+        //     if(this.hehunInputFlag === '1') {
+        //         this.updateShowMaleCity(true);
+        //     }else if (this.hehunInputFlag === '0') {
+        //         this.updateShowFemaleCity(true);
+        //     }
+        // },
         jumpTest : function () {
+            // 公历转农历
+            if(this.title1==='农历') {
+                let solar = solarLunar.lunar2solar(parseInt(this.maleDateArray[0]),parseInt(this.maleDateArray[1]),parseInt(this.maleDateArray[2]));
+                this.maleDateArray[0] =solar.cYear;
+                this.maleDateArray[1] =solar.cMonth;
+                this.maleDateArray[2] =solar.cDay;
+            }if(this.title2==='农历') {
+                let solar = solarLunar.lunar2solar(parseInt(this.femaleDateArray[0]),parseInt(this.femaleDateArray[1]),parseInt(this.femaleDateArray[2]));
+                this.femaleDateArray[0] =solar.cYear;
+                this.femaleDateArray[1] =solar.cMonth;
+                this.femaleDateArray[2] =solar.cDay;
+            }
             if(!this.$utils.checkName(this.maleName,this)) {
                 this.$vux.toast.text('请填写男方的正确姓名','top');
                 return;
@@ -173,8 +205,13 @@ export default {
                     id : article.id
                 }
             })
-        }
-        
+        },
+        onChange (val) {
+        this.title1 = val[0];
+        },
+        onChange2 (val) {
+        this.title2 = val[0];
+        }, 
     }
 }
 </script>
@@ -184,115 +221,76 @@ export default {
     overflow-y: auto;
     .content{
         width: 100%;
-        background: url('../assets/image/love/hehun-bg@2x.png') no-repeat center center / 100% 100%;
+        height: 916/75rem;
+        background: url('../assets/image/love/hehun-bg.png') no-repeat center center / 100% 100%;
         overflow: hidden;
     }
     .banxin{
-        width: 500/75rem;
         margin: 0 auto;
-        padding-top: 220/75rem;
+        margin: 395/75rem auto 0 auto;
+        padding: 0 20/75rem 20/75rem 20/75rem;
         .border-box();
-        .male-msg, .female-msg{
-            margin: 32/75rem 0;
-            color: #fff;
-            font-size: 38/75rem;
-            line-height: 53/75rem;
-            text-align: center;
-            opacity: 0.8;
-        }
-        .title-img{
-            display: block;
-            margin: 35/75rem auto;
-            width: 408/75rem;
-            height: 168/75rem;
-        }
-        .name-input{
-            display: block;
-            width: 462/75rem;
-            height: 80/75rem;
-            margin: 0 auto;
+        .form{
+            width: 100%;
+            padding: 30/75rem;
             .round(10/75rem);
-            border: none;
-            outline: none;
-            padding-left: 32/75rem;
-            font-size: 30/75rem;
-            box-shadow:0px 3px 6px rgba(0,0,0,0.16);
-        }
-        .birthPlace {
-            .flex-start();
-            overflow: hidden;
-            height: 80/75rem;
-            line-height: 80/75rem; 
-            margin: 32/75rem auto;
-            .round(10/75rem);
-            font-size: 30/75rem;
-            background: #fff;
-            box-shadow:0px 3px 6px rgba(0,0,0,0.16);
-            // padding: 0 30/75rem;
-            box-sizing: border-box;
-            div:nth-child(2) {
-                width: 1px;
-                height: 70%;
-                border-right: 1px solid #C9C9C9;
-            }
-            & > div {
-                width: 50%;
-                height: 100%;
-                text-align: center;
-                .flex-start();
-                & > span {
-                    display: block;
-                    width: 80%;
-                    height: 100%;
-                    overflow: hidden;
-                    text-overflow:ellipsis;
-                    white-space: nowrap
+            .border-box();
+            background: rgba(251,247,232,1);
+            .gender-box{
+                .flex-between();
+                .border-box();
+                & >img{
+                    width: 96/75rem;
+                    height: 96/75rem;
+                }
+                .right-box{
+                    .input-box{
+                        width: 530/75rem;
+                        height: 65/75rem;
+                        margin-bottom: 8/75rem;
+                        .round(10/75rem);
+                        background: #fff;
+                        box-shadow:0px 3px 6px rgba(0,0,0,0.16);
+                        .flex-start();
+                        .input-left{
+                            .flex-start();
+                            width: 22%;
+                            padding-left: 17/75rem;
+                            .border-box();
+                            & > i{
+                                display: block;
+                                width: 22/75rem;
+                                height: 11/75rem;
+                                margin-left: 9/75rem;
+                                background: url('../assets/image/love/black-select.png') no-repeat center center / 100% 100%;
+                            }
+                            .female-select{
+                                background: url('../assets/image/love/pink-select.png') no-repeat center center / 100% 100%;
+                            }
+                        }
+                        input{
+                            width:77%;
+                            height: 37/75rem;
+                            line-height: 37/75rem;
+                            border: none;
+                            border-left: 1px solid rgba(201,201,201,1);
+                            padding-left: 12/75rem;
+                            .border-box();
+                        }
+                    }
                 }
             }
-            & > div > i {
-                display: inline-block;
-                width: 22/75rem;
-                height: 22/75rem;
-                background: url('../assets/image/bazi-birth/unfold.png') no-repeat center center / 100% 100%;
-            }
-        }
-        .check-box{
-            width: 480/75rem;
-            margin: 25/75rem auto;
-            .flex-between();
-            input[type="radio"]{
-                display: none;
-            }
-            input[type="radio"] + label{
-                display: inline-block;
-                width: 88/75rem;
-                height: 88/75rem;
-                line-height: 88/75rem;
-                .boxshadow(0,3/75rem,6/75rem,rgba(0,0,0,0.16));
-                .round(50%);
-                text-align: center;
-                background: #fff;
-                font-size: 28/75rem;
-            }
-            input[type="radio"]:checked + label{
-                background: #36BDE8;
-                color: #fff;
-            }
-        }
-        .female-check-box {
-            .check-box();
-            input[type="radio"]:checked + label{
-                background: #FF9A9A;
+            .gender-box:nth-child(2){
+                margin-top: 25/75rem;
             }
         }
         .begin-test{
             width: 100%;
             height: 90/75rem;
             display: block;
-            margin: 50/75rem auto 85/75rem auto;
-            .round(75/75rem);
-            background:#FF9A9A;
-            color: #fff;
+            margin: 30/75rem auto auto auto;
+            // .round(75/75rem);
+            background: url('../assets/image/love/btn-bg.png') no-repeat center center / 100% 100%;
             font-size: 34/75rem;
             border: none;
             &:active{

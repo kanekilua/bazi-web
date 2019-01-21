@@ -95,7 +95,7 @@ export default  {
                 }
             }
             this.paipanDataList = app_paipan_data;
-            console.log(this.paipanDataList);
+            // console.log(this.paipanDataList);
         },
         btnStyleChange : function (index) {
             this.touchIndex = index;
@@ -144,28 +144,29 @@ export default  {
                 this.dateArray[1] =solar.cMonth;
                 this.dateArray[2] =solar.cDay;
             }
-            let paipanData = {
-                'name' : this.name,
-                'sex' : this.gender,
-                'year' : this.dateArray[0],
-                'month' : this.dateArray[1],
-                'date' : this.dateArray[2],
-                'hour' : this.dateArray[3],
-                'minute' : this.dateArray[4]
-            }
-            let app_paipan_data = [];
-            // 判断localStorage中是否有global.APP_BAZI_DATA，有的话取出来
-            if(localStorage.hasOwnProperty(global.APP_BAZI_DATA)) {
-                app_paipan_data = JSON.parse(localStorage.getItem(global.APP_BAZI_DATA));
-            }
-            // 判断localStorage中的global.APP_BAZI_DATA的长度是否等于最大值，是的话删除最后一个元素
-            if(app_paipan_data.length === global.APP_BAZI_DATA_MAX){
-                app_paipan_data.splice(global.APP_BAZI_DATA_MAX-1,1);
-            }
-            app_paipan_data.unshift(paipanData);
-            localStorage.setItem(global.APP_BAZI_DATA,JSON.stringify(app_paipan_data));
-            this.updateBaziUserInfo(paipanData);
-            this.$router.go(-1);
+            console.log(this.dateArray)
+            // let paipanData = {
+            //     'name' : this.name,
+            //     'sex' : this.gender,
+            //     'year' : this.dateArray[0],
+            //     'month' : this.dateArray[1],
+            //     'date' : this.dateArray[2],
+            //     'hour' : this.dateArray[3],
+            //     'minute' : this.dateArray[4]
+            // }
+            // let app_paipan_data = [];
+            // // 判断localStorage中是否有global.APP_BAZI_DATA，有的话取出来
+            // if(localStorage.hasOwnProperty(global.APP_BAZI_DATA)) {
+            //     app_paipan_data = JSON.parse(localStorage.getItem(global.APP_BAZI_DATA));
+            // }
+            // // 判断localStorage中的global.APP_BAZI_DATA的长度是否等于最大值，是的话删除最后一个元素
+            // if(app_paipan_data.length === global.APP_BAZI_DATA_MAX){
+            //     app_paipan_data.splice(global.APP_BAZI_DATA_MAX-1,1);
+            // }
+            // app_paipan_data.unshift(paipanData);
+            // localStorage.setItem(global.APP_BAZI_DATA,JSON.stringify(app_paipan_data));
+            // this.updateBaziUserInfo(paipanData);
+            // this.$router.go(-1);
         },
         selectUser : function (item,index) {
             let app_paipan_data = JSON.parse(localStorage.getItem(global.APP_BAZI_DATA));
