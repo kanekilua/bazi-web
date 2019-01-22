@@ -41,7 +41,8 @@ export default {
     },
     methods : {
         getData () {
-            this.$http.post('/suan/apidata',this.$route.params.data,'cesuan',null,this.success,null)
+            console.log(this.$route.query.data)
+            this.$http.post('/suan/apidata',this.$route.query.data,'cesuan',null,this.success,null)
         },
         success: function(res){
             this.qmdj = res.data.qmdj;
@@ -49,7 +50,7 @@ export default {
             this.dunju = res.data.dunju;
             this.zhifu = res.data.zhifu;
             this.zhishi = res.data.zhishi;
-        }
+        },
     }
 }
 </script>
