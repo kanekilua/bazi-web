@@ -235,6 +235,9 @@ export default {
     background: #f1f1f1;
 }
 .content{
+    /deep/ .title {
+        color : #121212 !important;
+    }
     .table-list{
         width: 90%;
         margin: 40/75rem auto 20/75rem auto;
