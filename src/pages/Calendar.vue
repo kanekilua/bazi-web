@@ -596,7 +596,8 @@ export default {
     .round(14/75rem);
     width: @width/75rem;
     height: 310/75rem;
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x : hidden;
     & > div {
         font-size: 26/75rem;
         text-align: center;
