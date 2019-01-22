@@ -25,6 +25,7 @@ global.APP_SHARE_APP = {
     text : '为您解惑，伴您生活！',
     url : 'http://www.szmonster.com'
 }
+global.APP_REPLACE_IMG = 'this.src="' + require('../image/common/replace-img.png') + '"';
 
 // plugins option
 global.DATETIME_OPTION = {

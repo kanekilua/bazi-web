@@ -12,7 +12,7 @@
                     <swiper :options="swiperOption" ref="mySwiper">
                         <swiper-slide v-for="(outItem,outIndex) of list" :key="outIndex" :class="fixFlag ? 'hItem-fixed' : ''">
                             <div class="hItem" v-for="(innerItem,innerIndex) in outItem" :key="innerIndex" @click="toInner(innerItem.id) ">
-                                <img :src="innerItem.img">
+                                <img :src="innerItem.img" :onerror="replaceImg">
                                 <div class="right">
                                     <h2>{{innerItem.title}}</h2>
                                     <p v-html="innerItem.content"></p>
@@ -42,7 +42,8 @@ export default {
             tip: "正在加载...",
             showIco: false, //加载动画
             showLoading: true,  //加载ico,
-            scrollInit : 0
+            scrollInit : 0,
+            replaceImg : global.APP_REPLACE_IMG
         }
     },
     computed : {

@@ -266,8 +266,8 @@ export default  {
                         display: none;
                     }
                     input[type="radio"] + label{
-                        width: 22/75rem;
-                        height: 22/75rem;
+                        width: 11px;
+                        height: 11px;
                         .round(50%);
                         margin: 0 15/75rem;
                         border: 1px solid #eee;

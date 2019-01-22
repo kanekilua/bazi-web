@@ -75,13 +75,15 @@
                     <div slot="more" @click="$jump('/interestingMore')">更多</div>
                 </v-title-nav-more>
                 <div class="interst-test">
-                    <div class="img-box"
+                    <div class="interest-item"
                         @click="toTest(item.id)"
                         v-for = "(item,index) in testList"
                         :key = "index"
-                        v-show = "index < 2"
+                        v-show = "index < 4"
                     >
-                        <img :src="item.img" alt="趣味测试">
+                        <div class="img-box">
+                            <img :src="item.img" alt="趣味测试">
+                        </div>
                         <div class="mask">
                             <h4>{{item.title}}</h4>
                             <div><a href="#">免费揭晓答案 ></a></div>
@@ -104,12 +106,12 @@ export default {
             imgList: [],
             swiperOption: { 
                 loop: true,
-                pagination:{
-                    el: '.swiper-pagination',
-                    type: 'bullets',
-                    // bulletClass : 'my-bullet',
-                    // bulletActiveClass: 'my-bullet-active',
-                },
+                // pagination:{
+                //     el: '.swiper-pagination',
+                //     type: 'bullets',
+                //     // bulletClass : 'my-bullet',
+                //     // bulletActiveClass: 'my-bullet-active',
+                // },
                 autoplay: {
                     delay: 3000,
                     // disableOnInteraction: false,
@@ -288,16 +290,21 @@ export default {
     .interst-test{
         padding-bottom: 13/75rem;
         overflow: hidden;
-        .img-box{
+        .interest-item{
             position: relative;
             width: 90%;
             height: 223/75rem;
             margin: 20/75rem auto;
-            overflow: hidden;
-            img{
+            .img-box{
                 width: 100%;
-                height: auto;
+                height: 220/75rem;
+                .flex-center;
+                overflow: hidden;
                 .round(10/75rem);
+                img{
+                    width: 100%;
+                    height: auto;
+                }
             }
             .mask{
                 position: absolute;
