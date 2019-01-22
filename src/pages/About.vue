@@ -27,11 +27,12 @@ export default {
         .border-box();
         .content {
             text-align: left;
-            margin: 24/75rem auto;
+            margin: 40/75rem auto;
             width: 604/75rem;
             p {
                 text-indent: 2em;
                 font-size: 32/75rem;
+                text-align: justify;
             }
         }
     }

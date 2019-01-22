@@ -78,6 +78,9 @@ function apiAxios (method, url, params,type, headers, success, failure) {
         return;
       }
     } 
+    if((err + '').indexOf('Network')) {
+      Vue.$vux.toast.text('请检查网络设置','center');
+    }
     Vue.$vux.toast.text('' + err,'center');
     return;
   })

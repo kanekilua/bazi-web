@@ -150,7 +150,7 @@ export default  {
             this.$router.push(
                 {
                     name: 'qimenPan',
-                    params: {data: this.apiParams}
+                    query: {data: this.apiParams}
                 }
             )
         }

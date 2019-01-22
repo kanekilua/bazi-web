@@ -236,16 +236,16 @@ export default {
                     .flex-start-only();
                     margin-bottom: 32/75rem;
                     & > img{
-                        width: 300/75rem;
+                        // width: 300/75rem;
+                        width: 40%;
                         height: 180/75rem;
                         .round(10/75rem);
                         margin-left: 14/75rem;
                     }
                     .right{
-                        flex: 1;
+                        width: 55%;
                         margin-left: 20/75rem;
                         & > h2{
-                            width: 400/75rem;
                             height: 40/75rem;
                             margin-top: 10/75rem;
                             overflow: hidden;
@@ -254,7 +254,6 @@ export default {
                             font-size: 28/75rem;
                         }
                         & > p{
-                            width: 400/75rem;
                             height: 120/75rem;
                             margin-top: 17/75rem;
                             overflow: hidden;

@@ -276,13 +276,13 @@ export default {
                 this.$http.post('/suan/apidata',params,'cesuan',null,(res) => {
                     switch (tid) {
                         case '801':
-                            this.articleList[0] = res.data;
+                            this.$set(this.articleList,0,res.data);
                             break;
                         case '802' :
-                            this.articleList[1] = res.data;
+                            this.$set(this.articleList,1,res.data);
                             break;
                         case '803' :
-                            this.articleList[2] = res.data;
+                            this.$set(this.articleList,2,res.data);
                             break;
                         default:
                             break;

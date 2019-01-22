@@ -30,11 +30,11 @@
                 <input type="text"  class="form-input" v-model="masterPhone" placeholder="请填写您的手机号码">
             </div>
             <div class="form-item">
-                <div class="key">QQ号码</div>
+                <div class="key key-qq">QQ号码</div>
                 <input type="text" class="form-input" v-model="masterQQ" placeholder="请输入您的QQ号码">
             </div>
             <div class="radio-box">
-                <div class="key">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</div>
+                <div class="key">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</div>
                 <div class="radio-list">
                     <label for="male">
                         <input type="radio" name="gender" id="male" value="1" v-model="gender">
@@ -57,7 +57,7 @@
             </div>
             <div class="radio-box">
                 <div class="key">目前职业</div>
-                <div class="radio-list radio-list3">
+                <div class="radio-list">
                     <label for="full-time">
                         <input type="radio" name="job" id="full-time" value="0" v-model="job">
                         <i></i>
@@ -232,7 +232,12 @@ export default {
             }
         }
         .key{
+            width: 130/75rem;
             font-size: 32/75rem;
+            text-align: justify;
+        }
+        .key-qq {
+            letter-spacing:4/75rem;
         }
         .radio-box,.city-box{
             .flex-start();
@@ -242,6 +247,9 @@ export default {
                 .flex-start();
                 margin-left: 70/75rem;
                 font-size: 28/75rem;
+                label:nth-last-child(1) {
+                    margin-right: 0;
+                }
                 label{
                     .flex-start();
                     margin-right: 58/75rem;
@@ -262,17 +270,18 @@ export default {
                         background: @baseBoldColor;
                         border-color: @baseBoldColor;
                     }
+                    & > div {
+                        width: 60/75rem;
+                    }
                 }
                 
             }
-            .radio-list3{
-                margin-left: 50/75rem;
-            }
             .select-list{
+                 margin-left: 70/75rem;
                 .flex-start();
                 & > div{
                     .flex-start();
-                    margin-left: 50/75rem;
+                    margin-right: 50/75rem;
                     & > i{
                         display: inline-block;
                         width: 22/75rem;

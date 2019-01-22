@@ -9,12 +9,12 @@
                 <header :class="cid === '95' ? 'article-header-normal' : cid === '98' ? 'article-header-shengxiao' : ''">
                     <h2>{{article.data.title}}</h2>
                     <div v-if="cid === '95'">
-                        <button @click="collect" :class="isCollet === true ? 'is-collect':'is-not-collect'">{{isCollet === true?'已收藏':'收藏'}}</button>
+                        <button v-if="$store.state.loginAccount !== ''" @click="collect" :class="isCollet === true ? 'is-collect':'is-not-collect'">{{isCollet === true?'已收藏':'收藏'}}</button>
                     </div>
                     <div v-if="cid === '98'">
                         <img :src="this.$route.params.img" alt="">
                         <div class="person-name">{{this.$route.params.name}}</div>
-                        <button @click="collect" :class="isCollet === true ? 'is-collect':'is-not-collect'">{{isCollet === true?'已收藏':'收藏'}}</button>
+                        <button v-if="$store.state.loginAccount !== ''" @click="collect" :class="isCollet === true ? 'is-collect':'is-not-collect'">{{isCollet === true?'已收藏':'收藏'}}</button>
                     </div>
                 </header>
                 <div class="content">
