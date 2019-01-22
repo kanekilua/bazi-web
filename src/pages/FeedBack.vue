@@ -98,7 +98,8 @@ export default {
                 text-align: center;
                 .round(40/75rem);
                 font-size: 24/75rem;
-                .boxshadow(0,3/75rem,6/75rem,rgba(0,0,0,0.16));
+                // .boxshadow(0,3/75rem,6/75rem,rgba(0,0,0,0.16));
+                .boxshadow(0px,2px,5px,rgba(0,0,0,0.10));
             }
             & > input:checked + div{
                 background: @baseBoldColor;
@@ -112,7 +113,7 @@ export default {
         height: 276/75rem;
         display: block;
         margin: 0 auto;
-        .boxshadow(0,3/75rem,6/75rem,rgba(0,0,0,0.16));
+        .boxshadow(0px,2px,5px,rgba(0,0,0,0.10));
         .round(26/75rem);
         resize: none;
         border: none;

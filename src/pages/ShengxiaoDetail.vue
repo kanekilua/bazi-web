@@ -148,7 +148,7 @@ export default {
         margin: 0 auto 60/75rem auto;
         padding: 26/75rem;
         .border-box();
-        .boxshadow();
+        .boxshadow(0,1px,8px,rgba(0,0,0,0.16));
         .round(10/75rem);
         background:rgba(255,255,255,1);
         & > h2 {

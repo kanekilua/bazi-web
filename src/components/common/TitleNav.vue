@@ -30,7 +30,7 @@ export default {
         }
         .title{
             font-size: 32/75rem;
-            color: #121212;
+            color: @baseBoldColor;
             font-weight: bold;
         }
     }

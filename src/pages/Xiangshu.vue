@@ -323,6 +323,7 @@ export default {
                 .right{
                     flex: 1;
                     margin-left: 20/75rem;
+                    margin-right: 14/75rem;
                     & > h2{
                         width: 400/75rem;
                         height: 40/75rem;
