@@ -46,7 +46,7 @@
                         :key="index"
                         @click="showArticle(item)"
                     >
-                        <img :src="item.img" alt="image">
+                        <img :src="item.img" alt="image" :onerror="replaceImg">
                         <div>
                             <h2>{{item.title}}</h2>
                             <p>{{item.content}}</p>
@@ -140,7 +140,8 @@ export default {
                     works: "《风水百宝箱》、《风生水起 》节目",
                     experience: "曾担任香港无线电视的“风生水起”、“红星掌相”以及亚洲电视的“谈风论水”、“风水面面观”、“句句妙”等节目主持，深受广大观众欢迎。自从1985年《虎年运程》一书开始，年年撰写的流年运程均深受欢迎，销量节节上升。始终在同类书中独占鳌头。此书的英文版，行销世界各地，使我国术数得以传扬海外。其传略被收录《中国风水家辞典》（高占全主编）现任中国易经协会名誉会长。",
                 }
-            ]
+            ],
+            replaceImg : global.APP_REPLACE_IMG
         }
     },
     computed : {

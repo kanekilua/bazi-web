@@ -18,7 +18,6 @@ import Mine from '@/pages/Mine'
 import Bazi from '@/pages/Bazi'
 import Ziwei from '@/pages/Ziwei'
 import Fengshui from '@/pages/Fengshui'
-import FengshuiJiaju from '@/pages/FengshuiJiaju'
 import Love from '@/pages/Love'
 import LoveBlossoms from '@/pages/LoveBlossoms'
 import Hehun from '@/pages/Hehun'
@@ -201,14 +200,6 @@ export default new Router({
       path: '/fengshui',
       name:'fengshui',
       component: Fengshui,
-      meta: {
-        keepAlive: false
-      }
-    },
-    {
-      path: '/jiaju',
-      name:'jiaju',
-      component: FengshuiJiaju,
       meta: {
         keepAlive: false
       }

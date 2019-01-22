@@ -16,6 +16,7 @@ global.APP_BAZI_DATA_MAX = 5;
 global.APP_DOMIAN = 'https://mingli.szmonster.com'
 global.APP_DOWNLOAD_URL = 'http://www.szmonster.com'
 global.APP_BAZI_SHARE = APP_NAME + '_bazi_share';
+global.APP_REPLACE_IMG = 'this.src="' + require('../image/common/replace-img.png') + '"';
 
 // plugins option
 global.DATETIME_OPTION = {
