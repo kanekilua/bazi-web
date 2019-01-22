@@ -6,8 +6,8 @@
                 <div class="search-box">
                     <div class="search-bg">
                         <div class="input-box">
-                            <input type="text" placeholder="输入您梦到的事情" @focus="ShowPannel" @blur="ShowPannel" v-model="keyWord">
                             <i></i>
+                            <input type="text" placeholder="输入您梦到的事情" @focus="ShowPannel" @blur="ShowPannel" v-model="keyWord">
                         </div>
                     </div>
                 </div>
@@ -162,7 +162,7 @@ export default {
                     margin: 0 auto;
                     margin-top: 278/75rem;
                     background: #fff;
-                    padding: 0 22/75rem 0 33/75rem;
+                    padding: 0 22/75rem 0 30/75rem;
                     .border-box();
                     .round(25/75rem);
                     input{
@@ -174,8 +174,9 @@ export default {
                     }
                     & > i{
                         display: inline-block;
-                        width: 44/75rem;
-                        height: 44/75rem;
+                        width: 34/75rem;
+                        height: 34/75rem;
+                        opacity: 0.7;
                         background:url('../assets/image/zhougong/search@2x.png') no-repeat center center / 100% 100%;
                     }
                 }
