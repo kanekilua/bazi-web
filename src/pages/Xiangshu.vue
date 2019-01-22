@@ -11,7 +11,7 @@
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide ref="slideone" v-for="(item,index) in list" :key="index">
                         <div class="hItem" v-for="(innerItem,innerIndex) in item.data" :key="innerIndex" @click="toInner(innerItem.id)">
-                            <img :src="innerItem.img">
+                            <img :src="innerItem.img" :onerror="replaceImg">
                             <div class="right">
                                 <h2>{{innerItem.title}}</h2>
                                 <p v-html="innerItem.content"></p>
@@ -47,7 +47,8 @@ export default {
             showIco: false,
             // loading: false,
             showLoading: true,
-            limit: 0,//下拉加载，++请求下10条数据
+            limit: 0,//下拉加载，++请求下10条数据,
+            replaceImg : global.APP_REPLACE_IMG
         }
     },
     computed : {
