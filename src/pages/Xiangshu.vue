@@ -11,7 +11,9 @@
                 <swiper :options="swiperOption" ref="mySwiper">
                     <swiper-slide ref="slideone" v-for="(item,index) in list" :key="index">
                         <div class="hItem" v-for="(innerItem,innerIndex) in item.data" :key="innerIndex" @click="toInner(innerItem.id)">
-                            <img :src="innerItem.img" :onerror="replaceImg">
+                            <div class="img-box">
+                                <img :src="innerItem.img" :onerror="replaceImg">
+                            </div>
                             <div class="right">
                                 <h2>{{innerItem.title}}</h2>
                                 <p v-html="innerItem.content"></p>
@@ -311,38 +313,39 @@ export default {
                 height:85/75rem;
             }
             .hItem{
-                width: 98%;
+                width: 100%;
                 margin:  0 auto;
                 .flex-start-only();
                 margin-bottom: 32/75rem;
-                & > img{
-                    width: 300/75rem;
+                .img-box{
+                    .flex-center;
+                    width: 45%;
                     height: 180/75rem;
                     .round(10/75rem);
                     margin-left: 14/75rem;
+                    overflow: hidden;
+                    & > img{
+                        width: 100%;
+                    }
                 }
                 .right{
-                    flex: 1;
+                    width: 55%;
                     margin-left: 20/75rem;
                     margin-right: 14/75rem;
                     & > h2{
-                        width: 400/75rem;
+                        width: 100%;
                         height: 40/75rem;
-                        margin-top: 10/75rem;
                         overflow: hidden;
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         font-size: 28/75rem;
                     }
                     & > p{
-                        width: 400/75rem;
+                        width: 100%;
                         height: 120/75rem;
                         margin-top: 17/75rem;
                         overflow: hidden;
                         text-overflow: ellipsis;
-                        display: -webkit-box;
-                        -webkit-line-clamp: 3;
-                        -webkit-box-orient: vertical;
                         font-size: 22/75rem;
                         line-height: 40/75rem;
                         & > strong {

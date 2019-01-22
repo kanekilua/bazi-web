@@ -118,8 +118,8 @@ export default {
                 }
                 i{
                     display: block;
-                    width: 22/75rem;
-                    height: 22/75rem;
+                    width: 11px;
+                    height: 11px;
                     .round(50%);
                     border: 1px solid #707070;
                     .border-box();
