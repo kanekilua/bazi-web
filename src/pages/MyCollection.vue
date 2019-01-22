@@ -58,8 +58,6 @@ export default {
                     for( let i of this.articleList){
                         if(i.url === "") {
                             i.url = require("../assets/image/activity/banner.png")
-                        }else {
-                            i.url = global.APP_DOMIAN + i.url;
                         }
                     }
                 }
@@ -158,11 +156,14 @@ export default {
                     margin : 0 auto;
                     .flex-between();
                     .title {
+                        width: 85%;
                         font-size: 32/75rem;
                         color: #fff;
                         font-weight: bold;
                     }
                     .tip {
+                        width: 15%;
+                        text-align: right;
                         color: #fff;
                         font-size: 24/75rem;
                         i {
