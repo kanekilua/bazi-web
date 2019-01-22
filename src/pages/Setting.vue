@@ -45,7 +45,7 @@ export default {
                 {title: "个人资料", img: require('../assets/image/mine/person-file.png'), route: "/main/mine/setting/userFile"},
                 {title: "账户与安全", img: require('../assets/image/mine/save.png'), route: "/main/mine/setting/security"},
                 {title: "用户协议", img: require('../assets/image/mine/agreement.png'), route: "/userAgreement"},
-                {title: "检测更新", img: require('../assets/image/mine/update.png'), route: "/main/mine/setting"}
+                {title: "检测更新", img: require('../assets/image/mine/update.png'), route: "update"}
             ],
             loginFlag : true,
         }
@@ -60,6 +60,10 @@ export default {
             }
         },
         jump : function (path) {
+            if(path === 'update') {
+                this.$vux.toast.text('已是最新版本','center');
+                return;
+            }
             if((path === "/main/mine/setting/userFile" || path === "/main/mine/setting/security") && !this.loginFlag) {
                 path = "/login";
             }
