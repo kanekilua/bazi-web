@@ -202,8 +202,8 @@ export default  {
             display: none;
         }
         input[type="radio"] + label{
-            width: 44/75rem;
-            height: 44/75rem;
+            width: 22px;
+            height: 22px;
             .round(50%);
             margin-right: 40/75rem;
             & + div{
@@ -264,8 +264,8 @@ export default  {
             display: none;
         }
         input[type="radio"] + label{
-            width: 22/75rem;
-            height: 22/75rem;
+            width: 11px;
+            height: 11px;
             .round(50%);
             margin-right: 26/75rem;
             border: 1px solid #eee;

@@ -21,12 +21,14 @@ export default {
 <style lang="less" scoped>
 .title-nav{
     width: 100%;
-    padding: 18/75rem 20/75rem;
+    height: 70/75rem;
+    line-height: 70/75rem;
+    padding: 0 20/75rem;
     .border-box();
     .flex-between();
     .nav-left{
-        height: 35/75rem;
-        line-height: 35/75rem;
+        height: 70/75rem;
+        line-height: 70/75rem;
         .flex-center();
         .color-line{
             width: 6/75rem;
