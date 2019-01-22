@@ -26,7 +26,7 @@ Object.keys(components).forEach((key) => {
 })
 
 // vux基础组件引用
-import { XButton,XInput,Group,Flexbox,FlexboxItem,ToastPlugin,Swiper,SwiperItem,DatetimePlugin,Popup,TransferDom,Cell,Sticky,XDialog,Picker,LoadMore} from 'vux'
+import { XButton,XInput,Group,Flexbox,FlexboxItem,ToastPlugin,Swiper,SwiperItem,DatetimePlugin,Popup,TransferDom,Cell,Sticky,XDialog,Picker,LoadMore,PopupPicker} from 'vux'
 Vue.component('x-button', XButton);
 Vue.component('x-input', XInput);
 Vue.component('group', Group);
@@ -41,6 +41,7 @@ Vue.component('sticky', Sticky);
 Vue.component('x-dialog', XDialog);
 Vue.component('picker', Picker);
 Vue.component('load-more', LoadMore);
+Vue.component('popup-picker', PopupPicker)
 Vue.use(DatetimePlugin);
 Vue.use(ToastPlugin);
 
