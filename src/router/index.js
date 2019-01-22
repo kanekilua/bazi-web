@@ -370,7 +370,7 @@ export default new Router({
       name : 'qimenFile',
       component : QimenFile,
       meta: {
-        keepAlive: false
+        keepAlive: true
       }
     },
     {

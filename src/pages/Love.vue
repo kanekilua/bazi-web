@@ -52,6 +52,7 @@ import Hehun from './Hehun'
 export default {
     data () {
         return {
+            in: "",
             backLink : '/main/home',
             navList: ["桃花运","八字合婚"],
             swiperOption : { initialSlide: this.navIndex ,autoHeight : true},
