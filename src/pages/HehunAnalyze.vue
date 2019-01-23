@@ -91,28 +91,17 @@ export default {
             let params = {
                 //测试数据
                 cid : '100',
-                year1 : '1912',
-                month1 : '1',
-                date1 : '2',
-                hour1 : '15',
-                minute : '17',
-                year2 : '1913',
-                month2 : '1',
-                date2 : '11',
-                hour2 : '13',
-                minute2 : '10'
-                // year1 : this.$route.params.maleDateArr[0],
-                // month1 : this.$route.params.maleDateArr[1],
-                // date1 : this.$route.params.maleDateArr[2],
-                // hour1 : this.$route.params.maleDateArr[3],
-                // minute : this.$route.params.maleDateArr[4],
-                // year2 : this.$route.params.femaleDateArr[0],
-                // month2 : this.$route.params.femaleDateArr[1],
-                // date2 : this.$route.params.femaleDateArr[2],
-                // hour2 : this.$route.params.femaleDateArr[3],
-                // minute2 : this.$route.params.femaleDateArr[4]
+                year1 : this.$route.params.maleDateArr[0],
+                month1 : this.$route.params.maleDateArr[1],
+                date1 : this.$route.params.maleDateArr[2],
+                hour1 : this.$route.params.maleDateArr[3],
+                minute : this.$route.params.maleDateArr[4],
+                year2 : this.$route.params.femaleDateArr[0],
+                month2 : this.$route.params.femaleDateArr[1],
+                date2 : this.$route.params.femaleDateArr[2],
+                hour2 : this.$route.params.femaleDateArr[3],
+                minute2 : this.$route.params.femaleDateArr[4]
             }
-
             this.$http.post('/suan/apidata',params,'cesuan',null,this.success,this.failure);
         },
         success : function (res) {

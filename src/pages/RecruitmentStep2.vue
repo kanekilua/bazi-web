@@ -36,7 +36,6 @@
             <div class="form-item">
                 <div class="key">从业年限</div>
                 <input type="number" placeholder="请填写您的从业年限(阿拉伯数字)" v-model="working_years">
-                <div class="year">年</div>
             </div>
             <div class="form-item">
                 <div class="key">从业经历</div>
@@ -199,10 +198,6 @@ export default {
                .my-input();
                font-size: 26/75rem;
                border-bottom: 1px solid rgba(112,112,112,0.1);
-            }
-            .year{
-                position: absolute;
-                right: 0;
             }
             & > textarea{
                 width: 78%;

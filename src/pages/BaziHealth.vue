@@ -7,7 +7,7 @@
                 :class="this.$store.state.bazi.hideText ? 'hide-text' : ''"
             ></p>
         </div>
-         <div :class="this.$store.state.bazi.hideText ? 'mask' : 'hide'">
+        <div :class="this.$store.state.bazi.hideText ? 'mask' : 'hide'">
             <div class="share-btn" @click="$emit('switchShowShare',true)">
                 <i></i>
                 <span>分享解锁</span>

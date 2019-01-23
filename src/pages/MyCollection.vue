@@ -49,6 +49,7 @@ export default {
             this.$http.post('/features/mycoll',null,null,header,this.success,null);
         },
         success : function (res) {
+            console.log(res.data);
             if(res.code === "success") {
                 if(res.data.rows.length === 0) {
                     this.flag = false;
@@ -56,8 +57,8 @@ export default {
                     this.flag = true;
                     this.articleList = res.data.rows;
                     for( let i of this.articleList){
-                        if(i.url === "") {
-                            i.url = require("../assets/image/activity/banner.png")
+                        if(i.image === "") {
+                            i.image = require("../assets/image/activity/banner.png")
                         }
                     }
                 }
