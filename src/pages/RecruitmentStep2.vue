@@ -93,15 +93,16 @@ export default {
             this.$jump('/main/mine/recruitment/recruitmentStep1')
         },
         nextStep: function () {
-            if(this.$utils.Trim(this.technique)==''){
+            console.log(this.technique)
+            if(this.$utils.Trim(this.technique)=='' || !this.technique){
                 this.$vux.toast.text('请填写您所擅长的数术！','top');
                 return;
             }
-            if(this.$utils.Trim(this.learning)==''){
+            if(this.$utils.Trim(this.learning)=='' || !this.learning){
                 this.$vux.toast.text('请填写您的学习经历！','top');
                 return;
             }
-            if(this.$utils.Trim(this.working_years)==''){
+            if(this.$utils.Trim(this.working_years)=='' || !this.working_years){
                 this.$vux.toast.text('请填写您的从业年限！','top');
                 return;
                 if(typeof(this.$utils.Trim(this.working_years)=='')!=Number){
@@ -110,11 +111,11 @@ export default {
                 }
                 
             }
-            if(this.$utils.Trim(this.merit)==''){
+            if(this.$utils.Trim(this.merit)=='' || !this.merit){
                 this.$vux.toast.text('请填写您的擅长领域！','top');
                 return;
             }
-            if(this.$utils.Trim(this.charges)==''){
+            if(this.$utils.Trim(this.charges)=='' || !this.charges){
                 this.$vux.toast.text('请填写您的收费情况！','top');
                 return;
             }
