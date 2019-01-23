@@ -224,15 +224,20 @@ button{
             }
         }
         .feedback,.about{
+            width: 100%;
+            height: 100/75rem;
+            line-height: 100/75rem;
             .flex-between();
             .round(30/75rem);
-            padding: 32/75rem 23/75rem;
+            padding: 0 23/75rem;
             .border-box();
             .boxshadow(0,3/75rem,6/75rem,rgba(5, 0, 0, 0.16));
             width: 96%;
             margin: 0 auto 20/75rem auto;
-            font-size: 28/75rem;
             background: #fff;
+            div{
+                font-size: 28/75rem;
+            }
             &:active{
                 background: #FFF6F6;
             }

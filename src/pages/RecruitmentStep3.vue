@@ -209,11 +209,9 @@ export default {
                     display: block;
                     width: 11px;
                     height: 11px;
-                    margin-right: 12/75rem;
-                    line-height: 11px;
-                    text-align: center;
-                    border: 1px solid rgba(112,112,112,1);
                     .round(50%);
+                    margin-right: 12/75rem;
+                    border: 1px solid rgba(112,112,112,1);
                 }
                 &>input{
                     display: none;

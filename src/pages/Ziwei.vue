@@ -157,14 +157,14 @@ export default {
         init: function () {
             let userData = {
                 cid : '106',
-                // y : '2002',
-                // m : '1',
-                // d : '1',
-                // h : '2',
-                y : this.baziUserInfo.year,
-                m : this.baziUserInfo.month,
-                d : this.baziUserInfo.date,
-                h : this.baziUserInfo.hour,
+                y : '2018',
+                m : '12',
+                d : '9',
+                h : '2',
+                // y : this.baziUserInfo.year,
+                // m : this.baziUserInfo.month,
+                // d : this.baziUserInfo.date,
+                // h : this.baziUserInfo.hour,
                 gong : this.gong, 
             } 
             this.$http.post('/suan/apidata',userData,'cesuan',null,this.success,this.failure) 
@@ -181,6 +181,7 @@ export default {
             }
         },
         success: function (res) {
+            console.log(res);
             if(res.code === "error") {
                 this.$vux.alert.show({
                     title : '系统提示',
@@ -188,8 +189,7 @@ export default {
                 });
                 return ;
             }
-
-            let content = res.data[0];
+            let content = res.data;
             for(let i in content){
                 for(let j in content[i]){
                     content[i][j] = content[i][j].replace(/(<\/?a.*?>)/g, ''); //去除a标签
