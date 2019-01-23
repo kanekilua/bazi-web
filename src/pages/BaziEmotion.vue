@@ -9,9 +9,11 @@
             <div :class="this.$store.state.bazi.hideText ? 'mask' : 'hide'">
             </div>
         </div>
-        <div class="share-btn" @click="showText()">
-            <i></i>
-            <span>分享解锁</span>
+        <div :class="this.$store.state.bazi.hideText ? 'mask' : 'hide'">
+            <div class="share-btn" @click="showText()">
+                <i></i>
+                <span>分享解锁</span>
+            </div>
         </div>
     </div>
 </template>
@@ -34,6 +36,8 @@ export default {
     display: none;
 }
 .wrap{
+    width: 100%;
+    height: 100%;
     position: relative;
     .share-btn{
         position: absolute;
