@@ -79,7 +79,7 @@
                         @click="toTest(item.id)"
                         v-for = "(item,index) in testList"
                         :key = "index"
-                        v-show = "index < 2"
+                        v-show = "index < 4"
                     >
                         <div class="img-box">
                             <img :src="item.img" alt="趣味测试">

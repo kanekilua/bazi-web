@@ -18,9 +18,8 @@
                         @click="showArticle(item)"
                     >
                         <div class="img-box">
-                            <img :src="item.img" alt="image">
+                            <img :src="item.img" alt="image" :onerror="replaceImg" >
                         </div>
-                        <div>
                             <h2>{{item.title}}</h2>
                             <p v-html="item.content"></p>
                         </div>
@@ -47,6 +46,7 @@ export default {
             showLoading: true,  //加载ico
             loading: false, //加载状态
             limit: 0,//下拉加载，++请求下10条数据
+            replaceImg : global.APP_REPLACE_IMG
         }
     },
     created () {
