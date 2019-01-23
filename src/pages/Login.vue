@@ -289,7 +289,6 @@ export default {
                     this.getUserInfoSuccess(res);
                 }
             });
-            localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
         },
         listenKey: function (e) {
             let keyCode = e.keyCode;
