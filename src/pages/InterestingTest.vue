@@ -9,7 +9,7 @@
                     :key="index"
                     v-show="index == showIndex"
                 >
-                    <h3>{{item.subject}}</h3>
+                    <h3>{{index+1}}-{{questionList.length}} {{item.subject}}</h3>
                     <label :for="'answer'+index+1">
                         <input type="radio" :name="'answer'+index" :id="'answer'+index+1" value="1"
                             v-model="userChoiceList[index]"
@@ -106,20 +106,21 @@ export default {
             padding: 36/75rem;
             .border-box();
             h3{
-                font-size: 30/75rem;
+                font-size: 36/75rem;
+                margin-bottom: 60/75rem;
             } 
             label{
                 .flex-start();
                 width: 100%;
-                margin-top: 24/75rem;
-                font-size: 24/75rem;
+                margin-top: 50/75rem;
+                font-size: 32/75rem;
                 input{
                     display: none;
                 }
                 i{
                     display: block;
-                    width: 11px;
-                    height: 11px;
+                    width: 15px;
+                    height: 15px;
                     .round(50%);
                     border: 1px solid #707070;
                     .border-box();

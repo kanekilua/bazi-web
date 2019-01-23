@@ -94,17 +94,22 @@ export default {
             let userInfo = {
                 cid : '93',
                 y : '1910',
-                m : '1',
-                d : '1',
-                // h : '1',
+                m : '2',
+                d : '28',
                 // y : this.baziUserInfo.year,
                 // m : this.baziUserInfo.month[0] === '0' ? this.baziUserInfo.month[1] : this.baziUserInfo.month,
                 // d : this.baziUserInfo.date[0] === '0' ? this.baziUserInfo.date[1] : this.baziUserInfo.date,
-                // h : this.baziUserInfo.hour[0] === '0' ? this.baziUserInfo.hour[1] : this.baziUserInfo.hour, 
             };
             this.$http.post('/suan/apidata',userInfo,'cesuan',null,this.success,this.failure) ;
         },
         success : function (res) {
+            if(res.code === 'error') {
+                this.$vux.alert.show({
+                    title : '系统提示',
+                    content : '暂无该数据'
+                });
+                return ;
+            }
             let str = JSON.stringify(res);
             str = str.replace(/★/g,"卍<br>★");
             str = str.replace(/◆/g,"卍<br>◆");

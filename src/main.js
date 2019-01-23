@@ -43,9 +43,10 @@ Vue.component('sticky', Sticky);
 Vue.component('x-dialog', XDialog);
 Vue.component('picker', Picker);
 Vue.component('load-more', LoadMore);
-Vue.component('popup-picker', PopupPicker)
+Vue.component('popup-picker', PopupPicker);
 Vue.use(DatetimePlugin);
 Vue.use(ToastPlugin);
+Vue.use(AlertPlugin);
 
 
 

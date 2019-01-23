@@ -173,11 +173,17 @@ export default {
             let header = {
                 'Authorization' : localStorage.getItem(global.APP_TOKEN)
             }
+            let url  = "https://mingli.szmonster.com/api/cesuan/suan/apidata";
+            let param = 'cid=' + this.cid + '&id=' + this.article.data.id;
+            param += this.$route.params.category ? '&category=' + this.$route.params.category : '';
+            param += this.$route.params.name ? '&name=' + this.$route.params.name : '';
+            param += this.$route.params.img ? '&imgUrl=' + this.$route.params.img : '';
             let params = {
-                url : this.article.data.img ? this.article.data.img : "",
-                param : 'cid=' + this.cid + '&id=' + this.article.data.id + '&category=' + this.$route.params.category + '&name=' + this.$route.params.name + '&imgUrl=' + this.$route.params.img,
+                url : global.APP_DOMIAN + '/api/cesuan/suan/apidata',
+                image : this.article.data.img ? this.article.data.img.split(' ')[0] : "",
+                param : param,
                 title : this.article.data.title,
-                summary : this.article.data.content.substring(0,300),
+                summary : this.$utils.delHtmlTag(this.$utils.removeAllSpace(this.article.data.content.substring(0,500))),
                 ident_id : this.cid + '_' + this.article.data.id
             }
             this.$http.post('/features/coll',params,null,header,this.collectSuccess,null);

@@ -17,8 +17,9 @@
                         :key="index"
                         @click="showArticle(item)"
                     >
-                        <img :src="item.img" alt="image" :onerror="replaceImg" >
-                        <div>
+                        <div class="img-box">
+                            <img :src="item.img" alt="image" :onerror="replaceImg" >
+                        </div>
                             <h2>{{item.title}}</h2>
                             <p v-html="item.content"></p>
                         </div>
@@ -127,7 +128,8 @@ export default {
         padding-top: 90/75rem;
         .border-box();
         .knowledge {
-            margin: 10/75rem 32/75rem 0 32/75rem;
+            padding: 10/75rem;
+            .border-box();
             .more{
                 .flex-end();
                 & > h2 {
@@ -147,30 +149,46 @@ export default {
                     padding: 23/75rem 0;
                     border-bottom: 1px solid #eee;
                     .flex-between-only();
-                    & > img {
-                        width: 300/75rem;
-                        height: 170/75rem;
+                    .img-box{
+                        .flex-center;
+                        width: 40%;
+                        height: 180/75rem;
                         .round(10/75rem);
+                        margin-left: 14/75rem;
+                        overflow: hidden;
+                        & > img{
+                            width: 100%;
+                        }
                     }
                     & > div {
-                        flex: 1;
-                        overflow: hidden;
-                        margin-left: 16/75rem;
-                        & > h2 {
-                            margin: 0 0 20/75rem 20/75rem;
-                            font-weight: bold;
-                            color : rgba(3,3,3,0.8);
-                            font-size: 28/75rem;
-                            .ellipsis(1);
-                        }
-                        & > p {
+                        width: 55%;
+                        margin-left: 20/75rem;
+                        margin-right: 14/75rem;
+                        & > h2{
                             width: 100%;
-                            height: 100/75rem;
-                            padding-right: 11/75rem;
-                            .border-box();
+                            height: 40/75rem;
                             overflow: hidden;
-                            line-height: 33/75rem;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            font-size: 28/75rem;
+                        }
+                        & > p{
+                            width: 100%;
+                            height: 120/75rem;
+                            margin-top: 17/75rem;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
                             font-size: 22/75rem;
+                            line-height: 40/75rem;
+                            & > strong {
+                                display: none;
+                                & + div{
+                                    display: none;
+                                }
+                            }
+                            img{
+                                display: none;
+                            }
                         }
                     }
                 }
