@@ -207,10 +207,10 @@ export default {
             })
         },
         onChange (val) {
-        this.title1 = val[0];
+            this.title1 = val[0];
         },
         onChange2 (val) {
-        this.title2 = val[0];
+            this.title2 = val[0];
         }, 
     }
 }
