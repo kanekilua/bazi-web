@@ -155,17 +155,16 @@ export default {
     },
     methods: {
         init: function () {
-            console.log(this.baziUserInfo);
             let userData = {
                 cid : '106',
-                y : '2002',
-                m : '1',
-                d : '1',
-                h : '2',
-                // y : this.baziUserInfo.year,
-                // m : this.baziUserInfo.month,
-                // d : this.baziUserInfo.date,
-                // h : this.baziUserInfo.hour,
+                // y : '2002',
+                // m : '1',
+                // d : '1',
+                // h : '2',
+                y : this.baziUserInfo.year,
+                m : this.baziUserInfo.month,
+                d : this.baziUserInfo.date,
+                h : this.baziUserInfo.hour,
                 gong : this.gong, 
             } 
             this.$http.post('/suan/apidata',userData,'cesuan',null,this.success,this.failure) 
@@ -182,6 +181,14 @@ export default {
             }
         },
         success: function (res) {
+            if(res.code === "error") {
+                this.$vux.alert.show({
+                    title : '系统提示',
+                    content : '暂无该数据'
+                });
+                return ;
+            }
+
             let content = res.data[0];
             for(let i in content){
                 for(let j in content[i]){
