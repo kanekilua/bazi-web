@@ -20,6 +20,7 @@
                         <div class="img-box">
                             <img :src="item.img" alt="image" :onerror="replaceImg" >
                         </div>
+                        <div class="right">
                             <h2>{{item.title}}</h2>
                             <p v-html="item.content"></p>
                         </div>
@@ -160,7 +161,7 @@ export default {
                             width: 100%;
                         }
                     }
-                    & > div {
+                    .right {
                         width: 55%;
                         margin-left: 20/75rem;
                         margin-right: 14/75rem;

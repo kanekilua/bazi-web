@@ -207,10 +207,10 @@ export default {
                 margin-top: 20/75rem;
                 & > i{
                     display: block;
-                    width: 20/75rem;
-                    height: 20/75rem;
+                    width: 11px;
+                    height: 11px;
                     margin-right: 12/75rem;
-                    line-height: 20/75rem;
+                    line-height: 11px;
                     text-align: center;
                     border: 1px solid rgba(112,112,112,1);
                     .round(50%);
