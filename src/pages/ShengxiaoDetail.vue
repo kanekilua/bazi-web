@@ -95,6 +95,14 @@ export default {
             this.$http.post('/suan/apidata',this.$route.query,'cesuan',null,this.success);
         },
         success : function (res) {
+            if(res.code === 'error') {
+                this.$vux.alert.show({
+                    title : '系统提示',
+                    content : '暂无该数据'
+                });
+                return ;
+            }
+            
             this.resData = res;
             this.params = this.$route.params;
         }

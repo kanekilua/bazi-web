@@ -251,7 +251,7 @@ export default {
                         display: inline-block;
                         width: 43/75rem;
                         height: 44/75rem;
-                        background: url('../assets/image/bazi/switchUser@2x.png') no-repeat center center / 100% 100%;
+                        // background: url('../assets/image/bazi/switchUser@2x.png') no-repeat center center / 100% 100%;
                         margin-left: 16/75rem;
                     }
                 }
