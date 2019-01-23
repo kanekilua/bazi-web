@@ -173,6 +173,14 @@ export default {
             this.$http.post('/suan/apidata',this.$route.query,'cesuan',null,this.success,null)
         },
         success: function (res) {
+            if(res.code === 'error') {
+                this.$vux.alert.show({
+                    title : '系统提示',
+                    content : '暂无该数据'
+                });
+                return ;
+            }
+
             this.resData = res.data;
             this.resData.totalNum = parseInt(this.resData.blossom.match(/\b\w*\d\b/g)[0]);
             let list = this.resData.huajs.split('卍');
