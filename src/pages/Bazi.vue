@@ -90,12 +90,13 @@ export default {
         getData: function () {
             let userInfo = {
                 cid : '93',
-                y : '1910',
-                m : '2',
-                d : '28',
-                // y : this.baziUserInfo.year,
-                // m : this.baziUserInfo.month[0] === '0' ? this.baziUserInfo.month[1] : this.baziUserInfo.month,
-                // d : this.baziUserInfo.date[0] === '0' ? this.baziUserInfo.date[1] : this.baziUserInfo.date,
+                // y : '1910',
+                // m : '2',
+                // d : '28',
+                y : this.baziUserInfo.year,
+                m : this.baziUserInfo.month[0] === '0' ? this.baziUserInfo.month[1] : this.baziUserInfo.month,
+                d : this.baziUserInfo.date[0] === '0' ? this.baziUserInfo.date[1] : this.baziUserInfo.date,
+                h : this.baziUserInfo.hour[0] === '0' ? this.baziUserInfo.hour[1] : this.baziUserInfo.hour
             };
             this.$http.post('/suan/apidata',userInfo,'cesuan',null,this.success,this.failure) ;
         },
