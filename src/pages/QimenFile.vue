@@ -252,7 +252,7 @@ export default  {
         .flex-start();
         font-size: 34/75rem;
         padding-left: 12%;
-        color:@inputColor;
+        // color:@inputColor;
         .gregorian,{
             .flex-start();
         }
