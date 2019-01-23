@@ -5,7 +5,7 @@
             <v-title-nav>文章</v-title-nav>
             <div class="article-list">
                 <div class="article" v-for="(item,index) in articleList" :key="index" @click="jumpArticle(item)">
-                    <div class="upper" :style="{backgroundImage : 'url(' + item.url + ')'}">
+                    <div class="upper" :style="{backgroundImage : 'url(' + item.image + ')'}">
                         <div class="overlay"></div>
                         <div class="content">
                             <div class="title">
@@ -64,7 +64,6 @@ export default {
             }
         },
         jumpArticle : function (article) {
-            console.log(article);
             let paramArr = article.param.split('&');
             let cid = "";
             let articleId = "";
