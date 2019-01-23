@@ -56,7 +56,7 @@ export default {
                     this.flag = true;
                     this.articleList = res.data.rows;
                     for( let i of this.articleList){
-                        if(i.image === "") {
+                        if(i.image === "" || !this.CheckImgExists(i.image)) {
                             i.image = require("../assets/image/activity/banner.png")
                         }
                     }
@@ -108,6 +108,16 @@ export default {
                     }
                 })
             }
+        },
+        CheckImgExists : function(imgurl) {  
+            var ImgObj = new Image(); //判断图片是否存在  
+            ImgObj.src = imgurl;  
+            //没有图片，则返回-1  
+            if (ImgObj.fileSize > 0 || (ImgObj.width > 0 && ImgObj.height > 0)) {  
+                return true;  
+            } else {  
+                return false;
+            }  
         }
     }
 }
