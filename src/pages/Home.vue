@@ -106,15 +106,16 @@ export default {
             imgList: [],
             swiperOption: { 
                 loop: true,
-                // pagination:{
-                //     el: '.swiper-pagination',
-                //     type: 'bullets',
-                //     // bulletClass : 'my-bullet',
-                //     // bulletActiveClass: 'my-bullet-active',
-                // },
                 autoplay: {
                     delay: 3000,
                     // disableOnInteraction: false,
+                },
+                observer:true,//修改swiper自己或子元素时，自动初始化swiper 
+                observeParents:false,//修改swiper的父元素时，自动初始化swiper 
+                onSlideChangeEnd: function(swiper){ 
+                　　　swiper.update();  
+                　　　mySwiper.startAutoplay();
+                　　   mySwiper.reLoop();  
                 }
 
             },

@@ -154,9 +154,9 @@ export default {
         }
         & > div{
             & > div{
-                width: 28/75rem;
-                height: 28/75rem;
-                line-height: 28/75rem;
+                width: 14px;
+                height: 14px;
+                line-height: 14px;
                 .round(50%);
                 text-align: center;
             }
@@ -165,7 +165,7 @@ export default {
     .step-item{
         .flex-col();
         .num{
-            .translate(0,14/75rem);
+            .translate(0,7px);
             background: #cccccc;
             color: #fff;
         }
