@@ -13,7 +13,8 @@
                                 </div>
                                 <div class="input-box">
                                     <div class="input-left">
-                                        <popup-picker :placeholder="title1" :data="list1" @on-change="onChange"></popup-picker>
+                                        <div @click="showPopupPicker = true">{{title1}}</div>
+                                        <popup-picker  :data="list1" @on-change="onChange"  :show.sync="showPopupPicker" v-show="false"></popup-picker>
                                         <i></i>
                                     </div>
                                     <input id="dateInput" type="text" class="name-input input-born" placeholder="请选择出生日期" @click="showDatePlugin('1')" readonly="readonly" v-model="maleBirthDate">                                    
@@ -35,7 +36,8 @@
                                 </div>
                                 <div class="input-box">
                                     <div class="input-left">
-                                        <popup-picker :placeholder="title2" :data="list2" @on-change="onChange2"></popup-picker>
+                                        <div @click="showPopupPicker1 = true">{{title2}}</div>
+                                        <popup-picker :data="list2" @on-change="onChange2" :show.sync="showPopupPicker1" v-show="false"></popup-picker>
                                         <i class="female-select"></i></div>
                                     <input id="dateInput" type="text" class="name-input input-born" placeholder="请选择出生日期" @click="showDatePlugin('0')" readonly="readonly" v-model="femaleBirthDate">
                                 </div>
@@ -91,6 +93,9 @@ export default {
             list1: [['公历', '农历']],
             title2: '公历',
             list2: [['公历', '农历']],
+            
+            showPopupPicker : false,
+            showPopupPicker1 : false
         }
     },
     methods: {
@@ -207,10 +212,10 @@ export default {
             })
         },
         onChange (val) {
-        this.title1 = val[0];
+            this.title1 = val[0];
         },
         onChange2 (val) {
-        this.title2 = val[0];
+            this.title2 = val[0];
         }, 
     }
 }
