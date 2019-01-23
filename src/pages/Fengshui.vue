@@ -235,9 +235,9 @@ export default {
                     width: 98%;
                     margin:  0 auto;
                     .flex-start-only();
-                    margin-bottom: 32/75rem;
+                    padding: 30/75rem 0;
+                    border-bottom: 1px solid rgba(0,0,0,0.1);
                     & > img{
-                        // width: 300/75rem;
                         width: 40%;
                         height: 180/75rem;
                         .round(10/75rem);
