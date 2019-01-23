@@ -10,7 +10,7 @@
 export default {
     data () {
         return {
-            masterImg: require('../assets/image/bazi/master-img@2x.png')
+            // masterImg: require('../assets/image/bazi/master-img@2x.png')
         }
     }
 }

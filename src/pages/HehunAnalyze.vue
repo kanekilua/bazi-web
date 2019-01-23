@@ -105,6 +105,14 @@ export default {
             this.$http.post('/suan/apidata',params,'cesuan',null,this.success,this.failure);
         },
         success : function (res) {
+            if(res.code === 'error') {
+                this.$vux.alert.show({
+                    title : '系统提示',
+                    content : '暂无该数据'
+                });
+                return ;
+            }
+
             let str = JSON.stringify(res);
             str = str.replace(/★/g,"<br>★");
             str = str.replace(/◆/g,"<br>◆");
