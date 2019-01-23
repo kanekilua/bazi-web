@@ -87,8 +87,9 @@ export default {
     border-top: 1px solid rgba(221, 221, 221, 0.35);
     .tab-bar-list{
         width: 100%;
-        height:98/75rem;
-        padding-top: 10/75rem;
+        height: 98/75rem;
+        padding-top: 6/75rem;
+        .border-box();
         .flex-around();
         .tab-bar-item{
             .flex(1);

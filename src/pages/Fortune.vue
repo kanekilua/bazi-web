@@ -1,5 +1,5 @@
 <template>
-    <div class="fortune-wrap">
+    <div class="fortune-wrap" >
         <v-title-header>
             运势
         </v-title-header>

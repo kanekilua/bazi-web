@@ -94,7 +94,6 @@
         </div>
     </div>
 </template>
-
 <script>
 import {mapState,mapMutations} from 'vuex'
 export default {
@@ -110,14 +109,8 @@ export default {
                     delay: 3000,
                     // disableOnInteraction: false,
                 },
-                observer:true,//修改swiper自己或子元素时，自动初始化swiper 
-                observeParents:false,//修改swiper的父元素时，自动初始化swiper 
-                onSlideChangeEnd: function(swiper){ 
-                　　　swiper.update();  
-                　　　mySwiper.startAutoplay();
-                　　   mySwiper.reLoop();  
-                }
-
+                observer: true,//修改swiper自己或子元素时，自动初始化swiper 
+                observeParents: true,//修改swiper的父元素时，自动初始化swiper 
             },
             testList: [],
         }
