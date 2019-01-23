@@ -132,15 +132,18 @@ export default {
             .border-box();
             width: 100/6%;
             height: 90/75rem;
+            line-height: 90/75rem;
             font-weight: bold;
+            text-align: center;
+            margin-bottom: 30/75rem;
             .item{
+                display: block;
                 width: 84/75rem;
                 height: 84/75rem;
                 line-height: 84/75rem;
                 text-align: center;
-                .boxshadow();
+                .boxshadow(0,2/75rem,5/75rem,rgba(0,0,0,0.1));
                 .round(50%);
-                letter-spacing: 8/75rem;
                 font-size: 50/75rem;
                 color: @baseLightColor;
                 border: none;

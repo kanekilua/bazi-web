@@ -296,7 +296,7 @@ export default {
                 margin-bottom: 32/75rem;
                 .img-box{
                     .flex-center;
-                    width: 45%;
+                    width: 40%;
                     height: 180/75rem;
                     .round(10/75rem);
                     margin-left: 14/75rem;
