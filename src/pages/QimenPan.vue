@@ -41,7 +41,6 @@ export default {
     },
     methods : {
         getData () {
-            console.log(this.$route.query.data)
             this.$http.post('/suan/apidata',this.$route.query.data,'cesuan',null,this.success,null)
         },
         success: function(res){

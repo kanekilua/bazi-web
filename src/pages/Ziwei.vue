@@ -181,7 +181,6 @@ export default {
             }
         },
         success: function (res) {
-            console.log(res);
             if(res.code === "error") {
                 this.$vux.alert.show({
                     title : '系统提示',
