@@ -9,7 +9,7 @@
         </v-title-header>
         <div class="content-wrap">
             <div class="weather-info">
-                <div>20℃</div>
+                <div>{{weather.hour_weather[0].tmp}}℃</div>
                 <div>{{weather.city}}</div>
                 <div>{{night ? weather.weather[0].cond_txt_n : weather.weather[0].cond_txt_d}}</div>
                 <div>{{weather.weather[0].tmp_min}}℃~{{weather.weather[0].tmp_max}}℃</div>
@@ -146,7 +146,7 @@ export default {
         padding-bottom: 10/75rem;
         .border-box();
         .center {
-            height: 44/75rem;
+            height: 50/75rem;
             margin : 15/75rem 0 25/75rem 0;
             background-repeat: no-repeat;
             background-size: auto 55/75rem;

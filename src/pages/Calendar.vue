@@ -689,7 +689,7 @@ export default {
                     font-size: 26/75rem;
                     .weather {
                         width: 50/75rem;
-                        height: 38/75rem;
+                        height: 50/75rem;
                         margin-right: 8/75rem;
                         background-repeat: no-repeat;
                         background-size: auto 50/75rem;
