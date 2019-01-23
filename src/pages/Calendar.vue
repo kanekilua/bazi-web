@@ -101,7 +101,6 @@
                 </div>
             </div>
         </div>
-        <v-tab-bar></v-tab-bar>
     </div>
 </template>
 

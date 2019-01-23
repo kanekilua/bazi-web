@@ -52,7 +52,6 @@
                 <i class="right"></i>
             </div>
         </div>
-        <v-tab-bar></v-tab-bar>
     </div>
 </template>
 
