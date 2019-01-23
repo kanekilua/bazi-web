@@ -52,7 +52,6 @@
                 <i class="right"></i>
             </div>
         </div>
-        <v-tab-bar></v-tab-bar>
         <v-share-popup :showShare='showShare' :shareData='shareData' @switchShowShare='switchShowShare'></v-share-popup>
     </div>
 </template>
