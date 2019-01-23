@@ -6,8 +6,6 @@
                 v-html="this.resData.data.character.unvisitableText"
                 :class="this.$store.state.bazi.hideText ? 'hide-text' : ''"
             ></p>
-            <div :class="this.$store.state.bazi.hideText ? 'mask' : 'hide'">
-            </div>
         </div>
         <div :class="this.$store.state.bazi.hideText ? 'mask' : 'hide'">
             <div class="share-btn" @click="showText()">
