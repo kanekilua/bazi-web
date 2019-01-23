@@ -253,7 +253,6 @@ export default {
                 localStorage.setItem(global.APP_ACCOUNT_INFO,JSON.stringify(accountInfo));
                 setTimeout(() => {
                     if(this.enterLink !== "") {
-                        this.$vux.toast.text('1路径是:' + this.enterLink );
                         let dateStr = result.data.birthday.split(' ')[0];
                         let timeStr = result.data.birthday.split(' ')[1];
                         let baziUserInfo = {
@@ -265,9 +264,7 @@ export default {
                             'hour' : timeStr.split(':')[0],
                             'minute' : timeStr.split(':')[1]
                         };
-                        this.$vux.toast.text('2路径是:' + this.enterLink);
                         this.$store.commit('bazi/updateBaziUserInfo',baziUserInfo);
-                        this.$vux.toast.text('3路径是:' + this.enterLink);
                         this.$jump(this.enterLink);
                     }else {
                         this.$jump('main/home');
