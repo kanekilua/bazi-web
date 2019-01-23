@@ -140,21 +140,16 @@ export default {
             // 'updateMaleCity','updateFemaleCity'
         ]),
         init : function () {
-            let sendData = {
-                cid : '96',
-                tid: '702',
-                limit : '0'
+            for(let i = 0; i<2 ;++i) {
+                let sendData = {
+                    cid : '96',
+                    tid: '702',
+                    limit : i + ''
+                }
+                this.$http.post('/suan/apidata',sendData,'cesuan',null,(res) => {
+                    this.$set(this.articleList, i , res.data);
+                },this.failure);
             }
-            this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success,this.failure);
-            sendData = {
-                cid : '96',
-                tid: '702',
-                limit : '1'
-            }
-             this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success,this.failure);
-        },
-        success : function (res) {
-            this.articleList.push(res.data);
         },
         // selectProvince : function (item) {
         //     if(this.hehunInputFlag === '1') {

@@ -80,38 +80,15 @@ export default {
     methods : {
         ...mapMutations('xiangshu',['updateNavIndex']),
         getData: function () {
-            let sendData = {
-                cid : '96',
-                tid: '501',
+            for(let i = 1; i < 5; ++i) {
+                let sendData = {
+                    cid : '96',
+                    tid: '50' + i,
+                }
+                this.$http.post('/suan/apidata',sendData,'cesuan',null,(res) => {
+                    this.list[i-1].data = res.data;
+                });
             }
-            this.$http.post('/suan/apidata',sendData,'cesuan',null,this.success);
-            let sendData1 = {
-                    cid : '96',
-                    tid: '502',
-                }
-            this.$http.post('/suan/apidata',sendData1,'cesuan',null,this.success1);
-            let sendData2 = {
-                    cid : '96',
-                    tid: '503',
-                }
-            this.$http.post('/suan/apidata',sendData2,'cesuan',null,this.success2);
-            let sendData3 = {
-                    cid : '96',
-                    tid: '504',
-                }
-            this.$http.post('/suan/apidata',sendData3,'cesuan',null,this.success3);
-        },
-        success: function(res) {
-            this.list[0].data = res.data;
-        },
-        success1: function(res) {
-            this.list[1].data = res.data;
-        },
-        success2: function(res) {
-            this.list[2].data = res.data;
-        },
-        success3: function(res) {
-            this.list[3].data = res.data;
         },
         toInner: function (id) {
             this.$router.push({
