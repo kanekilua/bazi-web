@@ -286,16 +286,17 @@ export default {
                 .under {
                     height: 160/75rem;
                     margin-top: 24/75rem;
-                    overflow: hidden;
                     font-size: 0;
                     & > p {
                         width: 100%;
-                        padding: 13/75rem;
-                        .border-box();
+                        height: 130/75rem;
+                        line-height: 40/75rem;
+                        padding: 13/75rem 13/75rem 0 13/75rem;
                         .border-box();
                         text-indent:2em;
                         font-size: 28/75rem;
                         text-align: justify;
+                        overflow: hidden;
                     }
                 }
             }

@@ -453,12 +453,11 @@ export default {
                         }
                         .introduction{
                             & > p{
-                                width: 94%;
-                                height: 100/75rem;
+                                height: 120/75rem;
+                                margin-top: 17/75rem;
                                 overflow: hidden;
-                                line-height: 33/75rem;
-                                padding-right: 10/75rem;
                                 font-size: 22/75rem;
+                                line-height: 40/75rem;
                             }
                         }
                     }
