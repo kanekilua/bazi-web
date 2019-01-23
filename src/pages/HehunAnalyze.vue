@@ -102,9 +102,6 @@ export default {
                 hour2 : this.$route.params.femaleDateArr[3],
                 minute2 : this.$route.params.femaleDateArr[4]
             }
-            console.log(params)
-            
-
             this.$http.post('/suan/apidata',params,'cesuan',null,this.success,this.failure);
         },
         success : function (res) {
