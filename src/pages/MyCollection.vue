@@ -49,7 +49,6 @@ export default {
             this.$http.post('/features/mycoll',null,null,header,this.success,null);
         },
         success : function (res) {
-            console.log(res.data);
             if(res.code === "success") {
                 if(res.data.rows.length === 0) {
                     this.flag = false;

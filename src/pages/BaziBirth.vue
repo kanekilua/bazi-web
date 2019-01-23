@@ -144,7 +144,6 @@ export default  {
                 this.dateArray[1] =solar.cMonth;
                 this.dateArray[2] =solar.cDay;
             }
-            console.log(this.dateArray)
             // let paipanData = {
             //     'name' : this.name,
             //     'sex' : this.gender,
