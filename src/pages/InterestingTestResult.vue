@@ -1,6 +1,6 @@
 <template>
     <div class="interes-result-wrap">
-        <v-title-header>
+        <v-title-header :backLink="backLink">
             测试结果
             <div class="right-ico" slot="right-ico"></div>
         </v-title-header>
@@ -21,7 +21,8 @@
 export default {
     data () {
         return {
-            resData: {}
+            resData: {},
+            backLink: '/main/home',
         }
     },
     created() {
