@@ -12,8 +12,8 @@
             </div>
             <div class="verification">
                 <input type="number" placeholder="请输入验证码" v-model="captcha">
-                <div  v-show="show" class="verification-txt" @click="getCaptcha">获取验证码</div>
-                <span v-show="!show" class="verification-txt">{{count}} s</span>
+                <div v-show="show" class="verification-txt" @click="getCaptcha">获取验证码</div>
+                <div v-show="!show" class="verification-txt">{{count}} s</div>
             </div>
             <button class="confirm" @click="showDialogStyle=true">确定绑定</button>
         </div>
@@ -87,12 +87,13 @@ export default {
             if(!this.$utils.checkCaptcha(this.captcha,this)) {
                 return;
             }
+            let header = {'Authorization':result.data.token};
             let params = {
                 mobile : this.phone,
                 captcha : this.captcha,
                 event : 'bindingphone'
             };
-            this.$http.post('/submit',params,'app',null,(res) => {
+            this.$http.post('/submit',params,'app',header,(res) => {
                 if(res.code === "success") {
                     let loginAccountInfo = this.$store.state.loginAccountInfo;
                     loginAccountInfo.phone = this.phone;
@@ -139,6 +140,7 @@ export default {
             border-left: 1px solid rgba(221,221,221,1);
         }
         .verification-txt{
+            width: 150/75rem;
             color: @baseBoldColor;
         }
     }
