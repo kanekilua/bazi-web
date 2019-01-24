@@ -1,6 +1,6 @@
 <template>
     <div class="interes-result-wrap">
-        <v-title-header>
+        <v-title-header :backLink="backLink">
             测试结果
             <div class="right-ico" slot="right-ico" @click="showShare = true"></div>
         </v-title-header>
@@ -24,7 +24,8 @@ export default {
         return {
             resData: {},
             showShare : false,
-            shareData : global.APP_SHARE_APP
+            shareData : global.APP_SHARE_APP,
+            backLink: '/main/home'
         }
     },
     created() {
