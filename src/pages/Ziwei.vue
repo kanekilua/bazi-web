@@ -155,6 +155,7 @@ export default {
     },
     methods: {
         init: function () {
+            let h = parseInt(this.baziUserInfo.hour / 2) + this.baziUserInfo.hour % 2 + 1;
             let userData = {
                 cid : '106',
                 // 测试数据
@@ -165,7 +166,7 @@ export default {
                 y : this.baziUserInfo.year,
                 m : this.baziUserInfo.month,
                 d : this.baziUserInfo.date,
-                h : this.baziUserInfo.hour,
+                h : (h > 12 ? 1 : h) + '',
                 gong : this.gong, 
             } 
             this.$http.post('/suan/apidata',userData,'cesuan',null,this.success,this.failure) 

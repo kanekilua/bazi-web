@@ -130,11 +130,14 @@ export default {
                     width : '15em',
                     text: '提交成功',
                     position : 'center',
-                    time : 1500,
+                    time : 1000,
                     type : "success",
                     isShowMask : true
                 });
                 this.updateMasterInfo(null);
+                setTimeout(()=> {
+                    this.$jump('/main/mine');
+                },1000);
             }
         }
     }
