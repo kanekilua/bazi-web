@@ -92,7 +92,8 @@ export default {
             showThird : true,
             enterLink : "",
             windowHeight : document.documentElement.clientHeight,
-            fullHeight: document.documentElement.clientHeight
+            fullHeight: document.documentElement.clientHeight,
+            mobile : ''
         }
     },
     created() {
@@ -241,7 +242,11 @@ export default {
                 let accountInfo;
                 let accountId = ""+result.data.id;
                 this.updateLoginAccount(accountId);
-                result.data.phone = this.phone;
+                if(this.phone === '') {
+                    result.data.phone = this.mobile;
+                }else {
+                    result.data.phone = this.phone.replace(/^(\d{4})\d{4}(\d+)/,"$1****$2");
+                }
                 if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
                     accountInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
                     accountInfo[accountId] = result.data;
@@ -282,6 +287,7 @@ export default {
             }else {
                 account = "WECHAT";
             }
+            this.mobile = result.data.userInfo.mobile;
             localStorage.setItem(global.APP_TOKEN,result.data.token);
             let header = {'Authorization':result.data.token};
             this.$http.post('/scbazi',null,'app',header,this.getUserInfoSuccess,(res)=> {
