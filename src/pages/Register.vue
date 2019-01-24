@@ -150,7 +150,12 @@ export default {
         },
         loginSuccess : function (result) {
             localStorage.setItem(global.APP_TOKEN,result.data.token);
-            this.$jump('birth');
+            this.$router.push({
+                name : 'birth',
+                params : {
+                    phone : result.data.userInfo.mobile
+                }
+            });
         },
         listenKey: function (e) {
             let keyCode = e.keyCode;

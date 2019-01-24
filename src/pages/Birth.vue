@@ -50,7 +50,8 @@ export default {
             gender : "1",
             birthDate: "",
             dateArray: [],
-            dateType : "1"
+            dateType : "1",
+            phone : ''
         }
     },
     created() {
@@ -59,6 +60,10 @@ export default {
     methods : {
         ...mapMutations(['updateLoginAccount']),
         init : function () {
+            if(this.$route.params.phone !== undefined) {
+                this.phone = this.$route.params.phone;
+                return ;
+            }
             if(this.$route.query.pre === undefined) {
                 return ;
             }
@@ -133,6 +138,7 @@ export default {
             let accountInfo;
             let accountId = "" + result.data.id;
             this.updateLoginAccount(accountId);
+            result.data.phone = this.phone;
             if(localStorage.hasOwnProperty(global.APP_ACCOUNT_INFO)) {
                 accountInfo = JSON.parse(localStorage.getItem(global.APP_ACCOUNT_INFO));
                 accountInfo[accountId] = result.data;
