@@ -10,7 +10,7 @@
         </div>
         <p class="shortText">{{shorttext}}</p>
         <button class="begin-test" @click="beginTest">开始测算</button>
-        <div class="tips">(本测试共15道题，有4个答案，系统自动跳转。仅供娱乐，非专业心理指导)</div>
+        <div class="tips">(本测试仅供娱乐，非专业心理指导)</div>
     </div>
 </template>
 <script>
@@ -84,10 +84,10 @@ export default {
         background: @baseBoldColor;
     }
     .tips{
-        text-indent: 2em;
+        text-align: center;
         font-size: 26/75rem;
         color: @baseBoldColor;
-        margin: auto 30/75rem auto 50/75rem;
+        margin: auto;
     }
 }
 </style>
