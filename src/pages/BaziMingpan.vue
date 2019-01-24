@@ -75,7 +75,11 @@
                 </div>
                 <div class="bottom-part-item">
                     <div class="item-key">流年：</div>
-                    <div class="item-list liunian-list" v-html="liunianFormat(info.data.liunian2htmljs)"></div>
+                    <div class="item-list liunian-list">
+                        <div class="liunian-item" v-for="(item,index) in result" :key="index">
+                            {{item}}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -90,7 +94,8 @@ export default {
     data () {
         return {
             showFlag : false,
-            info: {"data":{"ygz":"","mgz":"","rgz":"","hgz":"","zanggan1":"","zanggan2":"","zanggan3":"","zanggan4":"","dayunhtml":"","suicihtml":"","liunian2htmljs":""},"info":{}}
+            info: {"data":{"ygz":"","mgz":"","rgz":"","hgz":"","zanggan1":"","zanggan2":"","zanggan3":"","zanggan4":"","dayunhtml":"","suicihtml":"","liunian2htmljs":""},"info":{}},
+            result: [],
         }
     },
     created() {
@@ -108,6 +113,7 @@ export default {
         success: function (res) {
             this.info = res;
             this.showFlag = true;
+            this.liunianFormat(res.data.liunian2htmljs);
         },
         stringSplit: function(str,index) {
             return str.split("")[index];
@@ -125,16 +131,28 @@ export default {
             return result.toString().replace(/,/g,'');
         },
         liunianFormat: function (obj) {
-            let str =  obj.replace(/壬辰|壬寅|壬子|壬戌|壬申|壬午|;|<br>/g,'').toString();
-            let strArr = str.split(" &nbsp");
-            let result = [];
-            let n = 0;
-            for(let i=0;i<strArr.length;i++) {
-                if(strArr[i]!=""){
-                    result.push("<span>"+strArr[i]+"</span>");
-                }               
-            }
-            return result.toString().replace(/,/g,'');
+            let ji = obj.match(/己./g);
+            let geng = obj.match(/庚./g);
+            let xin = obj.match(/辛./g);
+            let ren = obj.match(/壬./g);
+            let kui = obj.match(/癸./g);
+            let jia = obj.match(/甲./g);
+            let yi = obj.match(/乙./g);
+            let bing = obj.match(/丙./g);
+            let ding = obj.match(/丁./g);
+            let wu = obj.match(/戊./g);
+            let result = [...ji,...geng,...xin,...ren,...kui,...jia,...yi,...bing,...ding,...wu];
+            this.result = result;
+            // let str = obj.replace(/壬辰|壬寅|壬子|壬戌|壬申|壬午|;|<br>/g,'').toString();
+            // let strArr = str.split(" &nbsp");
+            // let result = [];
+            // let n = 0;
+            // for(let i=0;i<strArr.length;i++) {
+            //     if(strArr[i]!=""){
+            //         result.push("<span>"+strArr[i]+"</span>");
+            //     }
+            // }
+            // return result.toString().replace(/,/g,'');
         },
         shishenFormat: function (obj) {
             let result = [];
@@ -218,10 +236,11 @@ export default {
             margin-left: -25/75rem!important;
             .flex-start-only();
             flex-wrap: wrap;
-            &>span{
+            .liunian-item{
                 display: inline-block;
+                width: 1/9*100%;
                 font-size: 24/75rem;
-                margin-left: 20/75rem;
+                text-align: center;
                 line-height: 40/75rem;
             }
             //iphone5兼容
