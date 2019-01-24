@@ -501,7 +501,12 @@ export default {
             const yijiKeyList = ['yi','ji'];
             let yijiObject = {};
             for(let i=0;i<yijiList.length;++i) {
-                yijiObject[yijiKeyList[i]] = this.getDateInfo(resWithoutHtml,yijiList[i]);
+                let item = this.getDateInfo(resWithoutHtml,yijiList[i]);
+                if(item !== undefined) {
+                    this.$utils.delHtmlTag(item);
+                    item = item.replace(/&amp;nbsp;/g,'');
+                }
+                yijiObject[yijiKeyList[i]] = item;
             }
             handleResult['yiji'] = yijiObject;
             // 今日胎神等
