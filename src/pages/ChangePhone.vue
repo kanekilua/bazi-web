@@ -87,7 +87,7 @@ export default {
             if(!this.$utils.checkCaptcha(this.captcha,this)) {
                 return;
             }
-            let header = {'Authorization':result.data.token};
+            let header = {'Authorization':localStorage.getItem(global.APP_TOKEN)};
             let params = {
                 mobile : this.phone,
                 captcha : this.captcha,
