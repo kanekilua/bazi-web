@@ -5,7 +5,7 @@
         </v-title-header>
         <div class="content-wrap">
             <div class="list">
-                <div class="item" @click="$jump('/main/mine/setting/security/changePhone') ">
+                <div class="item" @click="bindFlag ? '' : $jump('/main/mine/setting/security/changePhone') ">
                     <div class="left">
                         <div>绑定手机号</div>
                     </div>

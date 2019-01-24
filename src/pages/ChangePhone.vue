@@ -11,8 +11,9 @@
                <div>中国大陆</div>
             </div>
             <div class="verification">
-                <input type="number" placeholder="请输入验证码">
-               <div class="verification-txt" @click="getCaptcha">获取验证码</div>
+                <input type="number" placeholder="请输入验证码" v-model="captcha">
+                <div  v-show="show" class="verification-txt" @click="getCaptcha">获取验证码</div>
+                <span v-show="!show" class="verification-txt">{{count}} s</span>
             </div>
             <button class="confirm" @click="showDialogStyle=true">确定绑定</button>
         </div>
@@ -23,8 +24,8 @@
                     <h2>确定换绑到下方手机号？</h2>
                     <div class="middle-text">手机号：{{phone}}</div>
                     <div class="btn-list">
-                        <button class="takePhoto" @click="showDialogStyle = false">取消</button>
-                        <button class="camera" @click="bind">确定</button>
+                        <button @click="showDialogStyle = false">取消</button>
+                        <button @click="bind">确定</button>
                     </div>
                 </div>
             </x-dialog>
@@ -41,6 +42,7 @@ export default {
         return {
             showDialogStyle: false,//弹窗显示
             phone: "",
+            captcha : "",
             show : true,
             count : '',
             timer : null,
