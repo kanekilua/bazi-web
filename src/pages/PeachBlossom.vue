@@ -173,6 +173,14 @@ export default {
             this.$http.post('/suan/apidata',this.$route.query,'cesuan',null,this.success,null)
         },
         success: function (res) {
+            if(res.data.blossom === null || res.data.blossom === undefined) {
+                this.$vux.alert.show({
+                    title : '系统提示',
+                    content : '暂无该数据'
+                });
+                return ;
+            }
+
             this.resData = res.data;
             this.resData.totalNum = parseInt(this.resData.blossom.match(/\b\w*\d\b/g)[0]);
             let list = this.resData.huajs.split('卍');
@@ -195,6 +203,7 @@ export default {
                this.formContent[i].flowerNum = flowerArr[i];
             }
             //swiper解释文本
+            res.data.thjs = res.data.thjs.replace(/&apos;/g,'');
             let pArr = res.data.thjs.split('卍');
             for(let p in pArr) {
                 let pStr = pArr[p];
