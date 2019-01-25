@@ -151,7 +151,7 @@ const router = new Router({
           name : 'activity',
           component : Activity,
           meta: {
-            keepAlive: true
+            keepAlive: false
           }
         },
         {
