@@ -147,7 +147,18 @@ export default {
         },
         resetPwdSuccess : function (result) {
             this.$vux.toast.text(result.msg,'top');
-            this.$jump('/login');
+
+            let token = localStorage.getItem(global.APP_TOKEN);
+            if(token === undefined || token === null) {
+                this.$jump('/login');
+            }else {
+                let header = {'Authorization':token};
+                this.$http.get('/logout',null,'app',header,(result)=> {
+                    this.$store.commit("updateLoginAccount",'');
+                    localStorage.setItem(global.APP_TOKEN,result.data.token);
+                    this.$jump('/login');
+                },null);
+            }
         },
         listenKey: function (e) {
             let keyCode = e.keyCode;

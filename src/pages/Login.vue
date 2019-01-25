@@ -109,16 +109,21 @@ export default {
         }
     },
     mounted () {
-        window.onresize = () => {
-            return (() => {
-                this.fullHeight = document.documentElement.clientHeight
-                if(this.fullHeight < this.windowHeight) {
-                    this.showThird = false;
-                }else {
-                    this.showThird = true;
-                }
-            })()
-        }
+        // window.onresize = () => {
+        //     return (() => {
+        //         this.fullHeight = document.documentElement.clientHeight
+        //         this.$vux.toast.text('fullHeight的为:' + this.fullHeight + '----windowHeight为:' + this.windowHeight,'center');
+        //         if(this.fullHeight < this.windowHeight) {
+        //             this.showThird = false;
+        //         }else {
+        //             this.showThird = true;
+        //         }
+        //     })()
+        // }
+        window.addEventListener('resize',this.resize);
+    },
+    beforeDestroy() {
+        window.removeEventListener('resize',this.resize);
     },
     methods : {
         ...mapMutations (['updateLoginAccount']),
@@ -126,6 +131,17 @@ export default {
             if(this.$route.params.enterLink !== null && this.$route.params.enterLink !== undefined) {
                 this.enterLink = this.$route.params.enterLink;
             }
+        },
+        resize : function () {
+            return (() => {
+                this.fullHeight = document.documentElement.clientHeight
+                // this.$vux.toast.text('fullHeight的为:' + this.fullHeight + '----windowHeight为:' + this.windowHeight,'center');
+                if(this.fullHeight < this.windowHeight) {
+                    this.showThird = false;
+                }else {
+                    this.showThird = true;
+                }
+            })()
         },
         updateNavIndex : function (value) {
             this.navIndex = value;
