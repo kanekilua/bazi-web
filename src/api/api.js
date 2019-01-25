@@ -80,6 +80,7 @@ function apiAxios (method, url, params,type, headers, success, failure) {
     } 
     if((err + '').indexOf('Network')) {
       Vue.$vux.toast.text('请检查网络设置','center');
+      return ;
     }
     Vue.$vux.toast.text('' + err,'center');
     return;
