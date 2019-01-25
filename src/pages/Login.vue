@@ -241,7 +241,7 @@ export default {
             if(result.data.sctype === 1) {
                 let accountInfo;
                 let accountId = ""+result.data.id;
-                this.updateLoginAccount(accountId);his.updateLoginAccount(accountId);
+                this.updateLoginAccount(accountId);
                 if(this.phone === '') {
                     result.data.phone = this.mobile;
                 }else {
