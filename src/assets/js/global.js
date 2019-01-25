@@ -37,7 +37,7 @@ global.DATETIME_OPTION = {
     dayRow : '{value}日',
     hourRow : '{value}点',
     minuteRow : '{value}分',
-    minYear: '1900'
+    minYear: '1940'
 }
 
 // tip message
