@@ -140,6 +140,8 @@ export default {
                 // this.$vux.toast.text('fullHeight的为:' + this.fullHeight + '----windowHeight为:' + this.windowHeight,'center');
                 if(this.fullHeight < this.windowHeight) {
                     this.showThird = false;
+                }else if(this.fullHeight > this.windowHeight && this.showThird === true){
+                    this.showThird = false;
                 }else {
                     this.showThird = true;
                 }
