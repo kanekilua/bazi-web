@@ -91,8 +91,8 @@ export default {
             show : true,
             showThird : true,
             enterLink : "",
-            windowHeight : document.documentElement.clientHeight,
-            fullHeight: document.documentElement.clientHeight,
+            windowHeight : 0,
+            fullHeight: 0,
             mobile : ''
         }
     },
@@ -120,6 +120,8 @@ export default {
         //         }
         //     })()
         // }
+        this.windowHeight = document.documentElement.clientHeight;
+        this.fullHeight = document.documentElement.clientHeight;
         window.addEventListener('resize',this.resize);
     },
     beforeDestroy() {
@@ -134,7 +136,7 @@ export default {
         },
         resize : function () {
             return (() => {
-                this.fullHeight = document.documentElement.clientHeight
+                this.fullHeight = document.documentElement.clientHeight;
                 // this.$vux.toast.text('fullHeight的为:' + this.fullHeight + '----windowHeight为:' + this.windowHeight,'center');
                 if(this.fullHeight < this.windowHeight) {
                     this.showThird = false;
