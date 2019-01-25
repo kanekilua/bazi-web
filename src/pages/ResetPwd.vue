@@ -147,7 +147,7 @@ export default {
         },
         resetPwdSuccess : function (result) {
             this.$vux.toast.text(result.msg,'top');
-            this.$jump('login');
+            this.$jump('/login');
         },
         listenKey: function (e) {
             let keyCode = e.keyCode;
