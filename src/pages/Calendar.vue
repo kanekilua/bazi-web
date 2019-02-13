@@ -12,7 +12,7 @@
                 </div>
             </div>
             <div class="right" @click="jumpWeather">
-                <div class="content">
+                <div class="content" v-if="weather.weather.HeWeather6[0].basic">
                     <div class="upper">
                         <i class="weather" :style="{backgroundImage: 'url(' + weatherIcon + ')'}"></i>
                         <div class="city">{{weather.weather.HeWeather6[0].basic.location}}</div>

@@ -78,8 +78,11 @@ function apiAxios (method, url, params,type, headers, success, failure) {
         return;
       }
     } 
-    if((err + '').indexOf('Network')) {
+    if((err + '').indexOf('Network') !== -1) {
       Vue.$vux.toast.text('请检查网络设置','center');
+      return ;
+    }
+    if((err + '').indexOf('Cannot read property') !== -1) {
       return ;
     }
     Vue.$vux.toast.text('' + err,'center');
