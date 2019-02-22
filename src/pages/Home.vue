@@ -76,10 +76,10 @@
                 </v-title-nav-more>
                 <div class="interst-test">
                     <div class="interest-item"
-                        @click="toTest(item.id)"
                         v-for = "(item,index) in testList"
                         :key = "index"
                         v-show = "index < 4"
+                        @click="toTest(index)"
                     >
                         <div class="img-box">
                             <img :src="item.img" alt="趣味测试">
@@ -195,7 +195,7 @@ export default {
             this.testList = res.data;
         },
         toTest: function (id) {
-            let testList = this.testList[id-1]; 
+            let testList = this.testList[id]; 
             this.$router.push({
                 name: 'interestingInner',
                 query: {
